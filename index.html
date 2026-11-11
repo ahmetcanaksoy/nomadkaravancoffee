@@ -29,8 +29,8 @@
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
-      padding-bottom: 120px;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     /* ÜST SABİT BAR */
@@ -38,8 +38,8 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(10, 12, 14, 0.94);
-      backdrop-filter: blur(12px);
+      background: rgba(10, 12, 14, 0.95);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--card-border);
       padding: 12px 18px;
       display: flex;
@@ -81,55 +81,81 @@
       box-shadow: 0 0 8px var(--accent-green);
     }
 
-    /* HERO KARŞILAMA VE HIZLI AKSİYONLAR */
-    .hero-section {
-      padding: 20px 18px 10px;
-      text-align: center;
+    /* =========================================
+       SAYFA 1: ANA KARŞILAMA EKRANI (HOME VIEW)
+       ========================================= */
+    #view-home {
+      display: block;
+      padding-bottom: 40px;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    /* GÖRSEL KAPAK / HERO */
+    .hero-banner {
+      position: relative;
+      height: 200px;
+      margin: 16px 18px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.65);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,12,14,0.1) 0%, rgba(10,12,14,0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 18px;
     }
 
     .hero-badge {
-      display: inline-block;
-      font-size: 0.72rem;
+      align-self: flex-start;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--accent-green);
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      padding: 4px 12px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 4px 10px;
       border-radius: 20px;
-      margin-bottom: 10px;
-    }
-
-    .hero-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      line-height: 1.25;
-      color: #fff;
       margin-bottom: 6px;
     }
 
-    .hero-desc {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      max-width: 340px;
-      margin: 0 auto 16px;
+    .hero-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
     }
 
-    /* HIZLI SERVİS BUTONLARI (WIFI, HARITA, TAKSİ) */
+    /* HIZLI SERVİSLER */
+    .section-wrap {
+      padding: 0 18px;
+      margin-bottom: 22px;
+    }
+
     .quick-actions {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 20px;
     }
 
     .action-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 14px;
-      padding: 12px 6px;
+      padding: 14px 8px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -147,7 +173,7 @@
     }
 
     .action-icon {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
     }
 
     .action-label {
@@ -160,8 +186,8 @@
       color: var(--text-muted);
     }
 
-    /* ANA MENÜ TUŞU */
-    .btn-main-menu {
+    /* BÜYÜK MENÜ BUTONU */
+    .btn-open-menu {
       width: 100%;
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: #042f2e;
@@ -179,116 +205,228 @@
       transition: transform 0.15s ease;
     }
 
-    .btn-main-menu:active {
+    .btn-open-menu:active {
       transform: scale(0.98);
     }
 
-    /* KATEGORİ SEÇİM ALANI (AKORDİYON ŞEKLİNDE AÇILIR) */
-    .category-selection-area {
-      display: none;
-      padding: 10px 18px 20px;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .section-headline {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #fff;
-      margin: 16px 0 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .category-grid {
+    /* FOTOĞRAFLI KATEGORİ SEÇİM KARTLARI */
+    .home-cat-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 18px;
+      gap: 12px;
+      margin-top: 10px;
     }
 
-    .cat-tile {
-      background: var(--card-bg);
+    .home-cat-card {
+      position: relative;
+      height: 130px;
+      border-radius: 16px;
+      overflow: hidden;
       border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 16px 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 6px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .cat-tile:active, .cat-tile.active {
+    .home-cat-card:active {
+      transform: scale(0.97);
       border-color: var(--accent-green);
-      background: rgba(16, 185, 129, 0.08);
     }
 
-    .cat-tile-icon {
-      font-size: 1.5rem;
+    .home-cat-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.65);
     }
 
-    .cat-tile-name {
-      font-size: 0.88rem;
+    .home-cat-content {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(10,12,14,0.9) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px;
+    }
+
+    .home-cat-name {
+      font-size: 0.95rem;
       font-weight: 800;
       color: #fff;
     }
 
-    .cat-tile-count {
-      font-size: 0.7rem;
+    .home-cat-sub {
+      font-size: 0.72rem;
       color: var(--accent-green);
       font-weight: 600;
     }
 
-    /* ÜRÜN LİSTESİ */
-    .menu-container {
+    /* =========================================
+       SAYFA 2: MENÜ & SİPARİŞ EKRANI (MENU VIEW)
+       ========================================= */
+    #view-menu {
+      display: none;
+      padding-bottom: 120px;
+      animation: slideIn 0.25s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(25px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* MENÜ ÜST BAR (GERİ TUŞU) */
+    .menu-nav-bar {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--card-border);
+      background: #0f1317;
+      position: sticky;
+      top: 61px;
+      z-index: 45;
+    }
+
+    .btn-back {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-back:active {
+      background: #1f272e;
+    }
+
+    .menu-page-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* YATAY KATEGORİ LİSTESİ */
+    .sub-categories {
+      display: flex;
+      gap: 8px;
+      padding: 12px 18px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      background: var(--bg-dark);
+      border-bottom: 1px solid #14181c;
+      position: sticky;
+      top: 118px;
+      z-index: 40;
+    }
+
+    .sub-categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sub-cat-pill {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sub-cat-pill.active {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+      color: #042f2e;
+      font-weight: 800;
+    }
+
+    /* ÜRÜN KARTLARI (RESİMLİ VE MODERN) */
+    .product-list {
+      padding: 16px 18px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
     .product-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 14px;
+      border-radius: 16px;
+      padding: 12px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       gap: 12px;
+      align-items: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
     }
 
-    .product-info {
+    .product-img {
+      width: 90px;
+      height: 90px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .product-body {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 90px;
     }
 
-    .product-title {
+    .product-top {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .product-name {
       font-size: 0.92rem;
-      font-weight: 700;
+      font-weight: 800;
       color: #fff;
-      margin-bottom: 4px;
+      line-height: 1.2;
     }
 
     .product-desc {
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
-      line-height: 1.3;
-      margin-bottom: 8px;
+      line-height: 1.25;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .product-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
     }
 
     .product-price {
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       font-weight: 800;
       color: var(--accent-green);
     }
 
-    /* TRENDYOL TARZI ARTIRMA / AZALTMA KONTROLÜ */
+    /* TRENDYOL SEPET KONTROLLERİ (+ / -) */
     .qty-controls {
       display: flex;
       align-items: center;
@@ -302,8 +440,8 @@
       background: transparent;
       border: none;
       color: #fff;
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -318,13 +456,14 @@
 
     .qty-btn.add {
       color: var(--accent-green);
+      font-weight: 800;
     }
 
     .qty-count {
-      min-width: 24px;
+      min-width: 22px;
       text-align: center;
       font-size: 0.85rem;
-      font-weight: 700;
+      font-weight: 800;
       color: #fff;
     }
 
@@ -335,7 +474,7 @@
       left: 18px;
       right: 18px;
       background: #11161b;
-      border: 1px solid #10b98155;
+      border: 1px solid #10b98166;
       border-radius: 18px;
       padding: 12px 18px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
@@ -362,7 +501,7 @@
     }
 
     .bar-total {
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: #fff;
     }
@@ -371,9 +510,9 @@
       background: var(--accent-green);
       color: #042f2e;
       border: none;
-      padding: 12px 20px;
+      padding: 12px 22px;
       border-radius: 12px;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
@@ -386,17 +525,17 @@
       background: var(--accent-green-hover);
     }
 
-    /* BİLDİRİM TOAST (WIFI KOPYALANDI) */
+    /* TOAST MESAJI */
     .toast-msg {
       position: fixed;
-      top: 70px;
+      top: 75px;
       left: 50%;
       transform: translateX(-50%) translateY(-20px);
       background: #10b981;
       color: #042f2e;
       font-size: 0.85rem;
       font-weight: 800;
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 20px;
       box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
       z-index: 250;
@@ -449,7 +588,7 @@
 </head>
 <body>
 
-  <!-- ÜST BAR -->
+  <!-- SABİT ÜST BAR -->
   <header>
     <div class="brand-box">
       <h1>NOMAD KARAVAN</h1>
@@ -464,88 +603,126 @@
   <!-- TOAST BİLDİRİMİ -->
   <div class="toast-msg" id="toast-box">Wi-Fi Şifresi Kopyalandı! (nomadkaravan)</div>
 
-  <!-- KARŞILAMA VE HIZLI TUŞLAR -->
-  <div class="hero-section">
-    <span class="hero-badge">Özel Demleme & Dinlenme Noktası</span>
-    <h2 class="hero-title">Van Gölü Kıyısında<br>Nitelikli Kahve Deneyimi</h2>
-    <p class="hero-desc">Masanızdan ayrılmadan sipariş verebilir, kafe hizmetlerine tek tıkla ulaşabilirsiniz.</p>
-
-    <!-- 3'LÜ HIZLI AKSİYON TUŞLARI -->
-    <div class="quick-actions">
-      <!-- 1. WIFI KOPYALA -->
-      <div class="action-card" onclick="wifiKopyala()">
-        <span class="action-icon">📶</span>
-        <span class="action-label">Wi-Fi Bağlan</span>
-        <span class="action-sub">Şifreyi Kopyala</span>
-      </div>
-
-      <!-- 2. HARİTA AÇ -->
-      <a class="action-card" href="https://maps.google.com/?q=Tatvan+Sahil+Kordonu" target="_blank">
-        <span class="action-icon">📍</span>
-        <span class="action-label">Harita & Yol</span>
-        <span class="action-sub">Konumu Aç</span>
-      </a>
-
-      <!-- 3. TAKSİ ÇAĞIR -->
-      <a class="action-card" href="tel:04348270000">
-        <span class="action-icon">🚕</span>
-        <span class="action-label">Taksi Çağır</span>
-        <span class="action-sub">Sahil Durak</span>
-      </a>
-    </div>
-
-    <!-- ANA MENÜ TUŞU -->
-    <button class="btn-main-menu" id="toggle-menu-btn" onclick="menuyuAcKapa()">
-      <span>☕</span>
-      <span>Menüyü İncele & Sipariş Ver</span>
-      <span id="menu-arrow-icon">↓</span>
-    </button>
-  </div>
-
-  <!-- KATEGORİ VE ÜRÜN SEÇİM ALANI (MENÜ TUŞUNA BASINCA AÇILIR) -->
-  <div class="category-selection-area" id="menu-area">
-    <div class="section-headline">
-      <span>Kategori Seçiniz</span>
-      <span style="font-size:0.75rem; color:var(--text-muted); font-weight:500;">İstediğiniz kategoriye dokunun</span>
-    </div>
-
-    <div class="category-grid">
-      <div class="cat-tile active" id="tile-sicak" onclick="kategoriSec('sicak')">
-        <span class="cat-tile-icon">🔥</span>
-        <span class="cat-tile-name">Sıcak Kahveler</span>
-        <span class="cat-tile-count">4 Çeşit</span>
-      </div>
-
-      <div class="cat-tile" id="tile-soguk" onclick="kategoriSec('soguk')">
-        <span class="cat-tile-icon">🧊</span>
-        <span class="cat-tile-name">Soğuk Kahveler</span>
-        <span class="cat-tile-count">3 Çeşit</span>
-      </div>
-
-      <div class="cat-tile" id="tile-tatli" onclick="kategoriSec('tatli')">
-        <span class="cat-tile-icon">🍰</span>
-        <span class="cat-tile-name">Tatlı Çeşitleri</span>
-        <span class="cat-tile-count">2 Çeşit</span>
-      </div>
-
-      <div class="cat-tile" id="tile-kahvalti" onclick="kategoriSec('kahvalti')">
-        <span class="cat-tile-icon">🥪</span>
-        <span class="cat-tile-name">Kahvaltılık & Tost</span>
-        <span class="cat-tile-count">2 Çeşit</span>
+  <!-- =========================================
+       SAYFA 1: ANA KARŞILAMA EKRANI
+       ========================================= -->
+  <main id="view-home">
+    <!-- GÖRSEL KAPAK BANNER -->
+    <div class="hero-banner">
+      <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Nomad Karavan Coffee">
+      <div class="hero-overlay">
+        <span class="hero-badge">Ateş Başı & Nitelikli Kahve</span>
+        <h2 class="hero-title">Van Gölü Sahilinde<br>Eşsiz Bir Mola</h2>
       </div>
     </div>
 
-    <!-- SEÇİLEN KATEGORİNİN ÜRÜNLERİ -->
-    <div class="section-headline">
-      <span id="category-title-text">Sıcak Kahveler</span>
+    <!-- HIZLI AKSİYON TUŞLARI -->
+    <div class="section-wrap">
+      <div class="quick-actions">
+        <div class="action-card" onclick="wifiKopyala()">
+          <span class="action-icon">📶</span>
+          <span class="action-label">Wi-Fi Bağlan</span>
+          <span class="action-sub">Şifreyi Kopyala</span>
+        </div>
+
+        <a class="action-card" href="https://maps.google.com/?q=Tatvan+Sahil+Kordonu" target="_blank">
+          <span class="action-icon">📍</span>
+          <span class="action-label">Harita & Yol</span>
+          <span class="action-sub">Konuma Git</span>
+        </a>
+
+        <a class="action-card" href="tel:04348270000">
+          <span class="action-icon">🚕</span>
+          <span class="action-label">Taksi Çağır</span>
+          <span class="action-sub">Sahil Durak</span>
+        </a>
+      </div>
     </div>
-    <div class="menu-container" id="menu-box"></div>
-  </div>
+
+    <!-- BÜYÜK MENÜ TUŞU -->
+    <div class="section-wrap">
+      <button class="btn-open-menu" onclick="sayfaDegistir('menu', 'hepsi')">
+        <span>☕</span>
+        <span>Tüm Menüyü İncele & Sipariş Ver</span>
+        <span>→</span>
+      </button>
+    </div>
+
+    <!-- FOTOĞRAFLI KATEGORİ SEÇİMİ -->
+    <div class="section-wrap">
+      <div style="font-size:0.95rem; font-weight:800; color:#fff; margin-bottom:8px;">Kategoriler</div>
+      <div class="home-cat-grid">
+        
+        <!-- Sıcak Kahveler -->
+        <div class="home-cat-card" onclick="sayfaDegistir('menu', 'sicak')">
+          <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80" alt="Sıcak Kahveler">
+          <div class="home-cat-content">
+            <span class="home-cat-name">Sıcak Kahveler</span>
+            <span class="home-cat-sub">Espresso & Demleme →</span>
+          </div>
+        </div>
+
+        <!-- Soğuk Kahveler -->
+        <div class="home-cat-card" onclick="sayfaDegistir('menu', 'soguk')">
+          <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=500&q=80" alt="Soğuk Kahveler">
+          <div class="home-cat-content">
+            <span class="home-cat-name">Soğuk Kahveler</span>
+            <span class="home-cat-sub">Buzlu & Cold Brew →</span>
+          </div>
+        </div>
+
+        <!-- Tatlılar -->
+        <div class="home-cat-card" onclick="sayfaDegistir('menu', 'tatli')">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=500&q=80" alt="Tatlılar">
+          <div class="home-cat-content">
+            <span class="home-cat-name">Tatlı Çeşitleri</span>
+            <span class="home-cat-sub">San Sebastian & Brownie →</span>
+          </div>
+        </div>
+
+        <!-- Kahvaltılık & Tost -->
+        <div class="home-cat-card" onclick="sayfaDegistir('menu', 'kahvalti')">
+          <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=500&q=80" alt="Kahvaltılık">
+          <div class="home-cat-content">
+            <span class="home-cat-name">Kahvaltılık & Tost</span>
+            <span class="home-cat-sub">Kavurmalı Tost & Sandviç →</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================================
+       SAYFA 2: MENÜ & SİPARİŞ EKRANI
+       ========================================= -->
+  <main id="view-menu">
+    <!-- GERİ DÖN BARI -->
+    <div class="menu-nav-bar">
+      <button class="btn-back" onclick="sayfaDegistir('home')">
+        <span>←</span>
+        <span>Geri Dön</span>
+      </button>
+      <div class="menu-page-title" id="active-category-title">Nomad Menü</div>
+    </div>
+
+    <!-- KATEGORİ FİLTRELEME PİLLERİ -->
+    <div class="sub-categories">
+      <button class="sub-cat-pill active" id="pill-hepsi" onclick="kategoriFiltrele('hepsi')">Tümü</button>
+      <button class="sub-cat-pill" id="pill-sicak" onclick="kategoriFiltrele('sicak')">Sıcak Kahveler</button>
+      <button class="sub-cat-pill" id="pill-soguk" onclick="kategoriFiltrele('soguk')">Soğuk Kahveler</button>
+      <button class="sub-cat-pill" id="pill-tatli" onclick="kategoriFiltrele('tatli')">Tatlılar</button>
+      <button class="sub-cat-pill" id="pill-kahvalti" onclick="kategoriFiltrele('kahvalti')">Kahvaltılık</button>
+    </div>
+
+    <!-- RESİMLİ ÜRÜN LİSTESİ -->
+    <div class="product-list" id="products-container"></div>
+  </main>
 
   <!-- ALT YAPIŞKAN SEPET ÇUBUĞU -->
   <div class="floating-bar" id="floating-bar">
     <div class="bar-info">
-      <span class="bar-count" id="bar-count">0 Ürün Seçildi</span>
+      <span class="bar-count" id="bar-count">0 Ürün Eklendi</span>
       <span class="bar-total" id="bar-total">0 ₺</span>
     </div>
     <button class="btn-order" onclick="siparisiGonder()">
@@ -573,101 +750,195 @@
     const masaNo = urlParams.get('masa') || "12";
     document.getElementById('masa-text').innerText = "Masa " + masaNo;
 
-    // 2. WI-FI ŞİFRESİ KOPYALAMA
+    // 2. WI-FI KOPYALAMA
     function wifiKopyala() {
-      const sifre = "nomadkaravan";
-      navigator.clipboard.writeText(sifre).then(() => {
+      navigator.clipboard.writeText("nomadkaravan").then(() => {
         const toast = document.getElementById('toast-box');
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2500);
       });
     }
 
-    // 3. MENÜYÜ AÇ/KAPA (TOGGLE)
-    let menuAcik = false;
-    function menuyuAcKapa() {
-      const area = document.getElementById('menu-area');
-      const arrow = document.getElementById('menu-arrow-icon');
-      menuAcik = !menuAcik;
-
-      if (menuAcik) {
-        area.style.display = 'block';
-        arrow.innerText = '↑';
-        area.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        area.style.display = 'none';
-        arrow.innerText = '↓';
-      }
-    }
-
-    // 4. MENÜ ÜRÜN VERİLERİ (KAHVALTILIK EKLENDİ)
+    // 3. FOTOĞRAFLI ÜRÜN VERİTABANI
     const urunler = [
-      // Sıcaklar
-      { id: 1, ad: "Flat White", kategori: "sicak", aciklama: "Çift shot espresso ve ipeksi süt köpüğü", fiyat: 110 },
-      { id: 2, ad: "V60 Filtre Kahve", kategori: "sicak", aciklama: "Taze çekilmiş özel nitelikli çekirdek demleme", fiyat: 120 },
-      { id: 3, ad: "Cortado", kategori: "sicak", aciklama: "Eşit oranda espresso ve sıcak kadife süt", fiyat: 105 },
-      { id: 4, ad: "Geleneksel Türk Kahvesi", kategori: "sicak", aciklama: "Köz tadında ağır çekim hazırlanır", fiyat: 75 },
-      // Soğuklar
-      { id: 5, ad: "Iced Americano", kategori: "soguk", aciklama: "Bol buz ve çift shot taze espresso", fiyat: 100 },
-      { id: 6, ad: "Iced Caramel Macchiato", kategori: "soguk", aciklama: "Karamel sosu, vanilya şurubu ve soğuk süt", fiyat: 135 },
-      { id: 7, ad: "Cold Brew Karavan Özel", kategori: "soguk", aciklama: "16 saat soğuk demlenmiş zengin gövdeli kahve", fiyat: 130 },
+      // Sıcak Kahveler
+      {
+        id: 1,
+        ad: "Flat White",
+        kategori: "sicak",
+        aciklama: "Çift shot espresso ve ipeksi kadife süt köpüğü",
+        fiyat: 110,
+        resim: "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 2,
+        ad: "V60 Filtre Kahve",
+        kategori: "sicak",
+        aciklama: "Taze çekilmiş özel nitelikli yöresel çekirdek demleme",
+        fiyat: 120,
+        resim: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 3,
+        ad: "Cortado",
+        kategori: "sicak",
+        aciklama: "Eşit oranda espresso ve buharda ısıtılmış yoğun süt",
+        fiyat: 105,
+        resim: "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 4,
+        ad: "Geleneksel Türk Kahvesi",
+        kategori: "sicak",
+        aciklama: "Köz tadında ağır çekim hazırlanır, lokum eşliğinde",
+        fiyat: 75,
+        resim: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=300&q=80"
+      },
+      // Soğuk Kahveler
+      {
+        id: 5,
+        ad: "Iced Americano",
+        kategori: "soguk",
+        aciklama: "Bol buz ve çift shot taze espresso",
+        fiyat: 100,
+        resim: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 6,
+        ad: "Iced Caramel Macchiato",
+        kategori: "soguk",
+        aciklama: "Karamel sosu, vanilya aroması ve soğuk taze süt",
+        fiyat: 135,
+        resim: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 7,
+        ad: "Cold Brew Karavan Özel",
+        kategori: "soguk",
+        aciklama: "16 saat soğuk demlenmiş zengin gövdeli yoğun kahve",
+        fiyat: 130,
+        resim: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=300&q=80"
+      },
       // Tatlılar
-      { id: 8, ad: "San Sebastian Cheesecake", kategori: "tatli", aciklama: "Akışkan kıvamlı, sıcak Belçika çikolatası ile", fiyat: 155 },
-      { id: 9, ad: "Lotus Brownie", kategori: "tatli", aciklama: "Yoğun bitter çikolata ve Lotus kreması dolgulu", fiyat: 140 },
+      {
+        id: 8,
+        ad: "San Sebastian Cheesecake",
+        kategori: "tatli",
+        aciklama: "Akışkan kıvamlı, sıcak eritilmiş Belçika çikolatası ile",
+        fiyat: 155,
+        resim: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 9,
+        ad: "Lotus Brownie",
+        kategori: "tatli",
+        aciklama: "Yoğun fırınlanmış bitter çikolata ve Lotus kreması",
+        fiyat: 140,
+        resim: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=300&q=80"
+      },
       // Kahvaltılık
-      { id: 10, ad: "Karavan Gurme Tost", kategori: "kahvalti", aciklama: "Kavurma, kaşar peyniri ve özel tereyağlı köy ekmeği", fiyat: 165 },
-      { id: 11, ad: "Kruvasan Sandviç", kategori: "kahvalti", aciklama: "Hindi füme, labne peyniri, çeri domates ve taze yeşillik", fiyat: 145 }
+      {
+        id: 10,
+        ad: "Karavan Gurme Tost",
+        kategori: "kahvalti",
+        aciklama: "Hakiki Bitlis kavurması, kaşar peyniri ve tereyağlı artisan ekmek",
+        fiyat: 165,
+        resim: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 11,
+        ad: "Kruvasan Sandviç",
+        kategori: "kahvalti",
+        aciklama: "Füme et, labne peyniri, çeri domates ve taze yeşillikler",
+        fiyat: 145,
+        resim: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=300&q=80"
+      }
     ];
 
     let sepet = {};
-    let seciliKategori = 'sicak';
+    let aktifKategori = 'hepsi';
 
-    const kategoriBasliklari = {
+    // 4. SAYFA DEĞİŞTİRME & GERİ TUŞU YÖNETİMİ
+    function sayfaDegistir(hedef, kategori = 'hepsi') {
+      const viewHome = document.getElementById('view-home');
+      const viewMenu = document.getElementById('view-menu');
+
+      if (hedef === 'menu') {
+        viewHome.style.display = 'none';
+        viewMenu.style.display = 'block';
+        window.scrollTo(0, 0);
+        kategoriFiltrele(kategori);
+        // Tarayıcı geçmişine durum at (telefonun geri tuşunu destekler)
+        history.pushState({ page: 'menu' }, '', '');
+      } else {
+        viewMenu.style.display = 'none';
+        viewHome.style.display = 'block';
+        window.scrollTo(0, 0);
+      }
+    }
+
+    // Telefonun fiziksel geri tuşuna basılınca çalışır
+    window.onpopstate = function() {
+      const viewMenu = document.getElementById('view-menu');
+      if (viewMenu.style.display === 'block') {
+        sayfaDegistir('home');
+      }
+    };
+
+    // 5. KATEGORİ FİLTRELEME
+    const kategoriAdlari = {
+      'hepsi': 'Nomad Tüm Menü',
       'sicak': 'Sıcak Kahveler',
       'soguk': 'Soğuk Kahveler',
       'tatli': 'Tatlı Çeşitleri',
       'kahvalti': 'Kahvaltılık & Tost'
     };
 
-    // 5. KATEGORİ SEÇİMİ
-    function kategoriSec(kat) {
-      seciliKategori = kat;
-      document.querySelectorAll('.cat-tile').forEach(t => t.classList.remove('active'));
-      const secilenTile = document.getElementById(`tile-${kat}`);
-      if (secilenTile) secilenTile.classList.add('active');
+    function kategoriFiltrele(kat) {
+      aktifKategori = kat;
+      document.querySelectorAll('.sub-cat-pill').forEach(btn => btn.classList.remove('active'));
+      const seciliPill = document.getElementById(`pill-${kat}`);
+      if (seciliPill) seciliPill.classList.add('active');
 
-      document.getElementById('category-title-text').innerText = kategoriBasliklari[kat] || 'Ürünler';
+      document.getElementById('active-category-title').innerText = kategoriAdlari[kat] || 'Menü';
       menuyuCiz();
     }
 
-    // 6. ÜRÜNLERİ EKRANA ÇİZME
+    // 6. ÜRÜNLERİ EKRANA BASMA
     function menuyuCiz() {
-      const container = document.getElementById('menu-box');
+      const container = document.getElementById('products-container');
       container.innerHTML = "";
 
-      const filtrelenmis = urunler.filter(u => u.kategori === seciliKategori);
+      const filtrelenmis = aktifKategori === 'hepsi' 
+        ? urunler 
+        : urunler.filter(u => u.kategori === aktifKategori);
 
       filtrelenmis.forEach(urun => {
         const adet = sepet[urun.id] || 0;
         const card = document.createElement('div');
         card.className = "product-card";
         card.innerHTML = `
-          <div class="product-info">
-            <div class="product-title">${urun.ad}</div>
-            <div class="product-desc">${urun.aciklama}</div>
-            <div class="product-price">${urun.fiyat} ₺</div>
-          </div>
-          <div class="qty-controls">
-            ${adet > 0 ? `<button class="qty-btn" onclick="adetDegistir(${urun.id}, -1)">−</button>` : ''}
-            ${adet > 0 ? `<span class="qty-count">${adet}</span>` : ''}
-            <button class="qty-btn add" onclick="adetDegistir(${urun.id}, 1)">+</button>
+          <img class="product-img" src="${urun.resim}" alt="${urun.ad}" loading="lazy">
+          <div class="product-body">
+            <div class="product-top">
+              <div class="product-name">${urun.ad}</div>
+              <div class="product-desc">${urun.aciklama}</div>
+            </div>
+            <div class="product-bottom">
+              <span class="product-price">${urun.fiyat} ₺</span>
+              <div class="qty-controls">
+                ${adet > 0 ? `<button class="qty-btn" onclick="adetDegistir(${urun.id}, -1)">−</button>` : ''}
+                ${adet > 0 ? `<span class="qty-count">${adet}</span>` : ''}
+                <button class="qty-btn add" onclick="adetDegistir(${urun.id}, 1)">+</button>
+              </div>
+            </div>
           </div>
         `;
         container.appendChild(card);
       });
     }
 
-    // 7. TRENDYOL TARZI ADET DEĞİŞTİRME & SEPET
+    // 7. SEPET VE FİYAT HESAPLAMA
     function adetDegistir(id, miktar) {
       const guncel = (sepet[id] || 0) + miktar;
       if (guncel <= 0) {
@@ -701,7 +972,7 @@
       }
     }
 
-    // 8. SİPARİŞİ KASAYA İLETME
+    // 8. KASAYA SİPARİŞİ GÖNDERME
     const kanal = new BroadcastChannel('pos_siparis_hatti');
 
     function siparisiGonder() {
@@ -730,10 +1001,10 @@
         durum: 'dolu'
       };
 
-      // Kasaya canlı sinyal gönder
+      // Kasaya anlık sinyal gönder
       kanal.postMessage(siparisPaketi);
 
-      // Veritabanına kaydet (LocalStorage)
+      // Veritabanına (LocalStorage) işle
       let mevcutAdisyonlar = JSON.parse(localStorage.getItem('nomad_masalar') || '{}');
       if (!mevcutAdisyonlar[masaNo]) {
         mevcutAdisyonlar[masaNo] = { urunler: [], toplamTutar: 0, saat: siparisPaketi.saat };
@@ -743,7 +1014,7 @@
       mevcutAdisyonlar[masaNo].saat = siparisPaketi.saat;
       localStorage.setItem('nomad_masalar', JSON.stringify(mevcutAdisyonlar));
 
-      // Modalı aç ve sepeti sıfırla
+      // Modalı aç ve sepeti temizle
       document.getElementById('success-modal').style.display = 'flex';
       sepet = {};
       sepetBariniGuncelle();
@@ -752,10 +1023,8 @@
 
     function modalKapat() {
       document.getElementById('success-modal').style.display = 'none';
+      sayfaDegistir('home');
     }
-
-    // Sayfa açıldığında başlangıç durumu
-    menuyuCiz();
   </script>
 </body>
 </html>
