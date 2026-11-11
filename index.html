@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Nomad Karavan Coffee | Tatvan</title>
+  <title>Nomad Karavan Coffee | Tatvan Sahil</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* AÇIK KİREMİT VE ORMAN YEŞİLİ PALETİ */
-      --bg-body: #fbf5f1;             
-      --card-bg: #f5ebe3;             
-      --card-border: #ebdcd1;         
+      /* DERİN ORMAN YEŞİLİ & KİREMİT & KEHRİBAR PALETİ (BEYAZ YOK) */
+      --bg-dark: #09130e;              /* Çok Derin Karavan Orman Yeşili */
+      --bg-card: rgba(18, 36, 28, 0.72); /* Buzlu Zümrüt Camı */
+      --card-border: rgba(200, 75, 37, 0.24); /* Kiremit Işıltılı Kenar */
       
-      --terracotta: #c2410c;          
-      --terracotta-dark: #9a3412;     
-      --terracotta-soft: rgba(194, 65, 12, 0.12);
+      --terracotta: #c84b25;           /* Ateş Kiremidi */
+      --terracotta-glow: rgba(200, 75, 37, 0.45);
+      --terracotta-dark: #963114;
       
-      --forest-green: #142e20;        
-      --forest-green-hover: #0c1f15;
-      --forest-soft: rgba(20, 46, 32, 0.1);
+      --amber: #e89838;                /* Sıcak Köz Kehribarı */
+      --amber-soft: rgba(232, 152, 56, 0.15);
       
-      --text-main: #142e20;
-      --text-muted: #6f5f56;
-      --shadow-sm: 0 3px 12px rgba(194, 65, 12, 0.06);
-      --shadow-md: 0 10px 28px rgba(20, 46, 32, 0.08);
-      --shadow-green: 0 12px 34px rgba(20, 46, 32, 0.35);
+      --deep-forest: #10251c;
+      --emerald-accent: #2e684c;
+      
+      --text-main: #f5ebe1;            /* Sıcak Krem (Göz Yormaz) */
+      --text-muted: #a6b5ab;
+      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.45);
     }
 
     * {
@@ -37,10 +37,48 @@
     }
 
     body {
-      background-color: var(--bg-body);
+      background-color: var(--bg-dark);
       color: var(--text-main);
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 3D ARKA PLAN IŞIK KÜRELERİ (ATMOSFERİK SİNEMATİK AMBİYANS) */
+    .ambient-glow-1 {
+      position: fixed;
+      top: -60px;
+      left: -60px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(200, 75, 37, 0.28) 0%, transparent 70%);
+      filter: blur(50px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .ambient-glow-2 {
+      position: fixed;
+      bottom: 10%;
+      right: -80px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(30, 90, 60, 0.35) 0%, transparent 70%);
+      filter: blur(60px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .ambient-glow-3 {
+      position: fixed;
+      top: 45%;
+      left: 10%;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(232, 152, 56, 0.15) 0%, transparent 70%);
+      filter: blur(55px);
+      z-index: 0;
+      pointer-events: none;
     }
 
     /* MOBİL SABİT HEADER */
@@ -48,10 +86,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(251, 245, 241, 0.96);
-      backdrop-filter: blur(14px);
-      border-bottom: 1.5px solid var(--card-border);
-      padding: 12px 18px;
+      background: rgba(9, 19, 14, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -60,50 +98,51 @@
     .brand-wrap {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .brand-logo-box {
-      width: 42px;
-      height: 42px;
-      background: var(--forest-green);
-      border-radius: 12px;
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(20, 46, 32, 0.25);
+      box-shadow: 0 6px 18px var(--terracotta-glow);
       flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .brand-logo-box svg {
       width: 24px;
       height: 24px;
       fill: none;
-      stroke: #fbf5f1;
-      stroke-width: 1.8;
+      stroke: #fff;
+      stroke-width: 1.9;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
     .brand-info h1 {
-      font-size: 0.96rem;
-      font-weight: 800;
-      color: var(--forest-green);
+      font-size: 0.98rem;
+      font-weight: 900;
+      color: #ffffff;
       letter-spacing: -0.3px;
     }
 
     .brand-info p {
       font-size: 0.72rem;
-      color: var(--terracotta);
+      color: var(--amber);
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 1px;
     }
 
     .table-chip {
-      background: var(--forest-soft);
-      border: 1.5px solid var(--forest-green);
-      color: var(--forest-green);
+      background: rgba(200, 75, 37, 0.16);
+      border: 1.5px solid var(--terracotta);
+      color: #ff9d7f;
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.82rem;
@@ -111,19 +150,22 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      box-shadow: 0 4px 12px rgba(200, 75, 37, 0.2);
     }
 
     .table-dot {
       width: 8px;
       height: 8px;
-      background: var(--forest-green);
+      background: var(--terracotta);
       border-radius: 50%;
-      box-shadow: 0 0 6px var(--forest-green);
+      box-shadow: 0 0 8px var(--terracotta);
     }
 
     /* SAYFA KAPSAYICILARI */
     .view-page {
       display: none;
+      position: relative;
+      z-index: 10;
       animation: fadeIn 0.25s ease-out;
     }
     .view-page.active {
@@ -139,12 +181,12 @@
        SAYFA 1: MOBİL HOME / KEŞFET
        ========================================= */
     .hero-card {
-      margin: 16px 16px 20px;
-      height: 200px;
+      margin: 16px 16px 22px;
+      height: 210px;
       border-radius: 24px;
       overflow: hidden;
       position: relative;
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--shadow-3d);
       border: 1.5px solid var(--card-border);
     }
 
@@ -152,24 +194,32 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: contrast(1.05) brightness(0.9);
+    }
+
+    .hero-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(9, 19, 14, 0.1) 0%, rgba(9, 19, 14, 0.85) 100%);
     }
 
     .section-wrap {
       padding: 0 16px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     /* 4'LÜ HIZLI BUTONLAR */
     .quick-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      gap: 9px;
     }
 
     .service-btn {
-      background: var(--card-bg);
-      border: 1.5px solid var(--card-border);
-      border-radius: 18px;
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
       padding: 14px 4px;
       display: flex;
       flex-direction: column;
@@ -178,46 +228,46 @@
       gap: 6px;
       text-decoration: none;
       color: var(--text-main);
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .service-btn:active {
-      transform: scale(0.96);
-      background: #ebdcd1;
-      border-color: var(--forest-green);
+      transform: scale(0.95);
+      border-color: var(--terracotta);
+      background: rgba(200, 75, 37, 0.18);
     }
 
     .service-icon {
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .service-name {
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 800;
-      color: var(--forest-green);
+      color: #e4eee7;
       text-align: center;
     }
 
     /* =========================================
-       DEVASA "MENÜYÜ İNCELE & SİPARİŞ VER" BUTONU
+       DEVASA SİNEMATİK MENÜ BUTONU (ATEŞ KİREMİDİ & ORMAN YEŞİLİ)
        ========================================= */
     .btn-giant-menu {
       width: 100%;
-      background: linear-gradient(135deg, #142e20 0%, #1f4731 100%);
-      color: #fbf5f1;
-      border: 2px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(135deg, #c84b25 0%, #153b29 100%);
+      color: #ffffff;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
       padding: 24px 20px;
       border-radius: 26px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
-      box-shadow: var(--shadow-green);
+      box-shadow: 0 14px 36px var(--terracotta-glow);
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
@@ -237,27 +287,29 @@
     .giant-icon-box {
       width: 58px;
       height: 58px;
-      background: rgba(251, 245, 241, 0.12);
-      border: 1.5px solid rgba(251, 245, 241, 0.25);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
       border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.9rem;
       flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
     }
 
     .giant-text-sub {
-      font-size: 0.76rem;
-      color: #e0967a;
+      font-size: 0.74rem;
+      color: #fed7aa;
       font-weight: 800;
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .giant-text-main {
-      font-size: 1.35rem;
+      font-size: 1.32rem;
       font-weight: 900;
       letter-spacing: -0.4px;
       color: #ffffff;
@@ -267,7 +319,8 @@
     .giant-arrow-circle {
       width: 44px;
       height: 44px;
-      background: var(--terracotta);
+      background: #0d281a;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -275,27 +328,28 @@
       font-size: 1.3rem;
       color: #ffffff;
       font-weight: 900;
-      box-shadow: 0 4px 14px rgba(194, 65, 12, 0.4);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
       flex-shrink: 0;
     }
 
-    /* INSTAGRAM BANNER */
+    /* INSTAGRAM BANNER (BUZLU CAM) */
     .social-banner-box {
-      background: var(--card-bg);
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
       border: 1.5px solid var(--card-border);
-      border-radius: 20px;
+      border-radius: 22px;
       padding: 16px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-3d);
       text-decoration: none;
     }
 
     .social-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .insta-svg {
@@ -304,36 +358,37 @@
     }
 
     .social-title {
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       font-weight: 800;
-      color: var(--forest-green);
+      color: #ffffff;
     }
 
     .social-sub {
       font-size: 0.74rem;
-      color: var(--terracotta);
+      color: var(--amber);
       font-weight: 700;
     }
 
     .social-arrow {
-      font-size: 1.1rem;
-      color: var(--forest-green);
+      font-size: 1.2rem;
+      color: var(--amber);
       font-weight: 800;
     }
 
     /* İSTEK, ÖNERİ & ŞİKAYET KUTUSU */
     .feedback-box {
-      background: var(--card-bg);
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
       border: 1.5px solid var(--card-border);
-      border-radius: 22px;
-      padding: 20px;
-      box-shadow: var(--shadow-sm);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow-3d);
     }
 
     .feedback-box h3 {
       font-size: 1rem;
       font-weight: 800;
-      color: var(--forest-green);
+      color: #ffffff;
       margin-bottom: 6px;
       display: flex;
       align-items: center;
@@ -341,7 +396,7 @@
     }
 
     .feedback-box p {
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       color: var(--text-muted);
       margin-bottom: 14px;
       line-height: 1.35;
@@ -355,19 +410,19 @@
 
     .form-input, .form-textarea {
       width: 100%;
-      background: var(--bg-body);
-      border: 1.5px solid var(--card-border);
+      background: rgba(9, 19, 14, 0.7);
+      border: 1px solid var(--card-border);
       padding: 12px 14px;
-      border-radius: 12px;
+      border-radius: 14px;
       font-size: 0.85rem;
-      color: var(--text-main);
+      color: #ffffff;
       outline: none;
       transition: border-color 0.2s;
     }
 
     .form-input:focus, .form-textarea:focus {
-      border-color: var(--forest-green);
-      background: #ffffff;
+      border-color: var(--terracotta);
+      box-shadow: 0 0 12px var(--terracotta-glow);
     }
 
     .form-textarea {
@@ -376,37 +431,38 @@
     }
 
     .btn-feedback {
-      background: var(--forest-green);
-      color: #fbf5f1;
+      background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+      color: #ffffff;
       border: none;
-      padding: 13px;
-      border-radius: 12px;
-      font-size: 0.86rem;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 0.88rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
+      box-shadow: 0 6px 20px var(--terracotta-glow);
     }
 
     .btn-feedback:active {
-      background: var(--forest-green-hover);
+      opacity: 0.9;
     }
 
     /* FOOTER */
     footer {
       text-align: center;
-      padding: 24px 16px 36px;
+      padding: 26px 16px 40px;
       color: var(--text-muted);
-      font-size: 0.72rem;
-      border-top: 1.5px solid var(--card-border);
-      background: var(--card-bg);
+      font-size: 0.74rem;
+      border-top: 1px solid var(--card-border);
+      background: rgba(9, 19, 14, 0.95);
       margin-top: 20px;
     }
 
     footer a {
-      color: var(--terracotta);
+      color: var(--amber);
       text-decoration: none;
       font-weight: 800;
     }
@@ -419,20 +475,21 @@
       align-items: center;
       gap: 12px;
       padding: 14px 16px;
-      background: var(--bg-body);
-      border-bottom: 1.5px solid var(--card-border);
+      background: rgba(9, 19, 14, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--card-border);
       position: sticky;
-      top: 66px;
+      top: 72px;
       z-index: 95;
     }
 
     .btn-back-home {
-      background: var(--card-bg);
-      border: 1.5px solid var(--card-border);
-      color: var(--forest-green);
-      padding: 8px 16px;
-      border-radius: 12px;
-      font-size: 0.84rem;
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
+      color: var(--amber);
+      padding: 9px 18px;
+      border-radius: 14px;
+      font-size: 0.85rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
@@ -446,11 +503,12 @@
       padding: 12px 16px;
       overflow-x: auto;
       scrollbar-width: none;
-      background: var(--bg-body);
+      background: rgba(9, 19, 14, 0.85);
+      backdrop-filter: blur(12px);
       position: sticky;
-      top: 128px;
+      top: 137px;
       z-index: 90;
-      border-bottom: 1.5px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
     }
 
     .menu-tabs::-webkit-scrollbar {
@@ -458,8 +516,8 @@
     }
 
     .tab-pill {
-      background: var(--card-bg);
-      border: 1.5px solid var(--card-border);
+      background: var(--bg-card);
+      border: 1px solid var(--card-border);
       color: var(--text-muted);
       padding: 10px 18px;
       border-radius: 20px;
@@ -467,17 +525,17 @@
       font-weight: 700;
       white-space: nowrap;
       cursor: pointer;
-      box-shadow: var(--shadow-sm);
       transition: all 0.2s;
     }
 
     .tab-pill.active {
-      background: var(--forest-green);
-      border-color: var(--forest-green);
-      color: #fbf5f1;
-      box-shadow: 0 4px 14px rgba(20, 46, 32, 0.25);
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+      color: #ffffff;
+      box-shadow: 0 4px 16px var(--terracotta-glow);
     }
 
+    /* AŞAĞI DOĞRU BÜYÜTÜLMÜŞ 3D KARTLAR */
     .product-list {
       padding: 18px 16px;
       display: flex;
@@ -487,14 +545,15 @@
     }
 
     .product-card {
-      background: var(--card-bg);
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
       border: 1.5px solid var(--card-border);
       border-radius: 22px;
       padding: 14px;
       display: flex;
       gap: 14px;
       align-items: center;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
       min-height: 110px;
     }
 
@@ -504,6 +563,8 @@
       border-radius: 16px;
       object-fit: cover;
       flex-shrink: 0;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .product-content {
@@ -517,7 +578,7 @@
     .prod-title {
       font-size: 0.98rem;
       font-weight: 800;
-      color: var(--forest-green);
+      color: #ffffff;
       line-height: 1.25;
       margin-bottom: 4px;
     }
@@ -537,15 +598,15 @@
     }
 
     .prod-price {
-      font-size: 1.08rem;
-      font-weight: 800;
-      color: var(--terracotta);
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--amber);
     }
 
     .qty-box {
       display: flex;
       align-items: center;
-      background: var(--bg-body);
+      background: rgba(9, 19, 14, 0.8);
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid var(--card-border);
@@ -560,18 +621,18 @@
       align-items: center;
       justify-content: center;
       font-size: 1.15rem;
-      color: var(--forest-green);
+      color: #ffffff;
       cursor: pointer;
       font-weight: 700;
     }
 
     .qty-btn:active {
-      background: rgba(0, 0, 0, 0.05);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .qty-btn.plus {
-      background: var(--forest-green);
-      color: #fbf5f1;
+      background: var(--terracotta);
+      color: #ffffff;
     }
 
     .qty-num {
@@ -579,7 +640,7 @@
       text-align: center;
       font-size: 0.88rem;
       font-weight: 800;
-      color: var(--forest-green);
+      color: #ffffff;
     }
 
     /* YÜZEN SEPET BARI */
@@ -588,14 +649,15 @@
       bottom: 20px;
       left: 14px;
       right: 14px;
-      background: var(--forest-green);
-      border-radius: 20px;
+      background: linear-gradient(135deg, #10251c 0%, #1e4533 100%);
+      border: 1.5px solid var(--card-border);
+      border-radius: 22px;
       padding: 14px 20px;
-      color: #fbf5f1;
+      color: #ffffff;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 10px 30px rgba(20, 46, 32, 0.35);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
       z-index: 160;
       transform: translateY(180%);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -612,29 +674,29 @@
 
     .cart-total-badge {
       font-size: 0.74rem;
-      color: #c0d1c8;
+      color: #a6b5ab;
       font-weight: 600;
     }
 
     .cart-price-sum {
       font-size: 1.25rem;
-      font-weight: 800;
-      color: #fbf5f1;
+      font-weight: 900;
+      color: var(--amber);
     }
 
     .btn-create-order {
       background: var(--terracotta);
       color: #ffffff;
       border: none;
-      padding: 12px 20px;
-      border-radius: 12px;
+      padding: 12px 22px;
+      border-radius: 14px;
       font-size: 0.92rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 4px 12px rgba(194, 65, 12, 0.3);
+      box-shadow: 0 6px 18px var(--terracotta-glow);
     }
 
     .btn-create-order:active {
@@ -644,19 +706,19 @@
     /* TOAST */
     .toast-box {
       position: fixed;
-      top: 72px;
+      top: 80px;
       left: 50%;
       transform: translateX(-50%) translateY(-20px);
-      background: var(--forest-green);
-      color: #fbf5f1;
-      padding: 10px 20px;
+      background: var(--terracotta);
+      color: #ffffff;
+      padding: 10px 22px;
       border-radius: 20px;
-      font-size: 0.82rem;
-      font-weight: 700;
+      font-size: 0.85rem;
+      font-weight: 800;
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+      box-shadow: 0 8px 24px var(--terracotta-glow);
       z-index: 300;
       opacity: 0;
       pointer-events: none;
@@ -673,8 +735,8 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(20, 46, 32, 0.65);
-      backdrop-filter: blur(6px);
+      background: rgba(9, 19, 14, 0.85);
+      backdrop-filter: blur(10px);
       z-index: 250;
       align-items: center;
       justify-content: center;
@@ -682,13 +744,13 @@
     }
 
     .modal-card {
-      background: var(--card-bg);
+      background: #11231a;
       border-radius: 24px;
-      padding: 26px 22px;
+      padding: 28px 22px;
       text-align: center;
       max-width: 320px;
       width: 100%;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
       border: 1.5px solid var(--card-border);
       animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -699,20 +761,26 @@
     }
 
     .modal-circle-icon {
-      width: 58px;
-      height: 58px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      background: var(--forest-soft);
-      color: var(--forest-green);
-      font-size: 1.6rem;
+      background: rgba(200, 75, 37, 0.2);
+      color: var(--amber);
+      font-size: 1.8rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 14px;
+      margin: 0 auto 16px;
+      box-shadow: 0 4px 16px var(--terracotta-glow);
     }
   </style>
 </head>
 <body>
+
+  <!-- 3D DERİNLİK KATAN AMBİYANS IŞIKLARI -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+  <div class="ambient-glow-3"></div>
 
   <!-- SABİT ÜST BAR -->
   <header>
@@ -747,9 +815,10 @@
        ========================================= -->
   <div class="view-page active" id="view-home">
     
-    <!-- TEMİZ KAPAK GÖRSELİ -->
+    <!-- TEMİZ 3D ATMOSFER KAPAK GÖRSELİ -->
     <div class="hero-card">
       <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Nomad Karavan Coffee">
+      <div class="hero-gradient-overlay"></div>
     </div>
 
     <!-- 4'LÜ HIZLI BUTONLAR (WIFI, GARSON, HARİTA, TAKSİ) -->
@@ -782,7 +851,7 @@
     </div>
 
     <!-- =========================================
-         DEVASA VE DİKKAT ÇEKİCİ MENÜ BUTONU
+         DEVASA VE DİKKAT ÇEKİCİ SİNEMATİK MENÜ BUTONU
          ========================================= -->
     <div class="section-wrap">
       <button class="btn-giant-menu" onclick="navigasyon('menu', 'hepsi')">
@@ -817,7 +886,7 @@
           </svg>
           <div>
             <div class="social-title">@nomadkaravancoffee</div>
-            <div class="social-sub">Bizi Instagram'da Takip Edin</div>
+            <div class="social-sub">Bizi Instagram'da Keşfedin</div>
           </div>
         </div>
         <span class="social-arrow">→</span>
@@ -843,7 +912,7 @@
 
     <!-- FOOTER -->
     <footer>
-      <p style="font-weight:800; color:var(--forest-green); margin-bottom:4px;">NOMAD KARAVAN COFFEE • TATVAN</p>
+      <p style="font-weight:800; color:#ffffff; margin-bottom:4px;">NOMAD KARAVAN COFFEE • TATVAN</p>
       <p>Instagram: <a href="https://instagram.com/nomadkaravancoffee" target="_blank">@nomadkaravancoffee</a></p>
     </footer>
 
@@ -859,7 +928,7 @@
         <span>←</span>
         <span>Ana Sayfa</span>
       </button>
-      <span style="font-size:1rem; font-weight:800; color:var(--forest-green);">Nomad Menü</span>
+      <span style="font-size:1rem; font-weight:900; color:#ffffff;">Nomad Menü</span>
     </div>
 
     <!-- KATEGORİ TAB SEKMELERİ -->
@@ -892,8 +961,8 @@
   <div class="custom-modal" id="modal-success">
     <div class="modal-card">
       <div class="modal-circle-icon">✓</div>
-      <h3 style="font-size:1.15rem; font-weight:800; color:var(--forest-green); margin-bottom:8px;">Siparişiniz İletildi!</h3>
-      <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.4; margin-bottom:20px;">
+      <h3 style="font-size:1.2rem; font-weight:900; color:#ffffff; margin-bottom:8px;">Siparişiniz İletildi!</h3>
+      <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.45; margin-bottom:20px;">
         Siparişiniz baristaya ve kasaya anlık olarak düştü. Hemen hazırlanıp masanıza servis edilecek.
       </p>
       <button class="btn-create-order" style="width:100%; justify-content:center;" onclick="modalKapat('modal-success')">
@@ -951,7 +1020,7 @@
       bildirimGoster("E-posta istemciniz açılıyor...", "✉️");
     }
 
-    // 6. GENİŞLETİLMİŞ ÜRÜN VERİTABANI
+    // 6. GENİŞLETİLMİŞ VE SİNEMATİK ÜRÜN VERİTABANI
     const urunler = [
       // Sıcak Kahveler
       {
