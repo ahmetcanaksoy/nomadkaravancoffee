@@ -194,7 +194,7 @@
 
     /* SAĞ: CANLI ADİSYON DETAY ÇEKMECESİ */
     .detail-section {
-      width: 380px;
+      width: 400px;
       background: #11161b;
       border-left: 1px solid var(--card-border);
       display: flex;
@@ -221,38 +221,94 @@
 
     .detail-content {
       flex: 1;
-      padding: 20px 24px;
+      padding: 20px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
+    /* ADİSYON KALEM SATIRI VE SİLME BUTONLARI */
     .order-item-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 12px;
+      padding: 10px 14px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 10px;
+      border-radius: 12px;
+      gap: 10px;
+    }
+
+    .item-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .item-name {
-      font-size: 0.88rem;
-      font-weight: 600;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
     }
 
-    .item-qty {
+    .item-unit-info {
       font-size: 0.75rem;
-      color: var(--accent-green);
-      font-weight: 700;
-      margin-left: 6px;
+      color: var(--text-muted);
+    }
+
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .item-price {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--accent-green);
+      min-width: 55px;
+      text-align: right;
+    }
+
+    .btn-qty-minus {
+      background: #1f272e;
+      color: #fff;
+      border: 1px solid #374151;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-qty-minus:hover {
+      background: #374151;
+    }
+
+    .btn-item-delete {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--accent-red);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 0.9rem;
-      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-item-delete:hover {
+      background: var(--accent-red);
       color: #fff;
     }
 
@@ -386,7 +442,7 @@
     let seciliMasa = null;
     let sonVeriOzeti = "";
 
-    // Web Audio API ile Canlı Zil Sesi
+    // Web Audio API Canlı Zil Sesi
     function dingCal() {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -402,17 +458,19 @@
         osc.start();
         osc.stop(audioCtx.currentTime + 0.5);
       } catch(e) {
-        console.log("Ses çalma izni bekleniyor");
+        console.log("Ses izni bekleniyor");
       }
     }
 
-    // Masaları Getir
+    // Masaları Getir / Kaydet
     function getAdisyonlar() {
       return JSON.parse(localStorage.getItem('nomad_masalar') || '{}');
     }
 
     function setAdisyonlar(data) {
       localStorage.setItem('nomad_masalar', JSON.stringify(data));
+      // Senkronizasyonu tetikle
+      sonVeriOzeti = JSON.stringify(data);
     }
 
     // Masaları Ekrana Çiz
@@ -445,7 +503,6 @@
       document.getElementById('stat-busy').innerText = `${doluSayisi} Dolu`;
       document.getElementById('stat-empty').innerText = `${TOPLAM_MASA - doluSayisi} Boş`;
 
-      // Açık olan masa varsa panelini de anlık güncelle
       if (seciliMasa) {
         masaDetayiGoster(seciliMasa, false);
       }
@@ -473,18 +530,67 @@
       document.getElementById('panel-total-price').innerText = `${data.toplamTutar} ₺`;
 
       listEl.innerHTML = "";
-      data.urunler.forEach(item => {
+      data.urunler.forEach((item, index) => {
         const row = document.createElement('div');
         row.className = "order-item-row";
         row.innerHTML = `
-          <div>
+          <div class="item-left">
             <span class="item-name">${item.ad}</span>
-            <span class="item-qty">x${item.adet}</span>
+            <span class="item-unit-info">${item.adet} adet × ${item.birimFiyat} ₺</span>
           </div>
-          <div class="item-price">${item.tutar} ₺</div>
+          <div class="item-actions">
+            <span class="item-price">${item.tutar} ₺</span>
+            <button class="btn-qty-minus" title="Adet Azalt" onclick="adetAzalt(${masaNo}, ${index})">−</button>
+            <button class="btn-item-delete" title="Tamamen Kaldır" onclick="urunuSil(${masaNo}, ${index})">✕</button>
+          </div>
         `;
         listEl.appendChild(row);
       });
+    }
+
+    // KASADAN MÜDAHALE: 1 ADET DÜŞÜR
+    function adetAzalt(masaNo, index) {
+      const adisyonlar = getAdisyonlar();
+      const data = adisyonlar[String(masaNo)];
+      if (!data || !data.urunler[index]) return;
+
+      const urun = data.urunler[index];
+      if (urun.adet > 1) {
+        urun.adet -= 1;
+        urun.tutar = urun.adet * urun.birimFiyat;
+      } else {
+        data.urunler.splice(index, 1);
+      }
+
+      // Toplam tutarı yeniden hesapla
+      data.toplamTutar = data.urunler.reduce((acc, curr) => acc + curr.tutar, 0);
+
+      if (data.urunler.length === 0) {
+        delete adisyonlar[String(masaNo)];
+      }
+
+      setAdisyonlar(adisyonlar);
+      masalariGuncelle();
+    }
+
+    // KASADAN MÜDAHALE: ÜRÜNÜ TAMAMEN SİL
+    function urunuSil(masaNo, index) {
+      const adisyonlar = getAdisyonlar();
+      const data = adisyonlar[String(masaNo)];
+      if (!data || !data.urunler[index]) return;
+
+      const silinenAd = data.urunler[index].ad;
+      if (confirm(`"${silinenAd}" adisyondan çıkarılsın mı?`)) {
+        data.urunler.splice(index, 1);
+        data.toplamTutar = data.urunler.reduce((acc, curr) => acc + curr.tutar, 0);
+
+        if (data.urunler.length === 0) {
+          delete adisyonlar[String(masaNo)];
+        }
+
+        setAdisyonlar(adisyonlar);
+        masalariGuncelle();
+      }
     }
 
     // Hesabı Kapat / Masayı Boşalt
@@ -506,7 +612,7 @@
       masalariGuncelle();
     };
 
-    // Sekmeler Arası Storage Değişim Dinleyicisi
+    // Sekmeler Arası Storage Değişimi Dinleyicisi
     window.addEventListener('storage', (e) => {
       if (e.key === 'nomad_masalar') {
         dingCal();
@@ -514,7 +620,7 @@
       }
     });
 
-    // Otomatik Anlık Kontrol (Sayfa yenilemeyi tamamen ortadan kaldırır)
+    // Otomatik Anlık Senkronizasyon
     setInterval(() => {
       const guncelVeri = localStorage.getItem('nomad_masalar') || '';
       if (guncelVeri !== sonVeriOzeti) {
@@ -523,7 +629,7 @@
       }
     }, 1000);
 
-    // Başlangıç çalıştırması
+    // Başlangıç Çalıştırması
     sonVeriOzeti = localStorage.getItem('nomad_masalar') || '';
     masalariGuncelle();
   </script>
