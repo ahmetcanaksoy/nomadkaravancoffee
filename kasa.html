@@ -8,25 +8,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* DERİN ORMAN YEŞİLİ, KİREMİT VE KEHRİBAR PALETİ */
-      --bg-dark: #09130e;              
-      --bg-card: rgba(18, 36, 28, 0.75); 
-      --card-border: rgba(200, 75, 37, 0.25);
+      /* CANLI ÇAM YEŞİLİ & ATEŞ KİREMİDİ & KEHRİBAR */
+      --bg-dark: #0f1c15;              
+      --bg-card: rgba(22, 42, 32, 0.82); 
+      --card-border: rgba(234, 88, 12, 0.28);
       
-      --terracotta: #c84b25;           
-      --terracotta-glow: rgba(200, 75, 37, 0.45);
-      --terracotta-dark: #963114;
+      --terracotta: #ea580c;           
+      --terracotta-glow: rgba(234, 88, 12, 0.45);
+      --terracotta-dark: #c2410c;
       
-      --amber: #e89838;                
-      --amber-soft: rgba(232, 152, 56, 0.15);
+      --amber: #f59e0b;                
+      --amber-soft: rgba(245, 158, 11, 0.15);
       
-      --emerald-accent: #2e684c;
+      --emerald-accent: #1b4d36;
       --accent-green: #10b981;
       --accent-red: #ef4444;
       
-      --text-main: #f5ebe1;            
-      --text-muted: #a6b5ab;
-      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.45);
+      --text-main: #f8fafc;            
+      --text-muted: #9bb0a3;
+      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.5);
     }
 
     * {
@@ -47,14 +47,13 @@
       position: relative;
     }
 
-    /* 3D ATMOSFER IŞIK KÜRELERİ */
     .ambient-glow-1 {
       position: fixed;
       top: -60px;
       left: -60px;
       width: 340px;
       height: 340px;
-      background: radial-gradient(circle, rgba(200, 75, 37, 0.22) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(234, 88, 12, 0.2) 0%, transparent 70%);
       filter: blur(50px);
       z-index: 0;
       pointer-events: none;
@@ -66,7 +65,7 @@
       right: -60px;
       width: 380px;
       height: 380px;
-      background: radial-gradient(circle, rgba(30, 90, 60, 0.28) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(27, 77, 54, 0.28) 0%, transparent 70%);
       filter: blur(60px);
       z-index: 0;
       pointer-events: none;
@@ -74,8 +73,8 @@
 
     /* ÜST KASA HEADER */
     header {
-      background: rgba(9, 19, 14, 0.88);
-      backdrop-filter: blur(18px);
+      background: rgba(15, 28, 21, 0.92);
+      backdrop-filter: blur(16px);
       border-bottom: 1.5px solid var(--card-border);
       padding: 14px 24px;
       display: flex;
@@ -92,27 +91,22 @@
       gap: 12px;
     }
 
-    .brand-logo-box {
+    .brand-logo-emblem {
       width: 44px;
       height: 44px;
-      background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+      background: linear-gradient(135deg, #ea580c 0%, #1b4d36 100%);
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 18px var(--terracotta-glow);
+      border: 1.5px solid var(--amber);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
       flex-shrink: 0;
-      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .brand-logo-box svg {
-      width: 24px;
-      height: 24px;
-      fill: none;
-      stroke: #fff;
-      stroke-width: 1.9;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .brand-logo-emblem svg {
+      width: 26px;
+      height: 26px;
     }
 
     .brand-info h1 {
@@ -147,16 +141,16 @@
     }
 
     .badge-empty {
-      background: rgba(46, 104, 76, 0.25);
+      background: rgba(27, 77, 54, 0.3);
       border: 1.5px solid var(--emerald-accent);
-      color: #9ee6c2;
+      color: #a7f3d0;
     }
 
     .badge-busy {
-      background: rgba(200, 75, 37, 0.25);
+      background: rgba(234, 88, 12, 0.25);
       border: 1.5px solid var(--terracotta);
-      color: #ff9d7f;
-      box-shadow: 0 0 14px rgba(200, 75, 37, 0.35);
+      color: #fdba74;
+      box-shadow: 0 0 14px rgba(234, 88, 12, 0.35);
     }
 
     .dot {
@@ -174,7 +168,6 @@
       z-index: 10;
     }
 
-    /* SOL: MASA GRIDLERİ */
     .tables-section {
       flex: 1;
       padding: 24px;
@@ -217,25 +210,23 @@
       transform: translateY(-2px);
     }
 
-    /* BOŞ MASA: SAKİN ZÜMRÜT YEŞİLİ */
     .table-card.empty {
-      border: 1.5px solid rgba(46, 104, 76, 0.4);
+      border: 1.5px solid rgba(27, 77, 54, 0.5);
     }
     .table-card.empty:hover {
-      border-color: var(--emerald-accent);
-      box-shadow: 0 8px 24px rgba(46, 104, 76, 0.25);
+      border-color: #22c55e;
+      box-shadow: 0 8px 24px rgba(34, 197, 94, 0.25);
     }
     .table-card.empty .table-status-text {
-      color: #9ee6c2;
-      background: rgba(46, 104, 76, 0.2);
+      color: #86efac;
+      background: rgba(27, 77, 54, 0.3);
       padding: 4px 10px;
       border-radius: 12px;
     }
 
-    /* DOLU MASA: ATEŞ KİREMİDİ NEON PARILTI */
     .table-card.busy {
       border: 2px solid var(--terracotta);
-      background: rgba(45, 18, 12, 0.7);
+      background: rgba(45, 18, 12, 0.75);
       box-shadow: 0 10px 28px var(--terracotta-glow);
       animation: pulseAlert 2.5s infinite;
     }
@@ -247,9 +238,9 @@
     }
 
     @keyframes pulseAlert {
-      0% { box-shadow: 0 0 0 0 rgba(200, 75, 37, 0.5); }
-      70% { box-shadow: 0 0 0 12px rgba(200, 75, 37, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(200, 75, 37, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.5); }
+      70% { box-shadow: 0 0 0 12px rgba(234, 88, 12, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0); }
     }
 
     .table-number {
@@ -275,7 +266,7 @@
     /* SAĞ: CANLI ADİSYON DETAY ÇEKMECESİ */
     .detail-section {
       width: 420px;
-      background: rgba(14, 28, 22, 0.95);
+      background: rgba(16, 32, 24, 0.96);
       backdrop-filter: blur(18px);
       border-left: 1.5px solid var(--card-border);
       display: flex;
@@ -312,7 +303,6 @@
       gap: 12px;
     }
 
-    /* ADİSYON KALEM SATIRI */
     .order-item-row {
       display: flex;
       justify-content: space-between;
@@ -379,8 +369,8 @@
     }
 
     .btn-item-delete {
-      background: rgba(200, 75, 37, 0.2);
-      color: #ff9d7f;
+      background: rgba(234, 88, 12, 0.2);
+      color: #fdba74;
       border: 1px solid var(--terracotta);
       width: 30px;
       height: 30px;
@@ -402,7 +392,7 @@
     .detail-footer {
       padding: 20px 24px;
       border-top: 1.5px solid var(--card-border);
-      background: rgba(9, 19, 14, 0.95);
+      background: rgba(15, 28, 21, 0.96);
     }
 
     .total-box {
@@ -455,7 +445,7 @@
       padding: 40px 20px;
     }
 
-    /* GARSON ÇAĞRISI TOAST BİLDİRİMİ */
+    /* GARSON BİLDİRİM UYARISI */
     .garson-toast {
       position: fixed;
       top: 24px;
@@ -495,7 +485,6 @@
 </head>
 <body>
 
-  <!-- 3D ATMOSFER IŞIK KÜRELERİ -->
   <div class="ambient-glow-1"></div>
   <div class="ambient-glow-2"></div>
 
@@ -508,17 +497,20 @@
   <!-- ÜST HEADER -->
   <header>
     <div class="brand-wrap">
-      <div class="brand-logo-box">
-        <svg viewBox="0 0 24 24">
-          <path d="M3 17h15a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-3H6L3 11v6z"/>
-          <circle cx="7.5" cy="17.5" r="2"/>
-          <circle cx="16.5" cy="17.5" r="2"/>
-          <path d="M12 7V4m3 3V3"/>
+      <div class="brand-logo-emblem">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M5 23h20c1.5 0 2.5-1 2.5-2.5V13c0-2.5-2-4.5-4.5-4.5H9C6.5 8.5 5 10.5 5 13v7.5c0 1.5 1 2.5 0 2.5z" fill="#ea580c"/>
+          <path d="M9 8.5h14c1.5 0 2.5 1 2.5 2v1.5H6.5V10.5c0-1 1-2 2.5-2z" fill="#f59e0b"/>
+          <rect x="8" y="13" width="6" height="5" rx="1.5" fill="#ffffff"/>
+          <rect x="17" y="13" width="6" height="5" rx="1.5" fill="#ffffff"/>
+          <circle cx="12" cy="23" r="3" fill="#0b1712" stroke="#f59e0b" stroke-width="1.5"/>
+          <circle cx="22" cy="23" r="3" fill="#0b1712" stroke="#f59e0b" stroke-width="1.5"/>
+          <path d="M16 4.5c.8.8-.8 1.4 0 2.2" stroke="#f59e0b" stroke-width="1.4" stroke-linecap="round"/>
         </svg>
       </div>
       <div class="brand-info">
         <h1>NOMAD KARAVAN • KASA KONTROL</h1>
-        <p>Tatvan Sahil Canlı Yönetim</p>
+        <p>Tatvan Canlı Masa & Adisyon</p>
       </div>
     </div>
     <div class="status-summary">
@@ -535,8 +527,6 @@
 
   <!-- ANA DASHBOARD -->
   <div class="dashboard-layout">
-    
-    <!-- SOL: 20 MASA GRID -->
     <div class="tables-section">
       <div class="section-title">Masalar (Masa 1 - 20)</div>
       <div class="table-grid" id="tables-container"></div>
@@ -565,7 +555,6 @@
         </button>
       </div>
     </div>
-
   </div>
 
   <script>
@@ -573,34 +562,73 @@
     let seciliMasa = null;
     let sonVeriOzeti = "";
 
-    // Web Audio API Zil Sesi (Dıng!)
-    function dingCal(tur = 'siparis') {
+    // =========================================
+    // İKİ AYRI SES MOTORU (WEB AUDIO API)
+    // =========================================
+    
+    // 1. SİPARİŞ GELDİĞİNDE ÇALAN TOK VE MELODİK KASA ZİLİ (CHIME)
+    function calSiparisSesi() {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = "sine";
         
-        if (tur === 'garson') {
-          osc.frequency.setValueAtTime(1046.50, audioCtx.currentTime); // C6 nota
-          osc.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.15); // E6 nota
-        } else {
-          osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.5);
-        }
+        // 1. Ton (Do5)
+        const osc1 = audioCtx.createOscillator();
+        const gain1 = audioCtx.createGain();
+        osc1.type = "sine";
+        osc1.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+        gain1.gain.setValueAtTime(0.25, audioCtx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+        osc1.connect(gain1);
+        gain1.connect(audioCtx.destination);
+        osc1.start();
+        osc1.stop(audioCtx.currentTime + 0.35);
 
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.5);
+        // 2. Ton (Mi5)
+        setTimeout(() => {
+          const osc2 = audioCtx.createOscillator();
+          const gain2 = audioCtx.createGain();
+          osc2.type = "sine";
+          osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime);
+          gain2.gain.setValueAtTime(0.3, audioCtx.currentTime);
+          gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+          osc2.connect(gain2);
+          gain2.connect(audioCtx.destination);
+          osc2.start();
+          osc2.stop(audioCtx.currentTime + 0.5);
+        }, 120);
+
       } catch(e) {
         console.log("Ses çalma izni bekleniyor");
       }
     }
 
-    // Masaları Getir / Kaydet
+    // 2. GARSON ÇAĞRILDIĞINDA ÇALAN TİZ VE DİKKAT ÇEKİCİ ZİL (BELL GONG)
+    function calGarsonSesi() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // İki seri vuruş (Çın çın!)
+        [0, 160].forEach((delay) => {
+          setTimeout(() => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "triangle";
+            osc.frequency.setValueAtTime(1480, audioCtx.currentTime); // Tiz F#6
+            gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.28);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.28);
+          }, delay);
+        });
+
+      } catch(e) {
+        console.log("Ses çalma izni bekleniyor");
+      }
+    }
+
+    // MASALARI GETİR / KAYDET
     function getAdisyonlar() {
       return JSON.parse(localStorage.getItem('nomad_masalar') || '{}');
     }
@@ -610,7 +638,7 @@
       sonVeriOzeti = JSON.stringify(data);
     }
 
-    // Masaları Ekrana Çiz
+    // MASALARI EKRANA ÇİZME
     function masalariGuncelle() {
       const container = document.getElementById('tables-container');
       const adisyonlar = getAdisyonlar();
@@ -645,7 +673,6 @@
       }
     }
 
-    // Masaya Tıklayınca Adisyon Açma
     function masaDetayiGoster(masaNo, secimDegisti = true) {
       seciliMasa = masaNo;
       const adisyonlar = getAdisyonlar();
@@ -685,7 +712,6 @@
       });
     }
 
-    // KASADAN MÜDAHALE: 1 ADET DÜŞÜR
     function adetAzalt(masaNo, index) {
       const adisyonlar = getAdisyonlar();
       const data = adisyonlar[String(masaNo)];
@@ -709,7 +735,6 @@
       masalariGuncelle();
     }
 
-    // KASADAN MÜDAHALE: ÜRÜNÜ TAMAMEN SİL
     function urunuSil(masaNo, index) {
       const adisyonlar = getAdisyonlar();
       const data = adisyonlar[String(masaNo)];
@@ -729,7 +754,6 @@
       }
     }
 
-    // Hesabı Kapat / Masayı Boşalt
     function masayiBosalt() {
       if (!seciliMasa) return;
       if (confirm(`Masa ${seciliMasa} hesabını kapatıp masayı boşaltmak istediğinize emin misiniz?`)) {
@@ -741,9 +765,8 @@
       }
     }
 
-    // Garson Bildirimini Göster
     function garsonUyarisiGoster(masaNo) {
-      dingCal('garson');
+      calGarsonSesi(); // TİZ GARSON SESİ
       const el = document.getElementById('garson-alert');
       document.getElementById('garson-alert-text').innerText = `Masa ${masaNo} garson çağırıyor! 🔔`;
       el.style.display = 'flex';
@@ -752,27 +775,25 @@
       }, 5000);
     }
 
-    // CANLI SİPARİŞ & GARSON DİNLEYİCİSİ (BroadcastChannel)
+    // AYRI SİNYAL AYRIŞTIRICI (BROADCASTCHANNEL)
     const kanal = new BroadcastChannel('pos_siparis_hatti');
     kanal.onmessage = (event) => {
       const gelen = event.data;
       if (gelen.tur === 'garson_cagrisi') {
         garsonUyarisiGoster(gelen.masaNo);
       } else {
-        dingCal('siparis');
+        calSiparisSesi(); // MELODİK SİPARİŞ SESİ
         masalariGuncelle();
       }
     };
 
-    // STORAGE DEĞİŞİM DİNLEYİCİSİ
     window.addEventListener('storage', (e) => {
       if (e.key === 'nomad_masalar') {
-        dingCal('siparis');
+        calSiparisSesi();
         masalariGuncelle();
       }
     });
 
-    // ANLIK CANLI KONTROL
     setInterval(() => {
       const guncelVeri = localStorage.getItem('nomad_masalar') || '';
       if (guncelVeri !== sonVeriOzeti) {
@@ -781,7 +802,6 @@
       }
     }, 1000);
 
-    // Başlangıç Çalıştırması
     sonVeriOzeti = localStorage.getItem('nomad_masalar') || '';
     masalariGuncelle();
   </script>
