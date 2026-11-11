@@ -3,27 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Nomad Karavan Coffee | Tatvan Sahil</title>
+  <title>Nomad Karavan Coffee | Tatvan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* DERİN OBSİDYEN, FIRIN KİREMİDİ VE KÖZ KEHRİBARI */
-      --bg-dark: #080c0a;              
-      --bg-card: rgba(18, 30, 24, 0.78); 
-      --card-border: rgba(234, 88, 12, 0.22); 
+      /* CANLANDIRILMIŞ ÇAM & ZÜMRÜT YEŞİLİ, FIRIN KİREMİDİ VE KEHRİBAR */
+      --bg-dark: #0f1c15;              
+      --bg-card: rgba(22, 42, 32, 0.82); 
+      --card-border: rgba(234, 88, 12, 0.28); 
       
       --terracotta: #ea580c;           
-      --terracotta-glow: rgba(234, 88, 12, 0.5);
+      --terracotta-glow: rgba(234, 88, 12, 0.45);
       --terracotta-dark: #c2410c;
       
       --amber: #f59e0b;                
-      --amber-glow: rgba(245, 158, 11, 0.6);
+      --amber-glow: rgba(245, 158, 11, 0.5);
       
-      --emerald-dark: #0f291e;
+      --emerald-vibrant: #1b4d36;
       --text-main: #f8fafc;            
-      --text-muted: #94a3b8;
-      --shadow-3d: 0 20px 40px rgba(0, 0, 0, 0.6);
+      --text-muted: #9bb0a3;
+      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.5);
     }
 
     * {
@@ -42,20 +42,27 @@
       position: relative;
     }
 
+    body.loading-lock {
+      overflow: hidden !important;
+      height: 100vh;
+    }
+
     /* =========================================
-       ULTRA PROFESYONEL SİNEMATİK GİRİŞ EKRANI
+       GİRİŞ ANİMASYONU (KAYMASIZ DÜZ FADE-OUT)
        ========================================= */
     #intro-splash {
       position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: radial-gradient(circle at center, #18110b 0%, #060807 100%);
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99999;
+      background: radial-gradient(circle at center, #1b3829 0%, #0a140f 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s;
-      overflow: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
     }
 
     #intro-splash.hide {
@@ -64,23 +71,21 @@
       pointer-events: none;
     }
 
-    /* Giriş Arka Plan Işık Aurası */
     .splash-aura {
       position: absolute;
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, var(--amber-glow) 0%, transparent 65%);
-      filter: blur(60px);
-      animation: auraBreathe 3s ease-in-out infinite alternate;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, var(--amber-glow) 0%, transparent 68%);
+      filter: blur(55px);
+      animation: auraPulse 2.8s ease-in-out infinite alternate;
       z-index: 1;
     }
 
-    @keyframes auraBreathe {
-      from { transform: scale(0.9); opacity: 0.45; }
-      to { transform: scale(1.15); opacity: 0.85; }
+    @keyframes auraPulse {
+      from { transform: scale(0.92); opacity: 0.5; }
+      to { transform: scale(1.15); opacity: 0.9; }
     }
 
-    /* Başlık ve Hoş Geldiniz Katmanı */
     .splash-content {
       position: relative;
       z-index: 2;
@@ -92,13 +97,13 @@
     }
 
     .splash-sub-badge {
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       letter-spacing: 3px;
       text-transform: uppercase;
       font-weight: 800;
       color: var(--amber);
       margin-bottom: 6px;
-      text-shadow: 0 0 16px var(--amber-glow);
+      text-shadow: 0 0 14px var(--amber-glow);
     }
 
     .splash-brand-title {
@@ -107,7 +112,7 @@
       letter-spacing: -0.5px;
       color: #ffffff;
       line-height: 1.1;
-      margin-bottom: 34px;
+      margin-bottom: 30px;
     }
 
     .splash-brand-title span {
@@ -116,18 +121,17 @@
       -webkit-text-fill-color: transparent;
     }
 
-    /* MERKEZDEKİ KARAVAN VE ETRAFINDA DÖNEN ENERJİ IŞIĞI */
+    /* KARAVAN DÖNÜŞ HALKASI */
     .orbit-system {
       position: relative;
-      width: 170px;
-      height: 170px;
+      width: 165px;
+      height: 165px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 36px;
+      margin-bottom: 32px;
     }
 
-    /* Döner Altın Enerji Yolu */
     .orbit-ring {
       position: absolute;
       inset: 6px;
@@ -135,7 +139,7 @@
       border: 2px solid transparent;
       border-top: 2px solid var(--amber);
       border-right: 2px solid var(--terracotta);
-      box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+      box-shadow: 0 0 22px rgba(245, 158, 11, 0.45);
       animation: spinEnergy 1.6s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     }
 
@@ -143,7 +147,7 @@
       position: absolute;
       inset: -6px;
       border-radius: 50%;
-      border: 1px dashed rgba(245, 158, 11, 0.25);
+      border: 1px dashed rgba(245, 158, 11, 0.3);
       animation: spinCounter 6s linear infinite;
     }
 
@@ -157,13 +161,12 @@
       to { transform: rotate(0deg); }
     }
 
-    /* Karavanın Oturduğu Vitrin Çemberi */
     .caravan-core-stage {
-      width: 112px;
-      height: 112px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
-      background: linear-gradient(145deg, #1f140e 0%, #0d120f 100%);
-      border: 2px solid rgba(245, 158, 11, 0.35);
+      background: linear-gradient(145deg, #24160d 0%, #12241b 100%);
+      border: 2px solid rgba(245, 158, 11, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -171,16 +174,14 @@
       z-index: 3;
     }
 
-    /* Detaylı Vektörel Karavan İkonu */
     .caravan-vector {
       width: 62px;
       height: 62px;
-      filter: drop-shadow(0 4px 10px rgba(234, 88, 12, 0.5));
+      filter: drop-shadow(0 4px 10px rgba(234, 88, 12, 0.6));
     }
 
-    /* Yükleme İlerleme Çubuğu ve Dinamik Metin */
     .progress-box {
-      width: 230px;
+      width: 220px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -190,11 +191,10 @@
     .progress-track {
       width: 100%;
       height: 6px;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 20px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
     }
 
     .progress-fill {
@@ -203,7 +203,7 @@
       background: linear-gradient(90deg, var(--amber) 0%, var(--terracotta) 100%);
       border-radius: 20px;
       box-shadow: 0 0 14px var(--terracotta-glow);
-      transition: width 0.1s linear;
+      transition: width 0.08s linear;
     }
 
     .progress-status-text {
@@ -218,16 +218,14 @@
       font-weight: 900;
     }
 
-    /* =========================================
-       ANA SAYFA TASARIMI VE DETAYLAR
-       ========================================= */
+    /* 3D ARKA PLAN IŞIKLARI */
     .ambient-glow-1 {
       position: fixed;
       top: -60px;
       left: -60px;
       width: 320px;
       height: 320px;
-      background: radial-gradient(circle, rgba(234, 88, 12, 0.25) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(234, 88, 12, 0.22) 0%, transparent 70%);
       filter: blur(50px);
       z-index: 0;
       pointer-events: none;
@@ -239,7 +237,7 @@
       right: -80px;
       width: 360px;
       height: 360px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(27, 77, 54, 0.3) 0%, transparent 70%);
       filter: blur(60px);
       z-index: 0;
       pointer-events: none;
@@ -250,9 +248,9 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(8, 12, 10, 0.9);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--card-border);
+      background: rgba(15, 28, 21, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1.5px solid var(--card-border);
       padding: 12px 18px;
       display: flex;
       justify-content: space-between;
@@ -265,17 +263,17 @@
       gap: 12px;
     }
 
-    /* YENİ ARTISAN VEKTÖREL LOGO */
+    /* ÖZEL VEKTÖREL KARAVAN AMBLEM LOGO */
     .brand-logo-emblem {
       width: 44px;
       height: 44px;
-      background: linear-gradient(135deg, #2a150b 0%, #102017 100%);
+      background: linear-gradient(135deg, #ea580c 0%, #1b4d36 100%);
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1.5px solid var(--amber);
-      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
       flex-shrink: 0;
     }
 
@@ -300,7 +298,7 @@
     }
 
     .table-chip {
-      background: rgba(234, 88, 12, 0.16);
+      background: rgba(234, 88, 12, 0.18);
       border: 1.5px solid var(--terracotta);
       color: #fdba74;
       padding: 6px 14px;
@@ -352,13 +350,13 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: contrast(1.05) brightness(0.9);
+      filter: contrast(1.05) brightness(0.92);
     }
 
     .hero-gradient-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(8, 12, 10, 0.1) 0%, rgba(8, 12, 10, 0.88) 100%);
+      background: linear-gradient(180deg, rgba(15, 28, 21, 0.1) 0%, rgba(15, 28, 21, 0.9) 100%);
     }
 
     .section-wrap {
@@ -394,7 +392,7 @@
     .service-btn:active {
       transform: scale(0.95);
       border-color: var(--amber);
-      background: rgba(234, 88, 12, 0.2);
+      background: rgba(234, 88, 12, 0.25);
     }
 
     .service-icon {
@@ -414,7 +412,7 @@
     /* DEVASA SİNEMATİK MENÜ BUTONU */
     .btn-giant-menu {
       width: 100%;
-      background: linear-gradient(135deg, var(--terracotta) 0%, #173b28 100%);
+      background: linear-gradient(135deg, var(--terracotta) 0%, var(--emerald-vibrant) 100%);
       color: #ffffff;
       border: 1.5px solid rgba(255, 255, 255, 0.25);
       padding: 24px 20px;
@@ -565,7 +563,7 @@
 
     .form-input, .form-textarea {
       width: 100%;
-      background: rgba(8, 12, 10, 0.75);
+      background: rgba(15, 28, 21, 0.85);
       border: 1px solid var(--card-border);
       padding: 12px 14px;
       border-radius: 14px;
@@ -608,7 +606,7 @@
       color: var(--text-muted);
       font-size: 0.74rem;
       border-top: 1px solid var(--card-border);
-      background: rgba(8, 12, 10, 0.95);
+      background: rgba(15, 28, 21, 0.95);
       margin-top: 20px;
     }
 
@@ -626,7 +624,7 @@
       align-items: center;
       gap: 12px;
       padding: 14px 16px;
-      background: rgba(8, 12, 10, 0.92);
+      background: rgba(15, 28, 21, 0.94);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--card-border);
       position: sticky;
@@ -654,7 +652,7 @@
       padding: 12px 16px;
       overflow-x: auto;
       scrollbar-width: none;
-      background: rgba(8, 12, 10, 0.85);
+      background: rgba(15, 28, 21, 0.88);
       backdrop-filter: blur(12px);
       position: sticky;
       top: 134px;
@@ -756,7 +754,7 @@
     .qty-box {
       display: flex;
       align-items: center;
-      background: rgba(8, 12, 10, 0.85);
+      background: rgba(15, 28, 21, 0.9);
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid var(--card-border);
@@ -799,7 +797,7 @@
       bottom: 20px;
       left: 14px;
       right: 14px;
-      background: linear-gradient(135deg, #12281e 0%, #1c4530 100%);
+      background: linear-gradient(135deg, #163827 0%, #204e37 100%);
       border: 1.5px solid var(--card-border);
       border-radius: 22px;
       padding: 14px 20px;
@@ -824,7 +822,7 @@
 
     .cart-total-badge {
       font-size: 0.74rem;
-      color: #94a3b8;
+      color: #9bb0a3;
       font-weight: 600;
     }
 
@@ -881,7 +879,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(8, 12, 10, 0.88);
+      background: rgba(15, 28, 21, 0.88);
       backdrop-filter: blur(12px);
       z-index: 250;
       align-items: center;
@@ -890,7 +888,7 @@
     }
 
     .modal-card {
-      background: #112018;
+      background: #142a1f;
       border-radius: 24px;
       padding: 28px 22px;
       text-align: center;
@@ -921,7 +919,7 @@
     }
   </style>
 </head>
-<body>
+<body class="loading-lock">
 
   <!-- =========================================
        GİRİŞ ANİMASYONU (PRELOADER)
@@ -929,36 +927,27 @@
   <div id="intro-splash">
     <div class="splash-aura"></div>
     <div class="splash-content">
-      <div class="splash-sub-badge">Tatvan Sahil Kordonu</div>
+      <div class="splash-sub-badge">Tatvan</div>
       <h2 class="splash-brand-title">HOŞ GELDİNİZ<span>.</span></h2>
 
-      <!-- MERKEZİ KARAVAN VİTRİNİ VE DÖNEN ENERJİ -->
       <div class="orbit-system">
         <div class="orbit-ring"></div>
         <div class="orbit-ring-pulse"></div>
 
         <div class="caravan-core-stage">
-          <!-- Detaylı Özgün Karavan SVG İkonu -->
           <svg class="caravan-vector" viewBox="0 0 64 64" fill="none">
-            <!-- Karavan Gövdesi -->
             <path d="M10 46h42c2.2 0 4-1.8 4-4V24c0-4.4-3.6-8-8-8H16c-4.4 0-8 3.6-8 8v18c0 2.2 1.8 4 2 4z" fill="#ea580c" opacity="0.95"/>
-            <!-- Tavan Çıtası / Gölge -->
             <path d="M16 16h32c2.2 0 4 1.8 4 4v2H12v-2c0-2.2 1.8-4 4-4z" fill="#f59e0b"/>
-            <!-- Ön / Yan Pencereler (Işıklı) -->
             <rect x="14" y="22" width="12" height="10" rx="2" fill="#fff" opacity="0.9"/>
             <rect x="30" y="22" width="12" height="10" rx="2" fill="#fff" opacity="0.9"/>
-            <!-- Kapı Çizgisi -->
             <path d="M46 22v24" stroke="#7c2d12" stroke-width="2"/>
-            <!-- Çeki Demiri -->
             <path d="M56 42h5" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round"/>
-            <!-- Tekerlek Yuvaları ve Jantlar -->
             <circle cx="24" cy="46" r="6" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
             <circle cx="24" cy="46" r="2.5" fill="#ea580c"/>
           </svg>
         </div>
       </div>
 
-      <!-- YÜZDELİK İLERLEME VE MİKRO METİN -->
       <div class="progress-box">
         <div class="progress-track">
           <div class="progress-fill" id="splash-bar"></div>
@@ -978,16 +967,16 @@
   <!-- SABİT ÜST BAR -->
   <header>
     <div class="brand-wrap">
-      <!-- YENİ ARTISAN VEKTÖREL MARKA LOGOSU -->
+      <!-- ARTISAN VEKTÖREL KARAVAN LOGOSU -->
       <div class="brand-logo-emblem">
         <svg viewBox="0 0 32 32" fill="none">
-          <!-- Dağ ve Göl Çizgileri -->
-          <path d="M4 22l6-8 6 8" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
-          <path d="M14 22l5-6 5 6" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
-          <!-- Karavan Silüeti -->
-          <path d="M8 26h16a2 2 0 002-2v-3a2 2 0 00-2-2H8a2 2 0 00-2 2v3a2 2 0 002 2z" fill="#f8fafc"/>
-          <!-- Kahve Buharı Tepe Çizgisi -->
-          <path d="M16 6c1 1.5-1 2.5 0 4" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M5 23h20c1.5 0 2.5-1 2.5-2.5V13c0-2.5-2-4.5-4.5-4.5H9C6.5 8.5 5 10.5 5 13v7.5c0 1.5 1 2.5 0 2.5z" fill="#ea580c"/>
+          <path d="M9 8.5h14c1.5 0 2.5 1 2.5 2v1.5H6.5V10.5c0-1 1-2 2.5-2z" fill="#f59e0b"/>
+          <rect x="8" y="13" width="6" height="5" rx="1.5" fill="#ffffff"/>
+          <rect x="17" y="13" width="6" height="5" rx="1.5" fill="#ffffff"/>
+          <circle cx="12" cy="23" r="3" fill="#0b1712" stroke="#f59e0b" stroke-width="1.5"/>
+          <circle cx="22" cy="23" r="3" fill="#0b1712" stroke="#f59e0b" stroke-width="1.5"/>
+          <path d="M16 4.5c.8.8-.8 1.4 0 2.2" stroke="#f59e0b" stroke-width="1.4" stroke-linecap="round"/>
         </svg>
       </div>
       <div class="brand-info">
@@ -1007,39 +996,31 @@
     <span id="toast-msg">İşlem Başarılı</span>
   </div>
 
-  <!-- =========================================
-       SAYFA 1: KEŞFET & ANA SAYFA (HOME)
-       ========================================= -->
+  <!-- SAYFA 1: KEŞFET & ANA SAYFA -->
   <div class="view-page active" id="view-home">
-    
-    <!-- TEMİZ 3D ATMOSFER KAPAK GÖRSELİ -->
     <div class="hero-card">
       <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Nomad Karavan Coffee">
       <div class="hero-gradient-overlay"></div>
     </div>
 
-    <!-- 4'LÜ HIZLI BUTONLAR (WIFI, GARSON, HARİTA, TAKSİ) -->
+    <!-- 4'LÜ HIZLI BUTONLAR -->
     <div class="section-wrap">
       <div class="quick-grid">
-        <!-- 1. WIFI KOPYALA -->
         <div class="service-btn" onclick="wifiKopyala()">
           <span class="service-icon">📶</span>
           <span class="service-name">Wi-Fi</span>
         </div>
 
-        <!-- 2. GARSON ÇAĞIR -->
         <div class="service-btn" onclick="garsonCagir()">
           <span class="service-icon">🔔</span>
           <span class="service-name">Garson</span>
         </div>
 
-        <!-- 3. HARİTA TUŞU -->
-        <a class="service-btn" href="https://maps.google.com/?q=Tatvan+Sahil+Kordonu" target="_blank">
+        <a class="service-btn" href="https://maps.google.com/?q=Nomad+Karavan+Coffee+Tatvan" target="_blank">
           <span class="service-icon">📍</span>
           <span class="service-name">Konum</span>
         </a>
 
-        <!-- 4. TAKSİ ÇAĞIR TUŞU -->
         <a class="service-btn" href="tel:04348270000">
           <span class="service-icon">🚕</span>
           <span class="service-name">Taksi</span>
@@ -1061,7 +1042,7 @@
       </button>
     </div>
 
-    <!-- INSTAGRAM YENİ LOGOLU BANNER KARTI -->
+    <!-- INSTAGRAM BANNER KARTI -->
     <div class="section-wrap">
       <a class="social-banner-box" href="https://instagram.com/nomadkaravancoffee" target="_blank">
         <div class="social-left">
@@ -1113,11 +1094,8 @@
 
   </div>
 
-  <!-- =========================================
-       SAYFA 2: GENİŞLETİLMİŞ VE BÜYÜTÜLMÜŞ MENÜ
-       ========================================= -->
+  <!-- SAYFA 2: GENİŞLETİLMİŞ MENÜ -->
   <div class="view-page" id="view-menu">
-    <!-- MENÜ ÜST GERİ DÖN BARI -->
     <div class="menu-header-bar">
       <button class="btn-back-home" onclick="navigasyon('home')">
         <span>←</span>
@@ -1126,7 +1104,6 @@
       <span style="font-size:1rem; font-weight:900; color:#ffffff;">Nomad Menü</span>
     </div>
 
-    <!-- KATEGORİ TAB SEKMELERİ -->
     <div class="menu-tabs">
       <button class="tab-pill active" id="tab-hepsi" onclick="tabSec('hepsi')">Tümü</button>
       <button class="tab-pill" id="tab-sicak" onclick="tabSec('sicak')">Sıcak Kahveler</button>
@@ -1136,7 +1113,6 @@
       <button class="tab-pill" id="tab-icecek" onclick="tabSec('icecek')">Çay & Meşrubat</button>
     </div>
 
-    <!-- GENİŞLETİLMİŞ ÜRÜN LİSTESİ -->
     <div class="product-list" id="products-list"></div>
   </div>
 
@@ -1167,9 +1143,7 @@
   </div>
 
   <script>
-    // =========================================
-    // 0. SİNEMATİK GİRİŞ ANİMASYON MOTORU
-    // =========================================
+    // GİRİŞ ANİMASYONU (KAYMASIZ DÜZ FADE-OUT MOTORU)
     window.addEventListener('DOMContentLoaded', () => {
       const splash = document.getElementById('intro-splash');
       const bar = document.getElementById('splash-bar');
@@ -1181,17 +1155,16 @@
         "Nomad Ruhu Başlatılıyor...",
         "Taze Çekirdekler Öğütülüyor...",
         "Özel Seçenekler Listeleniyor...",
-        "Göl Kıyısında Lezzet Deneyimi..."
+        "Tatvan'da Kahve Deneyimi..."
       ];
 
       const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 14) + 8;
+        progress += Math.floor(Math.random() * 12) + 8;
         if (progress > 100) progress = 100;
         
         bar.style.width = progress + '%';
         num.innerText = `%${progress}`;
 
-        // Dinamik metin geçişi
         if (progress > 25 && progress <= 55) {
           text.innerText = dynamicPhrases[1];
         } else if (progress > 55 && progress <= 85) {
@@ -1204,17 +1177,17 @@
           clearInterval(interval);
           setTimeout(() => {
             splash.classList.add('hide');
-          }, 350);
+            document.body.classList.remove('loading-lock');
+          }, 300);
         }
-      }, 65);
+      }, 60);
     });
 
-    // 1. MASA NUMARASINI URL'DEN ÇEKME (?masa=12)
+    // MASA NUMARASI URL ALMA
     const urlParams = new URLSearchParams(window.location.search);
     const masaNo = urlParams.get('masa') || "12";
     document.getElementById('masa-text').innerText = "Masa " + masaNo;
 
-    // 2. TOAST BİLDİRİMİ GÖSTERME
     function bildirimGoster(mesaj, icon = "✓") {
       const toast = document.getElementById('toast-notify');
       document.getElementById('toast-msg').innerText = mesaj;
@@ -1223,14 +1196,13 @@
       setTimeout(() => toast.classList.remove('show'), 2400);
     }
 
-    // 3. WI-FI KOPYALAMA
     function wifiKopyala() {
       navigator.clipboard.writeText("nomadkaravan").then(() => {
         bildirimGoster("Wi-Fi Şifresi Kopyalandı (nomadkaravan)", "📶");
       });
     }
 
-    // 4. GARSON ÇAĞIRMA (Kasaya Anlık Sinyal Gönderir)
+    // GARSON ÇAĞIRMA (KASAYA AYRI SİNYAL GÖNDERİR)
     function garsonCagir() {
       const kanal = new BroadcastChannel('pos_siparis_hatti');
       kanal.postMessage({
@@ -1245,7 +1217,6 @@
       document.getElementById(id).style.display = 'none';
     }
 
-    // 5. İSTEK / ÖNERİ MAİL GÖNDERME
     function mailGonder(e) {
       e.preventDefault();
       const ad = document.getElementById('fb-ad').value;
@@ -1257,9 +1228,8 @@
       bildirimGoster("E-posta istemciniz açılıyor...", "✉️");
     }
 
-    // 6. GENİŞLETİLMİŞ VE SİNEMATİK ÜRÜN VERİTABANI
+    // ÜRÜN VERİTABANI
     const urunler = [
-      // Sıcak Kahveler
       {
         id: 1,
         ad: "Flat White",
@@ -1316,7 +1286,6 @@
         fiyat: 75,
         resim: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=350&q=80"
       },
-      // Soğuk Kahveler
       {
         id: 8,
         ad: "Iced Americano",
@@ -1357,7 +1326,6 @@
         fiyat: 125,
         resim: "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=350&q=80"
       },
-      // Tatlılar
       {
         id: 13,
         ad: "San Sebastian Cheesecake",
@@ -1386,11 +1354,10 @@
         id: 16,
         ad: "Çilekli Magnolia",
         kategori: "tatli",
-        aciklama: "Hafif sütlü vanilya muhallebisi, taze Tatvan çilekleri ve çıtır bisküvi",
+        aciklama: "Hafif sütlü vanilya muhallebisi, taze çilekler ve çıtır bisküvi",
         fiyat: 120,
         resim: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=350&q=80"
       },
-      // Atıştırmalık & Tost
       {
         id: 17,
         ad: "Karavan Gurme Tost",
@@ -1415,7 +1382,6 @@
         fiyat: 150,
         resim: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=350&q=80"
       },
-      // Çay & Meşrubat
       {
         id: 20,
         ad: "Demleme Karadeniz Çayı",
@@ -1445,7 +1411,6 @@
     let sepet = {};
     let aktifKategori = 'hepsi';
 
-    // 7. SAYFA VE TAB GEZİNTİSİ
     function navigasyon(sayfaAdi, kategori = 'hepsi') {
       document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
 
@@ -1474,7 +1439,6 @@
       menuyuCiz();
     }
 
-    // 8. MENÜYÜ EKRANA BASMA
     function menuyuCiz() {
       const container = document.getElementById('products-list');
       container.innerHTML = "";
@@ -1508,7 +1472,6 @@
       });
     }
 
-    // 9. SEPET VE FİYAT GÜNCELLEMESİ
     function adetGuncelle(id, delta) {
       const yeni = (sepet[id] || 0) + delta;
       if (yeni <= 0) {
@@ -1542,7 +1505,7 @@
       }
     }
 
-    // 10. SİPARİŞİ KASAYA İLETME
+    // SİPARİŞİ KASAYA İLETME (AYRI SİPARİŞ KODU)
     const kanal = new BroadcastChannel('pos_siparis_hatti');
 
     function siparisiGonder() {
@@ -1563,6 +1526,7 @@
       }
 
       const siparisPaketi = {
+        tur: 'yeni_siparis',
         siparisId: 'SIP-' + Date.now().toString().slice(-4),
         masaNo: String(masaNo),
         saat: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
@@ -1588,7 +1552,6 @@
       menuyuCiz();
     }
 
-    // İlk Yükleme
     menuyuCiz();
   </script>
 </body>
