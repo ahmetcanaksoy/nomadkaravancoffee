@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Nomad Karavan Coffee | Tatvan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       /* AÇIK KİREMİT VE ORMAN YEŞİLİ PALETİ */
@@ -25,7 +25,7 @@
       --text-muted: #6f5f56;
       --shadow-sm: 0 3px 12px rgba(194, 65, 12, 0.06);
       --shadow-md: 0 10px 28px rgba(20, 46, 32, 0.08);
-      --shadow-green: 0 10px 28px rgba(20, 46, 32, 0.28);
+      --shadow-green: 0 12px 34px rgba(20, 46, 32, 0.35);
     }
 
     * {
@@ -159,7 +159,7 @@
       margin-bottom: 20px;
     }
 
-    /* 4'LÜ HIZLI BUTONLAR (WIFI, GARSON, HARİTA, TAKSİ) */
+    /* 4'LÜ HIZLI BUTONLAR */
     .quick-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -203,29 +203,83 @@
       text-align: center;
     }
 
-    /* BÜYÜK MENÜ GİRİŞ BUTONU */
-    .btn-hero-menu {
+    /* =========================================
+       DEVASA "MENÜYÜ İNCELE & SİPARİŞ VER" BUTONU
+       ========================================= */
+    .btn-giant-menu {
       width: 100%;
-      background: linear-gradient(135deg, var(--forest-green) 0%, #1c4530 100%);
+      background: linear-gradient(135deg, #142e20 0%, #1f4731 100%);
       color: #fbf5f1;
-      border: none;
-      padding: 16px 20px;
-      border-radius: 18px;
-      font-size: 1rem;
-      font-weight: 800;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      padding: 24px 20px;
+      border-radius: 26px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
       box-shadow: var(--shadow-green);
-      transition: transform 0.15s;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
     }
 
-    .btn-hero-menu:active {
-      transform: scale(0.98);
+    .btn-giant-menu:active {
+      transform: scale(0.97);
     }
 
-    /* SOSYAL MEDYA KARTI */
+    .giant-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-align: left;
+    }
+
+    .giant-icon-box {
+      width: 58px;
+      height: 58px;
+      background: rgba(251, 245, 241, 0.12);
+      border: 1.5px solid rgba(251, 245, 241, 0.25);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      flex-shrink: 0;
+    }
+
+    .giant-text-sub {
+      font-size: 0.76rem;
+      color: #e0967a;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .giant-text-main {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.4px;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .giant-arrow-circle {
+      width: 44px;
+      height: 44px;
+      background: var(--terracotta);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #ffffff;
+      font-weight: 900;
+      box-shadow: 0 4px 14px rgba(194, 65, 12, 0.4);
+      flex-shrink: 0;
+    }
+
+    /* INSTAGRAM BANNER */
     .social-banner-box {
       background: var(--card-bg);
       border: 1.5px solid var(--card-border);
@@ -424,13 +478,12 @@
       box-shadow: 0 4px 14px rgba(20, 46, 32, 0.25);
     }
 
-    /* AŞAĞI DOĞRU BÜYÜTÜLMÜŞ ÜRÜN KARTLARI */
     .product-list {
       padding: 18px 16px;
       display: flex;
       flex-direction: column;
       gap: 14px;
-      padding-bottom: 140px; /* Alttan rahatça kayması için geniş pay */
+      padding-bottom: 140px;
     }
 
     .product-card {
@@ -442,7 +495,7 @@
       gap: 14px;
       align-items: center;
       box-shadow: var(--shadow-sm);
-      min-height: 110px; /* Büyütülmüş kart yapısı */
+      min-height: 110px;
     }
 
     .product-thumb {
@@ -714,13 +767,13 @@
           <span class="service-name">Garson</span>
         </div>
 
-        <!-- 3. HARİTA (TUŞ OLARAK EKLENDİ) -->
+        <!-- 3. HARİTA TUŞU -->
         <a class="service-btn" href="https://maps.google.com/?q=Tatvan+Sahil+Kordonu" target="_blank">
           <span class="service-icon">📍</span>
           <span class="service-name">Konum</span>
         </a>
 
-        <!-- 4. TAKSİ ÇAĞIR (TUŞ OLARAK EKLENDİ) -->
+        <!-- 4. TAKSİ ÇAĞIR TUŞU -->
         <a class="service-btn" href="tel:04348270000">
           <span class="service-icon">🚕</span>
           <span class="service-name">Taksi</span>
@@ -728,14 +781,19 @@
       </div>
     </div>
 
-    <!-- BÜYÜK MENÜYE GİRİŞ BUTONU -->
+    <!-- =========================================
+         DEVASA VE DİKKAT ÇEKİCİ MENÜ BUTONU
+         ========================================= -->
     <div class="section-wrap">
-      <button class="btn-hero-menu" onclick="navigasyon('menu', 'hepsi')">
-        <span style="display:flex; align-items:center; gap:8px;">
-          <span style="font-size:1.2rem;">☕</span>
-          <span>Menüyü İncele & Sipariş Ver</span>
-        </span>
-        <span style="font-size:1.2rem;">→</span>
+      <button class="btn-giant-menu" onclick="navigasyon('menu', 'hepsi')">
+        <div class="giant-left">
+          <div class="giant-icon-box">☕</div>
+          <div>
+            <div class="giant-text-sub">Masanızdan Hemen Sipariş Verin</div>
+            <div class="giant-text-main">MENÜYÜ İNCELE & SİPARİŞ VER</div>
+          </div>
+        </div>
+        <div class="giant-arrow-circle">→</div>
       </button>
     </div>
 
@@ -1110,7 +1168,7 @@
       menuyuCiz();
     }
 
-    // 8. MENÜYÜ EKRANA BASMA (BÜYÜTÜLMÜŞ KARTLAR)
+    // 8. MENÜYÜ EKRANA BASMA
     function menuyuCiz() {
       const container = document.getElementById('products-list');
       container.innerHTML = "";
