@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Nomad Karavan | Canlı Kasa & Masa Yönetim Paneli</title>
+  <title>Nomad Karavan | Kasa & Adisyon Paneli</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #0a0c0e;
-      --card-bg: #14181c;
-      --card-border: #1f272e;
-      --accent-green: #10b981;
+      --bg-body: #f8faf9;
+      --card-bg: #ffffff;
+      --card-border: #e2e8e4;
+      --accent-green: #059669;
+      --accent-dark: #064e3b;
+      --accent-soft: rgba(5, 150, 105, 0.08);
       --accent-red: #ef4444;
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
+      --accent-red-soft: rgba(239, 68, 68, 0.08);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
     }
 
     * {
@@ -22,54 +27,71 @@
       margin: 0;
       padding: 0;
       font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: var(--bg-dark);
+      background-color: var(--bg-body);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
 
-    /* ÜST KASA BAŞLIĞI */
+    /* ÜST KASA HEADER */
     header {
-      background: #11161b;
+      background: #ffffff;
       border-bottom: 1px solid var(--card-border);
-      padding: 16px 24px;
+      padding: 14px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: var(--shadow-sm);
     }
 
-    .brand {
+    .brand-wrap {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .brand-title {
-      font-size: 1.15rem;
+    .brand-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--accent-green);
+      color: #fff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
       font-weight: 800;
-      letter-spacing: -0.5px;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
     }
 
-    .brand-sub {
-      font-size: 0.75rem;
+    .brand-info h1 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      color: var(--text-main);
+    }
+
+    .brand-info p {
+      font-size: 0.72rem;
       color: var(--accent-green);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .status-summary {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       align-items: center;
     }
 
     .badge-pill {
-      font-size: 0.8rem;
-      font-weight: 700;
-      padding: 6px 14px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 8px 16px;
       border-radius: 20px;
       display: flex;
       align-items: center;
@@ -77,14 +99,14 @@
     }
 
     .badge-empty {
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid var(--accent-green);
-      color: var(--accent-green);
+      background: var(--accent-soft);
+      border: 1.5px solid var(--accent-green);
+      color: var(--accent-dark);
     }
 
     .badge-busy {
-      background: rgba(239, 68, 68, 0.12);
-      border: 1px solid var(--accent-red);
+      background: var(--accent-red-soft);
+      border: 1.5px solid var(--accent-red);
       color: var(--accent-red);
     }
 
@@ -109,8 +131,8 @@
     }
 
     .section-title {
-      font-size: 0.95rem;
-      font-weight: 700;
+      font-size: 0.92rem;
+      font-weight: 800;
       color: var(--text-muted);
       margin-bottom: 16px;
       text-transform: uppercase;
@@ -119,15 +141,14 @@
 
     .table-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
       gap: 14px;
     }
 
     .table-card {
       background: var(--card-bg);
-      border: 2px solid var(--accent-green);
-      border-radius: 16px;
-      padding: 16px 12px;
+      border-radius: 18px;
+      padding: 18px 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -135,6 +156,7 @@
       gap: 6px;
       cursor: pointer;
       position: relative;
+      box-shadow: var(--shadow-sm);
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       user-select: none;
     }
@@ -143,62 +165,69 @@
       transform: translateY(-2px);
     }
 
-    /* BOŞ MASA: YEŞİL */
+    /* BOŞ MASA: AÇIK ZÜMRÜT */
     .table-card.empty {
-      border-color: rgba(16, 185, 129, 0.4);
+      border: 1.5px solid #d1fae5;
     }
     .table-card.empty:hover {
       border-color: var(--accent-green);
-      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
+      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.12);
     }
     .table-card.empty .table-status-text {
       color: var(--accent-green);
+      background: var(--accent-soft);
+      padding: 3px 10px;
+      border-radius: 12px;
     }
 
-    /* DOLU MASA: KIRMIZI */
+    /* DOLU MASA: AÇIK KIRMIZI */
     .table-card.busy {
-      border-color: var(--accent-red);
-      background: #1c1416;
-      box-shadow: 0 4px 18px rgba(239, 68, 68, 0.25);
+      border: 2px solid var(--accent-red);
+      background: #fff5f5;
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.15);
       animation: pulseAlert 2.5s infinite;
     }
     .table-card.busy .table-status-text {
-      color: var(--accent-red);
+      color: #b91c1c;
+      background: #fee2e2;
+      padding: 3px 10px;
+      border-radius: 12px;
     }
 
     @keyframes pulseAlert {
-      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-      70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.35); }
+      70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
       100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
     }
 
     .table-number {
       font-size: 1.25rem;
       font-weight: 800;
-      color: #fff;
+      color: var(--text-main);
     }
 
     .table-status-text {
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .table-amount {
-      font-size: 0.85rem;
+      font-size: 0.92rem;
       font-weight: 800;
-      color: #fff;
+      color: var(--accent-dark);
       margin-top: 4px;
     }
 
     /* SAĞ: CANLI ADİSYON DETAY ÇEKMECESİ */
     .detail-section {
-      width: 400px;
-      background: #11161b;
+      width: 410px;
+      background: #ffffff;
       border-left: 1px solid var(--card-border);
       display: flex;
       flex-direction: column;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.03);
     }
 
     .detail-header {
@@ -210,13 +239,15 @@
     }
 
     .detail-header h3 {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 800;
+      color: var(--text-main);
     }
 
     .detail-time {
       font-size: 0.75rem;
       color: var(--text-muted);
+      font-weight: 600;
     }
 
     .detail-content {
@@ -233,10 +264,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 14px;
-      background: var(--card-bg);
+      padding: 12px 14px;
+      background: var(--bg-body);
       border: 1px solid var(--card-border);
-      border-radius: 12px;
+      border-radius: 14px;
       gap: 10px;
     }
 
@@ -249,13 +280,14 @@
 
     .item-name {
       font-size: 0.9rem;
-      font-weight: 700;
-      color: #fff;
+      font-weight: 800;
+      color: var(--text-main);
     }
 
     .item-unit-info {
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       color: var(--text-muted);
+      font-weight: 600;
     }
 
     .item-actions {
@@ -265,7 +297,7 @@
     }
 
     .item-price {
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       font-weight: 800;
       color: var(--accent-green);
       min-width: 55px;
@@ -273,32 +305,32 @@
     }
 
     .btn-qty-minus {
-      background: #1f272e;
-      color: #fff;
-      border: 1px solid #374151;
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid #cbd5e1;
       width: 28px;
       height: 28px;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 1rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: background 0.15s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
     .btn-qty-minus:hover {
-      background: #374151;
+      background: #f1f5f9;
     }
 
     .btn-item-delete {
-      background: rgba(239, 68, 68, 0.15);
+      background: var(--accent-red-soft);
       color: var(--accent-red);
-      border: 1px solid rgba(239, 68, 68, 0.4);
+      border: 1px solid rgba(239, 68, 68, 0.25);
       width: 28px;
       height: 28px;
-      border-radius: 6px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -315,7 +347,7 @@
     .detail-footer {
       padding: 20px 24px;
       border-top: 1px solid var(--card-border);
-      background: #0f1317;
+      background: #fafcfb;
     }
 
     .total-box {
@@ -326,15 +358,15 @@
     }
 
     .total-title {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--text-muted);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .total-sum {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 800;
-      color: var(--accent-green);
+      color: var(--accent-dark);
     }
 
     .btn-close-order {
@@ -343,7 +375,7 @@
       color: #fff;
       border: none;
       padding: 14px;
-      border-radius: 12px;
+      border-radius: 14px;
       font-size: 0.95rem;
       font-weight: 800;
       cursor: pointer;
@@ -351,6 +383,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.25);
       transition: opacity 0.2s;
     }
 
@@ -362,8 +395,33 @@
       margin: auto;
       text-align: center;
       color: var(--text-muted);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
+      font-weight: 600;
       padding: 40px 20px;
+    }
+
+    /* GARSON ÇAĞRISI TOAST */
+    .garson-toast {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      background: #f59e0b;
+      color: #ffffff;
+      padding: 14px 20px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      z-index: 200;
+      animation: slideRight 0.3s ease;
+    }
+
+    @keyframes slideRight {
+      from { transform: translateX(50px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     @media (max-width: 900px) {
@@ -374,20 +432,26 @@
         width: 100%;
         border-left: none;
         border-top: 1px solid var(--card-border);
-        max-height: 45vh;
+        max-height: 48vh;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- ÜST KASA BİLGİ BARI -->
+  <!-- GARSON BİLDİRİM UYARISI -->
+  <div class="garson-toast" id="garson-alert">
+    <span>🔔</span>
+    <span id="garson-alert-text">Masa 12 garson çağırıyor!</span>
+  </div>
+
+  <!-- ÜST HEADER -->
   <header>
-    <div class="brand">
-      <div style="width:12px; height:12px; border-radius:50%; background:var(--accent-green); box-shadow:0 0 10px var(--accent-green);"></div>
-      <div>
-        <div class="brand-title">NOMAD KARAVAN • KASA KONTROL PANELİ</div>
-        <div class="brand-sub">Canlı Masalar ve Anlık Sipariş Hattı</div>
+    <div class="brand-wrap">
+      <div class="brand-logo-icon">N</div>
+      <div class="brand-info">
+        <h1>NOMAD KARAVAN • KASA KONTROL PANELİ</h1>
+        <p>Canlı Masalar ve Anlık Sipariş Ekranı</p>
       </div>
     </div>
     <div class="status-summary">
@@ -402,7 +466,7 @@
     </div>
   </header>
 
-  <!-- ANA GÖVDE -->
+  <!-- ANA DASHBOARD -->
   <div class="dashboard-layout">
     
     <!-- SOL: 20 MASA GRID -->
@@ -421,7 +485,7 @@
       </div>
 
       <div class="detail-content" id="panel-orders-list">
-        <div class="empty-state">Detayları görmek için listeden bir masaya tıklayın.</div>
+        <div class="empty-state">Detayları görmek için listeden bir masaya dokunun.</div>
       </div>
 
       <div class="detail-footer" id="panel-footer" style="display:none;">
@@ -442,15 +506,24 @@
     let seciliMasa = null;
     let sonVeriOzeti = "";
 
-    // Web Audio API Canlı Zil Sesi
-    function dingCal() {
+    // Web Audio API Zil Sesi (Dıng!)
+    function dingCal(tur = 'siparis') {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = "sine";
-        osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.5);
+        
+        if (tur === 'garson') {
+          // Garson çağrısı için çift tiz ton
+          osc.frequency.setValueAtTime(1046.50, audioCtx.currentTime); // C6 nota
+          osc.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.15); // E6 nota
+        } else {
+          // Normal sipariş için tok dıng sesi
+          osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.5);
+        }
+
         gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
         osc.connect(gain);
@@ -458,7 +531,7 @@
         osc.start();
         osc.stop(audioCtx.currentTime + 0.5);
       } catch(e) {
-        console.log("Ses izni bekleniyor");
+        console.log("Ses çalma izni bekleniyor");
       }
     }
 
@@ -469,7 +542,6 @@
 
     function setAdisyonlar(data) {
       localStorage.setItem('nomad_masalar', JSON.stringify(data));
-      // Senkronizasyonu tetikle
       sonVeriOzeti = JSON.stringify(data);
     }
 
@@ -562,7 +634,6 @@
         data.urunler.splice(index, 1);
       }
 
-      // Toplam tutarı yeniden hesapla
       data.toplamTutar = data.urunler.reduce((acc, curr) => acc + curr.tutar, 0);
 
       if (data.urunler.length === 0) {
@@ -605,22 +676,38 @@
       }
     }
 
-    // Canlı Sipariş Dinleyicisi (BroadcastChannel)
+    // Garson Çağrısını Göster
+    function garsonUyarisiGoster(masaNo) {
+      dingCal('garson');
+      const el = document.getElementById('garson-alert');
+      document.getElementById('garson-alert-text').innerText = `Masa ${masaNo} garson çağırıyor! 🔔`;
+      el.style.display = 'flex';
+      setTimeout(() => {
+        el.style.display = 'none';
+      }, 5000);
+    }
+
+    // 1. CANLI SİPARİŞ & GARSON DİNLEYİCİSİ
     const kanal = new BroadcastChannel('pos_siparis_hatti');
     kanal.onmessage = (event) => {
-      dingCal();
-      masalariGuncelle();
+      const gelen = event.data;
+      if (gelen.tur === 'garson_cagrisi') {
+        garsonUyarisiGoster(gelen.masaNo);
+      } else {
+        dingCal('siparis');
+        masalariGuncelle();
+      }
     };
 
-    // Sekmeler Arası Storage Değişimi Dinleyicisi
+    // 2. STORAGE DEĞİŞİM DİNLEYİCİSİ
     window.addEventListener('storage', (e) => {
       if (e.key === 'nomad_masalar') {
-        dingCal();
+        dingCal('siparis');
         masalariGuncelle();
       }
     });
 
-    // Otomatik Anlık Senkronizasyon
+    // 3. ANLIK CANLI KONTROL
     setInterval(() => {
       const guncelVeri = localStorage.getItem('nomad_masalar') || '';
       if (guncelVeri !== sonVeriOzeti) {
