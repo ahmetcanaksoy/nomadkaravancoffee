@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nomad Karavan Coffee | Masa Sipariş</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0c0e;
+      --card-bg: #14181c;
+      --card-border: #1f272e;
+      --accent-green: #10b981;
+      --accent-green-hover: #059669;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --danger: #ef4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding-bottom: 120px;
+      min-height: 100vh;
+    }
+
+    /* ÜST SABİT BAR */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10, 12, 14, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-box h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+    }
+
+    .brand-box p {
+      font-size: 0.75rem;
+      color: var(--accent-green);
+      font-weight: 600;
+    }
+
+    .table-badge {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--accent-green);
+      color: var(--accent-green);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .table-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+
+    /* KATEGORİ MENÜSÜ */
+    .categories {
+      display: flex;
+      gap: 8px;
+      padding: 14px 18px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      position: sticky;
+      top: 61px;
+      z-index: 40;
+      background: var(--bg-dark);
+      border-bottom: 1px solid #14181c;
+    }
+
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cat-btn.active {
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+      color: #042f2e;
+      font-weight: 700;
+    }
+
+    /* ÜRÜN LİSTESİ */
+    .menu-container {
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.15s ease, border-color 0.2s ease;
+    }
+
+    .product-card:active {
+      transform: scale(0.99);
+    }
+
+    .product-info {
+      flex: 1;
+    }
+
+    .product-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .product-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--accent-green);
+    }
+
+    /* TRENDYOL TARZI ARTIRMA / AZALTMA KONTROLÜ */
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      background: #0f1317;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .qty-btn {
+      background: transparent;
+      border: none;
+      color: #fff;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .qty-btn:active {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .qty-btn.add {
+      color: var(--accent-green);
+    }
+
+    .qty-count {
+      min-width: 26px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ALT YAPIŞKAN SEPET ÇUBUĞU */
+    .floating-bar {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      right: 18px;
+      background: #11161b;
+      border: 1px solid #10b98155;
+      border-radius: 18px;
+      padding: 12px 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      transform: translateY(150%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .floating-bar.active {
+      transform: translateY(0);
+    }
+
+    .bar-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bar-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .bar-total {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .btn-order {
+      background: var(--accent-green);
+      color: #042f2e;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+      transition: background 0.2s;
+    }
+
+    .btn-order:active {
+      background: var(--accent-green-hover);
+    }
+
+    /* BAŞARILI BİLDİRİM MODAL */
+    .success-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-box {
+      background: #14181c;
+      border: 1px solid var(--accent-green);
+      border-radius: 20px;
+      padding: 30px 24px;
+      text-align: center;
+      max-width: 340px;
+      width: 100%;
+    }
+
+    .modal-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(16, 185, 129, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      color: var(--accent-green);
+      font-size: 1.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ÜST BAR -->
+  <header>
+    <div class="brand-box">
+      <h1>NOMAD KARAVAN</h1>
+      <p>Tatvan Sahil Kordonu</p>
+    </div>
+    <div class="table-badge">
+      <span class="table-dot"></span>
+      <span id="masa-text">Masa Belirsiz</span>
+    </div>
+  </header>
+
+  <!-- KATEGORİ SEKMELERİ -->
+  <div class="categories" id="cat-list">
+    <button class="cat-btn active" onclick="filtrele('hepsi')">Tümü</button>
+    <button class="cat-btn" onclick="filtrele('sicak')">Sıcak Kahveler</button>
+    <button class="cat-btn" onclick="filtrele('soguk')">Soğuk Kahveler</button>
+    <button class="cat-btn" onclick="filtrele('tatli')">Tatlı & Atıştırmalık</button>
+  </div>
+
+  <!-- ÜRÜN LİSTESİ -->
+  <div class="menu-container" id="menu-box"></div>
+
+  <!-- ALT YAPIŞKAN SEPET ÇUBUĞU -->
+  <div class="floating-bar" id="floating-bar">
+    <div class="bar-info">
+      <span class="bar-count" id="bar-count">0 Ürün Seçildi</span>
+      <span class="bar-total" id="bar-total">0 ₺</span>
+    </div>
+    <button class="btn-order" onclick="siparisiGonder()">
+      Siparişi Oluştur →
+    </button>
+  </div>
+
+  <!-- SİPARİŞ ONAY MODALI -->
+  <div class="success-modal" id="success-modal">
+    <div class="modal-box">
+      <div class="modal-icon">✓</div>
+      <h3 style="color:#fff; font-size:1.2rem; margin-bottom:8px;">Siparişiniz Alındı!</h3>
+      <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.4; margin-bottom:20px;">
+        Siparişiniz kasaya ve baristaya iletildi. Hemen hazırlanıp masanıza getirilecek.
+      </p>
+      <button class="btn-order" style="width:100%; justify-content:center;" onclick="modalKapat()">
+        Tamam
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // 1. URL'DEN MASA NUMARASINI ÇEKME (?masa=12)
+    const urlParams = new URLSearchParams(window.location.search);
+    const masaNo = urlParams.get('masa') || "12";
+    document.getElementById('masa-text').innerText = "Masa " + masaNo;
+
+    // 2. MENÜ VERİLERİ
+    const urunler = [
+      { id: 1, ad: "Flat White", kategori: "sicak", aciklama: "Çift shot espresso ve kadife süt köpüğü", fiyat: 110 },
+      { id: 2, ad: "V60 Filtre Kahve", kategori: "sicak", aciklama: "Taze çekilmiş özel nitelikli çekirdek demleme", fiyat: 120 },
+      { id: 3, ad: "Cortado", kategori: "sicak", aciklama: "Eşit oranda espresso ve buharda ısıtılmış süt", fiyat: 105 },
+      { id: 4, ad: "Geleneksel Türk Kahvesi", kategori: "sicak", aciklama: "Köz tadında ağır çekim hazırlanır", fiyat: 75 },
+      { id: 5, ad: "Iced Americano", kategori: "soguk", aciklama: "Buz ve çift shot espresso", fiyat: 100 },
+      { id: 6, ad: "Iced Caramel Macchiato", kategori: "soguk", aciklama: "Karamel sosu, vanilya şurubu ve soğuk süt", fiyat: 135 },
+      { id: 7, ad: "Cold Brew Karavan Özel", kategori: "soguk", aciklama: "16 saat soğuk demlenmiş özel gövdeli kahve", fiyat: 130 },
+      { id: 8, ad: "San Sebastian Cheesecake", kategori: "tatli", aciklama: "Akışkan kıvamlı, eritilmiş Belçika çikolatası ile", fiyat: 155 },
+      { id: 9, ad: "Lotus Brownie", kategori: "tatli", aciklama: "Yoğun bitter çikolata ve Lotus kreması dolgulu", fiyat: 140 }
+    ];
+
+    // Sepet Nesnesi: { [id]: adet }
+    let sepet = {};
+
+    // 3. MENÜYÜ EKRANA BASMA
+    function menuyuCiz(liste) {
+      const container = document.getElementById('menu-box');
+      container.innerHTML = "";
+
+      liste.forEach(urun => {
+        const adet = sepet[urun.id] || 0;
+        const card = document.createElement('div');
+        card.className = "product-card";
+        card.innerHTML = `
+          <div class="product-info">
+            <div class="product-title">${urun.ad}</div>
+            <div class="product-desc">${urun.aciklama}</div>
+            <div class="product-price">${urun.fiyat} ₺</div>
+          </div>
+          <div class="qty-controls">
+            ${adet > 0 ? `<button class="qty-btn" onclick="adetDegistir(${urun.id}, -1)">−</button>` : ''}
+            ${adet > 0 ? `<span class="qty-count">${adet}</span>` : ''}
+            <button class="qty-btn add" onclick="adetDegistir(${urun.id}, 1)">+</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // 4. ADET DEĞİŞTİRME & TRENDYOL TARZI SEPET HESABI
+    function adetDegistir(id, miktar) {
+      const guncel = (sepet[id] || 0) + miktar;
+      if (guncel <= 0) {
+        delete sepet[id];
+      } else {
+        sepet[id] = guncel;
+      }
+      aktifKategoriyiGuncelle();
+      sepetBariniGuncelle();
+    }
+
+    function sepetBariniGuncelle() {
+      let toplamAdet = 0;
+      let toplamTutar = 0;
+
+      for (let id in sepet) {
+        const u = urunler.find(item => item.id == id);
+        if (u) {
+          toplamAdet += sepet[id];
+          toplamTutar += sepet[id] * u.fiyat;
+        }
+      }
+
+      const bar = document.getElementById('floating-bar');
+      if (toplamAdet > 0) {
+        document.getElementById('bar-count').innerText = `${toplamAdet} Ürün Eklendi`;
+        document.getElementById('bar-total').innerText = `${toplamTutar} ₺`;
+        bar.classList.add('active');
+      } else {
+        bar.classList.remove('active');
+      }
+    }
+
+    // Kategori Filtreleme
+    let seciliKategori = 'hepsi';
+    function filtrele(kat) {
+      seciliKategori = kat;
+      document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      aktifKategoriyiGuncelle();
+    }
+
+    function aktifKategoriyiGuncelle() {
+      if (seciliKategori === 'hepsi') {
+        menuyuCiz(urunler);
+      } else {
+        menuyuCiz(urunler.filter(u => u.kategori === seciliKategori));
+      }
+    }
+
+    // 5. SİPARİŞİ KASAYA İLETME (BroadcastChannel & LocalStorage)
+    const kanal = new BroadcastChannel('pos_siparis_hatti');
+
+    function siparisiGonder() {
+      const secilenUrunler = [];
+      let genelToplam = 0;
+
+      for (let id in sepet) {
+        const u = urunler.find(item => item.id == id);
+        if (u) {
+          secilenUrunler.push({
+            ad: u.ad,
+            adet: sepet[id],
+            birimFiyat: u.fiyat,
+            tutar: u.fiyat * sepet[id]
+          });
+          genelToplam += u.fiyat * sepet[id];
+        }
+      }
+
+      const siparisPaketi = {
+        siparisId: 'SIP-' + Date.now().toString().slice(-4),
+        masaNo: String(masaNo),
+        saat: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+        urunler: secilenUrunler,
+        toplamTutar: genelToplam,
+        durum: 'dolu'
+      };
+
+      // Veriyi kasaya yayınla
+      kanal.postMessage(siparisPaketi);
+
+      // Veritabanı niyetine LocalStorage'a da kaydet
+      let mevcutAdisyonlar = JSON.parse(localStorage.getItem('nomad_masalar') || '{}');
+      if (!mevcutAdisyonlar[masaNo]) {
+        mevcutAdisyonlar[masaNo] = { urunler: [], toplamTutar: 0, saat: siparisPaketi.saat };
+      }
+      // Önceki siparişlere ekle
+      mevcutAdisyonlar[masaNo].urunler.push(...secilenUrunler);
+      mevcutAdisyonlar[masaNo].toplamTutar += genelToplam;
+      mevcutAdisyonlar[masaNo].saat = siparisPaketi.saat;
+      localStorage.setItem('nomad_masalar', JSON.stringify(mevcutAdisyonlar));
+
+      // Modal göster & sepeti temizle
+      document.getElementById('success-modal').style.display = 'flex';
+      sepet = {};
+      sepetBariniGuncelle();
+      aktifKategoriyiGuncelle();
+    }
+
+    function modalKapat() {
+      document.getElementById('success-modal').style.display = 'none';
+    }
+
+    // İlk çalıştırma
+    menuyuCiz(urunler);
+  </script>
+</body>
+</html>
