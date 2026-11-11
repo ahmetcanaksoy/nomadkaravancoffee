@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Nomad Karavan | Canlı Kasa & Masa Yönetim Paneli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0c0e;
+      --card-bg: #14181c;
+      --card-border: #1f272e;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ÜST KASA BAŞLIĞI */
+    header {
+      background: #11161b;
+      border-bottom: 1px solid var(--card-border);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--accent-green);
+      font-weight: 600;
+    }
+
+    .status-summary {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .badge-pill {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-empty {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    .badge-busy {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid var(--accent-red);
+      color: var(--accent-red);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* ANA ÇALIŞMA ALANI */
+    .dashboard-layout {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* SOL: MASA GRIDLERİ */
+    .tables-section {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .table-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 14px;
+    }
+
+    .table-card {
+      background: var(--card-bg);
+      border: 2px solid var(--accent-green);
+      border-radius: 16px;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+
+    .table-card:hover {
+      transform: translateY(-2px);
+    }
+
+    /* BOŞ MASA: YEŞİL */
+    .table-card.empty {
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    .table-card.empty:hover {
+      border-color: var(--accent-green);
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
+    }
+    .table-card.empty .table-status-text {
+      color: var(--accent-green);
+    }
+
+    /* DOLU MASA: KIRMIZI */
+    .table-card.busy {
+      border-color: var(--accent-red);
+      background: #1c1416;
+      box-shadow: 0 4px 18px rgba(239, 68, 68, 0.25);
+      animation: pulseAlert 2.5s infinite;
+    }
+    .table-card.busy .table-status-text {
+      color: var(--accent-red);
+    }
+
+    @keyframes pulseAlert {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    .table-number {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .table-status-text {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .table-amount {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 4px;
+    }
+
+    /* SAĞ: CANLI ADİSYON DETAY ÇEKMECESİ */
+    .detail-section {
+      width: 380px;
+      background: #11161b;
+      border-left: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .detail-header h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .detail-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .detail-content {
+      flex: 1;
+      padding: 20px 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .order-item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+    }
+
+    .item-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .item-qty {
+      font-size: 0.75rem;
+      color: var(--accent-green);
+      font-weight: 700;
+      margin-left: 6px;
+    }
+
+    .item-price {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .detail-footer {
+      padding: 20px 24px;
+      border-top: 1px solid var(--card-border);
+      background: #0f1317;
+    }
+
+    .total-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .total-title {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .total-sum {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent-green);
+    }
+
+    .btn-close-order {
+      width: 100%;
+      background: var(--accent-red);
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.2s;
+    }
+
+    .btn-close-order:hover {
+      opacity: 0.9;
+    }
+
+    .empty-state {
+      margin: auto;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 40px 20px;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-layout {
+        flex-direction: column;
+      }
+      .detail-section {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--card-border);
+        max-height: 45vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ÜST KASA BİLGİ BARI -->
+  <header>
+    <div class="brand">
+      <div style="width:12px; height:12px; border-radius:50%; background:var(--accent-green); box-shadow:0 0 10px var(--accent-green);"></div>
+      <div>
+        <div class="brand-title">NOMAD KARAVAN • KASA KONTROL PANELİ</div>
+        <div class="brand-sub">Canlı Masalar ve Anlık Sipariş Hattı</div>
+      </div>
+    </div>
+    <div class="status-summary">
+      <div class="badge-pill badge-busy">
+        <span class="dot" style="background:var(--accent-red);"></span>
+        <span id="stat-busy">0 Dolu</span>
+      </div>
+      <div class="badge-pill badge-empty">
+        <span class="dot" style="background:var(--accent-green);"></span>
+        <span id="stat-empty">20 Boş</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ANA GÖVDE -->
+  <div class="dashboard-layout">
+    
+    <!-- SOL: 20 MASA GRID -->
+    <div class="tables-section">
+      <div class="section-title">Masalar (Masa 1 - 20)</div>
+      <div class="table-grid" id="tables-container"></div>
+    </div>
+
+    <!-- SAĞ: ADİSYON DETAYI -->
+    <div class="detail-section">
+      <div class="detail-header">
+        <div>
+          <h3 id="panel-table-title">Masa Seçiniz</h3>
+          <span class="detail-time" id="panel-order-time">-</span>
+        </div>
+      </div>
+
+      <div class="detail-content" id="panel-orders-list">
+        <div class="empty-state">Detayları görmek için listeden bir masaya tıklayın.</div>
+      </div>
+
+      <div class="detail-footer" id="panel-footer" style="display:none;">
+        <div class="total-box">
+          <span class="total-title">Genel Toplam:</span>
+          <span class="total-sum" id="panel-total-price">0 ₺</span>
+        </div>
+        <button class="btn-close-order" onclick="masayiBosalt()">
+          ✕ Hesabı Kapat / Masayı Boşalt
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const TOPLAM_MASA = 20;
+    let seciliMasa = null;
+
+    // Web Audio API ile Dış Dosyaya İhtiyaç Duymadan Canlı Zil Sesi (Dıng!)
+    function dingCal() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime); // A5 nota
+        osc.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.5);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.5);
+      } catch(e) {
+        console.log("Audio izni henüz verilmedi.");
+      }
+    }
+
+    // Masaları Getir
+    function getAdisyonlar() {
+      return JSON.parse(localStorage.getItem('nomad_masalar') || '{}');
+    }
+
+    function setAdisyonlar(data) {
+      localStorage.setItem('nomad_masalar', JSON.stringify(data));
+    }
+
+    // Masaları Ekrana Çiz
+    function masalariGuncelle() {
+      const container = document.getElementById('tables-container');
+      container.innerHTML = "";
+      const adisyonlar = getAdisyonlar();
+      let doluSayisi = 0;
+
+      for (let i = 1; i <= TOPLAM_MASA; i++) {
+        const masaKey = String(i);
+        const data = adisyonlar[masaKey];
+        const isBusy = data && data.urunler && data.urunler.length > 0;
+
+        if (isBusy) doluSayisi++;
+
+        const card = document.createElement('div');
+        card.className = `table-card ${isBusy ? 'busy' : 'empty'}`;
+        card.onclick = () => masaDetayiGoster(i);
+
+        card.innerHTML = `
+          <div class="table-number">Masa ${i}</div>
+          <div class="table-status-text">${isBusy ? 'DOLU' : 'BOŞ'}</div>
+          ${isBusy ? `<div class="table-amount">${data.toplamTutar} ₺</div>` : ''}
+        `;
+        container.appendChild(card);
+      }
+
+      document.getElementById('stat-busy').innerText = `${doluSayisi} Dolu`;
+      document.getElementById('stat-empty').innerText = `${TOPLAM_MASA - doluSayisi} Boş`;
+
+      // Açık masa varsa güncelle
+      if (seciliMasa) {
+        masaDetayiGoster(seciliMasa);
+      }
+    }
+
+    // Masaya Tıklayınca Adisyon Açma
+    function masaDetayiGoster(masaNo) {
+      seciliMasa = masaNo;
+      const adisyonlar = getAdisyonlar();
+      const data = adisyonlar[String(masaNo)];
+
+      document.getElementById('panel-table-title').innerText = `Masa ${masaNo} Adisyonu`;
+      const listEl = document.getElementById('panel-orders-list');
+      const footerEl = document.getElementById('panel-footer');
+
+      if (!data || !data.urunler || data.urunler.length === 0) {
+        document.getElementById('panel-order-time').innerText = "Henüz sipariş yok";
+        listEl.innerHTML = `<div class="empty-state">Bu masa şu anda boş.</div>`;
+        footerEl.style.display = "none";
+        return;
+      }
+
+      document.getElementById('panel-order-time').innerText = `Son Güncelleme: ${data.saat || '-'}`;
+      footerEl.style.display = "block";
+      document.getElementById('panel-total-price').innerText = `${data.toplamTutar} ₺`;
+
+      listEl.innerHTML = "";
+      data.urunler.forEach(item => {
+        const row = document.createElement('div');
+        row.className = "order-item-row";
+        row.innerHTML = `
+          <div>
+            <span class="item-name">${item.ad}</span>
+            <span class="item-qty">x${item.adet}</span>
+          </div>
+          <div class="item-price">${item.tutar} ₺</div>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    // Hesabı Kapat / Masayı Boşalt
+    function masayiBosalt() {
+      if (!seciliMasa) return;
+      if (confirm(`Masa ${seciliMasa} hesabını kapatıp masayı boşaltmak istediğinize emin misiniz?`)) {
+        const adisyonlar = getAdisyonlar();
+        delete adisyonlar[String(seciliMasa)];
+        setAdisyonlar(adisyonlar);
+        masalariGuncelle();
+        masaDetayiGoster(seciliMasa);
+      }
+    }
+
+    // Canlı Sipariş Dinleyici (BroadcastChannel)
+    const kanal = new BroadcastChannel('pos_siparis_hatti');
+    kanal.onmessage = (event) => {
+      const gelenSiparis = event.data;
+      dingCal();
+      masalariGuncelle();
+    };
+
+    // Sayfa açıldığında ilk çizim
+    masalariGuncelle();
+  </script>
+</body>
+</html>
