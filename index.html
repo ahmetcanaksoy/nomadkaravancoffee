@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Nomad Karavan Coffee | Masa QR Sipariş</title>
+  <title>Nomad Karavan Coffee Tatvan | Masa QR Sipariş</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -33,7 +33,6 @@
       background-color: var(--bg-body);
       color: var(--text-main);
       min-height: 100vh;
-      padding-bottom: 85px; /* Alt bar payı */
       overflow-x: hidden;
     }
 
@@ -58,21 +57,21 @@
     }
 
     .brand-logo-icon {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       background: var(--accent-green);
       color: #fff;
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 800;
       box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
     }
 
     .brand-info h1 {
-      font-size: 1rem;
+      font-size: 0.96rem;
       font-weight: 800;
       color: #0f172a;
       letter-spacing: -0.3px;
@@ -122,14 +121,15 @@
     /* =========================================
        SAYFA 1: MOBİL HOME / KEŞFET
        ========================================= */
-    /* HERO KART */
+    /* TEMİZ GÖRSEL BANNER (YAZISIZ) */
     .hero-card {
       margin: 16px 16px 20px;
-      height: 210px;
+      height: 200px;
       border-radius: 24px;
       overflow: hidden;
       position: relative;
       box-shadow: var(--shadow-md);
+      border: 1px solid var(--card-border);
     }
 
     .hero-card img {
@@ -138,58 +138,28 @@
       object-fit: cover;
     }
 
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(6, 78, 59, 0.85) 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 20px 18px;
-      color: #fff;
-    }
-
-    .hero-tag {
-      align-self: flex-start;
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(8px);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .hero-title {
-      font-size: 1.35rem;
-      font-weight: 800;
-      line-height: 1.25;
-    }
-
-    /* HIZLI SERVİS BUTONLARI (3'LÜ YATAY) */
     .section-wrap {
       padding: 0 16px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
+    /* 4'LÜ HIZLI SERVİS BUTONLARI */
     .quick-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
     }
 
     .service-btn {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 18px;
-      padding: 14px 8px;
+      padding: 12px 4px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       text-decoration: none;
       color: var(--text-main);
       box-shadow: var(--shadow-sm);
@@ -203,19 +173,14 @@
     }
 
     .service-icon {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
     }
 
     .service-name {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: #1e293b;
-    }
-
-    .service-sub {
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      font-weight: 600;
+      text-align: center;
     }
 
     /* ANA MENÜ GİRİŞ BUTONU */
@@ -240,21 +205,44 @@
       transform: scale(0.98);
     }
 
-    /* BÖLÜM BAŞLIĞI */
-    .sec-head {
+    /* GÜNÜN FALI KARTI */
+    .fortune-card {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-radius: 20px;
+      padding: 16px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      border: 1px solid #fcd34d;
     }
 
+    .fortune-icon {
+      font-size: 2rem;
+    }
+
+    .fortune-texts h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #92400e;
+    }
+
+    .fortune-texts p {
+      font-size: 0.74rem;
+      color: #b45309;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* KATEGORİ GÖRSELLERİ */
     .sec-title {
       font-size: 1.05rem;
       font-weight: 800;
       color: #0f172a;
+      margin-bottom: 12px;
     }
 
-    /* KATEGORİ RESİMLİ KARTLARI */
     .category-cards-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -303,40 +291,125 @@
       margin-top: 2px;
     }
 
-    /* ÖZEL İNTERAKTİF KART: GÜNÜN FALI */
-    .fortune-card {
-      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    /* İSTEK, ÖNERİ & ŞİKAYET KUTUSU */
+    .feedback-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 20px;
-      padding: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .feedback-box h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
-      gap: 14px;
-      box-shadow: var(--shadow-sm);
-      cursor: pointer;
-      border: 1px solid #fcd34d;
+      gap: 8px;
     }
 
-    .fortune-icon {
-      font-size: 2rem;
-    }
-
-    .fortune-texts h4 {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #92400e;
-    }
-
-    .fortune-texts p {
+    .feedback-box p {
       font-size: 0.75rem;
-      color: #b45309;
-      font-weight: 600;
-      line-height: 1.3;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+
+    .feedback-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      background: var(--bg-body);
+      border: 1px solid var(--card-border);
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--accent-green);
+      background: #ffffff;
+    }
+
+    .form-textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    .btn-feedback {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-feedback:active {
+      background: #1e293b;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 24px 16px 36px;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      border-top: 1px solid var(--card-border);
+      background: #ffffff;
+      margin-top: 20px;
+    }
+
+    footer a {
+      color: var(--accent-green);
+      text-decoration: none;
+      font-weight: 700;
     }
 
     /* =========================================
        SAYFA 2: MENÜ & TRENDYOL SEPET SİSTEMİ
        ========================================= */
-    /* YATAY KATEGORİ TABLARI */
+    .menu-header-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 61px;
+      z-index: 95;
+    }
+
+    .btn-back-home {
+      background: var(--bg-body);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .menu-tabs {
       display: flex;
       gap: 8px;
@@ -345,7 +418,7 @@
       scrollbar-width: none;
       background: var(--bg-body);
       position: sticky;
-      top: 61px;
+      top: 114px;
       z-index: 90;
       border-bottom: 1px solid var(--card-border);
     }
@@ -381,7 +454,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      padding-bottom: 120px; /* Sepet barı payı */
+      padding-bottom: 100px;
     }
 
     .product-card {
@@ -440,7 +513,6 @@
       color: var(--accent-green);
     }
 
-    /* TRENDYOL ARTTIRMA / AZALTMA BUTONLARI */
     .qty-box {
       display: flex;
       align-items: center;
@@ -480,49 +552,10 @@
       color: #0f172a;
     }
 
-    /* =========================================
-       ALT GEZİNME VE SEPET ÇUBUĞU
-       ========================================= */
-    /* MOBİL ALT TAB BAR (NAVBAR) */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 68px;
-      background: #ffffff;
-      border-top: 1px solid var(--card-border);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 150;
-      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      color: #64748b;
-      cursor: pointer;
-      font-size: 0.72rem;
-      font-weight: 700;
-      transition: color 0.2s;
-    }
-
-    .nav-item.active {
-      color: var(--accent-green);
-    }
-
-    .nav-icon {
-      font-size: 1.3rem;
-    }
-
-    /* ALT YAPIŞKAN CANLI SEPET ÇUBUĞU (ALT BARIN ÜSTÜNDE SÜZÜLÜR) */
+    /* YÜZEN SEPET BARI (SADECE MENÜDE GÖRÜNÜR) */
     .floating-cart-bar {
       position: fixed;
-      bottom: 78px;
+      bottom: 20px;
       left: 14px;
       right: 14px;
       background: #0f172a;
@@ -577,7 +610,7 @@
       background: #047857;
     }
 
-    /* TOAST BİLDİRİMİ */
+    /* TOAST */
     .toast-box {
       position: fixed;
       top: 68px;
@@ -604,7 +637,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* FAL / MESAJ MODALI */
+    /* MODAL */
     .custom-modal {
       display: none;
       position: fixed;
@@ -654,8 +687,8 @@
     <div class="brand-wrap">
       <div class="brand-logo-icon">N</div>
       <div class="brand-info">
-        <h1>NOMAD KARAVAN</h1>
-        <p>Tatvan Sahil Kordonu</p>
+        <h1>NOMAD KARAVAN COFFEE</h1>
+        <p>Tatvan</p>
       </div>
     </div>
     <div class="table-chip">
@@ -664,7 +697,7 @@
     </div>
   </header>
 
-  <!-- TOAST BİLDİRİM PENCERESİ -->
+  <!-- TOAST BİLDİRİMİ -->
   <div class="toast-box" id="toast-notify">
     <span id="toast-icon">✓</span>
     <span id="toast-msg">İşlem Başarılı</span>
@@ -675,37 +708,36 @@
        ========================================= -->
   <div class="view-page active" id="view-home">
     
-    <!-- GÖRSEL KAPAK -->
+    <!-- YAZISIZ VE TEMİZ KAPAK GÖRSELİ -->
     <div class="hero-card">
-      <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=700&q=80" alt="Nomad Karavan Coffee">
-      <div class="hero-overlay">
-        <span class="hero-tag">Ateş Başı & Nitelikli Kahve</span>
-        <h2 class="hero-title">Van Gölü Sahilinde<br>Huzurlu Bir Mola</h2>
-      </div>
+      <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Nomad Karavan Coffee">
     </div>
 
-    <!-- HIZLI SERVİS BUTONLARI -->
+    <!-- 4'LÜ HIZLI SERVİS BUTONLARI -->
     <div class="section-wrap">
       <div class="quick-grid">
         <!-- 1. WIFI KOPYALA -->
         <div class="service-btn" onclick="wifiKopyala()">
           <span class="service-icon">📶</span>
-          <span class="service-name">Wi-Fi Şifresi</span>
-          <span class="service-sub">Kopyala</span>
+          <span class="service-name">Wi-Fi</span>
         </div>
 
         <!-- 2. GARSON ÇAĞIR -->
         <div class="service-btn" onclick="garsonCagir()">
           <span class="service-icon">🔔</span>
-          <span class="service-name">Garson Çağır</span>
-          <span class="service-sub">Masaya İlet</span>
+          <span class="service-name">Garson</span>
         </div>
 
-        <!-- 3. SPOTIFY ÇALMA LİSTESİ -->
+        <!-- 3. INSTAGRAM -->
+        <a class="service-btn" href="https://instagram.com/nomadkaravancoffee" target="_blank">
+          <span class="service-icon">📸</span>
+          <span class="service-name">Instagram</span>
+        </a>
+
+        <!-- 4. SPOTIFY -->
         <a class="service-btn" href="https://open.spotify.com" target="_blank">
           <span class="service-icon">🎵</span>
-          <span class="service-name">Karavan Şarkıları</span>
-          <span class="service-sub">Spotify'da Aç</span>
+          <span class="service-name">Müzik</span>
         </a>
       </div>
     </div>
@@ -734,10 +766,7 @@
 
     <!-- KATEGORİ GÖRSELLERİ -->
     <div class="section-wrap">
-      <div class="sec-head">
-        <div class="sec-title">Menü Kategorileri</div>
-      </div>
-
+      <div class="sec-title">Menü Kategorileri</div>
       <div class="category-cards-grid">
         <!-- Sıcak Kahveler -->
         <div class="cat-visual-card" onclick="navigasyon('menu', 'sicak')">
@@ -785,12 +814,44 @@
       </div>
     </div>
 
+    <!-- İSTEK, ÖNERİ & ŞİKAYET KUTUSU -->
+    <div class="section-wrap">
+      <div class="feedback-box">
+        <h3>✉️ İstek, Öneri ve Şikayet</h3>
+        <p>Deneyiminizi daha iyi kılmak adına her türlü geri bildiriminizi önemsiyoruz. Mesajınız doğrudan işletme e-postasına iletilir.</p>
+        
+        <form class="feedback-form" onsubmit="mailGonder(event)">
+          <input type="text" id="fb-ad" class="form-input" placeholder="Adınız Soyadınız" required>
+          <textarea id="fb-mesaj" class="form-textarea" placeholder="Görüş, öneri veya şikayetinizi yazınız..." required></textarea>
+          <button type="submit" class="btn-feedback">
+            <span>Geri Bildirimi İlet</span>
+            <span>→</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p style="font-weight:700; color:#1e293b; margin-bottom:4px;">NOMAD KARAVAN COFFEE • TATVAN</p>
+      <p>Instagram: <a href="https://instagram.com/nomadkaravancoffee" target="_blank">@nomadkaravancoffee</a></p>
+    </footer>
+
   </div>
 
   <!-- =========================================
        SAYFA 2: MENÜ & SİPARİŞ EKRANI (MENU)
        ========================================= -->
   <div class="view-page" id="view-menu">
+    <!-- MENÜ ÜST GERİ DÖN BARI -->
+    <div class="menu-header-bar">
+      <button class="btn-back-home" onclick="navigasyon('home')">
+        <span>←</span>
+        <span>Ana Sayfa</span>
+      </button>
+      <span style="font-size:0.95rem; font-weight:800; color:#0f172a;">Nomad Menü</span>
+    </div>
+
     <!-- KATEGORİ TAB SEKMELERİ -->
     <div class="menu-tabs">
       <button class="tab-pill active" id="tab-hepsi" onclick="tabSec('hepsi')">Tümü</button>
@@ -815,28 +876,6 @@
       <span>→</span>
     </button>
   </div>
-
-  <!-- =========================================
-       MOBİL ALT GEZİNME (BOTTOM NAVBAR)
-       ========================================= -->
-  <nav class="bottom-nav">
-    <div class="nav-item active" id="nav-btn-home" onclick="navigasyon('home')">
-      <span class="nav-icon">🏠</span>
-      <span>Ana Sayfa</span>
-    </div>
-    <div class="nav-item" id="nav-btn-menu" onclick="navigasyon('menu', 'hepsi')">
-      <span class="nav-icon">☕</span>
-      <span>Menü & Sipariş</span>
-    </div>
-    <div class="nav-item" onclick="faliGoster()">
-      <span class="nav-icon">🔮</span>
-      <span>Günün Falı</span>
-    </div>
-    <a class="nav-item" href="tel:04348270000" style="text-decoration:none;">
-      <span class="nav-icon">🚕</span>
-      <span>Taksi Çağır</span>
-    </a>
-  </nav>
 
   <!-- FAL MODALI -->
   <div class="custom-modal" id="modal-fortune">
@@ -917,7 +956,20 @@
       document.getElementById(id).style.display = 'none';
     }
 
-    // 6. ÜRÜN VERİTABANI
+    // 6. İSTEK / ÖNERİ MAİL GÖNDERME
+    function mailGonder(e) {
+      e.preventDefault();
+      const ad = document.getElementById('fb-ad').value;
+      const mesaj = document.getElementById('fb-mesaj').value;
+      const konu = encodeURIComponent(`Nomad Karavan Geri Bildirim - Masa ${masaNo} (${ad})`);
+      const icerik = encodeURIComponent(`Müşteri: ${ad}\nMasa: ${masaNo}\n\nMesaj:\n${mesaj}`);
+      
+      // Kafe sahibinin mail adresine yönlendirme
+      window.location.href = `mailto:nomadkaravancoffee@gmail.com?subject=${konu}&body=${icerik}`;
+      bildirimGoster("E-posta istemciniz açılıyor...", "✉️");
+    }
+
+    // 7. ÜRÜN VERİTABANI
     const urunler = [
       {
         id: 1,
@@ -1012,21 +1064,27 @@
     let sepet = {};
     let aktifKategori = 'hepsi';
 
-    // 7. SAYFA VE TAB GEZİNTİSİ
+    // 8. SAYFA VE TAB GEZİNTİSİ
     function navigasyon(sayfaAdi, kategori = 'hepsi') {
       document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 
       if (sayfaAdi === 'menu') {
         document.getElementById('view-menu').classList.add('active');
-        document.getElementById('nav-btn-menu').classList.add('active');
         tabSec(kategori);
+        history.pushState({ page: 'menu' }, '', '');
       } else {
         document.getElementById('view-home').classList.add('active');
-        document.getElementById('nav-btn-home').classList.add('active');
       }
       window.scrollTo(0, 0);
     }
+
+    // Telefonun fiziksel geri tuşunu destekler
+    window.onpopstate = function() {
+      const viewMenu = document.getElementById('view-menu');
+      if (viewMenu.classList.contains('active')) {
+        navigasyon('home');
+      }
+    };
 
     function tabSec(kat) {
       aktifKategori = kat;
@@ -1036,7 +1094,7 @@
       menuyuCiz();
     }
 
-    // 8. MENÜYÜ EKRANA BASMA
+    // 9. MENÜYÜ EKRANA BASMA
     function menuyuCiz() {
       const container = document.getElementById('products-list');
       container.innerHTML = "";
@@ -1070,7 +1128,7 @@
       });
     }
 
-    // 9. SEPET VE FİYAT GÜNCELLEMESİ
+    // 10. SEPET VE FİYAT GÜNCELLEMESİ
     function adetGuncelle(id, delta) {
       const yeni = (sepet[id] || 0) + delta;
       if (yeni <= 0) {
@@ -1104,7 +1162,7 @@
       }
     }
 
-    // 10. SİPARİŞİ KASAYA İLETME (BroadcastChannel & LocalStorage)
+    // 11. SİPARİŞİ KASAYA İLETME (BroadcastChannel & LocalStorage)
     const kanal = new BroadcastChannel('pos_siparis_hatti');
 
     function siparisiGonder() {
