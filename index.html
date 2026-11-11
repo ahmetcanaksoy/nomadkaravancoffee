@@ -3,22 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Nomad Karavan Coffee Tatvan | Masa QR Sipariş</title>
+  <title>Nomad Karavan Coffee | Tatvan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-body: #f8faf9;
+      /* YEŞİL VE KİREMİT (TERRACOTTA) PALETİ */
+      --bg-body: #f4f6f3;
       --card-bg: #ffffff;
-      --card-border: #eef2ef;
-      --accent-green: #059669;
-      --accent-dark: #064e3b;
-      --accent-soft: rgba(5, 150, 105, 0.08);
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
-      --shadow-float: 0 14px 34px rgba(5, 150, 105, 0.18);
+      --card-border: #e3eae2;
+      
+      --terracotta: #c2410c;         /* Sıcak Kiremit */
+      --terracotta-hover: #9a3412;   /* Koyu Kiremit */
+      --terracotta-soft: rgba(194, 65, 12, 0.09);
+      
+      --forest-green: #1b3b2b;       /* Derin Orman Yeşili */
+      --sage-green: #2d5a43;         /* Adaçayı / Koyu Yeşil */
+      --green-soft: rgba(45, 90, 67, 0.1);
+      
+      --text-main: #1c2721;
+      --text-muted: #5e6d64;
+      --shadow-sm: 0 2px 10px rgba(27, 59, 43, 0.05);
+      --shadow-md: 0 10px 26px rgba(27, 59, 43, 0.08);
+      --shadow-terracotta: 0 10px 28px rgba(194, 65, 12, 0.28);
     }
 
     * {
@@ -41,9 +48,9 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.94);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--card-border);
+      background: rgba(244, 246, 243, 0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid var(--card-border);
       padding: 12px 18px;
       display: flex;
       justify-content: space-between;
@@ -56,37 +63,49 @@
       gap: 10px;
     }
 
-    .brand-logo-icon {
-      width: 38px;
-      height: 38px;
-      background: var(--accent-green);
-      color: #fff;
+    /* ÖZEL VEKTÖREL KARAVAN LOGO KUTUSU */
+    .brand-logo-box {
+      width: 42px;
+      height: 42px;
+      background: var(--forest-green);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.15rem;
-      font-weight: 800;
-      box-shadow: 0 4px 10px rgba(5, 150, 105, 0.25);
+      box-shadow: 0 4px 12px rgba(27, 59, 43, 0.25);
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .brand-logo-box svg {
+      width: 26px;
+      height: 26px;
+      fill: none;
+      stroke: #fbfbf9;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .brand-info h1 {
-      font-size: 0.96rem;
+      font-size: 0.98rem;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--forest-green);
       letter-spacing: -0.3px;
     }
 
     .brand-info p {
       font-size: 0.72rem;
-      color: var(--accent-green);
+      color: var(--terracotta);
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
     }
 
     .table-chip {
-      background: var(--accent-soft);
-      border: 1.5px solid var(--accent-green);
-      color: var(--accent-dark);
+      background: var(--terracotta-soft);
+      border: 1.5px solid var(--terracotta);
+      color: var(--terracotta);
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.82rem;
@@ -99,9 +118,9 @@
     .table-dot {
       width: 8px;
       height: 8px;
-      background: var(--accent-green);
+      background: var(--terracotta);
       border-radius: 50%;
-      box-shadow: 0 0 6px var(--accent-green);
+      box-shadow: 0 0 6px var(--terracotta);
     }
 
     /* SAYFA KAPSAYICILARI */
@@ -121,7 +140,7 @@
     /* =========================================
        SAYFA 1: MOBİL HOME / KEŞFET
        ========================================= */
-    /* TEMİZ GÖRSEL BANNER (YAZISIZ) */
+    /* KAPAK GÖRSELİ (YAZISIZ VE ŞIK) */
     .hero-card {
       margin: 16px 16px 20px;
       height: 200px;
@@ -129,7 +148,7 @@
       overflow: hidden;
       position: relative;
       box-shadow: var(--shadow-md);
-      border: 1px solid var(--card-border);
+      border: 1.5px solid var(--card-border);
     }
 
     .hero-card img {
@@ -143,23 +162,23 @@
       margin-bottom: 20px;
     }
 
-    /* 4'LÜ HIZLI SERVİS BUTONLARI */
+    /* 4'LÜ HIZLI BUTONLAR */
     .quick-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
+      gap: 10px;
     }
 
     .service-btn {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      border: 1.5px solid var(--card-border);
       border-radius: 18px;
-      padding: 12px 4px;
+      padding: 13px 4px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 6px;
       text-decoration: none;
       color: var(--text-main);
       box-shadow: var(--shadow-sm);
@@ -169,7 +188,8 @@
 
     .service-btn:active {
       transform: scale(0.96);
-      background: #f1f5f3;
+      background: #eaece8;
+      border-color: var(--terracotta);
     }
 
     .service-icon {
@@ -179,17 +199,17 @@
     .service-name {
       font-size: 0.72rem;
       font-weight: 700;
-      color: #1e293b;
+      color: var(--forest-green);
       text-align: center;
     }
 
-    /* ANA MENÜ GİRİŞ BUTONU */
+    /* BÜYÜK MENÜ GİRİŞ BUTONU (KİREMİT GRADIENT) */
     .btn-hero-menu {
       width: 100%;
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-hover) 100%);
       color: #ffffff;
       border: none;
-      padding: 16px;
+      padding: 16px 20px;
       border-radius: 18px;
       font-size: 1rem;
       font-weight: 800;
@@ -197,7 +217,7 @@
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
-      box-shadow: var(--shadow-float);
+      box-shadow: var(--shadow-terracotta);
       transition: transform 0.15s;
     }
 
@@ -207,7 +227,7 @@
 
     /* GÜNÜN FALI KARTI */
     .fortune-card {
-      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      background: linear-gradient(135deg, #fef6ee 0%, #faede1 100%);
       border-radius: 20px;
       padding: 16px;
       display: flex;
@@ -215,7 +235,7 @@
       gap: 14px;
       box-shadow: var(--shadow-sm);
       cursor: pointer;
-      border: 1px solid #fcd34d;
+      border: 1.5px solid #f2d2bd;
     }
 
     .fortune-icon {
@@ -225,12 +245,12 @@
     .fortune-texts h4 {
       font-size: 0.95rem;
       font-weight: 800;
-      color: #92400e;
+      color: var(--terracotta-hover);
     }
 
     .fortune-texts p {
       font-size: 0.74rem;
-      color: #b45309;
+      color: #8c2e0b;
       font-weight: 600;
       line-height: 1.3;
     }
@@ -239,7 +259,7 @@
     .sec-title {
       font-size: 1.05rem;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--forest-green);
       margin-bottom: 12px;
     }
 
@@ -253,7 +273,7 @@
       background: var(--card-bg);
       border-radius: 18px;
       overflow: hidden;
-      border: 1px solid var(--card-border);
+      border: 1.5px solid var(--card-border);
       box-shadow: var(--shadow-sm);
       cursor: pointer;
       transition: transform 0.15s;
@@ -261,6 +281,7 @@
 
     .cat-visual-card:active {
       transform: scale(0.97);
+      border-color: var(--terracotta);
     }
 
     .cat-img-wrap {
@@ -281,12 +302,12 @@
     .cat-visual-title {
       font-size: 0.88rem;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--forest-green);
     }
 
     .cat-visual-desc {
       font-size: 0.72rem;
-      color: var(--accent-green);
+      color: var(--terracotta);
       font-weight: 700;
       margin-top: 2px;
     }
@@ -294,8 +315,8 @@
     /* İSTEK, ÖNERİ & ŞİKAYET KUTUSU */
     .feedback-box {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 22px;
       padding: 20px;
       box-shadow: var(--shadow-sm);
     }
@@ -303,7 +324,7 @@
     .feedback-box h3 {
       font-size: 1rem;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--forest-green);
       margin-bottom: 6px;
       display: flex;
       align-items: center;
@@ -326,7 +347,7 @@
     .form-input, .form-textarea {
       width: 100%;
       background: var(--bg-body);
-      border: 1px solid var(--card-border);
+      border: 1.5px solid var(--card-border);
       padding: 12px 14px;
       border-radius: 12px;
       font-size: 0.85rem;
@@ -336,7 +357,7 @@
     }
 
     .form-input:focus, .form-textarea:focus {
-      border-color: var(--accent-green);
+      border-color: var(--terracotta);
       background: #ffffff;
     }
 
@@ -346,22 +367,23 @@
     }
 
     .btn-feedback {
-      background: #0f172a;
+      background: var(--forest-green);
       color: #ffffff;
       border: none;
-      padding: 12px;
+      padding: 13px;
       border-radius: 12px;
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
+      transition: opacity 0.2s;
     }
 
     .btn-feedback:active {
-      background: #1e293b;
+      opacity: 0.9;
     }
 
     /* FOOTER */
@@ -370,36 +392,36 @@
       padding: 24px 16px 36px;
       color: var(--text-muted);
       font-size: 0.72rem;
-      border-top: 1px solid var(--card-border);
+      border-top: 1.5px solid var(--card-border);
       background: #ffffff;
       margin-top: 20px;
     }
 
     footer a {
-      color: var(--accent-green);
+      color: var(--terracotta);
       text-decoration: none;
       font-weight: 700;
     }
 
     /* =========================================
-       SAYFA 2: MENÜ & TRENDYOL SEPET SİSTEMİ
+       SAYFA 2: MENÜ & SİPARİŞ SİSTEMİ
        ========================================= */
     .menu-header-bar {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 12px 16px;
-      background: #ffffff;
-      border-bottom: 1px solid var(--card-border);
+      background: var(--bg-body);
+      border-bottom: 1.5px solid var(--card-border);
       position: sticky;
-      top: 61px;
+      top: 66px;
       z-index: 95;
     }
 
     .btn-back-home {
-      background: var(--bg-body);
-      border: 1px solid var(--card-border);
-      color: var(--text-main);
+      background: #ffffff;
+      border: 1.5px solid var(--card-border);
+      color: var(--forest-green);
       padding: 8px 14px;
       border-radius: 12px;
       font-size: 0.82rem;
@@ -418,9 +440,9 @@
       scrollbar-width: none;
       background: var(--bg-body);
       position: sticky;
-      top: 114px;
+      top: 124px;
       z-index: 90;
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 1.5px solid var(--card-border);
     }
 
     .menu-tabs::-webkit-scrollbar {
@@ -429,8 +451,8 @@
 
     .tab-pill {
       background: #ffffff;
-      border: 1px solid var(--card-border);
-      color: #475569;
+      border: 1.5px solid var(--card-border);
+      color: var(--text-muted);
       padding: 8px 18px;
       border-radius: 20px;
       font-size: 0.82rem;
@@ -442,10 +464,10 @@
     }
 
     .tab-pill.active {
-      background: var(--accent-green);
-      border-color: var(--accent-green);
+      background: var(--terracotta);
+      border-color: var(--terracotta);
       color: #ffffff;
-      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+      box-shadow: 0 4px 14px rgba(194, 65, 12, 0.25);
     }
 
     /* ÜRÜN KARTLARI */
@@ -454,12 +476,12 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      padding-bottom: 100px;
+      padding-bottom: 110px;
     }
 
     .product-card {
       background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      border: 1.5px solid var(--card-border);
       border-radius: 20px;
       padding: 12px;
       display: flex;
@@ -487,7 +509,7 @@
     .prod-title {
       font-size: 0.92rem;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--forest-green);
     }
 
     .prod-desc {
@@ -508,17 +530,18 @@
     }
 
     .prod-price {
-      font-size: 1rem;
+      font-size: 1.02rem;
       font-weight: 800;
-      color: var(--accent-green);
+      color: var(--terracotta);
     }
 
     .qty-box {
       display: flex;
       align-items: center;
-      background: #f1f5f3;
+      background: var(--bg-body);
       border-radius: 12px;
       overflow: hidden;
+      border: 1px solid var(--card-border);
     }
 
     .qty-btn {
@@ -530,7 +553,7 @@
       align-items: center;
       justify-content: center;
       font-size: 1.1rem;
-      color: #0f172a;
+      color: var(--forest-green);
       cursor: pointer;
       font-weight: 700;
     }
@@ -540,7 +563,7 @@
     }
 
     .qty-btn.plus {
-      background: var(--accent-green);
+      background: var(--forest-green);
       color: #ffffff;
     }
 
@@ -549,7 +572,7 @@
       text-align: center;
       font-size: 0.85rem;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--forest-green);
     }
 
     /* YÜZEN SEPET BARI (SADECE MENÜDE GÖRÜNÜR) */
@@ -558,14 +581,14 @@
       bottom: 20px;
       left: 14px;
       right: 14px;
-      background: #0f172a;
-      border-radius: 18px;
+      background: var(--forest-green);
+      border-radius: 20px;
       padding: 12px 18px;
       color: #ffffff;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 10px 30px rgba(27, 59, 43, 0.35);
       z-index: 160;
       transform: translateY(180%);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -582,7 +605,7 @@
 
     .cart-total-badge {
       font-size: 0.72rem;
-      color: #94a3b8;
+      color: #a7bfb2;
       font-weight: 600;
     }
 
@@ -593,7 +616,7 @@
     }
 
     .btn-create-order {
-      background: var(--accent-green);
+      background: var(--terracotta);
       color: #ffffff;
       border: none;
       padding: 10px 18px;
@@ -604,19 +627,20 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      box-shadow: 0 4px 12px rgba(194, 65, 12, 0.3);
     }
 
     .btn-create-order:active {
-      background: #047857;
+      background: var(--terracotta-hover);
     }
 
     /* TOAST */
     .toast-box {
       position: fixed;
-      top: 68px;
+      top: 72px;
       left: 50%;
       transform: translateX(-50%) translateY(-20px);
-      background: #0f172a;
+      background: var(--forest-green);
       color: #ffffff;
       padding: 10px 20px;
       border-radius: 20px;
@@ -625,7 +649,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.18);
       z-index: 300;
       opacity: 0;
       pointer-events: none;
@@ -642,7 +666,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.6);
+      background: rgba(27, 59, 43, 0.65);
       backdrop-filter: blur(6px);
       z-index: 250;
       align-items: center;
@@ -670,8 +694,8 @@
       width: 58px;
       height: 58px;
       border-radius: 50%;
-      background: var(--accent-soft);
-      color: var(--accent-green);
+      background: var(--terracotta-soft);
+      color: var(--terracotta);
       font-size: 1.6rem;
       display: flex;
       align-items: center;
@@ -682,10 +706,18 @@
 </head>
 <body>
 
-  <!-- SABİT ÜST BAR -->
+  <!-- SABİT ÜST BAR (KARAVAN VE KAHVE VEKTÖR LOGOLU) -->
   <header>
     <div class="brand-wrap">
-      <div class="brand-logo-icon">N</div>
+      <div class="brand-logo-box">
+        <!-- Vektörel Minimal Karavan & Kahve Dumanı Logosu -->
+        <svg viewBox="0 0 24 24">
+          <path d="M3 17h15a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-3H6L3 11v6z"/>
+          <circle cx="7.5" cy="17.5" r="2"/>
+          <circle cx="16.5" cy="17.5" r="2"/>
+          <path d="M12 7V4m3 3V3"/>
+        </svg>
+      </div>
       <div class="brand-info">
         <h1>NOMAD KARAVAN COFFEE</h1>
         <p>Tatvan</p>
@@ -742,7 +774,7 @@
       </div>
     </div>
 
-    <!-- BÜYÜK MENÜYE GİRİŞ BUTONU -->
+    <!-- BÜYÜK MENÜYE GİRİŞ BUTONU (KİREMİT TONU) -->
     <div class="section-wrap">
       <button class="btn-hero-menu" onclick="navigasyon('menu', 'hepsi')">
         <span style="display:flex; align-items:center; gap:8px;">
@@ -833,7 +865,7 @@
 
     <!-- FOOTER -->
     <footer>
-      <p style="font-weight:700; color:#1e293b; margin-bottom:4px;">NOMAD KARAVAN COFFEE • TATVAN</p>
+      <p style="font-weight:800; color:var(--forest-green); margin-bottom:4px;">NOMAD KARAVAN COFFEE • TATVAN</p>
       <p>Instagram: <a href="https://instagram.com/nomadkaravancoffee" target="_blank">@nomadkaravancoffee</a></p>
     </footer>
 
@@ -849,7 +881,7 @@
         <span>←</span>
         <span>Ana Sayfa</span>
       </button>
-      <span style="font-size:0.95rem; font-weight:800; color:#0f172a;">Nomad Menü</span>
+      <span style="font-size:0.95rem; font-weight:800; color:var(--forest-green);">Nomad Menü</span>
     </div>
 
     <!-- KATEGORİ TAB SEKMELERİ -->
@@ -881,7 +913,7 @@
   <div class="custom-modal" id="modal-fortune">
     <div class="modal-card">
       <div class="modal-circle-icon">☕</div>
-      <h3 style="font-size:1.15rem; font-weight:800; color:#0f172a; margin-bottom:8px;">Günün Mesajı</h3>
+      <h3 style="font-size:1.15rem; font-weight:800; color:var(--forest-green); margin-bottom:8px;">Günün Mesajı</h3>
       <p id="fortune-text" style="font-size:0.85rem; color:#475569; line-height:1.45; margin-bottom:20px;">
         "Bugün Van Gölü'nün rüzgarı kafandaki tüm karmaşayı alıp götürecek. Taze bir başlangıç kapıda!"
       </p>
@@ -895,7 +927,7 @@
   <div class="custom-modal" id="modal-success">
     <div class="modal-card">
       <div class="modal-circle-icon">✓</div>
-      <h3 style="font-size:1.15rem; font-weight:800; color:#0f172a; margin-bottom:8px;">Siparişiniz İletildi!</h3>
+      <h3 style="font-size:1.15rem; font-weight:800; color:var(--forest-green); margin-bottom:8px;">Siparişiniz İletildi!</h3>
       <p style="font-size:0.82rem; color:#64748b; line-height:1.4; margin-bottom:20px;">
         Siparişiniz baristaya ve kasaya anlık olarak düştü. Hemen hazırlanıp masanıza servis edilecek.
       </p>
@@ -964,7 +996,6 @@
       const konu = encodeURIComponent(`Nomad Karavan Geri Bildirim - Masa ${masaNo} (${ad})`);
       const icerik = encodeURIComponent(`Müşteri: ${ad}\nMasa: ${masaNo}\n\nMesaj:\n${mesaj}`);
       
-      // Kafe sahibinin mail adresine yönlendirme
       window.location.href = `mailto:nomadkaravancoffee@gmail.com?subject=${konu}&body=${icerik}`;
       bildirimGoster("E-posta istemciniz açılıyor...", "✉️");
     }
@@ -1078,7 +1109,7 @@
       window.scrollTo(0, 0);
     }
 
-    // Telefonun fiziksel geri tuşunu destekler
+    // Geri tuşu desteği
     window.onpopstate = function() {
       const viewMenu = document.getElementById('view-menu');
       if (viewMenu.classList.contains('active')) {
@@ -1191,10 +1222,8 @@
         durum: 'dolu'
       };
 
-      // Kasaya anlık sinyal ilet
       kanal.postMessage(siparisPaketi);
 
-      // Masalar veritabanına ekle
       let adisyonlar = JSON.parse(localStorage.getItem('nomad_masalar') || '{}');
       if (!adisyonlar[masaNo]) {
         adisyonlar[masaNo] = { urunler: [], toplamTutar: 0, saat: siparisPaketi.saat };
@@ -1204,7 +1233,6 @@
       adisyonlar[masaNo].saat = siparisPaketi.saat;
       localStorage.setItem('nomad_masalar', JSON.stringify(adisyonlar));
 
-      // Modalı göster ve sepeti temizle
       document.getElementById('modal-success').style.display = 'flex';
       sepet = {};
       sepetBariniHesapla();
