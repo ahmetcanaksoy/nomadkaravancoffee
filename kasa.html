@@ -3,23 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Nomad Karavan | Kasa & Adisyon Paneli</title>
+  <title>Nomad Karavan | Kasa Kontrol Paneli</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-body: #f8faf9;
-      --card-bg: #ffffff;
-      --card-border: #e2e8e4;
-      --accent-green: #059669;
-      --accent-dark: #064e3b;
-      --accent-soft: rgba(5, 150, 105, 0.08);
+      /* DERİN ORMAN YEŞİLİ, KİREMİT VE KEHRİBAR PALETİ */
+      --bg-dark: #09130e;              
+      --bg-card: rgba(18, 36, 28, 0.75); 
+      --card-border: rgba(200, 75, 37, 0.25);
+      
+      --terracotta: #c84b25;           
+      --terracotta-glow: rgba(200, 75, 37, 0.45);
+      --terracotta-dark: #963114;
+      
+      --amber: #e89838;                
+      --amber-soft: rgba(232, 152, 56, 0.15);
+      
+      --emerald-accent: #2e684c;
+      --accent-green: #10b981;
       --accent-red: #ef4444;
-      --accent-red-soft: rgba(239, 68, 68, 0.08);
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+      
+      --text-main: #f5ebe1;            
+      --text-muted: #a6b5ab;
+      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.45);
     }
 
     * {
@@ -31,22 +38,52 @@
     }
 
     body {
-      background-color: var(--bg-body);
+      background-color: var(--bg-dark);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 3D ATMOSFER IŞIK KÜRELERİ */
+    .ambient-glow-1 {
+      position: fixed;
+      top: -60px;
+      left: -60px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(200, 75, 37, 0.22) 0%, transparent 70%);
+      filter: blur(50px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .ambient-glow-2 {
+      position: fixed;
+      bottom: -40px;
+      right: -60px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(30, 90, 60, 0.28) 0%, transparent 70%);
+      filter: blur(60px);
+      z-index: 0;
+      pointer-events: none;
     }
 
     /* ÜST KASA HEADER */
     header {
-      background: #ffffff;
-      border-bottom: 1px solid var(--card-border);
+      background: rgba(9, 19, 14, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1.5px solid var(--card-border);
       padding: 14px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: var(--shadow-sm);
+      position: relative;
+      z-index: 50;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     }
 
     .brand-wrap {
@@ -55,31 +92,42 @@
       gap: 12px;
     }
 
-    .brand-logo-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--accent-green);
-      color: #fff;
-      border-radius: 12px;
+    .brand-logo-box {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      font-weight: 800;
-      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+      box-shadow: 0 6px 18px var(--terracotta-glow);
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .brand-logo-box svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .brand-info h1 {
       font-size: 1.05rem;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing: -0.3px;
-      color: var(--text-main);
+      color: #ffffff;
     }
 
     .brand-info p {
       font-size: 0.72rem;
-      color: var(--accent-green);
-      font-weight: 700;
+      color: var(--amber);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .status-summary {
@@ -95,19 +143,20 @@
       border-radius: 20px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .badge-empty {
-      background: var(--accent-soft);
-      border: 1.5px solid var(--accent-green);
-      color: var(--accent-dark);
+      background: rgba(46, 104, 76, 0.25);
+      border: 1.5px solid var(--emerald-accent);
+      color: #9ee6c2;
     }
 
     .badge-busy {
-      background: var(--accent-red-soft);
-      border: 1.5px solid var(--accent-red);
-      color: var(--accent-red);
+      background: rgba(200, 75, 37, 0.25);
+      border: 1.5px solid var(--terracotta);
+      color: #ff9d7f;
+      box-shadow: 0 0 14px rgba(200, 75, 37, 0.35);
     }
 
     .dot {
@@ -121,6 +170,8 @@
       flex: 1;
       display: flex;
       overflow: hidden;
+      position: relative;
+      z-index: 10;
     }
 
     /* SOL: MASA GRIDLERİ */
@@ -132,11 +183,11 @@
 
     .section-title {
       font-size: 0.92rem;
-      font-weight: 800;
-      color: var(--text-muted);
+      font-weight: 900;
+      color: var(--amber);
       margin-bottom: 16px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
     }
 
     .table-grid {
@@ -146,8 +197,9 @@
     }
 
     .table-card {
-      background: var(--card-bg);
-      border-radius: 18px;
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
       padding: 18px 12px;
       display: flex;
       flex-direction: column;
@@ -156,7 +208,7 @@
       gap: 6px;
       cursor: pointer;
       position: relative;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       user-select: none;
     }
@@ -165,45 +217,45 @@
       transform: translateY(-2px);
     }
 
-    /* BOŞ MASA: AÇIK ZÜMRÜT */
+    /* BOŞ MASA: SAKİN ZÜMRÜT YEŞİLİ */
     .table-card.empty {
-      border: 1.5px solid #d1fae5;
+      border: 1.5px solid rgba(46, 104, 76, 0.4);
     }
     .table-card.empty:hover {
-      border-color: var(--accent-green);
-      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.12);
+      border-color: var(--emerald-accent);
+      box-shadow: 0 8px 24px rgba(46, 104, 76, 0.25);
     }
     .table-card.empty .table-status-text {
-      color: var(--accent-green);
-      background: var(--accent-soft);
-      padding: 3px 10px;
+      color: #9ee6c2;
+      background: rgba(46, 104, 76, 0.2);
+      padding: 4px 10px;
       border-radius: 12px;
     }
 
-    /* DOLU MASA: AÇIK KIRMIZI */
+    /* DOLU MASA: ATEŞ KİREMİDİ NEON PARILTI */
     .table-card.busy {
-      border: 2px solid var(--accent-red);
-      background: #fff5f5;
-      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.15);
+      border: 2px solid var(--terracotta);
+      background: rgba(45, 18, 12, 0.7);
+      box-shadow: 0 10px 28px var(--terracotta-glow);
       animation: pulseAlert 2.5s infinite;
     }
     .table-card.busy .table-status-text {
-      color: #b91c1c;
-      background: #fee2e2;
-      padding: 3px 10px;
+      color: #ffffff;
+      background: var(--terracotta);
+      padding: 4px 10px;
       border-radius: 12px;
     }
 
     @keyframes pulseAlert {
-      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.35); }
-      70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(200, 75, 37, 0.5); }
+      70% { box-shadow: 0 0 0 12px rgba(200, 75, 37, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(200, 75, 37, 0); }
     }
 
     .table-number {
       font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--text-main);
+      font-weight: 900;
+      color: #ffffff;
     }
 
     .table-status-text {
@@ -214,40 +266,41 @@
     }
 
     .table-amount {
-      font-size: 0.92rem;
-      font-weight: 800;
-      color: var(--accent-dark);
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: var(--amber);
       margin-top: 4px;
     }
 
     /* SAĞ: CANLI ADİSYON DETAY ÇEKMECESİ */
     .detail-section {
-      width: 410px;
-      background: #ffffff;
-      border-left: 1px solid var(--card-border);
+      width: 420px;
+      background: rgba(14, 28, 22, 0.95);
+      backdrop-filter: blur(18px);
+      border-left: 1.5px solid var(--card-border);
       display: flex;
       flex-direction: column;
-      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.03);
+      box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5);
     }
 
     .detail-header {
       padding: 20px 24px;
-      border-bottom: 1px solid var(--card-border);
+      border-bottom: 1.5px solid var(--card-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .detail-header h3 {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--text-main);
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #ffffff;
     }
 
     .detail-time {
       font-size: 0.75rem;
-      color: var(--text-muted);
-      font-weight: 600;
+      color: var(--amber);
+      font-weight: 700;
     }
 
     .detail-content {
@@ -256,19 +309,20 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
-    /* ADİSYON KALEM SATIRI VE SİLME BUTONLARI */
+    /* ADİSYON KALEM SATIRI */
     .order-item-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 12px 14px;
-      background: var(--bg-body);
+      background: var(--bg-card);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
+      border-radius: 16px;
       gap: 10px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
 
     .item-left {
@@ -279,9 +333,9 @@
     }
 
     .item-name {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 800;
-      color: var(--text-main);
+      color: #ffffff;
     }
 
     .item-unit-info {
@@ -297,19 +351,19 @@
     }
 
     .item-price {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--accent-green);
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--amber);
       min-width: 55px;
       text-align: right;
     }
 
     .btn-qty-minus {
-      background: #ffffff;
-      color: var(--text-main);
-      border: 1px solid #cbd5e1;
-      width: 28px;
-      height: 28px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      width: 30px;
+      height: 30px;
       border-radius: 8px;
       font-size: 1rem;
       font-weight: 800;
@@ -317,19 +371,19 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: background 0.15s;
     }
 
     .btn-qty-minus:hover {
-      background: #f1f5f9;
+      background: rgba(255, 255, 255, 0.2);
     }
 
     .btn-item-delete {
-      background: var(--accent-red-soft);
-      color: var(--accent-red);
-      border: 1px solid rgba(239, 68, 68, 0.25);
-      width: 28px;
-      height: 28px;
+      background: rgba(200, 75, 37, 0.2);
+      color: #ff9d7f;
+      border: 1px solid var(--terracotta);
+      width: 30px;
+      height: 30px;
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -340,14 +394,15 @@
     }
 
     .btn-item-delete:hover {
-      background: var(--accent-red);
-      color: #fff;
+      background: var(--terracotta);
+      color: #ffffff;
+      box-shadow: 0 0 10px var(--terracotta);
     }
 
     .detail-footer {
       padding: 20px 24px;
-      border-top: 1px solid var(--card-border);
-      background: #fafcfb;
+      border-top: 1.5px solid var(--card-border);
+      background: rgba(9, 19, 14, 0.95);
     }
 
     .total-box {
@@ -364,18 +419,18 @@
     }
 
     .total-sum {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--accent-dark);
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: var(--amber);
     }
 
     .btn-close-order {
       width: 100%;
-      background: var(--accent-red);
+      background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
       color: #fff;
       border: none;
       padding: 14px;
-      border-radius: 14px;
+      border-radius: 16px;
       font-size: 0.95rem;
       font-weight: 800;
       cursor: pointer;
@@ -383,12 +438,12 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.25);
+      box-shadow: 0 6px 20px var(--terracotta-glow);
       transition: opacity 0.2s;
     }
 
     .btn-close-order:hover {
-      opacity: 0.9;
+      opacity: 0.92;
     }
 
     .empty-state {
@@ -400,22 +455,23 @@
       padding: 40px 20px;
     }
 
-    /* GARSON ÇAĞRISI TOAST */
+    /* GARSON ÇAĞRISI TOAST BİLDİRİMİ */
     .garson-toast {
       position: fixed;
-      top: 20px;
+      top: 24px;
       right: 24px;
-      background: #f59e0b;
+      background: linear-gradient(135deg, var(--terracotta) 0%, #d97706 100%);
       color: #ffffff;
-      padding: 14px 20px;
-      border-radius: 16px;
-      font-size: 0.9rem;
+      padding: 16px 22px;
+      border-radius: 18px;
+      font-size: 0.92rem;
       font-weight: 800;
-      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+      box-shadow: 0 10px 30px var(--terracotta-glow);
       display: none;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       z-index: 200;
+      border: 1px solid rgba(255, 255, 255, 0.3);
       animation: slideRight 0.3s ease;
     }
 
@@ -431,7 +487,7 @@
       .detail-section {
         width: 100%;
         border-left: none;
-        border-top: 1px solid var(--card-border);
+        border-top: 1.5px solid var(--card-border);
         max-height: 48vh;
       }
     }
@@ -439,28 +495,39 @@
 </head>
 <body>
 
+  <!-- 3D ATMOSFER IŞIK KÜRELERİ -->
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
+
   <!-- GARSON BİLDİRİM UYARISI -->
   <div class="garson-toast" id="garson-alert">
-    <span>🔔</span>
+    <span style="font-size:1.3rem;">🔔</span>
     <span id="garson-alert-text">Masa 12 garson çağırıyor!</span>
   </div>
 
   <!-- ÜST HEADER -->
   <header>
     <div class="brand-wrap">
-      <div class="brand-logo-icon">N</div>
+      <div class="brand-logo-box">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 17h15a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-3H6L3 11v6z"/>
+          <circle cx="7.5" cy="17.5" r="2"/>
+          <circle cx="16.5" cy="17.5" r="2"/>
+          <path d="M12 7V4m3 3V3"/>
+        </svg>
+      </div>
       <div class="brand-info">
-        <h1>NOMAD KARAVAN • KASA KONTROL PANELİ</h1>
-        <p>Canlı Masalar ve Anlık Sipariş Ekranı</p>
+        <h1>NOMAD KARAVAN • KASA KONTROL</h1>
+        <p>Tatvan Sahil Canlı Yönetim</p>
       </div>
     </div>
     <div class="status-summary">
       <div class="badge-pill badge-busy">
-        <span class="dot" style="background:var(--accent-red);"></span>
+        <span class="dot" style="background:var(--terracotta);"></span>
         <span id="stat-busy">0 Dolu</span>
       </div>
       <div class="badge-pill badge-empty">
-        <span class="dot" style="background:var(--accent-green);"></span>
+        <span class="dot" style="background:var(--emerald-accent);"></span>
         <span id="stat-empty">20 Boş</span>
       </div>
     </div>
@@ -515,11 +582,9 @@
         osc.type = "sine";
         
         if (tur === 'garson') {
-          // Garson çağrısı için çift tiz ton
           osc.frequency.setValueAtTime(1046.50, audioCtx.currentTime); // C6 nota
           osc.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.15); // E6 nota
         } else {
-          // Normal sipariş için tok dıng sesi
           osc.frequency.setValueAtTime(880, audioCtx.currentTime);
           osc.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.5);
         }
@@ -676,7 +741,7 @@
       }
     }
 
-    // Garson Çağrısını Göster
+    // Garson Bildirimini Göster
     function garsonUyarisiGoster(masaNo) {
       dingCal('garson');
       const el = document.getElementById('garson-alert');
@@ -687,7 +752,7 @@
       }, 5000);
     }
 
-    // 1. CANLI SİPARİŞ & GARSON DİNLEYİCİSİ
+    // CANLI SİPARİŞ & GARSON DİNLEYİCİSİ (BroadcastChannel)
     const kanal = new BroadcastChannel('pos_siparis_hatti');
     kanal.onmessage = (event) => {
       const gelen = event.data;
@@ -699,7 +764,7 @@
       }
     };
 
-    // 2. STORAGE DEĞİŞİM DİNLEYİCİSİ
+    // STORAGE DEĞİŞİM DİNLEYİCİSİ
     window.addEventListener('storage', (e) => {
       if (e.key === 'nomad_masalar') {
         dingCal('siparis');
@@ -707,7 +772,7 @@
       }
     });
 
-    // 3. ANLIK CANLI KONTROL
+    // ANLIK CANLI KONTROL
     setInterval(() => {
       const guncelVeri = localStorage.getItem('nomad_masalar') || '';
       if (guncelVeri !== sonVeriOzeti) {
