@@ -8,24 +8,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* DERİN ORMAN YEŞİLİ & KİREMİT & KEHRİBAR PALETİ */
-      --bg-dark: #09130e;              
-      --bg-card: rgba(18, 36, 28, 0.72); 
-      --card-border: rgba(200, 75, 37, 0.24); 
+      /* DERİN OBSİDYEN, FIRIN KİREMİDİ VE KÖZ KEHRİBARI */
+      --bg-dark: #080c0a;              
+      --bg-card: rgba(18, 30, 24, 0.78); 
+      --card-border: rgba(234, 88, 12, 0.22); 
       
-      --terracotta: #c84b25;           
-      --terracotta-glow: rgba(200, 75, 37, 0.45);
-      --terracotta-dark: #963114;
+      --terracotta: #ea580c;           
+      --terracotta-glow: rgba(234, 88, 12, 0.5);
+      --terracotta-dark: #c2410c;
       
-      --amber: #e89838;                
-      --amber-soft: rgba(232, 152, 56, 0.15);
+      --amber: #f59e0b;                
+      --amber-glow: rgba(245, 158, 11, 0.6);
       
-      --deep-forest: #10251c;
-      --emerald-accent: #2e684c;
-      
-      --text-main: #f5ebe1;            
-      --text-muted: #a6b5ab;
-      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.45);
+      --emerald-dark: #0f291e;
+      --text-main: #f8fafc;            
+      --text-muted: #94a3b8;
+      --shadow-3d: 0 20px 40px rgba(0, 0, 0, 0.6);
     }
 
     * {
@@ -45,18 +43,19 @@
     }
 
     /* =========================================
-       GİRİŞ ANİMASYONU (PRELOADER / SPLASH)
+       ULTRA PROFESYONEL SİNEMATİK GİRİŞ EKRANI
        ========================================= */
     #intro-splash {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: radial-gradient(circle at center, #11281d 0%, #060e0a 100%);
+      background: radial-gradient(circle at center, #18110b 0%, #060807 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s;
+      overflow: hidden;
     }
 
     #intro-splash.hide {
@@ -65,149 +64,170 @@
       pointer-events: none;
     }
 
-    .welcome-text-top {
-      font-size: 0.8rem;
-      letter-spacing: 4px;
-      color: var(--amber);
-      font-weight: 800;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-      animation: pulseGlow 2s infinite alternate;
+    /* Giriş Arka Plan Işık Aurası */
+    .splash-aura {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, var(--amber-glow) 0%, transparent 65%);
+      filter: blur(60px);
+      animation: auraBreathe 3s ease-in-out infinite alternate;
+      z-index: 1;
     }
 
-    .welcome-title-large {
-      font-size: 1.85rem;
-      font-weight: 900;
-      color: #ffffff;
-      letter-spacing: -0.5px;
+    @keyframes auraBreathe {
+      from { transform: scale(0.9); opacity: 0.45; }
+      to { transform: scale(1.15); opacity: 0.85; }
+    }
+
+    /* Başlık ve Hoş Geldiniz Katmanı */
+    .splash-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
+      padding: 0 20px;
+    }
+
+    .splash-sub-badge {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--amber);
+      margin-bottom: 6px;
+      text-shadow: 0 0 16px var(--amber-glow);
+    }
+
+    .splash-brand-title {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      line-height: 1.1;
       margin-bottom: 34px;
     }
 
-    .welcome-title-large span {
-      color: var(--terracotta);
+    .splash-brand-title span {
+      background: linear-gradient(135deg, var(--amber) 0%, var(--terracotta) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    @keyframes pulseGlow {
-      from { opacity: 0.6; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1.02); }
-    }
-
-    /* KARAVAN DÖNÜŞ YÖRÜNGESİ (ORBIT TRACK) */
-    .orbit-container {
+    /* MERKEZDEKİ KARAVAN VE ETRAFINDA DÖNEN ENERJİ IŞIĞI */
+    .orbit-system {
       position: relative;
       width: 170px;
       height: 170px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 30px;
+      margin-bottom: 36px;
     }
 
-    /* IŞILDAYAN SABİT YUVALAR */
-    .orbit-circle-track {
+    /* Döner Altın Enerji Yolu */
+    .orbit-ring {
       position: absolute;
-      inset: 10px;
+      inset: 6px;
       border-radius: 50%;
-      border: 2px dashed rgba(232, 152, 56, 0.28);
+      border: 2px solid transparent;
+      border-top: 2px solid var(--amber);
+      border-right: 2px solid var(--terracotta);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+      animation: spinEnergy 1.6s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     }
 
-    .orbit-inner-glow {
+    .orbit-ring-pulse {
       position: absolute;
-      inset: 22px;
+      inset: -6px;
       border-radius: 50%;
-      border: 1.5px solid rgba(200, 75, 37, 0.35);
-      box-shadow: inset 0 0 20px rgba(200, 75, 37, 0.2);
+      border: 1px dashed rgba(245, 158, 11, 0.25);
+      animation: spinCounter 6s linear infinite;
     }
 
-    .orbit-center-icon {
-      font-size: 2.2rem;
-      z-index: 2;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
-    }
-
-    /* YUARLAK ETRAFINDA 360 DÖNEN KUTU */
-    .orbit-spinner {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      animation: spinCaravan 3.2s linear infinite;
-    }
-
-    @keyframes spinCaravan {
+    @keyframes spinEnergy {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
 
-    /* YÖRÜNGENİN TEPESİNDE OTURAN KARAVAN */
-    .orbit-caravan-node {
-      position: absolute;
-      top: -10px;
-      left: calc(50% - 18px);
-      width: 36px;
-      height: 36px;
-      background: var(--terracotta);
-      border-radius: 10px;
+    @keyframes spinCounter {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    /* Karavanın Oturduğu Vitrin Çemberi */
+    .caravan-core-stage {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1f140e 0%, #0d120f 100%);
+      border: 2px solid rgba(245, 158, 11, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 16px var(--terracotta);
-      border: 1.5px solid #ffffff;
-      transform: rotate(90deg); /* Dairesel dönüşe göre aracın yönü */
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 8px 24px rgba(0,0,0,0.5);
+      z-index: 3;
     }
 
-    .orbit-caravan-node svg {
-      width: 22px;
-      height: 22px;
-      fill: none;
-      stroke: #ffffff;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    /* Detaylı Vektörel Karavan İkonu */
+    .caravan-vector {
+      width: 62px;
+      height: 62px;
+      filter: drop-shadow(0 4px 10px rgba(234, 88, 12, 0.5));
     }
 
-    /* YÜKLENİYOR İLERLEME ÇUBUĞU */
-    .splash-progress-wrap {
-      width: 200px;
+    /* Yükleme İlerleme Çubuğu ve Dinamik Metin */
+    .progress-box {
+      width: 230px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
-    .splash-progress-track {
+    .progress-track {
       width: 100%;
       height: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
     }
 
-    .splash-progress-bar {
+    .progress-fill {
       width: 0%;
       height: 100%;
       background: linear-gradient(90deg, var(--amber) 0%, var(--terracotta) 100%);
-      border-radius: 10px;
-      box-shadow: 0 0 10px var(--terracotta);
+      border-radius: 20px;
+      box-shadow: 0 0 14px var(--terracotta-glow);
       transition: width 0.1s linear;
     }
 
-    .splash-percent-text {
-      font-size: 0.76rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      letter-spacing: 1px;
+    .progress-status-text {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      letter-spacing: 0.5px;
     }
 
-    /* 3D ARKA PLAN IŞIK KÜRELERİ */
+    .progress-number {
+      color: var(--amber);
+      font-weight: 900;
+    }
+
+    /* =========================================
+       ANA SAYFA TASARIMI VE DETAYLAR
+       ========================================= */
     .ambient-glow-1 {
       position: fixed;
       top: -60px;
       left: -60px;
       width: 320px;
       height: 320px;
-      background: radial-gradient(circle, rgba(200, 75, 37, 0.28) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(234, 88, 12, 0.25) 0%, transparent 70%);
       filter: blur(50px);
       z-index: 0;
       pointer-events: none;
@@ -219,20 +239,8 @@
       right: -80px;
       width: 360px;
       height: 360px;
-      background: radial-gradient(circle, rgba(30, 90, 60, 0.35) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
       filter: blur(60px);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .ambient-glow-3 {
-      position: fixed;
-      top: 45%;
-      left: 10%;
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, rgba(232, 152, 56, 0.15) 0%, transparent 70%);
-      filter: blur(55px);
       z-index: 0;
       pointer-events: none;
     }
@@ -242,10 +250,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(9, 19, 14, 0.88);
+      background: rgba(8, 12, 10, 0.9);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--card-border);
-      padding: 14px 18px;
+      padding: 12px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -257,31 +265,27 @@
       gap: 12px;
     }
 
-    .brand-logo-box {
+    /* YENİ ARTISAN VEKTÖREL LOGO */
+    .brand-logo-emblem {
       width: 44px;
       height: 44px;
-      background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+      background: linear-gradient(135deg, #2a150b 0%, #102017 100%);
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 18px var(--terracotta-glow);
+      border: 1.5px solid var(--amber);
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.3);
       flex-shrink: 0;
-      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .brand-logo-box svg {
-      width: 24px;
-      height: 24px;
-      fill: none;
-      stroke: #fff;
-      stroke-width: 1.9;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .brand-logo-emblem svg {
+      width: 26px;
+      height: 26px;
     }
 
     .brand-info h1 {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-weight: 900;
       color: #ffffff;
       letter-spacing: -0.3px;
@@ -292,13 +296,13 @@
       color: var(--amber);
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
     }
 
     .table-chip {
-      background: rgba(200, 75, 37, 0.16);
+      background: rgba(234, 88, 12, 0.16);
       border: 1.5px solid var(--terracotta);
-      color: #ff9d7f;
+      color: #fdba74;
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.82rem;
@@ -306,7 +310,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 4px 12px rgba(200, 75, 37, 0.2);
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
     }
 
     .table-dot {
@@ -333,9 +337,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* =========================================
-       SAYFA 1: MOBİL HOME / KEŞFET
-       ========================================= */
+    /* HERO BANNER */
     .hero-card {
       margin: 16px 16px 22px;
       height: 210px;
@@ -356,7 +358,7 @@
     .hero-gradient-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(9, 19, 14, 0.1) 0%, rgba(9, 19, 14, 0.85) 100%);
+      background: linear-gradient(180deg, rgba(8, 12, 10, 0.1) 0%, rgba(8, 12, 10, 0.88) 100%);
     }
 
     .section-wrap {
@@ -373,7 +375,7 @@
 
     .service-btn {
       background: var(--bg-card);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       border: 1px solid var(--card-border);
       border-radius: 20px;
       padding: 14px 4px;
@@ -384,15 +386,15 @@
       gap: 6px;
       text-decoration: none;
       color: var(--text-main);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .service-btn:active {
       transform: scale(0.95);
-      border-color: var(--terracotta);
-      background: rgba(200, 75, 37, 0.18);
+      border-color: var(--amber);
+      background: rgba(234, 88, 12, 0.2);
     }
 
     .service-icon {
@@ -405,14 +407,14 @@
     .service-name {
       font-size: 0.74rem;
       font-weight: 800;
-      color: #e4eee7;
+      color: #f1f5f9;
       text-align: center;
     }
 
     /* DEVASA SİNEMATİK MENÜ BUTONU */
     .btn-giant-menu {
       width: 100%;
-      background: linear-gradient(135deg, #c84b25 0%, #153b29 100%);
+      background: linear-gradient(135deg, var(--terracotta) 0%, #173b28 100%);
       color: #ffffff;
       border: 1.5px solid rgba(255, 255, 255, 0.25);
       padding: 24px 20px;
@@ -450,7 +452,6 @@
       justify-content: center;
       font-size: 1.9rem;
       flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
     }
 
     .giant-text-sub {
@@ -564,7 +565,7 @@
 
     .form-input, .form-textarea {
       width: 100%;
-      background: rgba(9, 19, 14, 0.7);
+      background: rgba(8, 12, 10, 0.75);
       border: 1px solid var(--card-border);
       padding: 12px 14px;
       border-radius: 14px;
@@ -600,10 +601,6 @@
       box-shadow: 0 6px 20px var(--terracotta-glow);
     }
 
-    .btn-feedback:active {
-      opacity: 0.9;
-    }
-
     /* FOOTER */
     footer {
       text-align: center;
@@ -611,7 +608,7 @@
       color: var(--text-muted);
       font-size: 0.74rem;
       border-top: 1px solid var(--card-border);
-      background: rgba(9, 19, 14, 0.95);
+      background: rgba(8, 12, 10, 0.95);
       margin-top: 20px;
     }
 
@@ -622,18 +619,18 @@
     }
 
     /* =========================================
-       SAYFA 2: GENİŞLETİLMİŞ VE BÜYÜTÜLMÜŞ MENÜ
+       SAYFA 2: GENİŞLETİLMİŞ MENÜ
        ========================================= */
     .menu-header-bar {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 14px 16px;
-      background: rgba(9, 19, 14, 0.92);
+      background: rgba(8, 12, 10, 0.92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--card-border);
       position: sticky;
-      top: 72px;
+      top: 69px;
       z-index: 95;
     }
 
@@ -657,10 +654,10 @@
       padding: 12px 16px;
       overflow-x: auto;
       scrollbar-width: none;
-      background: rgba(9, 19, 14, 0.85);
+      background: rgba(8, 12, 10, 0.85);
       backdrop-filter: blur(12px);
       position: sticky;
-      top: 137px;
+      top: 134px;
       z-index: 90;
       border-bottom: 1px solid var(--card-border);
     }
@@ -759,7 +756,7 @@
     .qty-box {
       display: flex;
       align-items: center;
-      background: rgba(9, 19, 14, 0.8);
+      background: rgba(8, 12, 10, 0.85);
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid var(--card-border);
@@ -802,7 +799,7 @@
       bottom: 20px;
       left: 14px;
       right: 14px;
-      background: linear-gradient(135deg, #10251c 0%, #1e4533 100%);
+      background: linear-gradient(135deg, #12281e 0%, #1c4530 100%);
       border: 1.5px solid var(--card-border);
       border-radius: 22px;
       padding: 14px 20px;
@@ -827,7 +824,7 @@
 
     .cart-total-badge {
       font-size: 0.74rem;
-      color: #a6b5ab;
+      color: #94a3b8;
       font-weight: 600;
     }
 
@@ -850,10 +847,6 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 6px 18px var(--terracotta-glow);
-    }
-
-    .btn-create-order:active {
-      background: var(--terracotta-dark);
     }
 
     /* TOAST */
@@ -888,8 +881,8 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(9, 19, 14, 0.85);
-      backdrop-filter: blur(10px);
+      background: rgba(8, 12, 10, 0.88);
+      backdrop-filter: blur(12px);
       z-index: 250;
       align-items: center;
       justify-content: center;
@@ -897,7 +890,7 @@
     }
 
     .modal-card {
-      background: #11231a;
+      background: #112018;
       border-radius: 24px;
       padding: 28px 22px;
       text-align: center;
@@ -917,7 +910,7 @@
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: rgba(200, 75, 37, 0.2);
+      background: rgba(234, 88, 12, 0.2);
       color: var(--amber);
       font-size: 1.8rem;
       display: flex;
@@ -931,55 +924,70 @@
 <body>
 
   <!-- =========================================
-       GİRİŞ ANİMASYONU VE YÜKLENİYOR EKRANI
+       GİRİŞ ANİMASYONU (PRELOADER)
        ========================================= -->
   <div id="intro-splash">
-    <div class="welcome-text-top">Tatvan Sahilinde</div>
-    <h2 class="welcome-title-large">HOŞ GELDİNİZ<span>.</span></h2>
+    <div class="splash-aura"></div>
+    <div class="splash-content">
+      <div class="splash-sub-badge">Tatvan Sahil Kordonu</div>
+      <h2 class="splash-brand-title">HOŞ GELDİNİZ<span>.</span></h2>
 
-    <!-- KARAVANIN DÖNDÜĞÜ SİNEMATİK ÇEMBER -->
-    <div class="orbit-container">
-      <div class="orbit-circle-track"></div>
-      <div class="orbit-inner-glow"></div>
-      <div class="orbit-center-icon">☕</div>
+      <!-- MERKEZİ KARAVAN VİTRİNİ VE DÖNEN ENERJİ -->
+      <div class="orbit-system">
+        <div class="orbit-ring"></div>
+        <div class="orbit-ring-pulse"></div>
 
-      <!-- 360 Dönen Karavan Taşıyıcı -->
-      <div class="orbit-spinner">
-        <div class="orbit-caravan-node">
-          <!-- Vektörel Karavan -->
-          <svg viewBox="0 0 24 24">
-            <path d="M3 17h15a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-3H6L3 11v6z"/>
-            <circle cx="7.5" cy="17.5" r="2"/>
-            <circle cx="16.5" cy="17.5" r="2"/>
-            <path d="M12 7V4m3 3V3"/>
+        <div class="caravan-core-stage">
+          <!-- Detaylı Özgün Karavan SVG İkonu -->
+          <svg class="caravan-vector" viewBox="0 0 64 64" fill="none">
+            <!-- Karavan Gövdesi -->
+            <path d="M10 46h42c2.2 0 4-1.8 4-4V24c0-4.4-3.6-8-8-8H16c-4.4 0-8 3.6-8 8v18c0 2.2 1.8 4 2 4z" fill="#ea580c" opacity="0.95"/>
+            <!-- Tavan Çıtası / Gölge -->
+            <path d="M16 16h32c2.2 0 4 1.8 4 4v2H12v-2c0-2.2 1.8-4 4-4z" fill="#f59e0b"/>
+            <!-- Ön / Yan Pencereler (Işıklı) -->
+            <rect x="14" y="22" width="12" height="10" rx="2" fill="#fff" opacity="0.9"/>
+            <rect x="30" y="22" width="12" height="10" rx="2" fill="#fff" opacity="0.9"/>
+            <!-- Kapı Çizgisi -->
+            <path d="M46 22v24" stroke="#7c2d12" stroke-width="2"/>
+            <!-- Çeki Demiri -->
+            <path d="M56 42h5" stroke="#cbd5e1" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Tekerlek Yuvaları ve Jantlar -->
+            <circle cx="24" cy="46" r="6" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+            <circle cx="24" cy="46" r="2.5" fill="#ea580c"/>
           </svg>
         </div>
       </div>
-    </div>
 
-    <!-- İLERLEME ÇUBUĞU & YÜZDE -->
-    <div class="splash-progress-wrap">
-      <div class="splash-progress-track">
-        <div class="splash-progress-bar" id="splash-bar"></div>
+      <!-- YÜZDELİK İLERLEME VE MİKRO METİN -->
+      <div class="progress-box">
+        <div class="progress-track">
+          <div class="progress-fill" id="splash-bar"></div>
+        </div>
+        <div class="progress-status-text">
+          <span id="splash-text">Özel Lezzetler Hazırlanıyor</span>
+          <span class="progress-number" id="splash-num">%0</span>
+        </div>
       </div>
-      <span class="splash-percent-text" id="splash-text">MENÜ YÜKLENİYOR %0</span>
     </div>
   </div>
 
-  <!-- 3D DERİNLİK KATAN AMBİYANS IŞIKLARI -->
+  <!-- 3D ARKA PLAN IŞIKLARI -->
   <div class="ambient-glow-1"></div>
   <div class="ambient-glow-2"></div>
-  <div class="ambient-glow-3"></div>
 
   <!-- SABİT ÜST BAR -->
   <header>
     <div class="brand-wrap">
-      <div class="brand-logo-box">
-        <svg viewBox="0 0 24 24">
-          <path d="M3 17h15a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-3H6L3 11v6z"/>
-          <circle cx="7.5" cy="17.5" r="2"/>
-          <circle cx="16.5" cy="17.5" r="2"/>
-          <path d="M12 7V4m3 3V3"/>
+      <!-- YENİ ARTISAN VEKTÖREL MARKA LOGOSU -->
+      <div class="brand-logo-emblem">
+        <svg viewBox="0 0 32 32" fill="none">
+          <!-- Dağ ve Göl Çizgileri -->
+          <path d="M4 22l6-8 6 8" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
+          <path d="M14 22l5-6 5 6" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+          <!-- Karavan Silüeti -->
+          <path d="M8 26h16a2 2 0 002-2v-3a2 2 0 00-2-2H8a2 2 0 00-2 2v3a2 2 0 002 2z" fill="#f8fafc"/>
+          <!-- Kahve Buharı Tepe Çizgisi -->
+          <path d="M16 6c1 1.5-1 2.5 0 4" stroke="#f59e0b" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
       </div>
       <div class="brand-info">
@@ -1039,9 +1047,7 @@
       </div>
     </div>
 
-    <!-- =========================================
-         DEVASA VE DİKKAT ÇEKİCİ SİNEMATİK MENÜ BUTONU
-         ========================================= -->
+    <!-- DEVASA SİNEMATİK MENÜ BUTONU -->
     <div class="section-wrap">
       <button class="btn-giant-menu" onclick="navigasyon('menu', 'hepsi')">
         <div class="giant-left">
@@ -1162,20 +1168,37 @@
 
   <script>
     // =========================================
-    // 0. GİRİŞ ANİMASYONU VE YÜKLEME ZAMANLAYICI
+    // 0. SİNEMATİK GİRİŞ ANİMASYON MOTORU
     // =========================================
     window.addEventListener('DOMContentLoaded', () => {
       const splash = document.getElementById('intro-splash');
       const bar = document.getElementById('splash-bar');
+      const num = document.getElementById('splash-num');
       const text = document.getElementById('splash-text');
       let progress = 0;
 
+      const dynamicPhrases = [
+        "Nomad Ruhu Başlatılıyor...",
+        "Taze Çekirdekler Öğütülüyor...",
+        "Özel Seçenekler Listeleniyor...",
+        "Göl Kıyısında Lezzet Deneyimi..."
+      ];
+
       const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 12) + 6;
+        progress += Math.floor(Math.random() * 14) + 8;
         if (progress > 100) progress = 100;
         
         bar.style.width = progress + '%';
-        text.innerText = `MENÜ HAZIRLANIYOR %${progress}`;
+        num.innerText = `%${progress}`;
+
+        // Dinamik metin geçişi
+        if (progress > 25 && progress <= 55) {
+          text.innerText = dynamicPhrases[1];
+        } else if (progress > 55 && progress <= 85) {
+          text.innerText = dynamicPhrases[2];
+        } else if (progress > 85) {
+          text.innerText = dynamicPhrases[3];
+        }
 
         if (progress === 100) {
           clearInterval(interval);
@@ -1183,7 +1206,7 @@
             splash.classList.add('hide');
           }, 350);
         }
-      }, 70);
+      }, 65);
     });
 
     // 1. MASA NUMARASINI URL'DEN ÇEKME (?masa=12)
@@ -1207,7 +1230,7 @@
       });
     }
 
-    // 4. GARSON ÇAĞIRMA
+    // 4. GARSON ÇAĞIRMA (Kasaya Anlık Sinyal Gönderir)
     function garsonCagir() {
       const kanal = new BroadcastChannel('pos_siparis_hatti');
       kanal.postMessage({
