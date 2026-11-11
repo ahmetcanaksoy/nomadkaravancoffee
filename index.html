@@ -8,24 +8,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* YEŞİL VE KİREMİT (TERRACOTTA) PALETİ */
-      --bg-body: #f4f6f3;
-      --card-bg: #ffffff;
-      --card-border: #e3eae2;
+      /* AÇIK KİREMİT VE ORMAN YEŞİLİ PALETİ (BEYAZSIZ) */
+      --bg-body: #fbf5f1;             /* Sıcak Açık Kiremit Zemin */
+      --card-bg: #f5ebe3;             /* Açık Kiremit Kart Rengi */
+      --card-border: #ebdcd1;         /* Yumuşak Kiremit Kenarlık */
       
-      --terracotta: #c2410c;         /* Sıcak Kiremit */
-      --terracotta-hover: #9a3412;   /* Koyu Kiremit */
-      --terracotta-soft: rgba(194, 65, 12, 0.09);
+      --terracotta: #c2410c;          /* Canlı Kiremit */
+      --terracotta-dark: #9a3412;     /* Koyu Kiremit */
+      --terracotta-soft: rgba(194, 65, 12, 0.12);
       
-      --forest-green: #1b3b2b;       /* Derin Orman Yeşili */
-      --sage-green: #2d5a43;         /* Adaçayı / Koyu Yeşil */
-      --green-soft: rgba(45, 90, 67, 0.1);
+      --forest-green: #142e20;        /* Derin Zengin Orman Yeşili */
+      --forest-green-hover: #0c1f15;
+      --forest-soft: rgba(20, 46, 32, 0.1);
       
-      --text-main: #1c2721;
-      --text-muted: #5e6d64;
-      --shadow-sm: 0 2px 10px rgba(27, 59, 43, 0.05);
-      --shadow-md: 0 10px 26px rgba(27, 59, 43, 0.08);
-      --shadow-terracotta: 0 10px 28px rgba(194, 65, 12, 0.28);
+      --text-main: #142e20;
+      --text-muted: #6f5f56;
+      --shadow-sm: 0 3px 12px rgba(194, 65, 12, 0.06);
+      --shadow-md: 0 10px 28px rgba(20, 46, 32, 0.08);
+      --shadow-green: 0 10px 28px rgba(20, 46, 32, 0.28);
     }
 
     * {
@@ -48,7 +48,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(244, 246, 243, 0.96);
+      background: rgba(251, 245, 241, 0.95);
       backdrop-filter: blur(14px);
       border-bottom: 1.5px solid var(--card-border);
       padding: 12px 18px;
@@ -63,7 +63,6 @@
       gap: 10px;
     }
 
-    /* ÖZEL VEKTÖREL KARAVAN LOGO KUTUSU */
     .brand-logo-box {
       width: 42px;
       height: 42px;
@@ -72,23 +71,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(27, 59, 43, 0.25);
+      box-shadow: 0 4px 12px rgba(20, 46, 32, 0.25);
       flex-shrink: 0;
-      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .brand-logo-box svg {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
       fill: none;
-      stroke: #fbfbf9;
+      stroke: #fbf5f1;
       stroke-width: 1.8;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
     .brand-info h1 {
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       font-weight: 800;
       color: var(--forest-green);
       letter-spacing: -0.3px;
@@ -97,15 +95,15 @@
     .brand-info p {
       font-size: 0.72rem;
       color: var(--terracotta);
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
     }
 
     .table-chip {
-      background: var(--terracotta-soft);
-      border: 1.5px solid var(--terracotta);
-      color: var(--terracotta);
+      background: var(--forest-soft);
+      border: 1.5px solid var(--forest-green);
+      color: var(--forest-green);
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.82rem;
@@ -118,9 +116,9 @@
     .table-dot {
       width: 8px;
       height: 8px;
-      background: var(--terracotta);
+      background: var(--forest-green);
       border-radius: 50%;
-      box-shadow: 0 0 6px var(--terracotta);
+      box-shadow: 0 0 6px var(--forest-green);
     }
 
     /* SAYFA KAPSAYICILARI */
@@ -140,7 +138,7 @@
     /* =========================================
        SAYFA 1: MOBİL HOME / KEŞFET
        ========================================= */
-    /* KAPAK GÖRSELİ (YAZISIZ VE ŞIK) */
+    /* KAPAK GÖRSELİ */
     .hero-card {
       margin: 16px 16px 20px;
       height: 200px;
@@ -162,10 +160,10 @@
       margin-bottom: 20px;
     }
 
-    /* 4'LÜ HIZLI BUTONLAR */
+    /* 3'LÜ HIZLI BUTONLAR (INSTAGRAM YENİLENDİ, MÜZİK ÇIKTI) */
     .quick-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
 
@@ -173,7 +171,7 @@
       background: var(--card-bg);
       border: 1.5px solid var(--card-border);
       border-radius: 18px;
-      padding: 13px 4px;
+      padding: 14px 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -188,26 +186,35 @@
 
     .service-btn:active {
       transform: scale(0.96);
-      background: #eaece8;
-      border-color: var(--terracotta);
+      background: #ebdcd1;
+      border-color: var(--forest-green);
     }
 
     .service-icon {
       font-size: 1.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Resmi Güncel Instagram Vektör Logosu */
+    .insta-svg {
+      width: 24px;
+      height: 24px;
     }
 
     .service-name {
-      font-size: 0.72rem;
-      font-weight: 700;
+      font-size: 0.74rem;
+      font-weight: 800;
       color: var(--forest-green);
       text-align: center;
     }
 
-    /* BÜYÜK MENÜ GİRİŞ BUTONU (KİREMİT GRADIENT) */
+    /* BÜYÜK MENÜ GİRİŞ BUTONU (YEŞİL ZEMİN, AÇIK METİN) */
     .btn-hero-menu {
       width: 100%;
-      background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-hover) 100%);
-      color: #ffffff;
+      background: linear-gradient(135deg, var(--forest-green) 0%, #1c4530 100%);
+      color: #fbf5f1;
       border: none;
       padding: 16px 20px;
       border-radius: 18px;
@@ -217,7 +224,7 @@
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
-      box-shadow: var(--shadow-terracotta);
+      box-shadow: var(--shadow-green);
       transition: transform 0.15s;
     }
 
@@ -225,91 +232,71 @@
       transform: scale(0.98);
     }
 
-    /* GÜNÜN FALI KARTI */
-    .fortune-card {
-      background: linear-gradient(135deg, #fef6ee 0%, #faede1 100%);
-      border-radius: 20px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    /* DÜKKAN HARİTASI BÖLÜMÜ */
+    .map-box {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 22px;
+      overflow: hidden;
       box-shadow: var(--shadow-sm);
-      cursor: pointer;
-      border: 1.5px solid #f2d2bd;
     }
 
-    .fortune-icon {
-      font-size: 2rem;
+    .map-header {
+      padding: 16px 18px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .fortune-texts h4 {
+    .map-title {
       font-size: 0.95rem;
       font-weight: 800;
-      color: var(--terracotta-hover);
-    }
-
-    .fortune-texts p {
-      font-size: 0.74rem;
-      color: #8c2e0b;
-      font-weight: 600;
-      line-height: 1.3;
-    }
-
-    /* KATEGORİ GÖRSELLERİ */
-    .sec-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--forest-green);
-      margin-bottom: 12px;
-    }
-
-    .category-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .cat-visual-card {
-      background: var(--card-bg);
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1.5px solid var(--card-border);
-      box-shadow: var(--shadow-sm);
-      cursor: pointer;
-      transition: transform 0.15s;
-    }
-
-    .cat-visual-card:active {
-      transform: scale(0.97);
-      border-color: var(--terracotta);
-    }
-
-    .cat-img-wrap {
-      height: 105px;
-      position: relative;
-    }
-
-    .cat-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .cat-visual-info {
-      padding: 10px 12px;
-    }
-
-    .cat-visual-title {
-      font-size: 0.88rem;
-      font-weight: 800;
       color: var(--forest-green);
     }
 
-    .cat-visual-desc {
+    .map-sub {
       font-size: 0.72rem;
       color: var(--terracotta);
       font-weight: 700;
-      margin-top: 2px;
+    }
+
+    .map-iframe-wrap {
+      width: 100%;
+      height: 180px;
+      border-top: 1.5px solid var(--card-border);
+      border-bottom: 1.5px solid var(--card-border);
+    }
+
+    .map-iframe-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .map-action-bar {
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .map-address {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .btn-map-dir {
+      background: var(--forest-green);
+      color: #fbf5f1;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     /* İSTEK, ÖNERİ & ŞİKAYET KUTUSU */
@@ -357,7 +344,7 @@
     }
 
     .form-input:focus, .form-textarea:focus {
-      border-color: var(--terracotta);
+      border-color: var(--forest-green);
       background: #ffffff;
     }
 
@@ -368,7 +355,7 @@
 
     .btn-feedback {
       background: var(--forest-green);
-      color: #ffffff;
+      color: #fbf5f1;
       border: none;
       padding: 13px;
       border-radius: 12px;
@@ -379,11 +366,10 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: opacity 0.2s;
     }
 
     .btn-feedback:active {
-      opacity: 0.9;
+      background: var(--forest-green-hover);
     }
 
     /* FOOTER */
@@ -393,14 +379,14 @@
       color: var(--text-muted);
       font-size: 0.72rem;
       border-top: 1.5px solid var(--card-border);
-      background: #ffffff;
+      background: var(--card-bg);
       margin-top: 20px;
     }
 
     footer a {
       color: var(--terracotta);
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
     }
 
     /* =========================================
@@ -419,7 +405,7 @@
     }
 
     .btn-back-home {
-      background: #ffffff;
+      background: var(--card-bg);
       border: 1.5px solid var(--card-border);
       color: var(--forest-green);
       padding: 8px 14px;
@@ -450,7 +436,7 @@
     }
 
     .tab-pill {
-      background: #ffffff;
+      background: var(--card-bg);
       border: 1.5px solid var(--card-border);
       color: var(--text-muted);
       padding: 8px 18px;
@@ -464,10 +450,10 @@
     }
 
     .tab-pill.active {
-      background: var(--terracotta);
-      border-color: var(--terracotta);
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(194, 65, 12, 0.25);
+      background: var(--forest-green);
+      border-color: var(--forest-green);
+      color: #fbf5f1;
+      box-shadow: 0 4px 14px rgba(20, 46, 32, 0.25);
     }
 
     /* ÜRÜN KARTLARI */
@@ -564,7 +550,7 @@
 
     .qty-btn.plus {
       background: var(--forest-green);
-      color: #ffffff;
+      color: #fbf5f1;
     }
 
     .qty-num {
@@ -575,7 +561,7 @@
       color: var(--forest-green);
     }
 
-    /* YÜZEN SEPET BARI (SADECE MENÜDE GÖRÜNÜR) */
+    /* YÜZEN SEPET BARI */
     .floating-cart-bar {
       position: fixed;
       bottom: 20px;
@@ -584,11 +570,11 @@
       background: var(--forest-green);
       border-radius: 20px;
       padding: 12px 18px;
-      color: #ffffff;
+      color: #fbf5f1;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 10px 30px rgba(27, 59, 43, 0.35);
+      box-shadow: 0 10px 30px rgba(20, 46, 32, 0.35);
       z-index: 160;
       transform: translateY(180%);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -605,14 +591,14 @@
 
     .cart-total-badge {
       font-size: 0.72rem;
-      color: #a7bfb2;
+      color: #c0d1c8;
       font-weight: 600;
     }
 
     .cart-price-sum {
       font-size: 1.15rem;
       font-weight: 800;
-      color: #ffffff;
+      color: #fbf5f1;
     }
 
     .btn-create-order {
@@ -631,7 +617,7 @@
     }
 
     .btn-create-order:active {
-      background: var(--terracotta-hover);
+      background: var(--terracotta-dark);
     }
 
     /* TOAST */
@@ -641,7 +627,7 @@
       left: 50%;
       transform: translateX(-50%) translateY(-20px);
       background: var(--forest-green);
-      color: #ffffff;
+      color: #fbf5f1;
       padding: 10px 20px;
       border-radius: 20px;
       font-size: 0.82rem;
@@ -666,7 +652,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(27, 59, 43, 0.65);
+      background: rgba(20, 46, 32, 0.65);
       backdrop-filter: blur(6px);
       z-index: 250;
       align-items: center;
@@ -675,13 +661,14 @@
     }
 
     .modal-card {
-      background: #ffffff;
+      background: var(--card-bg);
       border-radius: 24px;
       padding: 26px 22px;
       text-align: center;
       max-width: 320px;
       width: 100%;
       box-shadow: var(--shadow-md);
+      border: 1.5px solid var(--card-border);
       animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -694,8 +681,8 @@
       width: 58px;
       height: 58px;
       border-radius: 50%;
-      background: var(--terracotta-soft);
-      color: var(--terracotta);
+      background: var(--forest-soft);
+      color: var(--forest-green);
       font-size: 1.6rem;
       display: flex;
       align-items: center;
@@ -706,11 +693,10 @@
 </head>
 <body>
 
-  <!-- SABİT ÜST BAR (KARAVAN VE KAHVE VEKTÖR LOGOLU) -->
+  <!-- SABİT ÜST BAR -->
   <header>
     <div class="brand-wrap">
       <div class="brand-logo-box">
-        <!-- Vektörel Minimal Karavan & Kahve Dumanı Logosu -->
         <svg viewBox="0 0 24 24">
           <path d="M3 17h15a3 3 0 0 0 3-3v-4a3 3 0 0 0-3-3H6L3 11v6z"/>
           <circle cx="7.5" cy="17.5" r="2"/>
@@ -740,12 +726,12 @@
        ========================================= -->
   <div class="view-page active" id="view-home">
     
-    <!-- YAZISIZ VE TEMİZ KAPAK GÖRSELİ -->
+    <!-- TEMİZ KAPAK GÖRSELİ -->
     <div class="hero-card">
       <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Nomad Karavan Coffee">
     </div>
 
-    <!-- 4'LÜ HIZLI SERVİS BUTONLARI -->
+    <!-- 3'LÜ HIZLI BUTONLAR -->
     <div class="section-wrap">
       <div class="quick-grid">
         <!-- 1. WIFI KOPYALA -->
@@ -760,21 +746,30 @@
           <span class="service-name">Garson</span>
         </div>
 
-        <!-- 3. INSTAGRAM -->
+        <!-- 3. YENİ RESMİ INSTAGRAM LOGOSU -->
         <a class="service-btn" href="https://instagram.com/nomadkaravancoffee" target="_blank">
-          <span class="service-icon">📸</span>
+          <span class="service-icon">
+            <svg class="insta-svg" viewBox="0 0 24 24" fill="none">
+              <defs>
+                <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#fdf497"/>
+                  <stop offset="5%" stop-color="#fdf497"/>
+                  <stop offset="45%" stop-color="#fd5949"/>
+                  <stop offset="60%" stop-color="#d6249f"/>
+                  <stop offset="90%" stop-color="#285AEB"/>
+                </linearGradient>
+              </defs>
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#igGrad)" stroke-width="2.2"/>
+              <circle cx="12" cy="12" r="4.2" stroke="url(#igGrad)" stroke-width="2.2"/>
+              <circle cx="17.5" cy="6.5" r="1.3" fill="url(#igGrad)"/>
+            </svg>
+          </span>
           <span class="service-name">Instagram</span>
-        </a>
-
-        <!-- 4. SPOTIFY -->
-        <a class="service-btn" href="https://open.spotify.com" target="_blank">
-          <span class="service-icon">🎵</span>
-          <span class="service-name">Müzik</span>
         </a>
       </div>
     </div>
 
-    <!-- BÜYÜK MENÜYE GİRİŞ BUTONU (KİREMİT TONU) -->
+    <!-- BÜYÜK MENÜYE GİRİŞ BUTONU -->
     <div class="section-wrap">
       <button class="btn-hero-menu" onclick="navigasyon('menu', 'hepsi')">
         <span style="display:flex; align-items:center; gap:8px;">
@@ -785,63 +780,29 @@
       </button>
     </div>
 
-    <!-- GÜNÜN FALI KARTI -->
+    <!-- DÜKKAN HARİTASI (TATVAN SAHİL KORDONU) -->
     <div class="section-wrap">
-      <div class="fortune-card" onclick="faliGoster()">
-        <span class="fortune-icon">🔮</span>
-        <div class="fortune-texts">
-          <h4>Günün Karavan Falı</h4>
-          <p>Kahven hazırlanırken sana özel küçük kehaneti okumak için tıkla.</p>
+      <div class="map-box">
+        <div class="map-header">
+          <div>
+            <div class="map-title">Karavan Konumu</div>
+            <div class="map-sub">Sahil Yürüyüş Yolu</div>
+          </div>
+          <span style="font-size:1.2rem;">📍</span>
         </div>
-      </div>
-    </div>
-
-    <!-- KATEGORİ GÖRSELLERİ -->
-    <div class="section-wrap">
-      <div class="sec-title">Menü Kategorileri</div>
-      <div class="category-cards-grid">
-        <!-- Sıcak Kahveler -->
-        <div class="cat-visual-card" onclick="navigasyon('menu', 'sicak')">
-          <div class="cat-img-wrap">
-            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80" alt="Sıcak Kahveler">
-          </div>
-          <div class="cat-visual-info">
-            <div class="cat-visual-title">Sıcak Kahveler</div>
-            <div class="cat-visual-desc">Espresso & Demleme →</div>
-          </div>
+        <div class="map-iframe-wrap">
+          <iframe 
+            src="https://maps.google.com/maps?q=Tatvan+Sahil+Kordonu,Bitlis&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            loading="lazy" 
+            allowfullscreen>
+          </iframe>
         </div>
-
-        <!-- Soğuk Kahveler -->
-        <div class="cat-visual-card" onclick="navigasyon('menu', 'soguk')">
-          <div class="cat-img-wrap">
-            <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80" alt="Soğuk Kahveler">
-          </div>
-          <div class="cat-visual-info">
-            <div class="cat-visual-title">Soğuk Kahveler</div>
-            <div class="cat-visual-desc">Buzlu & Cold Brew →</div>
-          </div>
-        </div>
-
-        <!-- Tatlı Çeşitleri -->
-        <div class="cat-visual-card" onclick="navigasyon('menu', 'tatli')">
-          <div class="cat-img-wrap">
-            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" alt="Tatlılar">
-          </div>
-          <div class="cat-visual-info">
-            <div class="cat-visual-title">Tatlı Çeşitleri</div>
-            <div class="cat-visual-desc">San Sebastian & Brownie →</div>
-          </div>
-        </div>
-
-        <!-- Kahvaltılık & Tost -->
-        <div class="cat-visual-card" onclick="navigasyon('menu', 'kahvalti')">
-          <div class="cat-img-wrap">
-            <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=400&q=80" alt="Kahvaltılık">
-          </div>
-          <div class="cat-visual-info">
-            <div class="cat-visual-title">Kahvaltılık & Tost</div>
-            <div class="cat-visual-desc">Kavurmalı Tost & Sandviç →</div>
-          </div>
+        <div class="map-action-bar">
+          <span class="map-address">Sahil Kordonu, Tatvan / Bitlis</span>
+          <a class="btn-map-dir" href="https://maps.google.com/?q=Tatvan+Sahil+Kordonu" target="_blank">
+            <span>Yol Tarifi</span>
+            <span>↗</span>
+          </a>
         </div>
       </div>
     </div>
@@ -872,7 +833,7 @@
   </div>
 
   <!-- =========================================
-       SAYFA 2: MENÜ & SİPARİŞ EKRANI (MENU)
+       SAYFA 2: GENİŞLETİLMİŞ MENÜ & SİPARİŞ
        ========================================= -->
   <div class="view-page" id="view-menu">
     <!-- MENÜ ÜST GERİ DÖN BARI -->
@@ -890,7 +851,8 @@
       <button class="tab-pill" id="tab-sicak" onclick="tabSec('sicak')">Sıcak Kahveler</button>
       <button class="tab-pill" id="tab-soguk" onclick="tabSec('soguk')">Soğuk Kahveler</button>
       <button class="tab-pill" id="tab-tatli" onclick="tabSec('tatli')">Tatlılar</button>
-      <button class="tab-pill" id="tab-kahvalti" onclick="tabSec('kahvalti')">Kahvaltılık</button>
+      <button class="tab-pill" id="tab-kahvalti" onclick="tabSec('kahvalti')">Atıştırmalık & Tost</button>
+      <button class="tab-pill" id="tab-icecek" onclick="tabSec('icecek')">Çay & Meşrubat</button>
     </div>
 
     <!-- ÜRÜN LİSTESİ -->
@@ -909,26 +871,12 @@
     </button>
   </div>
 
-  <!-- FAL MODALI -->
-  <div class="custom-modal" id="modal-fortune">
-    <div class="modal-card">
-      <div class="modal-circle-icon">☕</div>
-      <h3 style="font-size:1.15rem; font-weight:800; color:var(--forest-green); margin-bottom:8px;">Günün Mesajı</h3>
-      <p id="fortune-text" style="font-size:0.85rem; color:#475569; line-height:1.45; margin-bottom:20px;">
-        "Bugün Van Gölü'nün rüzgarı kafandaki tüm karmaşayı alıp götürecek. Taze bir başlangıç kapıda!"
-      </p>
-      <button class="btn-create-order" style="width:100%; justify-content:center;" onclick="modalKapat('modal-fortune')">
-        Teşekkürler
-      </button>
-    </div>
-  </div>
-
   <!-- SİPARİŞ BAŞARILI MODALI -->
   <div class="custom-modal" id="modal-success">
     <div class="modal-card">
       <div class="modal-circle-icon">✓</div>
       <h3 style="font-size:1.15rem; font-weight:800; color:var(--forest-green); margin-bottom:8px;">Siparişiniz İletildi!</h3>
-      <p style="font-size:0.82rem; color:#64748b; line-height:1.4; margin-bottom:20px;">
+      <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.4; margin-bottom:20px;">
         Siparişiniz baristaya ve kasaya anlık olarak düştü. Hemen hazırlanıp masanıza servis edilecek.
       </p>
       <button class="btn-create-order" style="width:100%; justify-content:center;" onclick="modalKapat('modal-success')">
@@ -970,25 +918,11 @@
       bildirimGoster(`Masa ${masaNo} için garson çağrıldı!`, "🔔");
     }
 
-    // 5. GÜNÜN FALI RASTGELE MESAJLARI
-    const fallar = [
-      "Van Gölü'nün dalgaları bugün sana huzur getiriyor. Beklediğin o haber çok yakında!",
-      "Kahvenin ilk yudumunda dileğini tut; bugün şans senin tarafında olacak.",
-      "Kafandaki projeleri hayata geçirmenin tam vakti, erteleme!",
-      "Ateş başındaki sıcak sohbetler sana yeni bir kapı aralayacak."
-    ];
-
-    function faliGoster() {
-      const rastgele = fallar[Math.floor(Math.random() * fallar.length)];
-      document.getElementById('fortune-text').innerText = `"${rastgele}"`;
-      document.getElementById('modal-fortune').style.display = 'flex';
-    }
-
     function modalKapat(id) {
       document.getElementById(id).style.display = 'none';
     }
 
-    // 6. İSTEK / ÖNERİ MAİL GÖNDERME
+    // 5. İSTEK / ÖNERİ MAİL GÖNDERME
     function mailGonder(e) {
       e.preventDefault();
       const ad = document.getElementById('fb-ad').value;
@@ -1000,8 +934,9 @@
       bildirimGoster("E-posta istemciniz açılıyor...", "✉️");
     }
 
-    // 7. ÜRÜN VERİTABANI
+    // 6. GENİŞLETİLMİŞ ZENGİN ÜRÜN VERİTABANI
     const urunler = [
+      // Sıcak Kahveler
       {
         id: 1,
         ad: "Flat White",
@@ -1020,6 +955,22 @@
       },
       {
         id: 3,
+        ad: "Caffe Latte",
+        kategori: "sicak",
+        aciklama: "Espresso ve bol buharda ısıtılmış yumuşak süt",
+        fiyat: 110,
+        resim: "https://images.unsplash.com/photo-1561047029-3000c68339ca?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 4,
+        ad: "Cappuccino",
+        kategori: "sicak",
+        aciklama: "Yoğun espresso, sıcak süt ve kabarık süt köpüğü",
+        fiyat: 110,
+        resim: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 5,
         ad: "Cortado",
         kategori: "sicak",
         aciklama: "Eşit oranda espresso ve buharda ısıtılmış yoğun süt",
@@ -1027,15 +978,24 @@
         resim: "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=300&q=80"
       },
       {
-        id: 4,
+        id: 6,
+        ad: "Caffe Mocha",
+        kategori: "sicak",
+        aciklama: "Espresso, eritilmiş Belçika çikolatası ve sıcak süt",
+        fiyat: 130,
+        resim: "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 7,
         ad: "Geleneksel Türk Kahvesi",
         kategori: "sicak",
         aciklama: "Köz tadında ağır çekim hazırlanır, lokum eşliğinde",
         fiyat: 75,
         resim: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=300&q=80"
       },
+      // Soğuk Kahveler
       {
-        id: 5,
+        id: 8,
         ad: "Iced Americano",
         kategori: "soguk",
         aciklama: "Bol buz ve çift shot taze espresso ferahlığı",
@@ -1043,7 +1003,15 @@
         resim: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=300&q=80"
       },
       {
-        id: 6,
+        id: 9,
+        ad: "Iced Caffe Latte",
+        kategori: "soguk",
+        aciklama: "Buz, soğuk süt ve üzerine yavaşça dökülen taze espresso",
+        fiyat: 115,
+        resim: "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 10,
         ad: "Iced Caramel Macchiato",
         kategori: "soguk",
         aciklama: "Karamel sosu, vanilya aroması ve soğuk taze süt",
@@ -1051,7 +1019,7 @@
         resim: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=300&q=80"
       },
       {
-        id: 7,
+        id: 11,
         ad: "Cold Brew Karavan Özel",
         kategori: "soguk",
         aciklama: "16 saat soğuk demlenmiş zengin gövdeli yoğun kahve",
@@ -1059,7 +1027,16 @@
         resim: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=300&q=80"
       },
       {
-        id: 8,
+        id: 12,
+        ad: "Berry Hibiscus Cooler",
+        kategori: "soguk",
+        aciklama: "Orman meyveleri, taze nane ve soğuk demlenmiş ekşi hibiscus",
+        fiyat: 125,
+        resim: "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=300&q=80"
+      },
+      // Tatlılar
+      {
+        id: 13,
         ad: "San Sebastian Cheesecake",
         kategori: "tatli",
         aciklama: "Akışkan kıvamlı, sıcak eritilmiş Belçika çikolatası ile",
@@ -1067,7 +1044,7 @@
         resim: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=300&q=80"
       },
       {
-        id: 9,
+        id: 14,
         ad: "Lotus Brownie",
         kategori: "tatli",
         aciklama: "Yoğun fırınlanmış bitter çikolata ve Lotus kreması",
@@ -1075,7 +1052,24 @@
         resim: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=300&q=80"
       },
       {
-        id: 10,
+        id: 15,
+        ad: "İtalyan Tiramisu",
+        kategori: "tatli",
+        aciklama: "Mascarpone kreması ve taze espresso ile ıslatılmış kedi dili",
+        fiyat: 135,
+        resim: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 16,
+        ad: "Çilekli Magnolia",
+        kategori: "tatli",
+        aciklama: "Hafif ipeksi muhallebi, taze Tatvan çilekleri ve bisküvi",
+        fiyat: 120,
+        resim: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=300&q=80"
+      },
+      // Atıştırmalık & Tost
+      {
+        id: 17,
         ad: "Karavan Gurme Tost",
         kategori: "kahvalti",
         aciklama: "Hakiki Bitlis kavurması, kaşar peyniri ve artisan ekmek",
@@ -1083,19 +1077,52 @@
         resim: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=300&q=80"
       },
       {
-        id: 11,
+        id: 18,
         ad: "Kruvasan Sandviç",
         kategori: "kahvalti",
         aciklama: "Füme et, labne peyniri, çeri domates ve taze yeşillikler",
         fiyat: 145,
         resim: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 19,
+        ad: "Avokadolu Kaşarlı Tost",
+        kategori: "kahvalti",
+        aciklama: "Ezilmiş taze avokado, eritme kaşar ve kekikli zeytinyağı",
+        fiyat: 150,
+        resim: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=300&q=80"
+      },
+      // Çay & Meşrubat
+      {
+        id: 20,
+        ad: "Demleme Karadeniz Çayı",
+        kategori: "icecek",
+        aciklama: "Taze demlenmiş ince belli bardakta geleneksel çay",
+        fiyat: 30,
+        resim: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 21,
+        ad: "Bitki & Kış Çayı",
+        kategori: "icecek",
+        aciklama: "Ihlamur, zencefil, tarçın, elma ve bal eşliğinde",
+        fiyat: 85,
+        resim: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=300&q=80"
+      },
+      {
+        id: 22,
+        ad: "San Pellegrino Maden Suyu",
+        kategori: "icecek",
+        aciklama: "Limon dilimi ve nane ile servis edilir",
+        fiyat: 55,
+        resim: "https://images.unsplash.com/photo-1559839914-ba2ce56d2187?auto=format&fit=crop&w=300&q=80"
       }
     ];
 
     let sepet = {};
     let aktifKategori = 'hepsi';
 
-    // 8. SAYFA VE TAB GEZİNTİSİ
+    // 7. SAYFA VE TAB GEZİNTİSİ
     function navigasyon(sayfaAdi, kategori = 'hepsi') {
       document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
 
@@ -1109,7 +1136,7 @@
       window.scrollTo(0, 0);
     }
 
-    // Geri tuşu desteği
+    // Telefonun fiziksel geri tuşunu destekler
     window.onpopstate = function() {
       const viewMenu = document.getElementById('view-menu');
       if (viewMenu.classList.contains('active')) {
@@ -1125,7 +1152,7 @@
       menuyuCiz();
     }
 
-    // 9. MENÜYÜ EKRANA BASMA
+    // 8. MENÜYÜ EKRANA BASMA
     function menuyuCiz() {
       const container = document.getElementById('products-list');
       container.innerHTML = "";
@@ -1159,7 +1186,7 @@
       });
     }
 
-    // 10. SEPET VE FİYAT GÜNCELLEMESİ
+    // 9. SEPET VE FİYAT GÜNCELLEMESİ
     function adetGuncelle(id, delta) {
       const yeni = (sepet[id] || 0) + delta;
       if (yeni <= 0) {
@@ -1193,7 +1220,7 @@
       }
     }
 
-    // 11. SİPARİŞİ KASAYA İLETME (BroadcastChannel & LocalStorage)
+    // 10. SİPARİŞİ KASAYA İLETME (BroadcastChannel & LocalStorage)
     const kanal = new BroadcastChannel('pos_siparis_hatti');
 
     function siparisiGonder() {
