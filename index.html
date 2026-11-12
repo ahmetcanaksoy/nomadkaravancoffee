@@ -417,6 +417,38 @@
       color: #064e3b;
     }
 
+    .notif-perm-bar {
+      display: none;
+      margin: 12px 16px 0;
+      background: rgba(226, 232, 240, 0.12);
+      border: 1px solid rgba(226, 232, 240, 0.35);
+      border-radius: 16px;
+      padding: 11px 14px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      position: relative;
+      z-index: 20;
+    }
+
+    .notif-perm-bar span {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .btn-enable-notif {
+      background: var(--silver-bright);
+      color: #0f172a;
+      border: none;
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-size: 0.74rem;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
     .view-page {
       display: none;
       position: relative;
@@ -1293,6 +1325,11 @@
     <span id="toast-msg">İşlem Başarılı</span>
   </div>
 
+  <div class="notif-perm-bar" id="notif-perm-bar">
+    <span>🔔 Siparişiniz hazır olduğunda ana ekrana bildirim gelsin mi?</span>
+    <button class="btn-enable-notif" onclick="bildirimIzniIste()">İzin Ver</button>
+  </div>
+
   <div class="order-status-banner" id="order-status-banner">
     <div class="status-banner-left">
       <div class="status-banner-icon" id="status-banner-icon">☕</div>
@@ -1529,6 +1566,95 @@
     const oturumBaslangic = Date.now();
     let seciliRezTuru = "Ateş Başı";
     let sonBilinenDurum = null;
+    let clientAudioCtx = null;
+    let baslikInterval = null;
+    const orijinalBaslik = document.title;
+
+    function bildirimCubuguKontrol() {
+      const permBar = document.getElementById('notif-perm-bar');
+      if (!isMasaModu || !('Notification' in window)) {
+        permBar.style.display = 'none';
+        return;
+      }
+      if (Notification.permission === 'default') {
+        permBar.style.display = 'flex';
+      } else {
+        permBar.style.display = 'none';
+      }
+    }
+
+    async function bildirimIzniIste() {
+      if (!('Notification' in window)) return;
+      try {
+        const sonuc = await Notification.requestPermission();
+        bildirimCubuguKontrol();
+        if (sonuc === 'granted') {
+          bildirimGoster("Bildirimler aktif! Hazır olunca ekrana düşecek.", "🔔");
+        }
+      } catch (e) {}
+    }
+
+    function musteriZilVeTitresimCal() {
+      try {
+        if (navigator.vibrate) {
+          navigator.vibrate([300, 120, 300, 120, 450]);
+        }
+      } catch (e) {}
+
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!clientAudioCtx) clientAudioCtx = new AudioContextClass();
+        if (clientAudioCtx.state === 'suspended') clientAudioCtx.resume();
+        const now = clientAudioCtx.currentTime;
+
+        [587.33, 880, 1174.66].forEach((freq, idx) => {
+          const osc = clientAudioCtx.createOscillator();
+          const gain = clientAudioCtx.createGain();
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(freq, now + idx * 0.16);
+          gain.gain.setValueAtTime(0.6, now + idx * 0.16);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.16 + 0.45);
+          osc.connect(gain);
+          gain.connect(clientAudioCtx.destination);
+          osc.start(now + idx * 0.16);
+          osc.stop(now + idx * 0.16 + 0.45);
+        });
+      } catch (e) {}
+    }
+
+    function kilitEkraninaBildirimGonder() {
+      musteriZilVeTitresimCal();
+
+      if (!baslikInterval) {
+        let toggle = false;
+        baslikInterval = setInterval(() => {
+          document.title = toggle ? "🔔 SİPARİŞİNİZ HAZIR!" : "☕ Afiyet Olsun • Nomâd";
+          toggle = !toggle;
+        }, 1200);
+      }
+
+      if ('Notification' in window && Notification.permission === 'granted') {
+        try {
+          const bildirim = new Notification("Nomâd Karavan Coffee • Siparişiniz Hazır! 🎉", {
+            body: `Masa ${masaNo} için siparişiniz hazırlandı, afiyet olsun!`,
+            tag: `nomad-hazir-${masaNo}`,
+            renotify: true
+          });
+          bildirim.onclick = () => {
+            window.focus();
+            bildirim.close();
+          };
+        } catch (e) {}
+      }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && baslikInterval) {
+        clearInterval(baslikInterval);
+        baslikInterval = null;
+        document.title = orijinalBaslik;
+      }
+    });
 
     function rezTurSec(tur) {
       seciliRezTuru = tur;
@@ -1606,6 +1732,7 @@
         document.getElementById('status-live-pill').innerText = 'Hazır ✓';
 
         if (sonBilinenDurum !== 'hazir') {
+          kilitEkraninaBildirimGonder();
           document.getElementById('modal-icon').innerText = '🎉';
           document.getElementById('modal-title').innerText = 'Siparişiniz Hazır!';
           document.getElementById('modal-desc').innerText = 'Siparişiniz hazırlandı, afiyet olsun!';
@@ -1641,6 +1768,7 @@
       sepet = {};
       ozelKahveSepeti = [];
       siparisDurumBannerGuncelle(null);
+      bildirimCubuguKontrol();
       document.getElementById('cart-floating-bar').classList.remove('active');
       const headerBadge = document.getElementById('header-badge');
       headerBadge.classList.add('online-visitor');
@@ -1666,6 +1794,7 @@
         const menuCta = document.getElementById('menu-cta-wrap');
         const rezSec = document.getElementById('rez-section-wrap');
         homePage.insertBefore(menuCta, rezSec);
+        bildirimCubuguKontrol();
       } else {
         headerBadge.classList.add('online-visitor');
         masaText.innerText = "Online Ziyaretçi";
@@ -2114,6 +2243,16 @@
 
     async function siparisiGonder() {
       if (!isMasaModu) return;
+
+      if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().then(() => bildirimCubuguKontrol());
+      }
+
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!clientAudioCtx) clientAudioCtx = new AudioContextClass();
+        if (clientAudioCtx.state === 'suspended') clientAudioCtx.resume();
+      } catch (e) {}
 
       const kapandi = await masaDurumunuKontrolEt();
       if (kapandi) return;
