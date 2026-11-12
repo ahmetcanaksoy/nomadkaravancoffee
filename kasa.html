@@ -375,6 +375,17 @@
       border-radius: 10px;
     }
 
+    .table-card.busy.is-ready {
+      border-color: #10b981;
+      background: rgba(20, 56, 44, 0.85);
+      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.3);
+      animation: none;
+    }
+    .table-card.busy.is-ready .table-status-text {
+      background: #10b981;
+      color: #064e3b;
+    }
+
     .table-card.has-unread {
       border: 2.5px solid #facc15;
     }
@@ -529,6 +540,9 @@
     .detail-header {
       padding: 18px 22px;
       border-bottom: 1.5px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .detail-header h3 {
@@ -653,13 +667,16 @@
       padding: 18px 22px;
       border-top: 1.5px solid var(--card-border);
       background: rgba(24, 28, 35, 0.96);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .total-box {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 4px;
     }
 
     .total-title {
@@ -674,14 +691,43 @@
       color: var(--amber);
     }
 
+    .btn-order-ready {
+      width: 100%;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+      transition: transform 0.15s;
+    }
+
+    .btn-order-ready:active {
+      transform: scale(0.98);
+    }
+
+    .btn-order-ready.already-sent {
+      background: rgba(16, 185, 129, 0.18);
+      border: 1.5px solid #10b981;
+      color: #6ee7b7;
+      box-shadow: none;
+    }
+
     .btn-close-order {
       width: 100%;
       background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
       color: #fff;
       border: none;
-      padding: 14px;
+      padding: 13px;
       border-radius: 14px;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
@@ -805,6 +851,9 @@
           <span class="total-title">Genel Toplam:</span>
           <span class="total-sum" id="panel-total-price">0 ₺</span>
         </div>
+        <button class="btn-order-ready" id="btn-siparis-hazir" onclick="siparisHazirBildir()">
+          ✓ Sipariş Hazır (Müşteriye Bildir)
+        </button>
         <button class="btn-close-order" onclick="masayiBosalt()">
           ✕ Hesabı Kapat / Masayı Boşalt
         </button>
@@ -1091,17 +1140,23 @@
         const data = canliMasalar[masaKey];
         const isBusy = data && data.urunler && data.urunler.length > 0;
         const hasUnread = isBusy && Boolean(data.okunmamis);
+        const isReady = isBusy && data.durum === 'hazir';
 
         if (isBusy) doluSayisi++;
 
         const card = document.createElement('div');
-        card.className = `table-card ${isBusy ? 'busy' : 'empty'} ${hasUnread ? 'has-unread' : ''}`;
+        card.className = `table-card ${isBusy ? 'busy' : 'empty'} ${isReady ? 'is-ready' : ''} ${hasUnread ? 'has-unread' : ''}`;
         card.onclick = () => masayaTiklandi(i);
+
+        let durumYazi = 'BOŞ';
+        if (isBusy) {
+          durumYazi = isReady ? 'HAZIR ✓' : 'HAZIRLANIYOR';
+        }
 
         card.innerHTML = `
           ${hasUnread ? `<div class="unread-exclaim-badge">!</div>` : ''}
           <div class="table-number">Masa ${i}</div>
-          <div class="table-status-text">${isBusy ? 'DOLU' : 'BOŞ'}</div>
+          <div class="table-status-text">${durumYazi}</div>
           ${isBusy ? `<div class="table-amount">${data.toplamTutar} ₺</div>` : ''}
         `;
         container.appendChild(card);
@@ -1158,6 +1213,7 @@
       document.getElementById('panel-table-title').innerText = `Masa ${masaNo} Adisyonu`;
       const listEl = document.getElementById('panel-orders-list');
       const footerEl = document.getElementById('panel-footer');
+      const hazirBtn = document.getElementById('btn-siparis-hazir');
 
       if (!data || !data.urunler || data.urunler.length === 0) {
         document.getElementById('panel-order-time').innerText = "Henüz sipariş yok";
@@ -1169,6 +1225,14 @@
       document.getElementById('panel-order-time').innerText = `Son Sipariş: ${data.saat || '-'}`;
       footerEl.style.display = "block";
       document.getElementById('panel-total-price').innerText = `${data.toplamTutar} ₺`;
+
+      if (data.durum === 'hazir') {
+        hazirBtn.classList.add('already-sent');
+        hazirBtn.innerText = `✓ Masa ${masaNo} İçin Hazır Bildirimi Gönderildi`;
+      } else {
+        hazirBtn.classList.remove('already-sent');
+        hazirBtn.innerText = `✓ Sipariş Hazır (Masa ${masaNo} Bildir)`;
+      }
 
       listEl.innerHTML = "";
       data.urunler.forEach((item, index) => {
@@ -1189,6 +1253,25 @@
         `;
         listEl.appendChild(row);
       });
+    }
+
+    async function siparisHazirBildir() {
+      if (!seciliMasa) return;
+      const data = canliMasalar[String(seciliMasa)];
+      if (!data || !data.urunler || data.urunler.length === 0) return;
+
+      data.durum = 'hazir';
+      data.okunmamis = false;
+      data.urunler.forEach(u => { u.yeni = false; });
+
+      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
     }
 
     async function adetAzalt(masaNo, index) {
