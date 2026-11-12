@@ -587,6 +587,36 @@
       line-height: 1.38;
     }
 
+    .rez-type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 2px;
+    }
+
+    .rez-type-btn {
+      background: rgba(15, 28, 21, 0.92);
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 12px 10px;
+      color: #cbd5e1;
+      font-size: 0.84rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+
+    .rez-type-btn.selected {
+      background: rgba(234, 88, 12, 0.28);
+      border-color: var(--amber);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
+    }
+
     .form-stack {
       display: flex;
       flex-direction: column;
@@ -1196,21 +1226,32 @@
 
     <div class="section-wrap wave-item wave-3" id="rez-section-wrap">
       <div class="card-panel-box rez-highlight">
-        <h3>📅 Masa Rezervasyonu</h3>
-        <p>Doğum günü, özel buluşmalar veya kalabalık gruplarınız için önceden masanızı ayırtın; talebiniz anında kasa ekranına düşer.</p>
+        <h3>📅 Rezervasyon</h3>
+        <p>Ateş başı keyfi veya masa rezervasyonu için alanınızı seçip bilgilerinizi doldurun; talebiniz anında kasaya düşer.</p>
 
         <form class="form-stack" onsubmit="rezervasyonGonder(event)" novalidate>
-          <input type="text" id="rez-ad" class="form-input" placeholder="Adınız Soyadınız" required>
+          <div class="rez-type-grid">
+            <div class="rez-type-btn selected" id="rez-opt-ates" onclick="rezTurSec('Ateş Başı')">
+              <span>🔥</span>
+              <span>Ateş Başı</span>
+            </div>
+            <div class="rez-type-btn" id="rez-opt-masa" onclick="rezTurSec('Masa Rezervasyonu')">
+              <span>🪑</span>
+              <span>Masa Rezervasyonu</span>
+            </div>
+          </div>
+
+          <input type="text" id="rez-ad" class="form-input" placeholder="Adınız Soyadınız">
           
           <input type="tel" id="rez-tel" class="form-input" inputmode="tel" maxlength="14" placeholder="Telefon Numaranız (05XX XXX XX XX)" oninput="telefonHataTemizle()" required>
           <div class="field-error-text" id="rez-tel-error">Lütfen geçerli bir cep telefonu numarası giriniz (Örn: 05XX XXX XX XX).</div>
           
           <div class="form-row-2">
-            <input type="date" id="rez-tarih" class="form-input" required>
-            <input type="time" id="rez-saat" class="form-input" value="20:00" required>
+            <input type="date" id="rez-tarih" class="form-input">
+            <input type="time" id="rez-saat" class="form-input" value="20:00">
           </div>
 
-          <select id="rez-kisi" class="form-select" required>
+          <select id="rez-kisi" class="form-select">
             <option value="2 Kişi">2 Kişi</option>
             <option value="3 Kişi">3 Kişi</option>
             <option value="4 Kişi" selected>4 Kişi</option>
@@ -1218,7 +1259,7 @@
             <option value="7+ Kişi (Grup)">7+ Kişi (Grup)</option>
           </select>
 
-          <textarea id="rez-istek" class="form-textarea" placeholder="Özel İstekleriniz (İsteğe bağlı - Örn: Doğum günü masası, sahil tarafı, bebek sandalyesi vb.)"></textarea>
+          <textarea id="rez-istek" class="form-textarea" placeholder="Özel İstekleriniz (İsteğe bağlı - Doğum günü, bebek sandalyesi vb.)"></textarea>
 
           <button type="submit" class="btn-primary-action btn-rez-submit">
             <span>Rezervasyon Oluştur</span>
@@ -1377,6 +1418,25 @@
     let isMasaModu = Boolean(rawMasa && rawMasa.trim() !== "");
     const masaNo = isMasaModu ? rawMasa.trim() : null;
     const oturumBaslangic = Date.now();
+    let seciliRezTuru = "Ateş Başı";
+
+    function rezTurSec(tur) {
+      seciliRezTuru = tur;
+      document.getElementById('rez-opt-ates').classList.toggle('selected', tur === 'Ateş Başı');
+      document.getElementById('rez-opt-masa').classList.toggle('selected', tur === 'Masa Rezervasyonu');
+    }
+
+    function tarihiDuzFormatla(isoTarih) {
+      if (!isoTarih) {
+        const d = new Date();
+        return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
+      }
+      const parcalar = isoTarih.split('-');
+      if (parcalar.length === 3) {
+        return `${parcalar[2]}.${parcalar[1]}.${parcalar[0]}`;
+      }
+      return isoTarih;
+    }
 
     function mesafeHesaplaMetre(lat1, lon1, lat2, lon2) {
       const R = 6371e3;
@@ -1581,22 +1641,16 @@
 
     async function rezervasyonGonder(e) {
       e.preventDefault();
-      const adInput = document.getElementById('rez-ad');
       const telInput = document.getElementById('rez-tel');
       const hataEl = document.getElementById('rez-tel-error');
 
-      const ad = adInput.value.trim();
+      const ad = document.getElementById('rez-ad').value.trim() || "İsimsiz Misafir";
       const tel = telInput.value.trim();
-      const tarih = document.getElementById('rez-tarih').value;
-      const saat = document.getElementById('rez-saat').value;
+      const hamTarih = document.getElementById('rez-tarih').value;
+      const duzTarih = tarihiDuzFormatla(hamTarih);
+      const saat = document.getElementById('rez-saat').value || "20:00";
       const kisi = document.getElementById('rez-kisi').value;
       const ozelIstek = document.getElementById('rez-istek').value.trim();
-
-      if (!ad) {
-        adInput.focus();
-        bildirimGoster("Lütfen adınızı ve soyadınızı giriniz.", "⚠️");
-        return;
-      }
 
       if (!telefonGecerliMi(tel)) {
         telInput.classList.add('input-error');
@@ -1606,15 +1660,11 @@
         return;
       }
 
-      if (!tarih || !saat) {
-        bildirimGoster("Lütfen tarih ve saat seçiniz.", "⚠️");
-        return;
-      }
-
       const rezPaketi = {
+        tur: seciliRezTuru,
         ad,
         tel,
-        tarih,
+        tarih: duzTarih,
         saat,
         kisi,
         not: ozelIstek || "-",
@@ -1630,12 +1680,13 @@
         });
       } catch (err) {}
 
-      document.getElementById('modal-icon').innerText = "📅";
+      document.getElementById('modal-icon').innerText = seciliRezTuru === "Ateş Başı" ? "🔥" : "📅";
       document.getElementById('modal-title').innerText = "Rezervasyonunuz Alındı!";
-      document.getElementById('modal-desc').innerText = `${tarih} saat ${saat} için ${kisi} adına rezervasyon talebiniz kasaya iletildi.`;
+      document.getElementById('modal-desc').innerText = `${duzTarih} saat ${saat} için ${seciliRezTuru} (${kisi}) talebiniz kasaya iletildi.`;
       document.getElementById('modal-success').style.display = 'flex';
       e.target.reset();
       document.getElementById('rez-tarih').value = new Date().toISOString().split('T')[0];
+      rezTurSec('Ateş Başı');
     }
 
     function rezervasyonaGit() {
