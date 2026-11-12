@@ -1311,11 +1311,76 @@
 
   <script>
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
+    const KAFE_LAT = 38.5015;
+    const KAFE_LON = 42.2835;
+    const MAKSIMUM_MESAFE_METRE = 120;
 
     const urlParams = new URLSearchParams(window.location.search);
     const rawMasa = urlParams.get('masa');
-    const isMasaModu = Boolean(rawMasa && rawMasa.trim() !== "");
+    let isMasaModu = Boolean(rawMasa && rawMasa.trim() !== "");
     const masaNo = isMasaModu ? rawMasa.trim() : null;
+    const oturumBaslangic = Date.now();
+
+    function mesafeHesaplaMetre(lat1, lon1, lat2, lon2) {
+      const R = 6371e3;
+      const f1 = lat1 * Math.PI / 180;
+      const f2 = lat2 * Math.PI / 180;
+      const df = (lat2 - lat1) * Math.PI / 180;
+      const dl = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(df / 2) * Math.sin(df / 2) + Math.cos(f1) * Math.cos(f2) * Math.sin(dl / 2) * Math.sin(dl / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function kafedeMiKontrolEt() {
+      return new Promise((resolve) => {
+        if (!navigator.geolocation) {
+          resolve(true);
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const mesafe = mesafeHesaplaMetre(pos.coords.latitude, pos.coords.longitude, KAFE_LAT, KAFE_LON);
+            resolve(mesafe <= MAKSIMUM_MESAFE_METRE);
+          },
+          () => {
+            resolve(true);
+          },
+          { enableHighAccuracy: true, timeout: 5000, maximumAge: 15000 }
+        );
+      });
+    }
+
+    async function hesapKapandiMiKontrolEt() {
+      if (!isMasaModu) return false;
+      try {
+        const res = await fetch(`${FIREBASE_URL}/kapali_oturumlar/${masaNo}.json`);
+        const kapanisZamani = await res.json();
+        if (kapanisZamani && kapanisZamani > oturumBaslangic) {
+          oturumuZiyaretciModunaDusur();
+          return true;
+        }
+      } catch (err) {}
+      return false;
+    }
+
+    function oturumuZiyaretciModunaDusur() {
+      isMasaModu = false;
+      sepet = {};
+      ozelKahveSepeti = [];
+      document.getElementById('cart-floating-bar').classList.remove('active');
+      const headerBadge = document.getElementById('header-badge');
+      headerBadge.classList.add('online-visitor');
+      document.getElementById('masa-text').innerText = "Oturum Kapandı";
+      document.querySelectorAll('.qr-only').forEach(el => el.style.display = 'none');
+      document.getElementById('quick-actions-grid').classList.add('visitor-mode');
+      document.getElementById('visitor-menu-banner').style.display = 'flex';
+      menuyuCiz();
+      document.getElementById('modal-icon').innerText = "🔒";
+      document.getElementById('modal-title').innerText = "Masa Hesabınız Kapatıldı";
+      document.getElementById('modal-desc').innerText = "Kasadan hesabınız kapatıldığı için bu oturum sonlandırıldı. Yeniden sipariş vermek için masadaki QR kodu tekrar okutunuz.";
+      document.getElementById('modal-success').style.display = 'flex';
+    }
 
     function moduUygula() {
       const headerBadge = document.getElementById('header-badge');
@@ -1341,6 +1406,7 @@
     }
 
     moduUygula();
+    setInterval(hesapKapandiMiKontrolEt, 4000);
 
     window.addEventListener('DOMContentLoaded', () => {
       const tarihInput = document.getElementById('rez-tarih');
@@ -1396,7 +1462,7 @@
       document.getElementById('toast-msg').innerText = mesaj;
       document.getElementById('toast-icon').innerText = icon;
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2400);
+      setTimeout(() => toast.classList.remove('show'), 2600);
     }
 
     function wifiKopyala() {
@@ -1408,6 +1474,15 @@
 
     async function garsonCagir() {
       if (!isMasaModu) return;
+      const kapandi = await hesapKapandiMiKontrolEt();
+      if (kapandi) return;
+
+      const kafede = await kafedeMiKontrolEt();
+      if (!kafede) {
+        bildirimGoster("Garson çağırmak için kafede bulunmalısınız!", "📍");
+        return;
+      }
+
       const cagriPaketi = {
         masaNo: String(masaNo),
         saat: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
@@ -1731,6 +1806,16 @@
 
     async function siparisiGonder() {
       if (!isMasaModu) return;
+
+      const kapandi = await hesapKapandiMiKontrolEt();
+      if (kapandi) return;
+
+      const kafede = await kafedeMiKontrolEt();
+      if (!kafede) {
+        bildirimGoster("Sipariş vermek için kafede bulunmalısınız!", "📍");
+        return;
+      }
+
       const siparisDetay = [];
       let genelToplam = 0;
 
