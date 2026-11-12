@@ -1065,6 +1065,11 @@
       if (confirm(`Masa ${seciliMasa} hesabını kapatıp masayı boşaltmak istediğinize emin misiniz?`)) {
         delete canliMasalar[String(seciliMasa)];
         await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
+        await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Date.now())
+        });
         masalariCiz();
         masaDetayiGoster(seciliMasa);
       }
