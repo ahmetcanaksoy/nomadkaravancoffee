@@ -280,6 +280,57 @@
       border-radius: 50%;
     }
 
+    .persistent-alerts-stack {
+      position: relative;
+      z-index: 45;
+      padding: 12px 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .persistent-alerts-stack:empty {
+      display: none;
+    }
+
+    .sticky-notif-card {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.96) 0%, rgba(234, 88, 12, 0.96) 100%);
+      color: #0f172a;
+      border: 2px solid #ffffff;
+      border-radius: 16px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(245, 158, 11, 0.45);
+      animation: notifBounce 0.3s ease;
+    }
+
+    @keyframes notifBounce {
+      from { transform: translateY(-10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .sticky-notif-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      font-size: 0.9rem;
+    }
+
+    .sticky-notif-btn {
+      background: #0f172a;
+      color: #f59e0b;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.74rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
     .dashboard-layout {
       flex: 1;
       display: flex;
@@ -311,6 +362,7 @@
     }
 
     .table-card {
+      position: relative;
       background: var(--bg-card);
       backdrop-filter: blur(14px);
       border-radius: 16px;
@@ -347,6 +399,35 @@
       background: var(--terracotta);
       padding: 3px 9px;
       border-radius: 10px;
+    }
+
+    .table-card.has-unread {
+      border: 2.5px solid #facc15;
+    }
+
+    .unread-exclaim-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #facc15;
+      color: #0f172a;
+      border: 2px solid #0f1c15;
+      font-size: 1rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(250, 204, 21, 0.75);
+      animation: exclaimPulse 1s infinite;
+      z-index: 5;
+    }
+
+    @keyframes exclaimPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.18); }
     }
 
     @keyframes pulseAlert {
@@ -508,6 +589,25 @@
       gap: 10px;
     }
 
+    .order-item-row.is-new-order {
+      border: 1.5px solid #facc15;
+      background: rgba(250, 204, 21, 0.1);
+    }
+
+    .new-order-pill {
+      display: inline-block;
+      background: #facc15;
+      color: #0f172a;
+      font-size: 0.66rem;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      align-self: flex-start;
+      margin-bottom: 2px;
+    }
+
     .item-left {
       flex: 1;
       display: flex;
@@ -626,25 +726,6 @@
       padding: 30px 16px;
     }
 
-    .garson-toast {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, var(--terracotta) 0%, #d97706 100%);
-      color: #ffffff;
-      padding: 14px 22px;
-      border-radius: 18px;
-      font-size: 0.95rem;
-      font-weight: 900;
-      box-shadow: 0 10px 30px var(--terracotta-glow);
-      display: none;
-      align-items: center;
-      gap: 10px;
-      z-index: 300;
-      border: 1.5px solid #ffffff;
-    }
-
     @media (max-width: 900px) {
       .dashboard-layout {
         flex-direction: column;
@@ -673,11 +754,6 @@
 
   <div class="ambient-glow-1"></div>
   <div class="ambient-glow-2"></div>
-
-  <div class="garson-toast" id="garson-alert">
-    <span style="font-size:1.3rem;">🔔</span>
-    <span id="garson-alert-text">Masa 12 garson çağırıyor!</span>
-  </div>
 
   <header>
     <div class="brand-wrap">
@@ -715,6 +791,8 @@
       <button class="btn-lock-now" onclick="kasayiKilitle()">🔒 Kilitle</button>
     </div>
   </header>
+
+  <div class="persistent-alerts-stack" id="sticky-alerts-container"></div>
 
   <div class="dashboard-layout">
     <div class="tables-section">
@@ -760,6 +838,8 @@
     let canliMasalar = {};
     let sonSiparisZamanlari = {};
     let islenenGarsonCagrilari = new Set();
+    let islenenSiparisBildirimleri = new Set();
+    let kaliciBildirimler = [];
     let bilinenRezSayisi = -1;
     let audioCtx = null;
     let kasaAcik = sessionStorage.getItem('nomad_kasa_yetki') === '1';
@@ -874,6 +954,38 @@
       } catch(e) {}
     }
 
+    function kaliciBildirimEkle(id, mesaj, masaNo) {
+      if (kaliciBildirimler.some(b => b.id === id)) return;
+      kaliciBildirimler.push({ id, mesaj, masaNo });
+      kaliciBildirimleriCiz();
+    }
+
+    function kaliciBildirimKapat(id, masaNo) {
+      kaliciBildirimler = kaliciBildirimler.filter(b => b.id !== id);
+      kaliciBildirimleriCiz();
+      if (masaNo) {
+        masayaTiklandi(Number(masaNo));
+      }
+    }
+
+    function kaliciBildirimleriCiz() {
+      const container = document.getElementById('sticky-alerts-container');
+      container.innerHTML = "";
+      kaliciBildirimler.forEach(b => {
+        const card = document.createElement('div');
+        card.className = 'sticky-notif-card';
+        card.onclick = () => kaliciBildirimKapat(b.id, b.masaNo);
+        card.innerHTML = `
+          <div class="sticky-notif-left">
+            <span>🔔</span>
+            <span>${b.mesaj}</span>
+          </div>
+          <span class="sticky-notif-btn">Görüldü / Aç ✓</span>
+        `;
+        container.appendChild(card);
+      });
+    }
+
     async function buluttanVeriCek() {
       if (!kasaAcik) return;
       try {
@@ -898,6 +1010,24 @@
           calSiparisSesi();
         }
 
+        const sipBildirimRes = await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`);
+        const sipBildirimler = await sipBildirimRes.json();
+        if (sipBildirimler) {
+          for (let sKey in sipBildirimler) {
+            if (!islenenSiparisBildirimleri.has(sKey)) {
+              islenenSiparisBildirimleri.add(sKey);
+              const sb = sipBildirimler[sKey];
+              calSiparisSesi();
+              kaliciBildirimEkle(
+                sKey,
+                `Masa ${sb.masaNo} • Yeni Sipariş (${sb.kalemSayisi} Ürün - ${sb.tutar} ₺) • ${sb.saat}`,
+                sb.masaNo
+              );
+              fetch(`${FIREBASE_URL}/siparis_bildirimleri/${sKey}.json`, { method: 'DELETE' });
+            }
+          }
+        }
+
         const cagriRes = await fetch(`${FIREBASE_URL}/garson_cagrilari.json`);
         const cagrilar = await cagriRes.json();
 
@@ -906,9 +1036,12 @@
             if (!islenenGarsonCagrilari.has(cKey)) {
               islenenGarsonCagrilari.add(cKey);
               const cagri = cagrilar[cKey];
-              if (Date.now() - cagri.zamanDamgasi < 30000) {
-                garsonUyarisiGoster(cagri.masaNo);
-              }
+              calGarsonSesi();
+              kaliciBildirimEkle(
+                `garson_${cKey}`,
+                `Masa ${cagri.masaNo} garson çağırıyor! (${cagri.saat})`,
+                cagri.masaNo
+              );
               fetch(`${FIREBASE_URL}/garson_cagrilari/${cKey}.json`, { method: 'DELETE' });
             }
           }
@@ -974,14 +1107,16 @@
         const masaKey = String(i);
         const data = canliMasalar[masaKey];
         const isBusy = data && data.urunler && data.urunler.length > 0;
+        const hasUnread = isBusy && Boolean(data.okunmamis);
 
         if (isBusy) doluSayisi++;
 
         const card = document.createElement('div');
-        card.className = `table-card ${isBusy ? 'busy' : 'empty'}`;
-        card.onclick = () => masaDetayiGoster(i);
+        card.className = `table-card ${isBusy ? 'busy' : 'empty'} ${hasUnread ? 'has-unread' : ''}`;
+        card.onclick = () => masayaTiklandi(i);
 
         card.innerHTML = `
+          ${hasUnread ? `<div class="unread-exclaim-badge">!</div>` : ''}
           <div class="table-number">Masa ${i}</div>
           <div class="table-status-text">${isBusy ? 'DOLU' : 'BOŞ'}</div>
           ${isBusy ? `<div class="table-amount">${data.toplamTutar} ₺</div>` : ''}
@@ -995,6 +1130,42 @@
       if (seciliMasa) {
         masaDetayiGoster(seciliMasa);
       }
+    }
+
+    async function masayaTiklandi(masaNo) {
+      const oncekiMasa = seciliMasa;
+      if (oncekiMasa && oncekiMasa !== masaNo && canliMasalar[String(oncekiMasa)] && canliMasalar[String(oncekiMasa)].urunler) {
+        const oncekiData = canliMasalar[String(oncekiMasa)];
+        let degisti = false;
+        oncekiData.urunler.forEach(u => {
+          if (u.yeni) {
+            u.yeni = false;
+            degisti = true;
+          }
+        });
+        if (degisti) {
+          fetch(`${FIREBASE_URL}/masalar/${oncekiMasa}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(oncekiData)
+          });
+        }
+      }
+
+      seciliMasa = masaNo;
+      const data = canliMasalar[String(masaNo)];
+
+      if (data && data.okunmamis) {
+        data.okunmamis = false;
+        fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      }
+
+      masalariCiz();
+      masaDetayiGoster(masaNo);
     }
 
     function masaDetayiGoster(masaNo) {
@@ -1019,9 +1190,10 @@
       listEl.innerHTML = "";
       data.urunler.forEach((item, index) => {
         const row = document.createElement('div');
-        row.className = "order-item-row";
+        row.className = `order-item-row ${item.yeni ? 'is-new-order' : ''}`;
         row.innerHTML = `
           <div class="item-left">
+            ${item.yeni ? `<span class="new-order-pill">YENİ SİPARİŞ</span>` : ''}
             <span class="item-name">${item.ad}</span>
             ${item.detay ? `<span class="item-custom-recipe">✨ ${item.detay}</span>` : ''}
             <span class="item-unit-info">${item.adet} adet × ${item.birimFiyat} ₺</span>
@@ -1098,14 +1270,6 @@
         masalariCiz();
         masaDetayiGoster(seciliMasa);
       }
-    }
-
-    function garsonUyarisiGoster(masaNo) {
-      calGarsonSesi();
-      const el = document.getElementById('garson-alert');
-      document.getElementById('garson-alert-text').innerText = `Masa ${masaNo} garson çağırıyor! 🔔`;
-      el.style.display = 'flex';
-      setTimeout(() => { el.style.display = 'none'; }, 5500);
     }
 
     masalariCiz();
