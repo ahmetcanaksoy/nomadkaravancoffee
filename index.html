@@ -479,6 +479,25 @@
       flex-shrink: 0;
     }
 
+    .btn-craft-banner {
+      width: 100%;
+      margin-top: 12px;
+      background: rgba(22, 42, 32, 0.92);
+      border: 1.5px solid var(--amber);
+      border-radius: 20px;
+      padding: 15px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-craft-banner:active {
+      transform: scale(0.98);
+    }
+
     .social-banner-box {
       background: var(--bg-card);
       backdrop-filter: blur(14px);
@@ -688,6 +707,11 @@
       transition: all 0.2s;
     }
 
+    .tab-pill.craft-tab {
+      border-color: rgba(245, 158, 11, 0.5);
+      color: var(--amber);
+    }
+
     .tab-pill.active {
       background: var(--terracotta);
       border-color: var(--terracotta);
@@ -701,6 +725,68 @@
       flex-direction: column;
       gap: 14px;
       padding-bottom: 140px;
+    }
+
+    /* KENDİ KAHVENİ TASARLA KARTI */
+    .craft-studio {
+      background: var(--bg-card);
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      border-radius: 24px;
+      padding: 20px 16px;
+      box-shadow: var(--shadow-3d);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .craft-group-title {
+      font-size: 0.8rem;
+      font-weight: 900;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+    }
+
+    .craft-options-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .craft-chip {
+      background: rgba(15, 28, 21, 0.9);
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 12px 10px;
+      color: #e2e8f0;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s;
+    }
+
+    .craft-chip span.c-price {
+      font-size: 0.75rem;
+      color: var(--amber);
+      font-weight: 800;
+    }
+
+    .craft-chip.selected {
+      background: rgba(234, 88, 12, 0.25);
+      border-color: var(--amber);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+    }
+
+    .craft-summary-box {
+      background: rgba(15, 28, 21, 0.95);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 16px;
+      padding: 14px;
     }
 
     .product-card {
@@ -1037,6 +1123,17 @@
         </div>
         <div class="giant-arrow-circle">→</div>
       </button>
+
+      <button class="btn-craft-banner" onclick="navigasyon('menu', 'tasarla')">
+        <div style="display:flex; align-items:center; gap:12px; text-align:left;">
+          <span style="font-size:1.5rem;">✨</span>
+          <div>
+            <div style="font-size:0.92rem; font-weight:900; color:var(--amber);">KENDİ KAHVENİ TASARLA</div>
+            <div style="font-size:0.74rem; color:#cbd5e1;">Sütünü, şurubunu ve espresso shot sayını seç</div>
+          </div>
+        </div>
+        <span style="font-size:1.2rem; font-weight:900; color:var(--amber);">→</span>
+      </button>
     </div>
 
     <div class="section-wrap wave-item wave-4">
@@ -1129,6 +1226,7 @@
     </div>
 
     <div class="menu-tabs">
+      <button class="tab-pill craft-tab" id="tab-tasarla" onclick="tabSec('tasarla')">✨ Kendi Kahveni Tasarla</button>
       <button class="tab-pill active" id="tab-hepsi" onclick="tabSec('hepsi')">Tümü</button>
       <button class="tab-pill" id="tab-sicak" onclick="tabSec('sicak')">Sıcak Kahveler</button>
       <button class="tab-pill" id="tab-soguk" onclick="tabSec('soguk')">Soğuk Kahveler</button>
@@ -1153,13 +1251,13 @@
 
   <div class="custom-modal" id="modal-success">
     <div class="modal-card">
-      <div class="modal-circle-icon">✓</div>
+      <div class="modal-circle-icon" id="modal-icon">✓</div>
       <h3 id="modal-title" style="font-size:1.2rem; font-weight:900; color:#ffffff; margin-bottom:8px;">Siparişiniz İletildi!</h3>
       <p id="modal-desc" style="font-size:0.82rem; color:var(--text-muted); line-height:1.45; margin-bottom:20px;">
         Siparişiniz baristaya ve kasaya anlık olarak düştü. Hemen hazırlanıp masanıza servis edilecek.
       </p>
       <button class="btn-create-order" style="width:100%; justify-content:center;" onclick="modalKapat('modal-success')">
-        Harika
+        Tamam
       </button>
     </div>
   </div>
@@ -1241,7 +1339,10 @@
         zamanDamgasi: Date.now()
       };
 
-      bildirimGoster(`Masa ${masaNo} için garson çağrıldı!`, "🔔");
+      document.getElementById('modal-icon').innerText = "🔔";
+      document.getElementById('modal-title').innerText = "Garson Çağrıldı!";
+      document.getElementById('modal-desc').innerText = `Masa ${masaNo} için çağrınız kasaya ve servis ekibine iletildi. Ekibimiz en kısa sürede masanıza gelecektir.`;
+      document.getElementById('modal-success').style.display = 'flex';
 
       try {
         await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, {
@@ -1279,6 +1380,7 @@
         });
       } catch (err) {}
 
+      document.getElementById('modal-icon').innerText = "📅";
       document.getElementById('modal-title').innerText = "Rezervasyonunuz Alındı!";
       document.getElementById('modal-desc').innerText = `${tarih} saat ${saat} için ${kisi} adına rezervasyon talebiniz kasaya iletildi.`;
       document.getElementById('modal-success').style.display = 'flex';
@@ -1326,7 +1428,16 @@
       { id: 22, ad: "San Pellegrino Maden Suyu", kategori: "icecek", aciklama: "Buz, taze limon dilimi ve nane yaprağı eşliğinde cam şişe servis", fiyat: 55, resim: "https://images.unsplash.com/photo-1559839914-ba2ce56d2187?auto=format&fit=crop&w=350&q=80" }
     ];
 
+    let ozelKahveSecim = {
+      baz: { ad: "Latte Bazı", fiyat: 105 },
+      sicaklik: { ad: "Sıcak", fiyat: 0 },
+      sut: { ad: "Tam Yağlı Süt", fiyat: 0 },
+      surup: { ad: "Şurupsuz", fiyat: 0 },
+      ekstra: { ad: "Standart Shot", fiyat: 0 }
+    };
+
     let sepet = {};
+    let ozelKahveSepeti = [];
     let aktifKategori = 'hepsi';
 
     function navigasyon(sayfaAdi, kategori = 'hepsi') {
@@ -1357,9 +1468,101 @@
       menuyuCiz();
     }
 
+    function craftSec(grup, ad, fiyat) {
+      ozelKahveSecim[grup] = { ad, fiyat };
+      menuyuCiz();
+    }
+
+    function ozelKahveyiSepeteEkle() {
+      const toplamFiyat = ozelKahveSecim.baz.fiyat + ozelKahveSecim.sicaklik.fiyat + ozelKahveSecim.sut.fiyat + ozelKahveSecim.surup.fiyat + ozelKahveSecim.ekstra.fiyat;
+      const recete = `${ozelKahveSecim.sicaklik.ad} • ${ozelKahveSecim.sut.ad} • ${ozelKahveSecim.surup.ad} • ${ozelKahveSecim.ekstra.ad}`;
+
+      ozelKahveSepeti.push({
+        ad: `Özel Tasarım: ${ozelKahveSecim.baz.ad}`,
+        detay: recete,
+        adet: 1,
+        birimFiyat: toplamFiyat,
+        tutar: toplamFiyat
+      });
+
+      sepetBariniHesapla();
+      bildirimGoster("Özel kahveniz sepete eklendi!", "✨");
+    }
+
     function menuyuCiz() {
       const container = document.getElementById('products-list');
       container.innerHTML = "";
+
+      if (aktifKategori === 'tasarla') {
+        const toplamFiyat = ozelKahveSecim.baz.fiyat + ozelKahveSecim.sicaklik.fiyat + ozelKahveSecim.sut.fiyat + ozelKahveSecim.surup.fiyat + ozelKahveSecim.ekstra.fiyat;
+        const bazlar = [
+          { ad: "Latte Bazı", fiyat: 105 },
+          { ad: "Americano Bazı", fiyat: 95 },
+          { ad: "Flat White Bazı", fiyat: 110 },
+          { ad: "Cold Brew Bazı", fiyat: 120 }
+        ];
+        const sicakliklar = [
+          { ad: "Sıcak", fiyat: 0 },
+          { ad: "Buzlu (Iced)", fiyat: 5 }
+        ];
+        const sutler = [
+          { ad: "Tam Yağlı Süt", fiyat: 0 },
+          { ad: "Laktozsuz Süt", fiyat: 10 },
+          { ad: "Yulaf Sütü", fiyat: 25 },
+          { ad: "Badem Sütü", fiyat: 25 },
+          { ad: "Sütsüz (Sade)", fiyat: 0 }
+        ];
+        const suruplar = [
+          { ad: "Şurupsuz", fiyat: 0 },
+          { ad: "Karamel Şurubu", fiyat: 15 },
+          { ad: "Vanilya Şurubu", fiyat: 15 },
+          { ad: "Fındık Şurubu", fiyat: 15 },
+          { ad: "Beyaz Çikolata", fiyat: 20 }
+        ];
+        const ekstralar = [
+          { ad: "Standart Shot", fiyat: 0 },
+          { ad: "+1 Ekstra Espresso", fiyat: 20 }
+        ];
+
+        const grupHtml = (baslik, grupAdi, liste) => `
+          <div>
+            <div class="craft-group-title">${baslik}</div>
+            <div class="craft-options-grid">
+              ${liste.map(item => `
+                <div class="craft-chip ${ozelKahveSecim[grupAdi].ad === item.ad ? 'selected' : ''}" onclick="craftSec('${grupAdi}', '${item.ad}', ${item.fiyat})">
+                  <span>${item.ad}</span>
+                  <span class="c-price">${item.fiyat > 0 ? '+' + item.fiyat + ' ₺' : ''}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = `
+          <div class="craft-studio">
+            <div>
+              <h3 style="font-size:1.1rem; font-weight:900; color:#ffffff; margin-bottom:4px;">✨ Kendi Kahveni Tasarla</h3>
+              <p style="font-size:0.76rem; color:var(--text-muted);">Seçimlerin doğrudan kasa ekranına reçete olarak düşer.</p>
+            </div>
+            ${grupHtml("1. Kahve Bazını Seç", "baz", bazlar)}
+            ${grupHtml("2. Servis Sıcaklığı", "sicaklik", sicakliklar)}
+            ${grupHtml("3. Süt Tercihi", "sut", sutler)}
+            ${grupHtml("4. Aroma & Şurup", "surup", suruplar)}
+            ${grupHtml("5. Kahve Yoğunluğu", "ekstra", ekstralar)}
+
+            <div class="craft-summary-box">
+              <div style="font-size:0.76rem; color:var(--amber); font-weight:800; margin-bottom:4px;">SEÇİLEN REÇETE:</div>
+              <div style="font-size:0.86rem; font-weight:800; color:#ffffff; margin-bottom:12px;">
+                ${ozelKahveSecim.baz.ad} (${ozelKahveSecim.sicaklik.ad}) • ${ozelKahveSecim.sut.ad} • ${ozelKahveSecim.surup.ad} • ${ozelKahveSecim.ekstra.ad}
+              </div>
+              <button class="btn-primary-action btn-rez-submit" style="width:100%;" onclick="ozelKahveyiSepeteEkle()">
+                <span>Özel Kahveyi Sepete Ekle — ${toplamFiyat} ₺</span>
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
 
       const liste = aktifKategori === 'hepsi'
         ? urunler
@@ -1413,6 +1616,11 @@
         }
       }
 
+      ozelKahveSepeti.forEach(ok => {
+        toplamAdet += ok.adet;
+        toplamTutar += ok.tutar;
+      });
+
       const bar = document.getElementById('cart-floating-bar');
       if (toplamAdet > 0) {
         document.getElementById('cart-items-count').innerText = `${toplamAdet} Kalem Ürün`;
@@ -1440,6 +1648,11 @@
         }
       }
 
+      ozelKahveSepeti.forEach(ok => {
+        siparisDetay.push(ok);
+        genelToplam += ok.tutar;
+      });
+
       const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
 
       try {
@@ -1462,10 +1675,12 @@
         });
       } catch (err) {}
 
+      document.getElementById('modal-icon').innerText = "✓";
       document.getElementById('modal-title').innerText = "Siparişiniz İletildi!";
       document.getElementById('modal-desc').innerText = "Siparişiniz baristaya ve kasaya anlık olarak düştü. Hemen hazırlanıp masanıza servis edilecek.";
       document.getElementById('modal-success').style.display = 'flex';
       sepet = {};
+      ozelKahveSepeti = [];
       sepetBariniHesapla();
       menuyuCiz();
     }
