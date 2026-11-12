@@ -8,25 +8,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* CANLI ÇAM YEŞİLİ & ATEŞ KİREMİDİ & KEHRİBAR */
       --bg-dark: #0f1c15;              
       --bg-card: rgba(22, 42, 32, 0.82); 
       --card-border: rgba(234, 88, 12, 0.28);
-      
       --terracotta: #ea580c;           
       --terracotta-glow: rgba(234, 88, 12, 0.45);
       --terracotta-dark: #c2410c;
-      
       --amber: #f59e0b;                
-      --amber-soft: rgba(245, 158, 11, 0.15);
-      
       --emerald-accent: #1b4d36;
-      --accent-green: #10b981;
-      --accent-red: #ef4444;
-      
       --text-main: #f8fafc;            
       --text-muted: #9bb0a3;
-      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.5);
     }
 
     * {
@@ -71,15 +62,16 @@
       pointer-events: none;
     }
 
-    /* ÜST KASA HEADER */
     header {
       background: rgba(15, 28, 21, 0.92);
       backdrop-filter: blur(16px);
       border-bottom: 1.5px solid var(--card-border);
-      padding: 14px 24px;
+      padding: 14px 20px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
       position: relative;
       z-index: 50;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
@@ -92,8 +84,8 @@
     }
 
     .brand-logo-emblem {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       background: linear-gradient(135deg, #ea580c 0%, #1b4d36 100%);
       border-radius: 14px;
       display: flex;
@@ -105,14 +97,13 @@
     }
 
     .brand-logo-emblem svg {
-      width: 26px;
-      height: 26px;
+      width: 24px;
+      height: 24px;
     }
 
     .brand-info h1 {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 900;
-      letter-spacing: -0.3px;
       color: #ffffff;
     }
 
@@ -124,20 +115,51 @@
       letter-spacing: 1px;
     }
 
-    .status-summary {
+    .header-controls {
       display: flex;
-      gap: 12px;
       align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-sound-unlock {
+      background: var(--amber);
+      color: #0f172a;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+      animation: pulseSound 2s infinite;
+    }
+
+    .btn-sound-unlock.unlocked {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      border: 1px solid #10b981;
+      box-shadow: none;
+      animation: none;
+    }
+
+    @keyframes pulseSound {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+      100% { transform: scale(1); }
     }
 
     .badge-pill {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 800;
-      padding: 8px 16px;
+      padding: 7px 14px;
       border-radius: 20px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .badge-empty {
@@ -150,7 +172,6 @@
       background: rgba(234, 88, 12, 0.25);
       border: 1.5px solid var(--terracotta);
       color: #fdba74;
-      box-shadow: 0 0 14px rgba(234, 88, 12, 0.35);
     }
 
     .dot {
@@ -159,7 +180,6 @@
       border-radius: 50%;
     }
 
-    /* ANA ÇALIŞMA ALANI */
     .dashboard-layout {
       flex: 1;
       display: flex;
@@ -170,52 +190,43 @@
 
     .tables-section {
       flex: 1;
-      padding: 24px;
+      padding: 20px;
       overflow-y: auto;
     }
 
     .section-title {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 900;
       color: var(--amber);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
     .table-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+      gap: 12px;
     }
 
     .table-card {
       background: var(--bg-card);
       backdrop-filter: blur(14px);
-      border-radius: 20px;
-      padding: 18px 12px;
+      border-radius: 18px;
+      padding: 16px 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 6px;
       cursor: pointer;
-      position: relative;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s;
       user-select: none;
-    }
-
-    .table-card:hover {
-      transform: translateY(-2px);
     }
 
     .table-card.empty {
       border: 1.5px solid rgba(27, 77, 54, 0.5);
-    }
-    .table-card.empty:hover {
-      border-color: #22c55e;
-      box-shadow: 0 8px 24px rgba(34, 197, 94, 0.25);
     }
     .table-card.empty .table-status-text {
       color: #86efac;
@@ -226,7 +237,7 @@
 
     .table-card.busy {
       border: 2px solid var(--terracotta);
-      background: rgba(45, 18, 12, 0.75);
+      background: rgba(45, 18, 12, 0.8);
       box-shadow: 0 10px 28px var(--terracotta-glow);
       animation: pulseAlert 2.5s infinite;
     }
@@ -244,26 +255,23 @@
     }
 
     .table-number {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 900;
       color: #ffffff;
     }
 
     .table-status-text {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .table-amount {
       font-size: 0.95rem;
       font-weight: 900;
       color: var(--amber);
-      margin-top: 4px;
+      margin-top: 2px;
     }
 
-    /* SAĞ: CANLI ADİSYON DETAY ÇEKMECESİ */
     .detail-section {
       width: 420px;
       background: rgba(16, 32, 24, 0.96);
@@ -275,15 +283,12 @@
     }
 
     .detail-header {
-      padding: 20px 24px;
+      padding: 18px 22px;
       border-bottom: 1.5px solid var(--card-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
     .detail-header h3 {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 900;
       color: #ffffff;
     }
@@ -296,11 +301,11 @@
 
     .detail-content {
       flex: 1;
-      padding: 20px;
+      padding: 18px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .order-item-row {
@@ -310,9 +315,8 @@
       padding: 12px 14px;
       background: var(--bg-card);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border-radius: 14px;
       gap: 10px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
     }
 
     .item-left {
@@ -323,7 +327,7 @@
     }
 
     .item-name {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 800;
       color: #ffffff;
     }
@@ -341,10 +345,10 @@
     }
 
     .item-price {
-      font-size: 1rem;
+      font-size: 0.98rem;
       font-weight: 900;
       color: var(--amber);
-      min-width: 55px;
+      min-width: 52px;
       text-align: right;
     }
 
@@ -352,45 +356,27 @@
       background: rgba(255, 255, 255, 0.08);
       color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 8px;
       font-size: 1rem;
       font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .btn-qty-minus:hover {
-      background: rgba(255, 255, 255, 0.2);
     }
 
     .btn-item-delete {
       background: rgba(234, 88, 12, 0.2);
       color: #fdba74;
       border: 1px solid var(--terracotta);
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .btn-item-delete:hover {
-      background: var(--terracotta);
-      color: #ffffff;
-      box-shadow: 0 0 10px var(--terracotta);
     }
 
     .detail-footer {
-      padding: 20px 24px;
+      padding: 18px 22px;
       border-top: 1.5px solid var(--card-border);
       background: rgba(15, 28, 21, 0.96);
     }
@@ -399,17 +385,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .total-title {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: var(--text-muted);
       font-weight: 700;
     }
 
     .total-sum {
-      font-size: 1.65rem;
+      font-size: 1.6rem;
       font-weight: 900;
       color: var(--amber);
     }
@@ -420,8 +406,8 @@
       color: #fff;
       border: none;
       padding: 14px;
-      border-radius: 16px;
-      font-size: 0.95rem;
+      border-radius: 14px;
+      font-size: 0.92rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
@@ -429,45 +415,34 @@
       justify-content: center;
       gap: 8px;
       box-shadow: 0 6px 20px var(--terracotta-glow);
-      transition: opacity 0.2s;
-    }
-
-    .btn-close-order:hover {
-      opacity: 0.92;
     }
 
     .empty-state {
       margin: auto;
       text-align: center;
       color: var(--text-muted);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 600;
-      padding: 40px 20px;
+      padding: 30px 16px;
     }
 
-    /* GARSON BİLDİRİM UYARISI */
     .garson-toast {
       position: fixed;
-      top: 24px;
-      right: 24px;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       background: linear-gradient(135deg, var(--terracotta) 0%, #d97706 100%);
       color: #ffffff;
-      padding: 16px 22px;
+      padding: 14px 22px;
       border-radius: 18px;
-      font-size: 0.92rem;
-      font-weight: 800;
+      font-size: 0.95rem;
+      font-weight: 900;
       box-shadow: 0 10px 30px var(--terracotta-glow);
       display: none;
       align-items: center;
-      gap: 12px;
-      z-index: 200;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      animation: slideRight 0.3s ease;
-    }
-
-    @keyframes slideRight {
-      from { transform: translateX(50px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
+      gap: 10px;
+      z-index: 300;
+      border: 1.5px solid #ffffff;
     }
 
     @media (max-width: 900px) {
@@ -478,7 +453,7 @@
         width: 100%;
         border-left: none;
         border-top: 1.5px solid var(--card-border);
-        max-height: 48vh;
+        min-height: 45vh;
       }
     }
   </style>
@@ -488,13 +463,11 @@
   <div class="ambient-glow-1"></div>
   <div class="ambient-glow-2"></div>
 
-  <!-- GARSON BİLDİRİM UYARISI -->
   <div class="garson-toast" id="garson-alert">
     <span style="font-size:1.3rem;">🔔</span>
     <span id="garson-alert-text">Masa 12 garson çağırıyor!</span>
   </div>
 
-  <!-- ÜST HEADER -->
   <header>
     <div class="brand-wrap">
       <div class="brand-logo-emblem">
@@ -505,15 +478,20 @@
           <rect x="17" y="13" width="6" height="5" rx="1.5" fill="#ffffff"/>
           <circle cx="12" cy="23" r="3" fill="#0b1712" stroke="#f59e0b" stroke-width="1.5"/>
           <circle cx="22" cy="23" r="3" fill="#0b1712" stroke="#f59e0b" stroke-width="1.5"/>
-          <path d="M16 4.5c.8.8-.8 1.4 0 2.2" stroke="#f59e0b" stroke-width="1.4" stroke-linecap="round"/>
         </svg>
       </div>
       <div class="brand-info">
-        <h1>NOMAD KARAVAN • KASA KONTROL</h1>
-        <p>Tatvan Canlı Masa & Adisyon</p>
+        <h1>NOMAD KARAVAN • KASA</h1>
+        <p>Tatvan Canlı Yönetim</p>
       </div>
     </div>
-    <div class="status-summary">
+
+    <div class="header-controls">
+      <button class="btn-sound-unlock" id="btn-sound" onclick="sesKilidiniAc()">
+        <span>🔇</span>
+        <span>Sesi Aktif Et</span>
+      </button>
+
       <div class="badge-pill badge-busy">
         <span class="dot" style="background:var(--terracotta);"></span>
         <span id="stat-busy">0 Dolu</span>
@@ -525,14 +503,12 @@
     </div>
   </header>
 
-  <!-- ANA DASHBOARD -->
   <div class="dashboard-layout">
     <div class="tables-section">
       <div class="section-title">Masalar (Masa 1 - 20)</div>
       <div class="table-grid" id="tables-container"></div>
     </div>
 
-    <!-- SAĞ: ADİSYON DETAYI -->
     <div class="detail-section">
       <div class="detail-header">
         <div>
@@ -558,97 +534,132 @@
   </div>
 
   <script>
+    const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
+
     const TOPLAM_MASA = 20;
     let seciliMasa = null;
-    let sonVeriOzeti = "";
+    let canliMasalar = {};
+    let sonSiparisZamanlari = {};
+    let islenenGarsonCagrilari = new Set();
+    let audioCtx = null;
 
-    // =========================================
-    // İKİ AYRI SES MOTORU (WEB AUDIO API)
-    // =========================================
-    
-    // 1. SİPARİŞ GELDİĞİNDE ÇALAN TOK VE MELODİK KASA ZİLİ (CHIME)
+    function sesKilidiniAc() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      const btn = document.getElementById('btn-sound');
+      btn.classList.add('unlocked');
+      btn.innerHTML = `<span>🔊</span><span>Ses Aktif</span>`;
+      calSiparisSesi();
+    }
+
     function calSiparisSesi() {
       try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // 1. Ton (Do5)
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
         const osc1 = audioCtx.createOscillator();
         const gain1 = audioCtx.createGain();
         osc1.type = "sine";
         osc1.frequency.setValueAtTime(523.25, audioCtx.currentTime);
-        gain1.gain.setValueAtTime(0.25, audioCtx.currentTime);
+        gain1.gain.setValueAtTime(0.35, audioCtx.currentTime);
         gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
         osc1.connect(gain1);
         gain1.connect(audioCtx.destination);
         osc1.start();
         osc1.stop(audioCtx.currentTime + 0.35);
 
-        // 2. Ton (Mi5)
         setTimeout(() => {
           const osc2 = audioCtx.createOscillator();
           const gain2 = audioCtx.createGain();
           osc2.type = "sine";
           osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime);
-          gain2.gain.setValueAtTime(0.3, audioCtx.currentTime);
+          gain2.gain.setValueAtTime(0.4, audioCtx.currentTime);
           gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
           osc2.connect(gain2);
           gain2.connect(audioCtx.destination);
           osc2.start();
           osc2.stop(audioCtx.currentTime + 0.5);
-        }, 120);
-
-      } catch(e) {
-        console.log("Ses çalma izni bekleniyor");
-      }
+        }, 140);
+      } catch(e) {}
     }
 
-    // 2. GARSON ÇAĞRILDIĞINDA ÇALAN TİZ VE DİKKAT ÇEKİCİ ZİL (BELL GONG)
     function calGarsonSesi() {
       try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // İki seri vuruş (Çın çın!)
-        [0, 160].forEach((delay) => {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        [0, 180].forEach((delay) => {
           setTimeout(() => {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.type = "triangle";
-            osc.frequency.setValueAtTime(1480, audioCtx.currentTime); // Tiz F#6
-            gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.28);
+            osc.frequency.setValueAtTime(1567.98, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.45, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
             osc.connect(gain);
             gain.connect(audioCtx.destination);
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.28);
+            osc.stop(audioCtx.currentTime + 0.3);
           }, delay);
         });
+      } catch(e) {}
+    }
 
-      } catch(e) {
-        console.log("Ses çalma izni bekleniyor");
+    async function buluttanVeriCek() {
+      try {
+        const masaRes = await fetch(`${FIREBASE_URL}/masalar.json`);
+        const yeniMasalar = (await masaRes.json()) || {};
+
+        let yeniSiparisVar = false;
+        for (let mKey in yeniMasalar) {
+          const m = yeniMasalar[mKey];
+          if (m && m.sonGuncelleme && sonSiparisZamanlari[mKey] !== m.sonGuncelleme) {
+            if (sonSiparisZamanlari[mKey] !== undefined) {
+              yeniSiparisVar = true;
+            }
+            sonSiparisZamanlari[mKey] = m.sonGuncelleme;
+          }
+        }
+
+        canliMasalar = yeniMasalar;
+        masalariCiz();
+
+        if (yeniSiparisVar) {
+          calSiparisSesi();
+        }
+
+        const cagriRes = await fetch(`${FIREBASE_URL}/garson_cagrilari.json`);
+        const cagrilar = await cagriRes.json();
+
+        if (cagrilar) {
+          for (let cKey in cagrilar) {
+            if (!islenenGarsonCagrilari.has(cKey)) {
+              islenenGarsonCagrilari.add(cKey);
+              const cagri = cagrilar[cKey];
+              if (Date.now() - cagri.zamanDamgasi < 30000) {
+                garsonUyarisiGoster(cagri.masaNo);
+              }
+              fetch(`${FIREBASE_URL}/garson_cagrilari/${cKey}.json`, { method: 'DELETE' });
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Bağlantı yenileniyor...", err);
       }
     }
 
-    // MASALARI GETİR / KAYDET
-    function getAdisyonlar() {
-      return JSON.parse(localStorage.getItem('nomad_masalar') || '{}');
-    }
-
-    function setAdisyonlar(data) {
-      localStorage.setItem('nomad_masalar', JSON.stringify(data));
-      sonVeriOzeti = JSON.stringify(data);
-    }
-
-    // MASALARI EKRANA ÇİZME
-    function masalariGuncelle() {
+    function masalariCiz() {
       const container = document.getElementById('tables-container');
-      const adisyonlar = getAdisyonlar();
-      let doluSayisi = 0;
-
       container.innerHTML = "";
+      let doluSayisi = 0;
 
       for (let i = 1; i <= TOPLAM_MASA; i++) {
         const masaKey = String(i);
-        const data = adisyonlar[masaKey];
+        const data = canliMasalar[masaKey];
         const isBusy = data && data.urunler && data.urunler.length > 0;
 
         if (isBusy) doluSayisi++;
@@ -669,14 +680,13 @@
       document.getElementById('stat-empty').innerText = `${TOPLAM_MASA - doluSayisi} Boş`;
 
       if (seciliMasa) {
-        masaDetayiGoster(seciliMasa, false);
+        masaDetayiGoster(seciliMasa);
       }
     }
 
-    function masaDetayiGoster(masaNo, secimDegisti = true) {
+    function masaDetayiGoster(masaNo) {
       seciliMasa = masaNo;
-      const adisyonlar = getAdisyonlar();
-      const data = adisyonlar[String(masaNo)];
+      const data = canliMasalar[String(masaNo)];
 
       document.getElementById('panel-table-title').innerText = `Masa ${masaNo} Adisyonu`;
       const listEl = document.getElementById('panel-orders-list');
@@ -704,17 +714,16 @@
           </div>
           <div class="item-actions">
             <span class="item-price">${item.tutar} ₺</span>
-            <button class="btn-qty-minus" title="Adet Azalt" onclick="adetAzalt(${masaNo}, ${index})">−</button>
-            <button class="btn-item-delete" title="Tamamen Kaldır" onclick="urunuSil(${masaNo}, ${index})">✕</button>
+            <button class="btn-qty-minus" onclick="adetAzalt(${masaNo}, ${index})">−</button>
+            <button class="btn-item-delete" onclick="urunuSil(${masaNo}, ${index})">✕</button>
           </div>
         `;
         listEl.appendChild(row);
       });
     }
 
-    function adetAzalt(masaNo, index) {
-      const adisyonlar = getAdisyonlar();
-      const data = adisyonlar[String(masaNo)];
+    async function adetAzalt(masaNo, index) {
+      const data = canliMasalar[String(masaNo)];
       if (!data || !data.urunler[index]) return;
 
       const urun = data.urunler[index];
@@ -728,82 +737,61 @@
       data.toplamTutar = data.urunler.reduce((acc, curr) => acc + curr.tutar, 0);
 
       if (data.urunler.length === 0) {
-        delete adisyonlar[String(masaNo)];
+        delete canliMasalar[String(masaNo)];
+        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, { method: 'DELETE' });
+      } else {
+        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
       }
-
-      setAdisyonlar(adisyonlar);
-      masalariGuncelle();
+      masalariCiz();
     }
 
-    function urunuSil(masaNo, index) {
-      const adisyonlar = getAdisyonlar();
-      const data = adisyonlar[String(masaNo)];
+    async function urunuSil(masaNo, index) {
+      const data = canliMasalar[String(masaNo)];
       if (!data || !data.urunler[index]) return;
 
-      const silinenAd = data.urunler[index].ad;
-      if (confirm(`"${silinenAd}" adisyondan çıkarılsın mı?`)) {
+      if (confirm(`"${data.urunler[index].ad}" adisyondan çıkarılsın mı?`)) {
         data.urunler.splice(index, 1);
         data.toplamTutar = data.urunler.reduce((acc, curr) => acc + curr.tutar, 0);
 
         if (data.urunler.length === 0) {
-          delete adisyonlar[String(masaNo)];
+          delete canliMasalar[String(masaNo)];
+          await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, { method: 'DELETE' });
+        } else {
+          await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
         }
-
-        setAdisyonlar(adisyonlar);
-        masalariGuncelle();
+        masalariCiz();
       }
     }
 
-    function masayiBosalt() {
+    async function masayiBosalt() {
       if (!seciliMasa) return;
       if (confirm(`Masa ${seciliMasa} hesabını kapatıp masayı boşaltmak istediğinize emin misiniz?`)) {
-        const adisyonlar = getAdisyonlar();
-        delete adisyonlar[String(seciliMasa)];
-        setAdisyonlar(adisyonlar);
-        masalariGuncelle();
+        delete canliMasalar[String(seciliMasa)];
+        await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
+        masalariCiz();
         masaDetayiGoster(seciliMasa);
       }
     }
 
     function garsonUyarisiGoster(masaNo) {
-      calGarsonSesi(); // TİZ GARSON SESİ
+      calGarsonSesi();
       const el = document.getElementById('garson-alert');
       document.getElementById('garson-alert-text').innerText = `Masa ${masaNo} garson çağırıyor! 🔔`;
       el.style.display = 'flex';
-      setTimeout(() => {
-        el.style.display = 'none';
-      }, 5000);
+      setTimeout(() => { el.style.display = 'none'; }, 5500);
     }
 
-    // AYRI SİNYAL AYRIŞTIRICI (BROADCASTCHANNEL)
-    const kanal = new BroadcastChannel('pos_siparis_hatti');
-    kanal.onmessage = (event) => {
-      const gelen = event.data;
-      if (gelen.tur === 'garson_cagrisi') {
-        garsonUyarisiGoster(gelen.masaNo);
-      } else {
-        calSiparisSesi(); // MELODİK SİPARİŞ SESİ
-        masalariGuncelle();
-      }
-    };
-
-    window.addEventListener('storage', (e) => {
-      if (e.key === 'nomad_masalar') {
-        calSiparisSesi();
-        masalariGuncelle();
-      }
-    });
-
-    setInterval(() => {
-      const guncelVeri = localStorage.getItem('nomad_masalar') || '';
-      if (guncelVeri !== sonVeriOzeti) {
-        sonVeriOzeti = guncelVeri;
-        masalariGuncelle();
-      }
-    }, 1000);
-
-    sonVeriOzeti = localStorage.getItem('nomad_masalar') || '';
-    masalariGuncelle();
+    masalariCiz();
+    setInterval(buluttanVeriCek, 2000);
+    buluttanVeriCek();
   </script>
 </body>
 </html>
