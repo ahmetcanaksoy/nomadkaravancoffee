@@ -312,12 +312,19 @@
       color: #fdba74;
       padding: 6px 14px;
       border-radius: 20px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 800;
       display: flex;
       align-items: center;
       gap: 6px;
       box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+    }
+
+    .table-chip.online-visitor {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: #10b981;
+      color: #6ee7b7;
+      box-shadow: none;
     }
 
     .table-dot {
@@ -326,6 +333,11 @@
       background: var(--terracotta);
       border-radius: 50%;
       box-shadow: 0 0 8px var(--terracotta);
+    }
+
+    .table-chip.online-visitor .table-dot {
+      background: #10b981;
+      box-shadow: 0 0 8px #10b981;
     }
 
     .view-page {
@@ -364,6 +376,10 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 9px;
+    }
+
+    .quick-grid.visitor-mode {
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .service-btn {
@@ -550,8 +566,8 @@
     }
 
     .card-panel-box.rez-highlight {
-      border: 1.5px solid rgba(245, 158, 11, 0.45);
-      background: linear-gradient(145deg, rgba(24, 46, 35, 0.92) 0%, rgba(16, 32, 24, 0.95) 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.55);
+      background: linear-gradient(145deg, rgba(24, 46, 35, 0.94) 0%, rgba(16, 32, 24, 0.96) 100%);
     }
 
     .card-panel-box h3 {
@@ -727,7 +743,6 @@
       padding-bottom: 140px;
     }
 
-    /* KENDİ KAHVENİ TASARLA KARTI */
     .craft-studio {
       background: var(--bg-card);
       border: 1.5px solid rgba(245, 158, 11, 0.45);
@@ -886,6 +901,33 @@
       font-size: 0.88rem;
       font-weight: 800;
       color: #ffffff;
+    }
+
+    .visitor-qr-note {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 5px 10px;
+      border-radius: 10px;
+    }
+
+    .visitor-bottom-banner {
+      position: fixed;
+      bottom: 16px;
+      left: 14px;
+      right: 14px;
+      background: rgba(15, 28, 21, 0.95);
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      border-radius: 18px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 150;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.65);
     }
 
     .floating-cart-bar {
@@ -1072,7 +1114,7 @@
         <p>Tatvan</p>
       </div>
     </div>
-    <div class="table-chip">
+    <div class="table-chip" id="header-badge">
       <span class="table-dot"></span>
       <span id="masa-text">Masa 12</span>
     </div>
@@ -1089,13 +1131,13 @@
     </div>
 
     <div class="section-wrap wave-item wave-2">
-      <div class="quick-grid">
-        <div class="service-btn" onclick="wifiKopyala()">
+      <div class="quick-grid" id="quick-actions-grid">
+        <div class="service-btn qr-only" onclick="wifiKopyala()">
           <span class="service-icon">📶</span>
           <span class="service-name">Wi-Fi</span>
         </div>
 
-        <div class="service-btn" onclick="garsonCagir()">
+        <div class="service-btn qr-only" onclick="garsonCagir()">
           <span class="service-icon">🔔</span>
           <span class="service-name">Garson</span>
         </div>
@@ -1112,57 +1154,7 @@
       </div>
     </div>
 
-    <div class="section-wrap wave-item wave-3">
-      <button class="btn-giant-menu" onclick="navigasyon('menu', 'hepsi')">
-        <div class="giant-left">
-          <div class="giant-icon-box">☕</div>
-          <div>
-            <div class="giant-text-sub">Masanızdan Hemen Sipariş Verin</div>
-            <div class="giant-text-main">MENÜYÜ İNCELE & SİPARİŞ VER</div>
-          </div>
-        </div>
-        <div class="giant-arrow-circle">→</div>
-      </button>
-
-      <button class="btn-craft-banner" onclick="navigasyon('menu', 'tasarla')">
-        <div style="display:flex; align-items:center; gap:12px; text-align:left;">
-          <span style="font-size:1.5rem;">✨</span>
-          <div>
-            <div style="font-size:0.92rem; font-weight:900; color:var(--amber);">KENDİ KAHVENİ TASARLA</div>
-            <div style="font-size:0.74rem; color:#cbd5e1;">Sütünü, şurubunu ve espresso shot sayını seç</div>
-          </div>
-        </div>
-        <span style="font-size:1.2rem; font-weight:900; color:var(--amber);">→</span>
-      </button>
-    </div>
-
-    <div class="section-wrap wave-item wave-4">
-      <a class="social-banner-box" href="https://instagram.com/nomadkaravancoffee" target="_blank">
-        <div class="social-left">
-          <svg class="insta-svg" viewBox="0 0 24 24" fill="none">
-            <defs>
-              <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#fdf497"/>
-                <stop offset="5%" stop-color="#fdf497"/>
-                <stop offset="45%" stop-color="#fd5949"/>
-                <stop offset="60%" stop-color="#d6249f"/>
-                <stop offset="90%" stop-color="#285AEB"/>
-              </linearGradient>
-            </defs>
-            <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#igGrad)" stroke-width="2.2"/>
-            <circle cx="12" cy="12" r="4.2" stroke="url(#igGrad)" stroke-width="2.2"/>
-            <circle cx="17.5" cy="6.5" r="1.3" fill="url(#igGrad)"/>
-          </svg>
-          <div>
-            <div class="social-title">@nomadkaravancoffee</div>
-            <div class="social-sub">Bizi Instagram'da Keşfedin</div>
-          </div>
-        </div>
-        <span class="social-arrow">→</span>
-      </a>
-    </div>
-
-    <div class="section-wrap wave-item wave-5">
+    <div class="section-wrap wave-item wave-3" id="rez-section-wrap">
       <div class="card-panel-box rez-highlight">
         <h3>📅 Masa Rezervasyonu</h3>
         <p>Doğum günü, özel buluşmalar veya kalabalık gruplarınız için önceden masanızı ayırtın; talebiniz anında kasa ekranına düşer.</p>
@@ -1194,6 +1186,56 @@
       </div>
     </div>
 
+    <div class="section-wrap wave-item wave-4" id="menu-cta-wrap">
+      <button class="btn-giant-menu" onclick="navigasyon('menu', 'hepsi')">
+        <div class="giant-left">
+          <div class="giant-icon-box">☕</div>
+          <div>
+            <div class="giant-text-sub" id="menu-cta-sub">Masanızdan Hemen Sipariş Verin</div>
+            <div class="giant-text-main" id="menu-cta-main">MENÜYÜ İNCELE & SİPARİŞ VER</div>
+          </div>
+        </div>
+        <div class="giant-arrow-circle">→</div>
+      </button>
+
+      <button class="btn-craft-banner" onclick="navigasyon('menu', 'tasarla')">
+        <div style="display:flex; align-items:center; gap:12px; text-align:left;">
+          <span style="font-size:1.5rem;">✨</span>
+          <div>
+            <div style="font-size:0.92rem; font-weight:900; color:var(--amber);">KENDİ KAHVENİ TASARLA</div>
+            <div style="font-size:0.74rem; color:#cbd5e1;" id="craft-banner-sub">Sütünü, şurubunu ve espresso shot sayını seç</div>
+          </div>
+        </div>
+        <span style="font-size:1.2rem; font-weight:900; color:var(--amber);">→</span>
+      </button>
+    </div>
+
+    <div class="section-wrap wave-item wave-5">
+      <a class="social-banner-box" href="https://instagram.com/nomadkaravancoffee" target="_blank">
+        <div class="social-left">
+          <svg class="insta-svg" viewBox="0 0 24 24" fill="none">
+            <defs>
+              <linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#fdf497"/>
+                <stop offset="5%" stop-color="#fdf497"/>
+                <stop offset="45%" stop-color="#fd5949"/>
+                <stop offset="60%" stop-color="#d6249f"/>
+                <stop offset="90%" stop-color="#285AEB"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#igGrad)" stroke-width="2.2"/>
+            <circle cx="12" cy="12" r="4.2" stroke="url(#igGrad)" stroke-width="2.2"/>
+            <circle cx="17.5" cy="6.5" r="1.3" fill="url(#igGrad)"/>
+          </svg>
+          <div>
+            <div class="social-title">@nomadkaravancoffee</div>
+            <div class="social-sub">Bizi Instagram'da Keşfedin</div>
+          </div>
+        </div>
+        <span class="social-arrow">→</span>
+      </a>
+    </div>
+
     <div class="section-wrap wave-item wave-6">
       <div class="card-panel-box">
         <h3>✉️ İstek, Öneri ve Şikayet</h3>
@@ -1222,7 +1264,7 @@
         <span>←</span>
         <span>Ana Sayfa</span>
       </button>
-      <span style="font-size:1rem; font-weight:900; color:#ffffff;">Nomâd Menü</span>
+      <span style="font-size:1rem; font-weight:900; color:#ffffff;">Nomâd Menü & Fiyatlar</span>
     </div>
 
     <div class="menu-tabs">
@@ -1236,6 +1278,11 @@
     </div>
 
     <div class="product-list" id="products-list"></div>
+
+    <div class="visitor-bottom-banner" id="visitor-menu-banner" style="display:none;">
+      <span style="font-size:0.78rem; font-weight:800; color:#f8fafc;">Sipariş vermek için masanızdaki QR kodu okutunuz.</span>
+      <button class="btn-create-order" style="padding:8px 14px; font-size:0.78rem; white-space:nowrap;" onclick="rezervasyonaGit()">Rezervasyon</button>
+    </div>
   </div>
 
   <div class="floating-cart-bar" id="cart-floating-bar">
@@ -1264,6 +1311,36 @@
 
   <script>
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const rawMasa = urlParams.get('masa');
+    const isMasaModu = Boolean(rawMasa && rawMasa.trim() !== "");
+    const masaNo = isMasaModu ? rawMasa.trim() : null;
+
+    function moduUygula() {
+      const headerBadge = document.getElementById('header-badge');
+      const masaText = document.getElementById('masa-text');
+      const quickGrid = document.getElementById('quick-actions-grid');
+
+      if (isMasaModu) {
+        masaText.innerText = "Masa " + masaNo;
+        const homePage = document.getElementById('view-home');
+        const menuCta = document.getElementById('menu-cta-wrap');
+        const rezSec = document.getElementById('rez-section-wrap');
+        homePage.insertBefore(menuCta, rezSec);
+      } else {
+        headerBadge.classList.add('online-visitor');
+        masaText.innerText = "Online Ziyaretçi";
+        document.querySelectorAll('.qr-only').forEach(el => el.style.display = 'none');
+        quickGrid.classList.add('visitor-mode');
+        document.getElementById('menu-cta-sub').innerText = "Fiyatları & Lezzetleri Keşfedin";
+        document.getElementById('menu-cta-main').innerText = "DİJİTAL MENÜYÜ İNCELE";
+        document.getElementById('craft-banner-sub').innerText = "Kendi özel kahve reçeteni & fiyatını hesapla";
+        document.getElementById('visitor-menu-banner').style.display = 'flex';
+      }
+    }
+
+    moduUygula();
 
     window.addEventListener('DOMContentLoaded', () => {
       const tarihInput = document.getElementById('rez-tarih');
@@ -1314,10 +1391,6 @@
       }, 60);
     });
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const masaNo = urlParams.get('masa') || "12";
-    document.getElementById('masa-text').innerText = "Masa " + masaNo;
-
     function bildirimGoster(mesaj, icon = "✓") {
       const toast = document.getElementById('toast-notify');
       document.getElementById('toast-msg').innerText = mesaj;
@@ -1327,12 +1400,14 @@
     }
 
     function wifiKopyala() {
+      if (!isMasaModu) return;
       navigator.clipboard.writeText("nomadkaravan").then(() => {
         bildirimGoster("Wi-Fi Şifresi Kopyalandı (nomadkaravan)", "📶");
       });
     }
 
     async function garsonCagir() {
+      if (!isMasaModu) return;
       const cagriPaketi = {
         masaNo: String(masaNo),
         saat: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
@@ -1369,6 +1444,7 @@
         saat,
         kisi,
         not: not || "-",
+        kaynak: isMasaModu ? `Masa ${masaNo}` : "Web / Google",
         zamanDamgasi: Date.now()
       };
 
@@ -1388,6 +1464,13 @@
       document.getElementById('rez-tarih').value = new Date().toISOString().split('T')[0];
     }
 
+    function rezervasyonaGit() {
+      navigasyon('home');
+      setTimeout(() => {
+        document.getElementById('rez-section-wrap').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+
     function modalKapat(id) {
       document.getElementById(id).style.display = 'none';
     }
@@ -1396,8 +1479,9 @@
       e.preventDefault();
       const ad = document.getElementById('fb-ad').value;
       const mesaj = document.getElementById('fb-mesaj').value;
-      const konu = encodeURIComponent(`Nomâd Karavan Geri Bildirim - Masa ${masaNo} (${ad})`);
-      const icerik = encodeURIComponent(`Müşteri: ${ad}\nMasa: ${masaNo}\n\nMesaj:\n${mesaj}`);
+      const kaynakEtiket = isMasaModu ? `Masa ${masaNo}` : "Online Ziyaretçi";
+      const konu = encodeURIComponent(`Nomâd Karavan Geri Bildirim - ${kaynakEtiket} (${ad})`);
+      const icerik = encodeURIComponent(`Müşteri: ${ad}\nKaynak: ${kaynakEtiket}\n\nMesaj:\n${mesaj}`);
       
       window.location.href = `mailto:nomadkaravancoffee@gmail.com?subject=${konu}&body=${icerik}`;
       bildirimGoster("E-posta istemciniz açılıyor...", "✉️");
@@ -1474,6 +1558,7 @@
     }
 
     function ozelKahveyiSepeteEkle() {
+      if (!isMasaModu) return;
       const toplamFiyat = ozelKahveSecim.baz.fiyat + ozelKahveSecim.sicaklik.fiyat + ozelKahveSecim.sut.fiyat + ozelKahveSecim.surup.fiyat + ozelKahveSecim.ekstra.fiyat;
       const recete = `${ozelKahveSecim.sicaklik.ad} • ${ozelKahveSecim.sut.ad} • ${ozelKahveSecim.surup.ad} • ${ozelKahveSecim.ekstra.ad}`;
 
@@ -1538,11 +1623,19 @@
           </div>
         `;
 
+        const aksiyonAlani = isMasaModu
+          ? `<button class="btn-primary-action btn-rez-submit" style="width:100%;" onclick="ozelKahveyiSepeteEkle()">
+              <span>Özel Kahveyi Sepete Ekle — ${toplamFiyat} ₺</span>
+             </button>`
+          : `<div style="text-align:center; padding:10px; border-radius:12px; background:rgba(16,185,129,0.15); border:1px solid #10b981; color:#6ee7b7; font-size:0.84rem; font-weight:800;">
+              Tahmini Tutar: ${toplamFiyat} ₺ (Sipariş için masadaki QR kodu okutunuz)
+             </div>`;
+
         container.innerHTML = `
           <div class="craft-studio">
             <div>
               <h3 style="font-size:1.1rem; font-weight:900; color:#ffffff; margin-bottom:4px;">✨ Kendi Kahveni Tasarla</h3>
-              <p style="font-size:0.76rem; color:var(--text-muted);">Seçimlerin doğrudan kasa ekranına reçete olarak düşer.</p>
+              <p style="font-size:0.76rem; color:var(--text-muted);">Kendi kahve reçeteni oluştur ve fiyatını anında gör.</p>
             </div>
             ${grupHtml("1. Kahve Bazını Seç", "baz", bazlar)}
             ${grupHtml("2. Servis Sıcaklığı", "sicaklik", sicakliklar)}
@@ -1555,9 +1648,7 @@
               <div style="font-size:0.86rem; font-weight:800; color:#ffffff; margin-bottom:12px;">
                 ${ozelKahveSecim.baz.ad} (${ozelKahveSecim.sicaklik.ad}) • ${ozelKahveSecim.sut.ad} • ${ozelKahveSecim.surup.ad} • ${ozelKahveSecim.ekstra.ad}
               </div>
-              <button class="btn-primary-action btn-rez-submit" style="width:100%;" onclick="ozelKahveyiSepeteEkle()">
-                <span>Özel Kahveyi Sepete Ekle — ${toplamFiyat} ₺</span>
-              </button>
+              ${aksiyonAlani}
             </div>
           </div>
         `;
@@ -1572,6 +1663,15 @@
         const adet = sepet[u.id] || 0;
         const card = document.createElement('div');
         card.className = "product-card";
+
+        const sagKontrol = isMasaModu
+          ? `<div class="qty-box">
+              ${adet > 0 ? `<button class="qty-btn" onclick="adetGuncelle(${u.id}, -1)">−</button>` : ''}
+              ${adet > 0 ? `<span class="qty-num">${adet}</span>` : ''}
+              <button class="qty-btn plus" onclick="adetGuncelle(${u.id}, 1)">+</button>
+             </div>`
+          : `<span class="visitor-qr-note">Menü Fiyatı</span>`;
+
         card.innerHTML = `
           <img class="product-thumb" src="${u.resim}" alt="${u.ad}" loading="lazy">
           <div class="product-content">
@@ -1581,11 +1681,7 @@
             </div>
             <div class="prod-footer">
               <span class="prod-price">${u.fiyat} ₺</span>
-              <div class="qty-box">
-                ${adet > 0 ? `<button class="qty-btn" onclick="adetGuncelle(${u.id}, -1)">−</button>` : ''}
-                ${adet > 0 ? `<span class="qty-num">${adet}</span>` : ''}
-                <button class="qty-btn plus" onclick="adetGuncelle(${u.id}, 1)">+</button>
-              </div>
+              ${sagKontrol}
             </div>
           </div>
         `;
@@ -1594,6 +1690,7 @@
     }
 
     function adetGuncelle(id, delta) {
+      if (!isMasaModu) return;
       const yeni = (sepet[id] || 0) + delta;
       if (yeni <= 0) {
         delete sepet[id];
@@ -1605,6 +1702,7 @@
     }
 
     function sepetBariniHesapla() {
+      if (!isMasaModu) return;
       let toplamAdet = 0;
       let toplamTutar = 0;
 
@@ -1632,6 +1730,7 @@
     }
 
     async function siparisiGonder() {
+      if (!isMasaModu) return;
       const siparisDetay = [];
       let genelToplam = 0;
 
