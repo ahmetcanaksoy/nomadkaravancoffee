@@ -8,16 +8,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #0f1c15;              
-      --bg-card: rgba(22, 42, 32, 0.82); 
-      --card-border: rgba(234, 88, 12, 0.28);
-      --terracotta: #ea580c;           
-      --terracotta-glow: rgba(234, 88, 12, 0.45);
+      --bg-dark: #16191e;
+      --bg-card: rgba(44, 50, 61, 0.84);
+      --card-border: rgba(203, 213, 225, 0.24);
+      --silver-bright: #e2e8f0;
+      --silver-mid: #94a3b8;
+      --terracotta: #ea580c;
+      --terracotta-glow: rgba(234, 88, 12, 0.42);
       --terracotta-dark: #c2410c;
-      --amber: #f59e0b;                
-      --emerald-accent: #1b4d36;
-      --text-main: #f8fafc;            
-      --text-muted: #9bb0a3;
+      --amber: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #cbd5e1;
     }
 
     * {
@@ -29,7 +30,7 @@
     }
 
     body {
-      background-color: var(--bg-dark);
+      background: linear-gradient(180deg, #1c2028 0%, #13161c 100%);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -42,7 +43,7 @@
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: radial-gradient(circle at center, #183325 0%, #08100c 100%);
+      background: radial-gradient(circle at center, #2b313d 0%, #111419 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -50,8 +51,8 @@
     }
 
     .pin-card {
-      background: rgba(20, 38, 29, 0.94);
-      border: 1.5px solid rgba(245, 158, 11, 0.4);
+      background: rgba(36, 41, 50, 0.96);
+      border: 1.5px solid rgba(226, 232, 240, 0.4);
       border-radius: 26px;
       padding: 30px 24px;
       width: 100%;
@@ -65,8 +66,8 @@
       height: 56px;
       margin: 0 auto 14px;
       border-radius: 18px;
-      background: linear-gradient(135deg, var(--terracotta) 0%, var(--emerald-accent) 100%);
-      border: 1.5px solid var(--amber);
+      background: linear-gradient(145deg, #475569 0%, #1e293b 100%);
+      border: 1.5px solid var(--silver-bright);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -88,7 +89,7 @@
 
     .pin-input {
       width: 100%;
-      background: rgba(10, 20, 15, 0.95);
+      background: rgba(18, 21, 27, 0.95);
       border: 1.5px solid var(--card-border);
       border-radius: 14px;
       padding: 14px;
@@ -96,19 +97,18 @@
       font-weight: 900;
       letter-spacing: 6px;
       text-align: center;
-      color: var(--amber);
+      color: var(--silver-bright);
       outline: none;
       margin-bottom: 12px;
     }
 
     .pin-input:focus {
-      border-color: var(--amber);
-      box-shadow: 0 0 16px var(--terracotta-glow);
+      border-color: var(--silver-bright);
     }
 
     .btn-pin-submit {
       width: 100%;
-      background: linear-gradient(135deg, var(--amber) 0%, var(--terracotta) 100%);
+      background: linear-gradient(135deg, var(--silver-bright) 0%, #cbd5e1 100%);
       color: #0f172a;
       border: none;
       padding: 14px;
@@ -116,7 +116,6 @@
       font-size: 0.92rem;
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 6px 20px var(--terracotta-glow);
     }
 
     .pin-error {
@@ -127,32 +126,8 @@
       display: none;
     }
 
-    .ambient-glow-1 {
-      position: fixed;
-      top: -60px;
-      left: -60px;
-      width: 340px;
-      height: 340px;
-      background: radial-gradient(circle, rgba(234, 88, 12, 0.2) 0%, transparent 70%);
-      filter: blur(50px);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .ambient-glow-2 {
-      position: fixed;
-      bottom: -40px;
-      right: -60px;
-      width: 380px;
-      height: 380px;
-      background: radial-gradient(circle, rgba(27, 77, 54, 0.28) 0%, transparent 70%);
-      filter: blur(60px);
-      z-index: 0;
-      pointer-events: none;
-    }
-
     header {
-      background: rgba(15, 28, 21, 0.92);
+      background: rgba(24, 28, 35, 0.94);
       backdrop-filter: blur(16px);
       border-bottom: 1.5px solid var(--card-border);
       padding: 14px 20px;
@@ -173,21 +148,20 @@
     }
 
     .brand-logo-emblem {
-      width: 42px;
-      height: 42px;
-      background: linear-gradient(135deg, #ea580c 0%, #1b4d36 100%);
+      width: 46px;
+      height: 46px;
+      background: linear-gradient(145deg, #3b4250 0%, #232832 100%);
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1.5px solid var(--amber);
-      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+      border: 1.5px solid rgba(226, 232, 240, 0.5);
       flex-shrink: 0;
     }
 
     .brand-logo-emblem svg {
-      width: 24px;
-      height: 24px;
+      width: 34px;
+      height: 34px;
     }
 
     .brand-info h1 {
@@ -198,7 +172,7 @@
 
     .brand-info p {
       font-size: 0.72rem;
-      color: var(--amber);
+      color: var(--silver-mid);
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -228,9 +202,9 @@
     }
 
     .btn-sound-unlock.unlocked {
-      background: rgba(16, 185, 129, 0.22);
-      color: #6ee7b7;
-      border: 1.5px solid #10b981;
+      background: rgba(226, 232, 240, 0.16);
+      color: var(--silver-bright);
+      border: 1.5px solid rgba(226, 232, 240, 0.45);
       box-shadow: none;
       animation: none;
     }
@@ -263,13 +237,13 @@
     }
 
     .badge-empty {
-      background: rgba(27, 77, 54, 0.3);
-      border: 1.5px solid var(--emerald-accent);
-      color: #a7f3d0;
+      background: rgba(226, 232, 240, 0.12);
+      border: 1.5px solid rgba(226, 232, 240, 0.35);
+      color: var(--silver-bright);
     }
 
     .badge-busy {
-      background: rgba(234, 88, 12, 0.25);
+      background: rgba(234, 88, 12, 0.24);
       border: 1.5px solid var(--terracotta);
       color: #fdba74;
     }
@@ -348,7 +322,7 @@
     .section-title {
       font-size: 0.9rem;
       font-weight: 900;
-      color: var(--amber);
+      color: var(--silver-bright);
       margin-bottom: 14px;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -373,24 +347,24 @@
       justify-content: center;
       gap: 5px;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
       transition: all 0.2s;
       user-select: none;
     }
 
     .table-card.empty {
-      border: 1.5px solid rgba(27, 77, 54, 0.5);
+      border: 1.5px solid rgba(203, 213, 225, 0.25);
     }
     .table-card.empty .table-status-text {
-      color: #86efac;
-      background: rgba(27, 77, 54, 0.3);
+      color: var(--silver-bright);
+      background: rgba(226, 232, 240, 0.14);
       padding: 3px 9px;
       border-radius: 10px;
     }
 
     .table-card.busy {
       border: 2px solid var(--terracotta);
-      background: rgba(45, 18, 12, 0.8);
+      background: rgba(58, 32, 28, 0.85);
       box-shadow: 0 10px 28px var(--terracotta-glow);
       animation: pulseAlert 2.5s infinite;
     }
@@ -414,7 +388,7 @@
       border-radius: 50%;
       background: #facc15;
       color: #0f172a;
-      border: 2px solid #0f1c15;
+      border: 2px solid #16191e;
       font-size: 1rem;
       font-weight: 900;
       display: flex;
@@ -461,8 +435,8 @@
     }
 
     .rez-card {
-      background: rgba(24, 46, 35, 0.9);
-      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      background: rgba(44, 50, 61, 0.9);
+      border: 1.5px solid rgba(226, 232, 240, 0.35);
       border-radius: 16px;
       padding: 14px 16px;
       display: flex;
@@ -485,7 +459,7 @@
     }
 
     .rez-badge {
-      background: var(--amber);
+      background: var(--silver-bright);
       color: #0f172a;
       font-size: 0.72rem;
       font-weight: 900;
@@ -508,7 +482,7 @@
 
     .rez-info {
       font-size: 0.78rem;
-      color: #cbd5e1;
+      color: #e2e8f0;
       font-weight: 600;
     }
 
@@ -520,9 +494,9 @@
 
     .btn-rez-call {
       flex: 1;
-      background: rgba(16, 185, 129, 0.2);
-      border: 1px solid #10b981;
-      color: #6ee7b7;
+      background: rgba(226, 232, 240, 0.16);
+      border: 1px solid var(--silver-bright);
+      color: var(--silver-bright);
       text-decoration: none;
       text-align: center;
       padding: 7px;
@@ -544,7 +518,7 @@
 
     .detail-section {
       width: 420px;
-      background: rgba(16, 32, 24, 0.96);
+      background: rgba(28, 32, 40, 0.96);
       backdrop-filter: blur(18px);
       border-left: 1.5px solid var(--card-border);
       display: flex;
@@ -565,7 +539,7 @@
 
     .detail-time {
       font-size: 0.75rem;
-      color: var(--amber);
+      color: var(--silver-mid);
       font-weight: 700;
     }
 
@@ -591,7 +565,7 @@
 
     .order-item-row.is-new-order {
       border: 1.5px solid #facc15;
-      background: rgba(250, 204, 21, 0.1);
+      background: rgba(250, 204, 21, 0.12);
     }
 
     .new-order-pill {
@@ -653,9 +627,9 @@
     }
 
     .btn-qty-minus {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.1);
       color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       width: 28px;
       height: 28px;
       border-radius: 8px;
@@ -665,7 +639,7 @@
     }
 
     .btn-item-delete {
-      background: rgba(234, 88, 12, 0.2);
+      background: rgba(234, 88, 12, 0.22);
       color: #fdba74;
       border: 1px solid var(--terracotta);
       width: 28px;
@@ -678,7 +652,7 @@
     .detail-footer {
       padding: 18px 22px;
       border-top: 1.5px solid var(--card-border);
-      background: rgba(15, 28, 21, 0.96);
+      background: rgba(24, 28, 35, 0.96);
     }
 
     .total-box {
@@ -752,19 +726,28 @@
     </form>
   </div>
 
-  <div class="ambient-glow-1"></div>
-  <div class="ambient-glow-2"></div>
-
   <header>
     <div class="brand-wrap">
       <div class="brand-logo-emblem">
-        <svg viewBox="0 0 32 32" fill="none">
-          <path d="M5 23h20c1.5 0 2.5-1 2.5-2.5V13c0-2.5-2-4.5-4.5-4.5H9C6.5 8.5 5 10.5 5 13v7.5c0 1.5 1 2.5 0 2.5z" fill="#ea580c"/>
-          <path d="M9 8.5h14c1.5 0 2.5 1 2.5 2v1.5H6.5V10.5c0-1 1-2 2.5-2z" fill="#f59e0b"/>
-          <rect x="8" y="13" width="6" height="5" rx="1.5" fill="#ffffff"/>
-          <rect x="17" y="13" width="6" height="5" rx="1.5" fill="#ffffff"/>
-          <circle cx="12" cy="23" r="3" fill="#0b1712" stroke="#f59e0b" stroke-width="1.5"/>
-          <circle cx="22" cy="23" r="3" fill="#0b1712" stroke="#f59e0b" stroke-width="1.5"/>
+        <svg viewBox="0 0 80 64" fill="none">
+          <defs>
+            <linearGradient id="silverBodyKasa" x1="12" y1="18" x2="64" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="55%" stop-color="#cbd5e1"/>
+              <stop offset="100%" stop-color="#64748b"/>
+            </linearGradient>
+          </defs>
+          <path d="M30 12c1.2-2.2-1.2-3.8 0-6" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M37 11c1.2-2.2-1.2-3.8 0-6" stroke="#e2e8f0" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M12 46h50c3.3 0 6-2.7 6-6v-6c0-9.9-8.1-18-18-18H28c-9.9 0-18 8.1-18 18v6c0 3.3 2.7 6 2 6z" fill="url(#silverBodyKasa)" stroke="#f8fafc" stroke-width="1.6"/>
+          <path d="M11 33h56" stroke="#475569" stroke-width="1.8"/>
+          <rect x="19" y="21" width="14" height="9" rx="4" fill="#1e293b" stroke="#f8fafc" stroke-width="1.5"/>
+          <rect x="38" y="21" width="11" height="24" rx="3" fill="#334155" stroke="#cbd5e1" stroke-width="1.4"/>
+          <circle cx="46.5" cy="34" r="1.4" fill="#f59e0b"/>
+          <rect x="53" y="22" width="9" height="8" rx="3.5" fill="#1e293b" stroke="#f8fafc" stroke-width="1.4"/>
+          <path d="M68 44h8v2h-8z" fill="#cbd5e1"/>
+          <circle cx="29" cy="46" r="7.5" fill="#0f172a" stroke="#f8fafc" stroke-width="2"/>
+          <circle cx="29" cy="46" r="3.2" fill="#cbd5e1"/>
         </svg>
       </div>
       <div class="brand-info">
@@ -784,7 +767,7 @@
         <span id="stat-busy">0 Dolu</span>
       </div>
       <div class="badge-pill badge-empty">
-        <span class="dot" style="background:var(--emerald-accent);"></span>
+        <span class="dot" style="background:var(--silver-bright);"></span>
         <span id="stat-empty">50 Boş</span>
       </div>
 
