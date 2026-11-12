@@ -1822,7 +1822,8 @@
         detay: recete,
         adet: 1,
         birimFiyat: toplamFiyat,
-        tutar: toplamFiyat
+        tutar: toplamFiyat,
+        yeni: true
       });
 
       sepetBariniHesapla();
@@ -1998,6 +1999,7 @@
 
       const siparisDetay = [];
       let genelToplam = 0;
+      let toplamKalem = 0;
 
       for (let id in sepet) {
         const u = urunler.find(item => item.id == id);
@@ -2006,18 +2008,22 @@
             ad: u.ad,
             adet: sepet[id],
             birimFiyat: u.fiyat,
-            tutar: u.fiyat * sepet[id]
+            tutar: u.fiyat * sepet[id],
+            yeni: true
           });
           genelToplam += u.fiyat * sepet[id];
+          toplamKalem += sepet[id];
         }
       }
 
       ozelKahveSepeti.forEach(ok => {
-        siparisDetay.push(ok);
+        siparisDetay.push({ ...ok, yeni: true });
         genelToplam += ok.tutar;
+        toplamKalem += ok.adet;
       });
 
       const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      const simdi = Date.now();
 
       try {
         const res = await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`);
@@ -2030,12 +2036,25 @@
         mevcutMasa.urunler.push(...siparisDetay);
         mevcutMasa.toplamTutar += genelToplam;
         mevcutMasa.saat = saatStr;
-        mevcutMasa.sonGuncelleme = Date.now();
+        mevcutMasa.sonGuncelleme = simdi;
+        mevcutMasa.okunmamis = true;
 
         await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(mevcutMasa)
+        });
+
+        await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            masaNo: String(masaNo),
+            kalemSayisi: toplamKalem,
+            tutar: genelToplam,
+            saat: saatStr,
+            zamanDamgasi: simdi
+          })
         });
       } catch (err) {}
 
