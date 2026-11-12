@@ -38,6 +38,95 @@
       position: relative;
     }
 
+    #pin-lock-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: radial-gradient(circle at center, #183325 0%, #08100c 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .pin-card {
+      background: rgba(20, 38, 29, 0.94);
+      border: 1.5px solid rgba(245, 158, 11, 0.4);
+      border-radius: 26px;
+      padding: 30px 24px;
+      width: 100%;
+      max-width: 340px;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+    }
+
+    .pin-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 14px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--terracotta) 0%, var(--emerald-accent) 100%);
+      border: 1.5px solid var(--amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+
+    .pin-card h2 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .pin-card p {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .pin-input {
+      width: 100%;
+      background: rgba(10, 20, 15, 0.95);
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: 6px;
+      text-align: center;
+      color: var(--amber);
+      outline: none;
+      margin-bottom: 12px;
+    }
+
+    .pin-input:focus {
+      border-color: var(--amber);
+      box-shadow: 0 0 16px var(--terracotta-glow);
+    }
+
+    .btn-pin-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--amber) 0%, var(--terracotta) 100%);
+      color: #0f172a;
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 6px 20px var(--terracotta-glow);
+    }
+
+    .pin-error {
+      color: #f87171;
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-top: 10px;
+      display: none;
+    }
+
     .ambient-glow-1 {
       position: fixed;
       top: -60px;
@@ -144,6 +233,17 @@
       border: 1.5px solid #10b981;
       box-shadow: none;
       animation: none;
+    }
+
+    .btn-lock-now {
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
     }
 
     @keyframes pulseSound {
@@ -546,6 +646,17 @@
 </head>
 <body>
 
+  <div id="pin-lock-screen">
+    <form class="pin-card" onsubmit="sifreKontrol(event)">
+      <div class="pin-icon">🔒</div>
+      <h2>NOMÂD KARAVAN KASA</h2>
+      <p>Yetkili kasa erişimi için şifreyi giriniz</p>
+      <input type="password" id="kasa-pin-input" class="pin-input" inputmode="numeric" maxlength="8" placeholder="••••" required autofocus>
+      <button type="submit" class="btn-pin-submit">Kasayı Aç →</button>
+      <div class="pin-error" id="pin-error-msg">Hatalı şifre, tekrar deneyin.</div>
+    </form>
+  </div>
+
   <div class="ambient-glow-1"></div>
   <div class="ambient-glow-2"></div>
 
@@ -586,6 +697,8 @@
         <span class="dot" style="background:var(--emerald-accent);"></span>
         <span id="stat-empty">20 Boş</span>
       </div>
+
+      <button class="btn-lock-now" onclick="kasayiKilitle()">🔒 Kilitle</button>
     </div>
   </header>
 
@@ -625,6 +738,7 @@
   </div>
 
   <script>
+    const KASA_SIFRESI = "1453";
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
 
     const TOPLAM_MASA = 20;
@@ -634,6 +748,36 @@
     let islenenGarsonCagrilari = new Set();
     let bilinenRezSayisi = -1;
     let audioCtx = null;
+    let kasaAcik = sessionStorage.getItem('nomad_kasa_yetki') === '1';
+
+    if (kasaAcik) {
+      document.getElementById('pin-lock-screen').style.display = 'none';
+    }
+
+    function sifreKontrol(e) {
+      e.preventDefault();
+      const girilen = document.getElementById('kasa-pin-input').value.trim();
+      const hataEl = document.getElementById('pin-error-msg');
+
+      if (girilen === KASA_SIFRESI) {
+        kasaAcik = true;
+        sessionStorage.setItem('nomad_kasa_yetki', '1');
+        document.getElementById('pin-lock-screen').style.display = 'none';
+        hataEl.style.display = 'none';
+        sesTekBasimAktifEt();
+        buluttanVeriCek();
+      } else {
+        hataEl.style.display = 'block';
+        document.getElementById('kasa-pin-input').value = '';
+      }
+    }
+
+    function kasayiKilitle() {
+      kasaAcik = false;
+      sessionStorage.removeItem('nomad_kasa_yetki');
+      document.getElementById('kasa-pin-input').value = '';
+      document.getElementById('pin-lock-screen').style.display = 'flex';
+    }
 
     function sesMotorunuUyandir() {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -708,6 +852,7 @@
     }
 
     async function buluttanVeriCek() {
+      if (!kasaAcik) return;
       try {
         const masaRes = await fetch(`${FIREBASE_URL}/masalar.json`);
         const yeniMasalar = (await masaRes.json()) || {};
@@ -935,7 +1080,7 @@
 
     masalariCiz();
     setInterval(buluttanVeriCek, 2000);
-    buluttanVeriCek();
+    if (kasaAcik) buluttanVeriCek();
   </script>
 </body>
 </html>
