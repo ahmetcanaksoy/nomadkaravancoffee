@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Nomad Karavan | Kasa Kontrol Paneli</title>
+  <title>Nomâd Karavan | Kasa Kontrol Paneli</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -126,9 +126,9 @@
       background: var(--amber);
       color: #0f172a;
       border: none;
-      padding: 8px 14px;
+      padding: 9px 16px;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 900;
       cursor: pointer;
       display: flex;
@@ -136,7 +136,6 @@
       gap: 6px;
       box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
       animation: pulseSound 2s infinite;
-      transition: all 0.2s;
     }
 
     .btn-sound-unlock.unlocked {
@@ -208,6 +207,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
       gap: 12px;
+      margin-bottom: 28px;
     }
 
     .table-card {
@@ -273,6 +273,80 @@
       margin-top: 2px;
     }
 
+    .rez-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 12px;
+    }
+
+    .rez-card {
+      background: rgba(24, 46, 35, 0.9);
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    }
+
+    .rez-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .rez-name {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .rez-badge {
+      background: var(--amber);
+      color: #0f172a;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 10px;
+    }
+
+    .rez-info {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    .rez-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .btn-rez-call {
+      flex: 1;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #6ee7b7;
+      text-decoration: none;
+      text-align: center;
+      padding: 7px;
+      border-radius: 10px;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .btn-rez-del {
+      background: rgba(234, 88, 12, 0.22);
+      border: 1px solid var(--terracotta);
+      color: #fdba74;
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
     .detail-section {
       width: 420px;
       background: rgba(16, 32, 24, 0.96);
@@ -324,13 +398,24 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
 
     .item-name {
       font-size: 0.9rem;
       font-weight: 800;
       color: #ffffff;
+    }
+
+    .item-custom-recipe {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #fdba74;
+      background: rgba(234, 88, 12, 0.18);
+      border: 1px solid rgba(234, 88, 12, 0.4);
+      padding: 4px 8px;
+      border-radius: 8px;
+      margin-top: 2px;
     }
 
     .item-unit-info {
@@ -482,13 +567,13 @@
         </svg>
       </div>
       <div class="brand-info">
-        <h1>NOMAD KARAVAN • KASA</h1>
+        <h1>NOMÂD KARAVAN • KASA</h1>
         <p>Tatvan Canlı Yönetim</p>
       </div>
     </div>
 
     <div class="header-controls">
-      <button class="btn-sound-unlock" id="btn-sound" onclick="sesDurumunuDegistir()">
+      <button class="btn-sound-unlock" id="btn-sound" onclick="sesTekBasimAktifEt()">
         <span>🔇</span>
         <span>Sesi Aktif Et</span>
       </button>
@@ -508,6 +593,11 @@
     <div class="tables-section">
       <div class="section-title">Masalar (Masa 1 - 20)</div>
       <div class="table-grid" id="tables-container"></div>
+
+      <div class="section-title">📅 Gelen Rezervasyonlar</div>
+      <div class="rez-list" id="rez-container">
+        <div style="font-size:0.8rem; color:var(--text-muted);">Henüz yeni rezervasyon yok.</div>
+      </div>
     </div>
 
     <div class="detail-section">
@@ -542,10 +632,10 @@
     let canliMasalar = {};
     let sonSiparisZamanlari = {};
     let islenenGarsonCagrilari = new Set();
+    let bilinenRezSayisi = -1;
     let audioCtx = null;
-    let sesAcik = false;
 
-    function iosSesMotorunuUyandir() {
+    function sesMotorunuUyandir() {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (!audioCtx) {
         audioCtx = new AudioContextClass();
@@ -560,32 +650,24 @@
       source.start(0);
     }
 
-    function sesDurumunuDegistir() {
+    function sesTekBasimAktifEt() {
+      sesMotorunuUyandir();
       const btn = document.getElementById('btn-sound');
-      if (!sesAcik) {
-        sesAcik = true;
-        iosSesMotorunuUyandir();
-        btn.classList.add('unlocked');
-        btn.innerHTML = `<span>🔊</span><span>Ses Aktif (Kapat)</span>`;
-        calSiparisSesi();
-      } else {
-        sesAcik = false;
-        btn.classList.remove('unlocked');
-        btn.innerHTML = `<span>🔇</span><span>Sesi Aktif Et</span>`;
-      }
+      btn.classList.add('unlocked');
+      btn.innerHTML = `<span>🔊</span><span>Ses Aktif</span>`;
+      calSiparisSesi();
     }
 
     function calSiparisSesi() {
-      if (!sesAcik) return;
       try {
-        iosSesMotorunuUyandir();
+        sesMotorunuUyandir();
         const now = audioCtx.currentTime;
 
         const osc1 = audioCtx.createOscillator();
         const gain1 = audioCtx.createGain();
         osc1.type = "sine";
         osc1.frequency.setValueAtTime(587.33, now);
-        gain1.gain.setValueAtTime(0.6, now);
+        gain1.gain.setValueAtTime(0.65, now);
         gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
         osc1.connect(gain1);
         gain1.connect(audioCtx.destination);
@@ -596,7 +678,7 @@
         const gain2 = audioCtx.createGain();
         osc2.type = "sine";
         osc2.frequency.setValueAtTime(880, now + 0.16);
-        gain2.gain.setValueAtTime(0.7, now + 0.16);
+        gain2.gain.setValueAtTime(0.75, now + 0.16);
         gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
         osc2.connect(gain2);
         gain2.connect(audioCtx.destination);
@@ -606,9 +688,8 @@
     }
 
     function calGarsonSesi() {
-      if (!sesAcik) return;
       try {
-        iosSesMotorunuUyandir();
+        sesMotorunuUyandir();
         const now = audioCtx.currentTime;
 
         [0, 0.22].forEach((offset) => {
@@ -664,7 +745,54 @@
             }
           }
         }
+
+        const rezRes = await fetch(`${FIREBASE_URL}/rezervasyonlar.json`);
+        const rezervasyonlar = await rezRes.json();
+        rezervasyonlariCiz(rezervasyonlar);
       } catch (err) {}
+    }
+
+    function rezervasyonlariCiz(rezObj) {
+      const container = document.getElementById('rez-container');
+      if (!rezObj) {
+        bilinenRezSayisi = 0;
+        container.innerHTML = `<div style="font-size:0.8rem; color:var(--text-muted);">Henüz yeni rezervasyon yok.</div>`;
+        return;
+      }
+
+      const keys = Object.keys(rezObj);
+      if (bilinenRezSayisi !== -1 && keys.length > bilinenRezSayisi) {
+        calSiparisSesi();
+      }
+      bilinenRezSayisi = keys.length;
+
+      container.innerHTML = "";
+      keys.reverse().forEach(k => {
+        const r = rezObj[k];
+        const card = document.createElement('div');
+        card.className = 'rez-card';
+        card.innerHTML = `
+          <div class="rez-top">
+            <span class="rez-name">${r.ad}</span>
+            <span class="rez-badge">${r.kisi}</span>
+          </div>
+          <div class="rez-info">📅 ${r.tarih} • ⏰ ${r.saat}</div>
+          <div class="rez-info">📞 ${r.tel}</div>
+          <div class="rez-info" style="color:var(--amber);">📝 Not: ${r.not}</div>
+          <div class="rez-actions">
+            <a class="btn-rez-call" href="tel:${r.tel}">Ara</a>
+            <button class="btn-rez-del" onclick="rezervasyonSil('${k}')">Tamamlandı / Sil</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function rezervasyonSil(key) {
+      if (confirm("Bu rezervasyon kaydı silinsin mi?")) {
+        await fetch(`${FIREBASE_URL}/rezervasyonlar/${key}.json`, { method: 'DELETE' });
+        buluttanVeriCek();
+      }
     }
 
     function masalariCiz() {
@@ -725,6 +853,7 @@
         row.innerHTML = `
           <div class="item-left">
             <span class="item-name">${item.ad}</span>
+            ${item.detay ? `<span class="item-custom-recipe">✨ ${item.detay}</span>` : ''}
             <span class="item-unit-info">${item.adet} adet × ${item.birimFiyat} ₺</span>
           </div>
           <div class="item-actions">
