@@ -11,14 +11,11 @@
       --bg-dark: #0f1c15;              
       --bg-card: rgba(22, 42, 32, 0.84); 
       --card-border: rgba(234, 88, 12, 0.28); 
-      
       --terracotta: #ea580c;           
       --terracotta-glow: rgba(234, 88, 12, 0.45);
       --terracotta-dark: #c2410c;
-      
       --amber: #f59e0b;                
       --amber-glow: rgba(245, 158, 11, 0.5);
-      
       --emerald-vibrant: #1b4d36;
       --text-main: #f8fafc;            
       --text-muted: #9bb0a3;
@@ -46,9 +43,6 @@
       height: 100vh;
     }
 
-    /* =========================================
-       GİRİŞ ANİMASYONU (PRELOADER)
-       ========================================= */
     #intro-splash {
       position: fixed;
       top: 0;
@@ -216,9 +210,6 @@
       font-weight: 900;
     }
 
-    /* =========================================
-       MEKSİKA DALGASI (YUKARIDAN AŞAĞIYA STAGGERED WAVE)
-       ========================================= */
     .wave-item {
       opacity: 0;
       transform: translateY(-28px) scale(0.97);
@@ -238,7 +229,6 @@
     body.wave-start .wave-5 { transition-delay: 0.49s; }
     body.wave-start .wave-6 { transition-delay: 0.60s; }
 
-    /* 3D ARKA PLAN IŞIKLARI */
     .ambient-glow-1 {
       position: fixed;
       top: -60px;
@@ -263,7 +253,6 @@
       pointer-events: none;
     }
 
-    /* MOBİL SABİT HEADER */
     header {
       position: sticky;
       top: 0;
@@ -338,7 +327,6 @@
       box-shadow: 0 0 8px var(--terracotta);
     }
 
-    /* SAYFA KAPSAYICILARI */
     .view-page {
       display: none;
       position: relative;
@@ -348,7 +336,6 @@
       display: block;
     }
 
-    /* ÖZEL NOMAD KARAVAN KAPAK GÖRSELİ (KESİLMEDEN TAM OTURUR) */
     .hero-card {
       margin: 16px 16px 20px;
       aspect-ratio: 16 / 10.6;
@@ -372,7 +359,6 @@
       margin-bottom: 20px;
     }
 
-    /* 4'LÜ HIZLI BUTONLAR */
     .quick-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -417,7 +403,6 @@
       text-align: center;
     }
 
-    /* DEVASA SİNEMATİK MENÜ BUTONU */
     .btn-giant-menu {
       width: 100%;
       background: linear-gradient(135deg, var(--terracotta) 0%, var(--emerald-vibrant) 100%);
@@ -493,7 +478,6 @@
       flex-shrink: 0;
     }
 
-    /* INSTAGRAM BANNER */
     .social-banner-box {
       background: var(--bg-card);
       backdrop-filter: blur(14px);
@@ -536,7 +520,6 @@
       font-weight: 800;
     }
 
-    /* İSTEK, ÖNERİ & ŞİKAYET KUTUSU */
     .feedback-box {
       background: var(--bg-card);
       backdrop-filter: blur(14px);
@@ -607,7 +590,6 @@
       box-shadow: 0 6px 20px var(--terracotta-glow);
     }
 
-    /* FOOTER */
     footer {
       text-align: center;
       padding: 26px 16px 40px;
@@ -624,9 +606,6 @@
       font-weight: 800;
     }
 
-    /* =========================================
-       SAYFA 2: GENİŞLETİLMİŞ MENÜ
-       ========================================= */
     .menu-header-bar {
       display: flex;
       align-items: center;
@@ -799,7 +778,6 @@
       color: #ffffff;
     }
 
-    /* YÜZEN SEPET BARI */
     .floating-cart-bar {
       position: fixed;
       bottom: 20px;
@@ -855,7 +833,6 @@
       box-shadow: 0 6px 18px var(--terracotta-glow);
     }
 
-    /* TOAST */
     .toast-box {
       position: fixed;
       top: 80px;
@@ -882,7 +859,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* MODAL */
     .custom-modal {
       display: none;
       position: fixed;
@@ -929,9 +905,6 @@
 </head>
 <body class="loading-lock">
 
-  <!-- =========================================
-       GİRİŞ ANİMASYONU (PRELOADER)
-       ========================================= -->
   <div id="intro-splash">
     <div class="splash-aura"></div>
     <div class="splash-content">
@@ -968,11 +941,9 @@
     </div>
   </div>
 
-  <!-- 3D ARKA PLAN IŞIKLARI -->
   <div class="ambient-glow-1"></div>
   <div class="ambient-glow-2"></div>
 
-  <!-- SABİT ÜST BAR -->
   <header>
     <div class="brand-wrap">
       <div class="brand-logo-emblem">
@@ -997,23 +968,16 @@
     </div>
   </header>
 
-  <!-- TOAST BİLDİRİMİ -->
   <div class="toast-box" id="toast-notify">
     <span id="toast-icon">✓</span>
     <span id="toast-msg">İşlem Başarılı</span>
   </div>
 
-  <!-- =========================================
-       SAYFA 1: KEŞFET & ANA SAYFA (MEKSİKA DALGASI)
-       ========================================= -->
   <div class="view-page active" id="view-home">
-    
-    <!-- DALGA 1: YENİ ÖZEL NOMAD KARAVAN KAPAK GÖRSELİ -->
     <div class="hero-card wave-item wave-1">
       <img src="karavan-kapak.jpg" alt="Nomad Karavan Cafe Tatvan">
     </div>
 
-    <!-- DALGA 2: 4'LÜ HIZLI BUTONLAR -->
     <div class="section-wrap wave-item wave-2">
       <div class="quick-grid">
         <div class="service-btn" onclick="wifiKopyala()">
@@ -1038,7 +1002,6 @@
       </div>
     </div>
 
-    <!-- DALGA 3: DEVASA SİNEMATİK MENÜ BUTONU -->
     <div class="section-wrap wave-item wave-3">
       <button class="btn-giant-menu" onclick="navigasyon('menu', 'hepsi')">
         <div class="giant-left">
@@ -1052,7 +1015,6 @@
       </button>
     </div>
 
-    <!-- DALGA 4: INSTAGRAM BANNER KARTI -->
     <div class="section-wrap wave-item wave-4">
       <a class="social-banner-box" href="https://instagram.com/nomadkaravancoffee" target="_blank">
         <div class="social-left">
@@ -1079,7 +1041,6 @@
       </a>
     </div>
 
-    <!-- DALGA 5: İSTEK, ÖNERİ & ŞİKAYET KUTUSU -->
     <div class="section-wrap wave-item wave-5">
       <div class="feedback-box">
         <h3>✉️ İstek, Öneri ve Şikayet</h3>
@@ -1096,17 +1057,12 @@
       </div>
     </div>
 
-    <!-- DALGA 6: FOOTER -->
     <footer class="wave-item wave-6">
       <p style="font-weight:800; color:#ffffff; margin-bottom:4px;">NOMAD KARAVAN COFFEE • TATVAN</p>
       <p>Instagram: <a href="https://instagram.com/nomadkaravancoffee" target="_blank">@nomadkaravancoffee</a></p>
     </footer>
-
   </div>
 
-  <!-- =========================================
-       SAYFA 2: GENİŞLETİLMİŞ MENÜ
-       ========================================= -->
   <div class="view-page" id="view-menu">
     <div class="menu-header-bar">
       <button class="btn-back-home" onclick="navigasyon('home')">
@@ -1128,7 +1084,6 @@
     <div class="product-list" id="products-list"></div>
   </div>
 
-  <!-- YÜZEN SEPET BARI -->
   <div class="floating-cart-bar" id="cart-floating-bar">
     <div class="cart-summary">
       <span class="cart-total-badge" id="cart-items-count">0 Ürün Seçildi</span>
@@ -1140,7 +1095,6 @@
     </button>
   </div>
 
-  <!-- SİPARİŞ BAŞARILI MODALI -->
   <div class="custom-modal" id="modal-success">
     <div class="modal-card">
       <div class="modal-circle-icon">✓</div>
@@ -1155,7 +1109,8 @@
   </div>
 
   <script>
-    // GİRİŞ ANİMASYONU VE MEKSİKA DALGASI TETİKLEYİCİ
+    const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
+
     window.addEventListener('DOMContentLoaded', () => {
       const splash = document.getElementById('intro-splash');
       const bar = document.getElementById('splash-bar');
@@ -1190,7 +1145,6 @@
           setTimeout(() => {
             splash.classList.add('hide');
             document.body.classList.remove('loading-lock');
-            // Meksika Dalgasını yukarıdan aşağıya doğru başlat
             requestAnimationFrame(() => {
               document.body.classList.add('wave-start');
             });
@@ -1199,7 +1153,6 @@
       }, 60);
     });
 
-    // MASA NUMARASI URL ALMA
     const urlParams = new URLSearchParams(window.location.search);
     const masaNo = urlParams.get('masa') || "12";
     document.getElementById('masa-text').innerText = "Masa " + masaNo;
@@ -1218,14 +1171,24 @@
       });
     }
 
-    function garsonCagir() {
-      const kanal = new BroadcastChannel('pos_siparis_hatti');
-      kanal.postMessage({
-        tur: 'garson_cagrisi',
+    async function garsonCagir() {
+      const cagriPaketi = {
         masaNo: String(masaNo),
-        saat: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
-      });
+        saat: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+        zamanDamgasi: Date.now()
+      };
+
       bildirimGoster(`Masa ${masaNo} için garson çağrıldı!`, "🔔");
+
+      try {
+        await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cagriPaketi)
+        });
+      } catch (err) {
+        console.error("Garson çağrısı iletilemedi:", err);
+      }
     }
 
     function modalKapat(id) {
@@ -1244,182 +1207,28 @@
     }
 
     const urunler = [
-      {
-        id: 1,
-        ad: "Flat White",
-        kategori: "sicak",
-        aciklama: "Çift shot yoğun espresso ve mikro kabarcıklı ipeksi kadife süt köpüğü",
-        fiyat: 110,
-        resim: "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 2,
-        ad: "V60 Filtre Kahve",
-        kategori: "sicak",
-        aciklama: "Taze çekilmiş özel nitelikli yöresel çekirdeklerden manuel demleme",
-        fiyat: 120,
-        resim: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 3,
-        ad: "Caffe Latte",
-        kategori: "sicak",
-        aciklama: "Espresso ve buharda ısıtılmış yumuşak süt lezzeti",
-        fiyat: 110,
-        resim: "https://images.unsplash.com/photo-1561047029-3000c68339ca?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 4,
-        ad: "Cappuccino",
-        kategori: "sicak",
-        aciklama: "Eşit oranda espresso, sıcak süt ve yoğun kıvamlı süt kreması",
-        fiyat: 110,
-        resim: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 5,
-        ad: "Cortado",
-        kategori: "sicak",
-        aciklama: "Espresso asiditesini kıran eşit oranda buharda ısıtılmış süt",
-        fiyat: 105,
-        resim: "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 6,
-        ad: "Caffe Mocha",
-        kategori: "sicak",
-        aciklama: "Espresso, sıcak eritilmiş gerçek Belçika çikolatası ve kadife süt",
-        fiyat: 130,
-        resim: "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 7,
-        ad: "Geleneksel Türk Kahvesi",
-        kategori: "sicak",
-        aciklama: "Köz tadında ağır çekim bakır cezvede pişirilir, lokum eşliğinde",
-        fiyat: 75,
-        resim: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 8,
-        ad: "Iced Americano",
-        kategori: "soguk",
-        aciklama: "Bol kristal buz, soğuk su ve çift shot taze espresso ferahlığı",
-        fiyat: 100,
-        resim: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 9,
-        ad: "Iced Caffe Latte",
-        kategori: "soguk",
-        aciklama: "Buz, soğuk taze süt ve üzerine yavaşça süzülen espresso katmanı",
-        fiyat: 115,
-        resim: "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 10,
-        ad: "Iced Caramel Macchiato",
-        kategori: "soguk",
-        aciklama: "Karamel sosu, vanilya aroması, soğuk süt ve espresso harmonisi",
-        fiyat: 135,
-        resim: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 11,
-        ad: "Cold Brew Karavan Özel",
-        kategori: "soguk",
-        aciklama: "16 saat boyunca damla damla soğuk demlenmiş yoğun ve meyvemsi gövde",
-        fiyat: 130,
-        resim: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 12,
-        ad: "Berry Hibiscus Cooler",
-        kategori: "soguk",
-        aciklama: "Orman meyveleri püresi, taze nane yaprakları ve ekşimsi soğuk hibiscus",
-        fiyat: 125,
-        resim: "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 13,
-        ad: "San Sebastian Cheesecake",
-        kategori: "tatli",
-        aciklama: "İçi akışkan kıvamlı fırın cheesecake, sıcak eritilmiş Belçika çikolatasıyla",
-        fiyat: 155,
-        resim: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 14,
-        ad: "Lotus Brownie",
-        kategori: "tatli",
-        aciklama: "Yoğun fırınlanmış ıslak bitter çikolata ve Lotus karamelize bisküvi kreması",
-        fiyat: 140,
-        resim: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 15,
-        ad: "İtalyan Tiramisu",
-        kategori: "tatli",
-        aciklama: "Mascarpone peynirli ipeksi krema ve taze espresso ile ıslatılmış savoiardi",
-        fiyat: 135,
-        resim: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 16,
-        ad: "Çilekli Magnolia",
-        kategori: "tatli",
-        aciklama: "Hafif sütlü vanilya muhallebisi, taze çilekler ve çıtır bisküvi",
-        fiyat: 120,
-        resim: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 17,
-        ad: "Karavan Gurme Tost",
-        kategori: "kahvalti",
-        aciklama: "Hakiki Bitlis kavurması, eriyen kaşar peyniri ve tereyağlı artisan ekmek",
-        fiyat: 165,
-        resim: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 18,
-        ad: "Kruvasan Sandviç",
-        kategori: "kahvalti",
-        aciklama: "Fırından taze kruvasan arasına füme et, labne, çeri domates ve yeşillik",
-        fiyat: 145,
-        resim: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 19,
-        ad: "Avokadolu Kaşarlı Tost",
-        kategori: "kahvalti",
-        aciklama: "Taze ezilmiş avokado, çift kaşar peyniri ve kekikli zeytinyağı dokunuşu",
-        fiyat: 150,
-        resim: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 20,
-        ad: "Demleme Karadeniz Çayı",
-        kategori: "icecek",
-        aciklama: "Özel harman taze demlenmiş berrak çay, ince belli cam bardakta",
-        fiyat: 30,
-        resim: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 21,
-        ad: "Bitki & Kış Çayı",
-        kategori: "icecek",
-        aciklama: "Ihlamur, taze zencefil, çubuk tarçın, elma dilimleri ve saf bal eşliğinde",
-        fiyat: 85,
-        resim: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=350&q=80"
-      },
-      {
-        id: 22,
-        ad: "San Pellegrino Maden Suyu",
-        kategori: "icecek",
-        aciklama: "Buz, taze limon dilimi ve nane yaprağı eşliğinde cam şişe servis",
-        fiyat: 55,
-        resim: "https://images.unsplash.com/photo-1559839914-ba2ce56d2187?auto=format&fit=crop&w=350&q=80"
-      }
+      { id: 1, ad: "Flat White", kategori: "sicak", aciklama: "Çift shot yoğun espresso ve mikro kabarcıklı ipeksi kadife süt köpüğü", fiyat: 110, resim: "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?auto=format&fit=crop&w=350&q=80" },
+      { id: 2, ad: "V60 Filtre Kahve", kategori: "sicak", aciklama: "Taze çekilmiş özel nitelikli yöresel çekirdeklerden manuel demleme", fiyat: 120, resim: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=350&q=80" },
+      { id: 3, ad: "Caffe Latte", kategori: "sicak", aciklama: "Espresso ve buharda ısıtılmış yumuşak süt lezzeti", fiyat: 110, resim: "https://images.unsplash.com/photo-1561047029-3000c68339ca?auto=format&fit=crop&w=350&q=80" },
+      { id: 4, ad: "Cappuccino", kategori: "sicak", aciklama: "Eşit oranda espresso, sıcak süt ve yoğun kıvamlı süt kreması", fiyat: 110, resim: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=350&q=80" },
+      { id: 5, ad: "Cortado", kategori: "sicak", aciklama: "Espresso asiditesini kıran eşit oranda buharda ısıtılmış süt", fiyat: 105, resim: "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=350&q=80" },
+      { id: 6, ad: "Caffe Mocha", kategori: "sicak", aciklama: "Espresso, sıcak eritilmiş gerçek Belçika çikolatası ve kadife süt", fiyat: 130, resim: "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&w=350&q=80" },
+      { id: 7, ad: "Geleneksel Türk Kahvesi", kategori: "sicak", aciklama: "Köz tadında ağır çekim bakır cezvede pişirilir, lokum eşliğinde", fiyat: 75, resim: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=350&q=80" },
+      { id: 8, ad: "Iced Americano", kategori: "soguk", aciklama: "Bol kristal buz, soğuk su ve çift shot taze espresso ferahlığı", fiyat: 100, resim: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=350&q=80" },
+      { id: 9, ad: "Iced Caffe Latte", kategori: "soguk", aciklama: "Buz, soğuk taze süt ve üzerine yavaşça süzülen espresso katmanı", fiyat: 115, resim: "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=350&q=80" },
+      { id: 10, ad: "Iced Caramel Macchiato", kategori: "soguk", aciklama: "Karamel sosu, vanilya aroması, soğuk süt ve espresso harmonisi", fiyat: 135, resim: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=350&q=80" },
+      { id: 11, ad: "Cold Brew Karavan Özel", kategori: "soguk", aciklama: "16 saat boyunca damla damla soğuk demlenmiş yoğun ve meyvemsi gövde", fiyat: 130, resim: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=350&q=80" },
+      { id: 12, ad: "Berry Hibiscus Cooler", kategori: "soguk", aciklama: "Orman meyveleri püresi, taze nane yaprakları ve ekşimsi soğuk hibiscus", fiyat: 125, resim: "https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=350&q=80" },
+      { id: 13, ad: "San Sebastian Cheesecake", kategori: "tatli", aciklama: "İçi akışkan kıvamlı fırın cheesecake, sıcak eritilmiş Belçika çikolatasıyla", fiyat: 155, resim: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=350&q=80" },
+      { id: 14, ad: "Lotus Brownie", kategori: "tatli", aciklama: "Yoğun fırınlanmış ıslak bitter çikolata ve Lotus karamelize bisküvi kreması", fiyat: 140, resim: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=350&q=80" },
+      { id: 15, ad: "İtalyan Tiramisu", kategori: "tatli", aciklama: "Mascarpone peynirli ipeksi krema ve taze espresso ile ıslatılmış savoiardi", fiyat: 135, resim: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=350&q=80" },
+      { id: 16, ad: "Çilekli Magnolia", kategori: "tatli", aciklama: "Hafif sütlü vanilya muhallebisi, taze çilekler ve çıtır bisküvi", fiyat: 120, resim: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=350&q=80" },
+      { id: 17, ad: "Karavan Gurme Tost", kategori: "kahvalti", aciklama: "Hakiki Bitlis kavurması, eriyen kaşar peyniri ve tereyağlı artisan ekmek", fiyat: 165, resim: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=350&q=80" },
+      { id: 18, ad: "Kruvasan Sandviç", kategori: "kahvalti", aciklama: "Fırından taze kruvasan arasına füme et, labne, çeri domates ve yeşillik", fiyat: 145, resim: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=350&q=80" },
+      { id: 19, ad: "Avokadolu Kaşarlı Tost", kategori: "kahvalti", aciklama: "Taze ezilmiş avokado, çift kaşar peyniri ve kekikli zeytinyağı dokunuşu", fiyat: 150, resim: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=350&q=80" },
+      { id: 20, ad: "Demleme Karadeniz Çayı", kategori: "icecek", aciklama: "Özel harman taze demlenmiş berrak çay, ince belli cam bardakta", fiyat: 30, resim: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=350&q=80" },
+      { id: 21, ad: "Bitki & Kış Çayı", kategori: "icecek", aciklama: "Ihlamur, taze zencefil, çubuk tarçın, elma dilimleri ve saf bal eşliğinde", fiyat: 85, resim: "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?auto=format&fit=crop&w=350&q=80" },
+      { id: 22, ad: "San Pellegrino Maden Suyu", kategori: "icecek", aciklama: "Buz, taze limon dilimi ve nane yaprağı eşliğinde cam şişe servis", fiyat: 55, resim: "https://images.unsplash.com/photo-1559839914-ba2ce56d2187?auto=format&fit=crop&w=350&q=80" }
     ];
 
     let sepet = {};
@@ -1519,9 +1328,7 @@
       }
     }
 
-    const kanal = new BroadcastChannel('pos_siparis_hatti');
-
-    function siparisiGonder() {
+    async function siparisiGonder() {
       const siparisDetay = [];
       let genelToplam = 0;
 
@@ -1538,26 +1345,29 @@
         }
       }
 
-      const siparisPaketi = {
-        tur: 'yeni_siparis',
-        siparisId: 'SIP-' + Date.now().toString().slice(-4),
-        masaNo: String(masaNo),
-        saat: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
-        urunler: siparisDetay,
-        toplamTutar: genelToplam,
-        durum: 'dolu'
-      };
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
 
-      kanal.postMessage(siparisPaketi);
+      try {
+        const res = await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`);
+        let mevcutMasa = await res.json();
 
-      let adisyonlar = JSON.parse(localStorage.getItem('nomad_masalar') || '{}');
-      if (!adisyonlar[masaNo]) {
-        adisyonlar[masaNo] = { urunler: [], toplamTutar: 0, saat: siparisPaketi.saat };
+        if (!mevcutMasa || !mevcutMasa.urunler) {
+          mevcutMasa = { urunler: [], toplamTutar: 0, saat: saatStr };
+        }
+
+        mevcutMasa.urunler.push(...siparisDetay);
+        mevcutMasa.toplamTutar += genelToplam;
+        mevcutMasa.saat = saatStr;
+        mevcutMasa.sonGuncelleme = Date.now();
+
+        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(mevcutMasa)
+        });
+      } catch (err) {
+        console.error("Sipariş iletim hatası:", err);
       }
-      adisyonlar[masaNo].urunler.push(...siparisDetay);
-      adisyonlar[masaNo].toplamTutar += genelToplam;
-      adisyonlar[masaNo].saat = siparisPaketi.saat;
-      localStorage.setItem('nomad_masalar', JSON.stringify(adisyonlar));
 
       document.getElementById('modal-success').style.display = 'flex';
       sepet = {};
