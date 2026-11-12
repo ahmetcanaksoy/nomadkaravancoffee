@@ -375,7 +375,7 @@
 
     .rez-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 12px;
     }
 
@@ -394,6 +394,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
     }
 
     .rez-name {
@@ -409,6 +410,19 @@
       font-weight: 900;
       padding: 3px 10px;
       border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .rez-tur-tag {
+      display: inline-block;
+      background: rgba(234, 88, 12, 0.25);
+      border: 1px solid var(--terracotta);
+      color: #fdba74;
+      font-size: 0.74rem;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 8px;
+      align-self: flex-start;
     }
 
     .rez-info {
@@ -754,6 +768,15 @@
       document.getElementById('pin-lock-screen').style.display = 'none';
     }
 
+    function tarihiDuzGoster(t) {
+      if (!t) return "-";
+      if (t.includes('-') && t.length === 10) {
+        const p = t.split('-');
+        return `${p[2]}.${p[1]}.${p[0]}`;
+      }
+      return t;
+    }
+
     function sifreKontrol(e) {
       e.preventDefault();
       const girilen = document.getElementById('kasa-pin-input').value.trim();
@@ -914,6 +937,7 @@
       container.innerHTML = "";
       keys.reverse().forEach(k => {
         const r = rezObj[k];
+        const turEtiketi = r.tur === "Ateş Başı" ? "🔥 Ateş Başı" : "🪑 Masa Rezervasyonu";
         const card = document.createElement('div');
         card.className = 'rez-card';
         card.innerHTML = `
@@ -921,9 +945,10 @@
             <span class="rez-name">${r.ad}</span>
             <span class="rez-badge">${r.kisi}</span>
           </div>
-          <div class="rez-info">📅 ${r.tarih} • ⏰ ${r.saat}</div>
+          <span class="rez-tur-tag">${turEtiketi}</span>
+          <div class="rez-info">📅 ${tarihiDuzGoster(r.tarih)} • ⏰ ${r.saat}</div>
           <div class="rez-info">📞 ${r.tel}</div>
-          <div class="rez-info" style="color:var(--amber);">📝 Not: ${r.not}</div>
+          <div class="rez-info" style="color:var(--amber);">📝 Özel İstek: ${r.not}</div>
           <div class="rez-actions">
             <a class="btn-rez-call" href="tel:${r.tel}">Ara</a>
             <button class="btn-rez-del" onclick="rezervasyonSil('${k}')">Tamamlandı / Sil</button>
