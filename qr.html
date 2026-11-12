@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nomad Karavan | Masa QR Kodları</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: #0f1c15;
+      color: #f8fafc;
+      padding: 24px 16px;
+    }
+
+    .top-bar {
+      max-width: 900px;
+      margin: 0 auto 24px;
+      background: rgba(22, 42, 32, 0.9);
+      border: 1.5px solid rgba(234, 88, 12, 0.35);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .top-bar h1 {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .top-bar p {
+      font-size: 0.78rem;
+      color: #f59e0b;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .btn-print {
+      background: #ea580c;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .qr-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .qr-card {
+      background: #ffffff;
+      color: #0f1c15;
+      border-radius: 22px;
+      padding: 20px 16px;
+      text-align: center;
+      border: 3px solid #ea580c;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      break-inside: avoid;
+    }
+
+    .qr-brand {
+      font-size: 0.72rem;
+      font-weight: 900;
+      color: #ea580c;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .qr-card img {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 12px;
+      display: block;
+    }
+
+    .qr-masa-badge {
+      background: #0f1c15;
+      color: #f59e0b;
+      font-size: 1.15rem;
+      font-weight: 900;
+      padding: 8px 16px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .qr-hint {
+      font-size: 0.7rem;
+      color: #475569;
+      font-weight: 700;
+    }
+
+    @media print {
+      body { background: #ffffff; padding: 0; }
+      .top-bar { display: none; }
+      .qr-card { box-shadow: none; border: 2px solid #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div>
+      <h1>NOMAD KARAVAN COFFEE • MASA QR KODLARI</h1>
+      <p id="base-url-text">Site adresi algılanıyor...</p>
+    </div>
+    <button class="btn-print" onclick="window.print()">🖨️ Tümünü Yazdır / PDF Kaydet</button>
+  </div>
+
+  <div class="qr-grid" id="qr-container"></div>
+
+  <script>
+    const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+    document.getElementById('base-url-text').innerText = "Aktif Site Adresi: " + baseUrl;
+
+    const container = document.getElementById('qr-container');
+
+    for (let i = 1; i <= 20; i++) {
+      const masaLink = `${baseUrl}?masa=${i}`;
+      const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&margin=6&data=${encodeURIComponent(masaLink)}`;
+
+      const card = document.createElement('div');
+      card.className = 'qr-card';
+      card.innerHTML = `
+        <div class="qr-brand">Nomad Karavan Coffee</div>
+        <img src="${qrApi}" alt="Masa ${i} QR">
+        <div class="qr-masa-badge">MASA ${i}</div>
+        <div class="qr-hint">Sipariş & Garson için okutun</div>
+      `;
+      container.appendChild(card);
+    }
+  </script>
+</body>
+</html>
