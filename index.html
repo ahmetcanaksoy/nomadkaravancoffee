@@ -8,9 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* CANLANDIRILMIŞ ÇAM & ZÜMRÜT YEŞİLİ, FIRIN KİREMİDİ VE KEHRİBAR */
       --bg-dark: #0f1c15;              
-      --bg-card: rgba(22, 42, 32, 0.82); 
+      --bg-card: rgba(22, 42, 32, 0.84); 
       --card-border: rgba(234, 88, 12, 0.28); 
       
       --terracotta: #ea580c;           
@@ -23,7 +22,7 @@
       --emerald-vibrant: #1b4d36;
       --text-main: #f8fafc;            
       --text-muted: #9bb0a3;
-      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.5);
+      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.55);
     }
 
     * {
@@ -48,7 +47,7 @@
     }
 
     /* =========================================
-       GİRİŞ ANİMASYONU (KAYMASIZ DÜZ FADE-OUT)
+       GİRİŞ ANİMASYONU (PRELOADER)
        ========================================= */
     #intro-splash {
       position: fixed;
@@ -62,7 +61,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
+      transition: opacity 0.45s ease, visibility 0.45s ease;
     }
 
     #intro-splash.hide {
@@ -121,7 +120,6 @@
       -webkit-text-fill-color: transparent;
     }
 
-    /* KARAVAN DÖNÜŞ HALKASI */
     .orbit-system {
       position: relative;
       width: 165px;
@@ -218,6 +216,28 @@
       font-weight: 900;
     }
 
+    /* =========================================
+       MEKSİKA DALGASI (YUKARIDAN AŞAĞIYA STAGGERED WAVE)
+       ========================================= */
+    .wave-item {
+      opacity: 0;
+      transform: translateY(-28px) scale(0.97);
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    body.wave-start .wave-item {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    body.wave-start .wave-1 { transition-delay: 0.05s; }
+    body.wave-start .wave-2 { transition-delay: 0.16s; }
+    body.wave-start .wave-3 { transition-delay: 0.27s; }
+    body.wave-start .wave-4 { transition-delay: 0.38s; }
+    body.wave-start .wave-5 { transition-delay: 0.49s; }
+    body.wave-start .wave-6 { transition-delay: 0.60s; }
+
     /* 3D ARKA PLAN IŞIKLARI */
     .ambient-glow-1 {
       position: fixed;
@@ -263,7 +283,6 @@
       gap: 12px;
     }
 
-    /* ÖZEL VEKTÖREL KARAVAN AMBLEM LOGO */
     .brand-logo-emblem {
       width: 44px;
       height: 44px;
@@ -324,44 +343,33 @@
       display: none;
       position: relative;
       z-index: 10;
-      animation: fadeIn 0.25s ease-out;
     }
     .view-page.active {
       display: block;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* HERO BANNER */
+    /* ÖZEL NOMAD KARAVAN KAPAK GÖRSELİ (KESİLMEDEN TAM OTURUR) */
     .hero-card {
-      margin: 16px 16px 22px;
-      height: 210px;
+      margin: 16px 16px 20px;
+      aspect-ratio: 16 / 10.6;
       border-radius: 24px;
       overflow: hidden;
       position: relative;
       box-shadow: var(--shadow-3d);
-      border: 1.5px solid var(--card-border);
+      border: 1.5px solid rgba(245, 158, 11, 0.35);
+      background: #141210;
     }
 
     .hero-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: contrast(1.05) brightness(0.92);
-    }
-
-    .hero-gradient-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(15, 28, 21, 0.1) 0%, rgba(15, 28, 21, 0.9) 100%);
+      display: block;
     }
 
     .section-wrap {
       padding: 0 16px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     /* 4'LÜ HIZLI BUTONLAR */
@@ -967,7 +975,6 @@
   <!-- SABİT ÜST BAR -->
   <header>
     <div class="brand-wrap">
-      <!-- ARTISAN VEKTÖREL KARAVAN LOGOSU -->
       <div class="brand-logo-emblem">
         <svg viewBox="0 0 32 32" fill="none">
           <path d="M5 23h20c1.5 0 2.5-1 2.5-2.5V13c0-2.5-2-4.5-4.5-4.5H9C6.5 8.5 5 10.5 5 13v7.5c0 1.5 1 2.5 0 2.5z" fill="#ea580c"/>
@@ -996,15 +1003,18 @@
     <span id="toast-msg">İşlem Başarılı</span>
   </div>
 
-  <!-- SAYFA 1: KEŞFET & ANA SAYFA -->
+  <!-- =========================================
+       SAYFA 1: KEŞFET & ANA SAYFA (MEKSİKA DALGASI)
+       ========================================= -->
   <div class="view-page active" id="view-home">
-    <div class="hero-card">
-      <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Nomad Karavan Coffee">
-      <div class="hero-gradient-overlay"></div>
+    
+    <!-- DALGA 1: YENİ ÖZEL NOMAD KARAVAN KAPAK GÖRSELİ -->
+    <div class="hero-card wave-item wave-1">
+      <img src="karavan-kapak.jpg" alt="Nomad Karavan Cafe Tatvan">
     </div>
 
-    <!-- 4'LÜ HIZLI BUTONLAR -->
-    <div class="section-wrap">
+    <!-- DALGA 2: 4'LÜ HIZLI BUTONLAR -->
+    <div class="section-wrap wave-item wave-2">
       <div class="quick-grid">
         <div class="service-btn" onclick="wifiKopyala()">
           <span class="service-icon">📶</span>
@@ -1028,8 +1038,8 @@
       </div>
     </div>
 
-    <!-- DEVASA SİNEMATİK MENÜ BUTONU -->
-    <div class="section-wrap">
+    <!-- DALGA 3: DEVASA SİNEMATİK MENÜ BUTONU -->
+    <div class="section-wrap wave-item wave-3">
       <button class="btn-giant-menu" onclick="navigasyon('menu', 'hepsi')">
         <div class="giant-left">
           <div class="giant-icon-box">☕</div>
@@ -1042,8 +1052,8 @@
       </button>
     </div>
 
-    <!-- INSTAGRAM BANNER KARTI -->
-    <div class="section-wrap">
+    <!-- DALGA 4: INSTAGRAM BANNER KARTI -->
+    <div class="section-wrap wave-item wave-4">
       <a class="social-banner-box" href="https://instagram.com/nomadkaravancoffee" target="_blank">
         <div class="social-left">
           <svg class="insta-svg" viewBox="0 0 24 24" fill="none">
@@ -1069,8 +1079,8 @@
       </a>
     </div>
 
-    <!-- İSTEK, ÖNERİ & ŞİKAYET KUTUSU -->
-    <div class="section-wrap">
+    <!-- DALGA 5: İSTEK, ÖNERİ & ŞİKAYET KUTUSU -->
+    <div class="section-wrap wave-item wave-5">
       <div class="feedback-box">
         <h3>✉️ İstek, Öneri ve Şikayet</h3>
         <p>Deneyiminizi daha iyi kılmak adına her türlü geri bildiriminizi önemsiyoruz. Mesajınız doğrudan işletme e-postasına iletilir.</p>
@@ -1086,15 +1096,17 @@
       </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer>
+    <!-- DALGA 6: FOOTER -->
+    <footer class="wave-item wave-6">
       <p style="font-weight:800; color:#ffffff; margin-bottom:4px;">NOMAD KARAVAN COFFEE • TATVAN</p>
       <p>Instagram: <a href="https://instagram.com/nomadkaravancoffee" target="_blank">@nomadkaravancoffee</a></p>
     </footer>
 
   </div>
 
-  <!-- SAYFA 2: GENİŞLETİLMİŞ MENÜ -->
+  <!-- =========================================
+       SAYFA 2: GENİŞLETİLMİŞ MENÜ
+       ========================================= -->
   <div class="view-page" id="view-menu">
     <div class="menu-header-bar">
       <button class="btn-back-home" onclick="navigasyon('home')">
@@ -1143,7 +1155,7 @@
   </div>
 
   <script>
-    // GİRİŞ ANİMASYONU (KAYMASIZ DÜZ FADE-OUT MOTORU)
+    // GİRİŞ ANİMASYONU VE MEKSİKA DALGASI TETİKLEYİCİ
     window.addEventListener('DOMContentLoaded', () => {
       const splash = document.getElementById('intro-splash');
       const bar = document.getElementById('splash-bar');
@@ -1178,7 +1190,11 @@
           setTimeout(() => {
             splash.classList.add('hide');
             document.body.classList.remove('loading-lock');
-          }, 300);
+            // Meksika Dalgasını yukarıdan aşağıya doğru başlat
+            requestAnimationFrame(() => {
+              document.body.classList.add('wave-start');
+            });
+          }, 250);
         }
       }, 60);
     });
@@ -1202,7 +1218,6 @@
       });
     }
 
-    // GARSON ÇAĞIRMA (KASAYA AYRI SİNYAL GÖNDERİR)
     function garsonCagir() {
       const kanal = new BroadcastChannel('pos_siparis_hatti');
       kanal.postMessage({
@@ -1228,7 +1243,6 @@
       bildirimGoster("E-posta istemciniz açılıyor...", "✉️");
     }
 
-    // ÜRÜN VERİTABANI
     const urunler = [
       {
         id: 1,
@@ -1505,7 +1519,6 @@
       }
     }
 
-    // SİPARİŞİ KASAYA İLETME (AYRI SİPARİŞ KODU)
     const kanal = new BroadcastChannel('pos_siparis_hatti');
 
     function siparisiGonder() {
