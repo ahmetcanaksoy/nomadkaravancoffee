@@ -136,12 +136,13 @@
       gap: 6px;
       box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
       animation: pulseSound 2s infinite;
+      transition: all 0.2s;
     }
 
     .btn-sound-unlock.unlocked {
-      background: rgba(16, 185, 129, 0.2);
+      background: rgba(16, 185, 129, 0.22);
       color: #6ee7b7;
-      border: 1px solid #10b981;
+      border: 1.5px solid #10b981;
       box-shadow: none;
       animation: none;
     }
@@ -487,7 +488,7 @@
     </div>
 
     <div class="header-controls">
-      <button class="btn-sound-unlock" id="btn-sound" onclick="sesKilidiniAc()">
+      <button class="btn-sound-unlock" id="btn-sound" onclick="sesDurumunuDegistir()">
         <span>🔇</span>
         <span>Sesi Aktif Et</span>
       </button>
@@ -542,69 +543,85 @@
     let sonSiparisZamanlari = {};
     let islenenGarsonCagrilari = new Set();
     let audioCtx = null;
+    let sesAcik = false;
 
-    function sesKilidiniAc() {
+    function iosSesMotorunuUyandir() {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        audioCtx = new AudioContextClass();
       }
       if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
+      const buffer = audioCtx.createBuffer(1, 1, 22050);
+      const source = audioCtx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioCtx.destination);
+      source.start(0);
+    }
+
+    function sesDurumunuDegistir() {
       const btn = document.getElementById('btn-sound');
-      btn.classList.add('unlocked');
-      btn.innerHTML = `<span>🔊</span><span>Ses Aktif</span>`;
-      calSiparisSesi();
+      if (!sesAcik) {
+        sesAcik = true;
+        iosSesMotorunuUyandir();
+        btn.classList.add('unlocked');
+        btn.innerHTML = `<span>🔊</span><span>Ses Aktif (Kapat)</span>`;
+        calSiparisSesi();
+      } else {
+        sesAcik = false;
+        btn.classList.remove('unlocked');
+        btn.innerHTML = `<span>🔇</span><span>Sesi Aktif Et</span>`;
+      }
     }
 
     function calSiparisSesi() {
+      if (!sesAcik) return;
       try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
+        iosSesMotorunuUyandir();
+        const now = audioCtx.currentTime;
 
         const osc1 = audioCtx.createOscillator();
         const gain1 = audioCtx.createGain();
         osc1.type = "sine";
-        osc1.frequency.setValueAtTime(523.25, audioCtx.currentTime);
-        gain1.gain.setValueAtTime(0.35, audioCtx.currentTime);
-        gain1.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+        osc1.frequency.setValueAtTime(587.33, now);
+        gain1.gain.setValueAtTime(0.6, now);
+        gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
         osc1.connect(gain1);
         gain1.connect(audioCtx.destination);
-        osc1.start();
-        osc1.stop(audioCtx.currentTime + 0.35);
+        osc1.start(now);
+        osc1.stop(now + 0.35);
 
-        setTimeout(() => {
-          const osc2 = audioCtx.createOscillator();
-          const gain2 = audioCtx.createGain();
-          osc2.type = "sine";
-          osc2.frequency.setValueAtTime(659.25, audioCtx.currentTime);
-          gain2.gain.setValueAtTime(0.4, audioCtx.currentTime);
-          gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-          osc2.connect(gain2);
-          gain2.connect(audioCtx.destination);
-          osc2.start();
-          osc2.stop(audioCtx.currentTime + 0.5);
-        }, 140);
+        const osc2 = audioCtx.createOscillator();
+        const gain2 = audioCtx.createGain();
+        osc2.type = "sine";
+        osc2.frequency.setValueAtTime(880, now + 0.16);
+        gain2.gain.setValueAtTime(0.7, now + 0.16);
+        gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+        osc2.connect(gain2);
+        gain2.connect(audioCtx.destination);
+        osc2.start(now + 0.16);
+        osc2.stop(now + 0.6);
       } catch(e) {}
     }
 
     function calGarsonSesi() {
+      if (!sesAcik) return;
       try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
+        iosSesMotorunuUyandir();
+        const now = audioCtx.currentTime;
 
-        [0, 180].forEach((delay) => {
-          setTimeout(() => {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = "triangle";
-            osc.frequency.setValueAtTime(1567.98, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.45, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.3);
-          }, delay);
+        [0, 0.22].forEach((offset) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(1567.98, now + offset);
+          gain.gain.setValueAtTime(0.75, now + offset);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + offset + 0.2);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now + offset);
+          osc.stop(now + offset + 0.2);
         });
       } catch(e) {}
     }
@@ -647,9 +664,7 @@
             }
           }
         }
-      } catch (err) {
-        console.error("Bağlantı yenileniyor...", err);
-      }
+      } catch (err) {}
     }
 
     function masalariCiz() {
