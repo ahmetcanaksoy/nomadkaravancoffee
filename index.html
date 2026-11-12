@@ -338,6 +338,85 @@
       box-shadow: 0 0 8px var(--silver-bright);
     }
 
+    .order-status-banner {
+      display: none;
+      margin: 14px 16px 0;
+      border-radius: 20px;
+      padding: 15px 18px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      position: relative;
+      z-index: 20;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
+      transition: all 0.3s ease;
+    }
+
+    .order-status-banner.preparing {
+      display: flex;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(234, 88, 12, 0.24) 100%);
+      border: 1.5px solid var(--amber);
+      animation: statusPulse 2.2s infinite;
+    }
+
+    .order-status-banner.ready {
+      display: flex;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.26) 0%, rgba(5, 150, 105, 0.3) 100%);
+      border: 1.5px solid #34d399;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% { box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25); }
+      50% { box-shadow: 0 8px 30px rgba(245, 158, 11, 0.5); }
+    }
+
+    .status-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-banner-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: rgba(15, 23, 42, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .status-banner-title {
+      font-size: 0.94rem;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .status-banner-sub {
+      font-size: 0.75rem;
+      color: #e2e8f0;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .status-live-pill {
+      font-size: 0.68rem;
+      font-weight: 900;
+      padding: 5px 10px;
+      border-radius: 10px;
+      background: var(--amber);
+      color: #0f172a;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    .order-status-banner.ready .status-live-pill {
+      background: #34d399;
+      color: #064e3b;
+    }
+
     .view-page {
       display: none;
       position: relative;
@@ -1214,6 +1293,17 @@
     <span id="toast-msg">İşlem Başarılı</span>
   </div>
 
+  <div class="order-status-banner" id="order-status-banner">
+    <div class="status-banner-left">
+      <div class="status-banner-icon" id="status-banner-icon">☕</div>
+      <div>
+        <div class="status-banner-title" id="status-banner-title">Siparişiniz Hazırlanıyor...</div>
+        <div class="status-banner-sub" id="status-banner-sub">Baristamız siparişinizi özenle hazırlıyor.</div>
+      </div>
+    </div>
+    <span class="status-live-pill" id="status-live-pill">Hazırlanıyor</span>
+  </div>
+
   <div class="view-page active" id="view-home">
     <div class="hero-card wave-item wave-1">
       <img src="karavan-kapak.jpg" alt="Nomâd Karavan Cafe Tatvan">
@@ -1438,6 +1528,7 @@
     const masaNo = isMasaModu ? rawMasa.trim() : null;
     const oturumBaslangic = Date.now();
     let seciliRezTuru = "Ateş Başı";
+    let sonBilinenDurum = null;
 
     function rezTurSec(tur) {
       seciliRezTuru = tur;
@@ -1487,7 +1578,44 @@
       });
     }
 
-    async function hesapKapandiMiKontrolEt() {
+    function siparisDurumBannerGuncelle(durum) {
+      const banner = document.getElementById('order-status-banner');
+      if (!isMasaModu || !durum) {
+        banner.style.display = 'none';
+        banner.classList.remove('preparing', 'ready');
+        sonBilinenDurum = null;
+        return;
+      }
+
+      if (durum === 'hazirlaniyor') {
+        banner.style.display = 'flex';
+        banner.classList.remove('ready');
+        banner.classList.add('preparing');
+        document.getElementById('status-banner-icon').innerText = '☕';
+        document.getElementById('status-banner-title').innerText = 'Siparişiniz Hazırlanıyor...';
+        document.getElementById('status-banner-sub').innerText = 'Baristamız siparişinizi özenle hazırlıyor.';
+        document.getElementById('status-live-pill').innerText = 'Hazırlanıyor';
+        sonBilinenDurum = 'hazirlaniyor';
+      } else if (durum === 'hazir') {
+        banner.style.display = 'flex';
+        banner.classList.remove('preparing');
+        banner.classList.add('ready');
+        document.getElementById('status-banner-icon').innerText = '🎉';
+        document.getElementById('status-banner-title').innerText = 'Siparişiniz Hazır! Afiyet Olsun.';
+        document.getElementById('status-banner-sub').innerText = `Masa ${masaNo} için siparişiniz hazırlandı.`;
+        document.getElementById('status-live-pill').innerText = 'Hazır ✓';
+
+        if (sonBilinenDurum !== 'hazir') {
+          document.getElementById('modal-icon').innerText = '🎉';
+          document.getElementById('modal-title').innerText = 'Siparişiniz Hazır!';
+          document.getElementById('modal-desc').innerText = 'Siparişiniz hazırlandı, afiyet olsun!';
+          document.getElementById('modal-success').style.display = 'flex';
+        }
+        sonBilinenDurum = 'hazir';
+      }
+    }
+
+    async function masaDurumunuKontrolEt() {
       if (!isMasaModu) return false;
       try {
         const res = await fetch(`${FIREBASE_URL}/kapali_oturumlar/${masaNo}.json`);
@@ -1495,6 +1623,14 @@
         if (kapanisZamani && kapanisZamani > oturumBaslangic) {
           oturumuZiyaretciModunaDusur();
           return true;
+        }
+
+        const masaRes = await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`);
+        const masaVerisi = await masaRes.json();
+        if (masaVerisi && masaVerisi.urunler && masaVerisi.urunler.length > 0) {
+          siparisDurumBannerGuncelle(masaVerisi.durum || 'hazirlaniyor');
+        } else {
+          siparisDurumBannerGuncelle(null);
         }
       } catch (err) {}
       return false;
@@ -1504,6 +1640,7 @@
       isMasaModu = false;
       sepet = {};
       ozelKahveSepeti = [];
+      siparisDurumBannerGuncelle(null);
       document.getElementById('cart-floating-bar').classList.remove('active');
       const headerBadge = document.getElementById('header-badge');
       headerBadge.classList.add('online-visitor');
@@ -1542,7 +1679,8 @@
     }
 
     moduUygula();
-    setInterval(hesapKapandiMiKontrolEt, 4000);
+    setInterval(masaDurumunuKontrolEt, 2500);
+    if (isMasaModu) masaDurumunuKontrolEt();
 
     window.addEventListener('DOMContentLoaded', () => {
       const tarihInput = document.getElementById('rez-tarih');
@@ -1614,7 +1752,7 @@
 
     async function garsonCagir() {
       if (!isMasaModu) return;
-      const kapandi = await hesapKapandiMiKontrolEt();
+      const kapandi = await masaDurumunuKontrolEt();
       if (kapandi) return;
 
       const kafede = await kafedeMiKontrolEt();
@@ -1977,7 +2115,7 @@
     async function siparisiGonder() {
       if (!isMasaModu) return;
 
-      const kapandi = await hesapKapandiMiKontrolEt();
+      const kapandi = await masaDurumunuKontrolEt();
       if (kapandi) return;
 
       const kafede = await kafedeMiKontrolEt();
@@ -2027,6 +2165,7 @@
         mevcutMasa.saat = saatStr;
         mevcutMasa.sonGuncelleme = simdi;
         mevcutMasa.okunmamis = true;
+        mevcutMasa.durum = 'hazirlaniyor';
 
         await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
           method: 'PUT',
@@ -2047,14 +2186,15 @@
         });
       } catch (err) {}
 
-      document.getElementById('modal-icon').innerText = "✓";
-      document.getElementById('modal-title').innerText = "Siparişiniz İletildi!";
-      document.getElementById('modal-desc').innerText = "Siparişiniz baristaya ve kasaya anlık olarak düştü. Hemen hazırlanıp masanıza servis edilecek.";
+      siparisDurumBannerGuncelle('hazirlaniyor');
+      document.getElementById('modal-icon').innerText = "☕";
+      document.getElementById('modal-title').innerText = "Siparişiniz Hazırlanıyor!";
+      document.getElementById('modal-desc').innerText = "Siparişiniz baristaya ve kasaya iletildi. Hazır olduğunda ekranınızda bildirim göreceksiniz.";
       document.getElementById('modal-success').style.display = 'flex';
       sepet = {};
       ozelKahveSepeti = [];
       sepetBariniHesapla();
-      menuyuCiz();
+      navigasyon('home');
     }
 
     menuyuCiz();
