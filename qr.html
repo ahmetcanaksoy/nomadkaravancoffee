@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nomad Karavan | Masa QR Kodları</title>
+  <title>Nomâd Karavan | Masa QR Kodları</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800;900&display=swap" rel="stylesheet">
   <style>
     * {
@@ -37,6 +37,7 @@
       font-size: 1.15rem;
       font-weight: 900;
       color: #ffffff;
+      letter-spacing: 0.5px;
     }
 
     .top-bar p {
@@ -61,7 +62,7 @@
       max-width: 900px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
       gap: 16px;
     }
 
@@ -77,12 +78,25 @@
     }
 
     .qr-brand {
-      font-size: 0.72rem;
+      font-size: 0.82rem;
       font-weight: 900;
-      color: #ea580c;
-      letter-spacing: 1px;
+      color: #0f1c15;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 2px;
+    }
+
+    .qr-brand span {
+      color: #ea580c;
+    }
+
+    .qr-sub-brand {
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: #64748b;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
     }
 
     .qr-card img {
@@ -97,7 +111,7 @@
       color: #f59e0b;
       font-size: 1.15rem;
       font-weight: 900;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 12px;
       display: inline-block;
       margin-bottom: 6px;
@@ -120,7 +134,7 @@
 
   <div class="top-bar">
     <div>
-      <h1>NOMAD KARAVAN COFFEE • MASA QR KODLARI</h1>
+      <h1>NOMÂD KARAVAN COFFEE • MASA QR KODLARI</h1>
       <p id="base-url-text">Site adresi algılanıyor...</p>
     </div>
     <button class="btn-print" onclick="window.print()">🖨️ Tümünü Yazdır / PDF Kaydet</button>
@@ -130,7 +144,7 @@
 
   <script>
     const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-    document.getElementById('base-url-text').innerText = "Aktif Site Adresi: " + baseUrl;
+    document.getElementById('base-url-text').innerText = "Aktif Site Adresi: " + decodeURIComponent(baseUrl);
 
     const container = document.getElementById('qr-container');
 
@@ -141,7 +155,8 @@
       const card = document.createElement('div');
       card.className = 'qr-card';
       card.innerHTML = `
-        <div class="qr-brand">Nomad Karavan Coffee</div>
+        <div class="qr-brand">NOM<span>Â</span>D</div>
+        <div class="qr-sub-brand">KARAVAN COFFEE</div>
         <img src="${qrApi}" alt="Masa ${i} QR">
         <div class="qr-masa-badge">MASA ${i}</div>
         <div class="qr-hint">Sipariş & Garson için okutun</div>
