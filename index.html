@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Nomad Karavan Coffee | Tatvan</title>
+  <title>Nomâd Karavan Coffee | Tatvan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -223,11 +223,12 @@
     }
 
     body.wave-start .wave-1 { transition-delay: 0.05s; }
-    body.wave-start .wave-2 { transition-delay: 0.16s; }
-    body.wave-start .wave-3 { transition-delay: 0.27s; }
-    body.wave-start .wave-4 { transition-delay: 0.38s; }
-    body.wave-start .wave-5 { transition-delay: 0.49s; }
-    body.wave-start .wave-6 { transition-delay: 0.60s; }
+    body.wave-start .wave-2 { transition-delay: 0.15s; }
+    body.wave-start .wave-3 { transition-delay: 0.25s; }
+    body.wave-start .wave-4 { transition-delay: 0.35s; }
+    body.wave-start .wave-5 { transition-delay: 0.45s; }
+    body.wave-start .wave-6 { transition-delay: 0.55s; }
+    body.wave-start .wave-7 { transition-delay: 0.65s; }
 
     .ambient-glow-1 {
       position: fixed;
@@ -520,7 +521,7 @@
       font-weight: 800;
     }
 
-    .feedback-box {
+    .card-panel-box {
       background: var(--bg-card);
       backdrop-filter: blur(14px);
       border: 1.5px solid var(--card-border);
@@ -529,9 +530,14 @@
       box-shadow: var(--shadow-3d);
     }
 
-    .feedback-box h3 {
-      font-size: 1rem;
-      font-weight: 800;
+    .card-panel-box.rez-highlight {
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      background: linear-gradient(145deg, rgba(24, 46, 35, 0.92) 0%, rgba(16, 32, 24, 0.95) 100%);
+    }
+
+    .card-panel-box h3 {
+      font-size: 1.04rem;
+      font-weight: 900;
       color: #ffffff;
       margin-bottom: 6px;
       display: flex;
@@ -539,22 +545,28 @@
       gap: 8px;
     }
 
-    .feedback-box p {
+    .card-panel-box p {
       font-size: 0.76rem;
       color: var(--text-muted);
       margin-bottom: 14px;
-      line-height: 1.35;
+      line-height: 1.38;
     }
 
-    .feedback-form {
+    .form-stack {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    .form-input, .form-textarea {
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .form-input, .form-select, .form-textarea {
       width: 100%;
-      background: rgba(15, 28, 21, 0.85);
+      background: rgba(15, 28, 21, 0.9);
       border: 1px solid var(--card-border);
       padding: 12px 14px;
       border-radius: 14px;
@@ -562,32 +574,44 @@
       color: #ffffff;
       outline: none;
       transition: border-color 0.2s;
+      color-scheme: dark;
     }
 
-    .form-input:focus, .form-textarea:focus {
-      border-color: var(--terracotta);
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--amber);
       box-shadow: 0 0 12px var(--terracotta-glow);
     }
 
     .form-textarea {
       resize: none;
-      height: 80px;
+      height: 76px;
     }
 
-    .btn-feedback {
+    .btn-primary-action {
       background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
       color: #ffffff;
       border: none;
       padding: 14px;
       border-radius: 14px;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
       box-shadow: 0 6px 20px var(--terracotta-glow);
+      transition: transform 0.15s;
+    }
+
+    .btn-primary-action:active {
+      transform: scale(0.98);
+    }
+
+    .btn-rez-submit {
+      background: linear-gradient(135deg, var(--amber) 0%, var(--terracotta) 100%);
+      color: #0f172a;
+      font-weight: 900;
     }
 
     footer {
@@ -958,7 +982,7 @@
         </svg>
       </div>
       <div class="brand-info">
-        <h1>NOMAD KARAVAN COFFEE</h1>
+        <h1>NOMÂD KARAVAN COFFEE</h1>
         <p>Tatvan</p>
       </div>
     </div>
@@ -975,7 +999,7 @@
 
   <div class="view-page active" id="view-home">
     <div class="hero-card wave-item wave-1">
-      <img src="karavan-kapak.jpg" alt="Nomad Karavan Cafe Tatvan">
+      <img src="karavan-kapak.jpg" alt="Nomâd Karavan Cafe Tatvan">
     </div>
 
     <div class="section-wrap wave-item wave-2">
@@ -1042,14 +1066,46 @@
     </div>
 
     <div class="section-wrap wave-item wave-5">
-      <div class="feedback-box">
+      <div class="card-panel-box rez-highlight">
+        <h3>📅 Masa Rezervasyonu</h3>
+        <p>Doğum günü, özel buluşmalar veya kalabalık gruplarınız için önceden masanızı ayırtın; talebiniz anında kasa ekranına düşer.</p>
+
+        <form class="form-stack" onsubmit="rezervasyonGonder(event)">
+          <input type="text" id="rez-ad" class="form-input" placeholder="Adınız Soyadınız" required>
+          <input type="tel" id="rez-tel" class="form-input" placeholder="Telefon Numaranız (05XX...)" required>
+          
+          <div class="form-row-2">
+            <input type="date" id="rez-tarih" class="form-input" required>
+            <input type="time" id="rez-saat" class="form-input" value="20:00" required>
+          </div>
+
+          <select id="rez-kisi" class="form-select" required>
+            <option value="2 Kişi">2 Kişi</option>
+            <option value="3 Kişi">3 Kişi</option>
+            <option value="4 Kişi" selected>4 Kişi</option>
+            <option value="5-6 Kişi">5 - 6 Kişi</option>
+            <option value="7+ Kişi (Grup)">7+ Kişi (Grup)</option>
+          </select>
+
+          <input type="text" id="rez-not" class="form-input" placeholder="Özel Not (Örn: Karavan önü, doğum günü vb.)">
+
+          <button type="submit" class="btn-primary-action btn-rez-submit">
+            <span>Rezervasyon Oluştur</span>
+            <span>✓</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="section-wrap wave-item wave-6">
+      <div class="card-panel-box">
         <h3>✉️ İstek, Öneri ve Şikayet</h3>
         <p>Deneyiminizi daha iyi kılmak adına her türlü geri bildiriminizi önemsiyoruz. Mesajınız doğrudan işletme e-postasına iletilir.</p>
         
-        <form class="feedback-form" onsubmit="mailGonder(event)">
+        <form class="form-stack" onsubmit="mailGonder(event)">
           <input type="text" id="fb-ad" class="form-input" placeholder="Adınız Soyadınız" required>
           <textarea id="fb-mesaj" class="form-textarea" placeholder="Görüş, öneri veya şikayetinizi yazınız..." required></textarea>
-          <button type="submit" class="btn-feedback">
+          <button type="submit" class="btn-primary-action">
             <span>Geri Bildirimi İlet</span>
             <span>→</span>
           </button>
@@ -1057,8 +1113,8 @@
       </div>
     </div>
 
-    <footer class="wave-item wave-6">
-      <p style="font-weight:800; color:#ffffff; margin-bottom:4px;">NOMAD KARAVAN COFFEE • TATVAN</p>
+    <footer class="wave-item wave-7">
+      <p style="font-weight:800; color:#ffffff; margin-bottom:4px;">NOMÂD KARAVAN COFFEE • TATVAN</p>
       <p>Instagram: <a href="https://instagram.com/nomadkaravancoffee" target="_blank">@nomadkaravancoffee</a></p>
     </footer>
   </div>
@@ -1069,7 +1125,7 @@
         <span>←</span>
         <span>Ana Sayfa</span>
       </button>
-      <span style="font-size:1rem; font-weight:900; color:#ffffff;">Nomad Menü</span>
+      <span style="font-size:1rem; font-weight:900; color:#ffffff;">Nomâd Menü</span>
     </div>
 
     <div class="menu-tabs">
@@ -1098,8 +1154,8 @@
   <div class="custom-modal" id="modal-success">
     <div class="modal-card">
       <div class="modal-circle-icon">✓</div>
-      <h3 style="font-size:1.2rem; font-weight:900; color:#ffffff; margin-bottom:8px;">Siparişiniz İletildi!</h3>
-      <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.45; margin-bottom:20px;">
+      <h3 id="modal-title" style="font-size:1.2rem; font-weight:900; color:#ffffff; margin-bottom:8px;">Siparişiniz İletildi!</h3>
+      <p id="modal-desc" style="font-size:0.82rem; color:var(--text-muted); line-height:1.45; margin-bottom:20px;">
         Siparişiniz baristaya ve kasaya anlık olarak düştü. Hemen hazırlanıp masanıza servis edilecek.
       </p>
       <button class="btn-create-order" style="width:100%; justify-content:center;" onclick="modalKapat('modal-success')">
@@ -1112,6 +1168,13 @@
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
 
     window.addEventListener('DOMContentLoaded', () => {
+      const tarihInput = document.getElementById('rez-tarih');
+      if (tarihInput) {
+        const bugun = new Date().toISOString().split('T')[0];
+        tarihInput.value = bugun;
+        tarihInput.min = bugun;
+      }
+
       const splash = document.getElementById('intro-splash');
       const bar = document.getElementById('splash-bar');
       const num = document.getElementById('splash-num');
@@ -1119,7 +1182,7 @@
       let progress = 0;
 
       const dynamicPhrases = [
-        "Nomad Ruhu Başlatılıyor...",
+        "Nomâd Ruhu Başlatılıyor...",
         "Taze Çekirdekler Öğütülüyor...",
         "Özel Seçenekler Listeleniyor...",
         "Tatvan'da Kahve Deneyimi..."
@@ -1186,9 +1249,41 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(cagriPaketi)
         });
-      } catch (err) {
-        console.error("Garson çağrısı iletilemedi:", err);
-      }
+      } catch (err) {}
+    }
+
+    async function rezervasyonGonder(e) {
+      e.preventDefault();
+      const ad = document.getElementById('rez-ad').value.trim();
+      const tel = document.getElementById('rez-tel').value.trim();
+      const tarih = document.getElementById('rez-tarih').value;
+      const saat = document.getElementById('rez-saat').value;
+      const kisi = document.getElementById('rez-kisi').value;
+      const not = document.getElementById('rez-not').value.trim();
+
+      const rezPaketi = {
+        ad,
+        tel,
+        tarih,
+        saat,
+        kisi,
+        not: not || "-",
+        zamanDamgasi: Date.now()
+      };
+
+      try {
+        await fetch(`${FIREBASE_URL}/rezervasyonlar.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(rezPaketi)
+        });
+      } catch (err) {}
+
+      document.getElementById('modal-title').innerText = "Rezervasyonunuz Alındı!";
+      document.getElementById('modal-desc').innerText = `${tarih} saat ${saat} için ${kisi} adına rezervasyon talebiniz kasaya iletildi.`;
+      document.getElementById('modal-success').style.display = 'flex';
+      e.target.reset();
+      document.getElementById('rez-tarih').value = new Date().toISOString().split('T')[0];
     }
 
     function modalKapat(id) {
@@ -1199,7 +1294,7 @@
       e.preventDefault();
       const ad = document.getElementById('fb-ad').value;
       const mesaj = document.getElementById('fb-mesaj').value;
-      const konu = encodeURIComponent(`Nomad Karavan Geri Bildirim - Masa ${masaNo} (${ad})`);
+      const konu = encodeURIComponent(`Nomâd Karavan Geri Bildirim - Masa ${masaNo} (${ad})`);
       const icerik = encodeURIComponent(`Müşteri: ${ad}\nMasa: ${masaNo}\n\nMesaj:\n${mesaj}`);
       
       window.location.href = `mailto:nomadkaravancoffee@gmail.com?subject=${konu}&body=${icerik}`;
@@ -1365,10 +1460,10 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(mevcutMasa)
         });
-      } catch (err) {
-        console.error("Sipariş iletim hatası:", err);
-      }
+      } catch (err) {}
 
+      document.getElementById('modal-title').innerText = "Siparişiniz İletildi!";
+      document.getElementById('modal-desc').innerText = "Siparişiniz baristaya ve kasaya anlık olarak düştü. Hemen hazırlanıp masanıza servis edilecek.";
       document.getElementById('modal-success').style.display = 'flex';
       sepet = {};
       sepetBariniHesapla();
