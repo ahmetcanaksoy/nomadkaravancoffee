@@ -617,9 +617,22 @@
       box-shadow: 0 0 12px var(--terracotta-glow);
     }
 
+    .form-input.input-error {
+      border-color: #ef4444;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+    }
+
+    .field-error-text {
+      color: #f87171;
+      font-size: 0.74rem;
+      font-weight: 800;
+      margin-top: -4px;
+      display: none;
+    }
+
     .form-textarea {
       resize: none;
-      height: 76px;
+      height: 74px;
     }
 
     .btn-primary-action {
@@ -637,6 +650,7 @@
       gap: 8px;
       box-shadow: 0 6px 20px var(--terracotta-glow);
       transition: transform 0.15s;
+      text-decoration: none;
     }
 
     .btn-primary-action:active {
@@ -1028,7 +1042,7 @@
       border-radius: 24px;
       padding: 28px 22px;
       text-align: center;
-      max-width: 320px;
+      max-width: 330px;
       width: 100%;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
       border: 1.5px solid var(--card-border);
@@ -1052,6 +1066,32 @@
       justify-content: center;
       margin: 0 auto 16px;
       box-shadow: 0 4px 16px var(--terracotta-glow);
+    }
+
+    .taxi-badge-pill {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.18);
+      border: 1px solid var(--amber);
+      color: var(--amber);
+      font-size: 0.74rem;
+      font-weight: 900;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.4px;
+    }
+
+    .btn-modal-secondary {
+      margin-top: 10px;
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-muted);
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -1147,10 +1187,10 @@
           <span class="service-name">Konum</span>
         </a>
 
-        <a class="service-btn" href="tel:04348270000">
+        <div class="service-btn" onclick="taksiModalAc()">
           <span class="service-icon">🚕</span>
           <span class="service-name">Taksi</span>
-        </a>
+        </div>
       </div>
     </div>
 
@@ -1159,9 +1199,11 @@
         <h3>📅 Masa Rezervasyonu</h3>
         <p>Doğum günü, özel buluşmalar veya kalabalık gruplarınız için önceden masanızı ayırtın; talebiniz anında kasa ekranına düşer.</p>
 
-        <form class="form-stack" onsubmit="rezervasyonGonder(event)">
+        <form class="form-stack" onsubmit="rezervasyonGonder(event)" novalidate>
           <input type="text" id="rez-ad" class="form-input" placeholder="Adınız Soyadınız" required>
-          <input type="tel" id="rez-tel" class="form-input" placeholder="Telefon Numaranız (05XX...)" required>
+          
+          <input type="tel" id="rez-tel" class="form-input" inputmode="tel" maxlength="14" placeholder="Telefon Numaranız (05XX XXX XX XX)" oninput="telefonHataTemizle()" required>
+          <div class="field-error-text" id="rez-tel-error">Lütfen geçerli bir cep telefonu numarası giriniz (Örn: 05XX XXX XX XX).</div>
           
           <div class="form-row-2">
             <input type="date" id="rez-tarih" class="form-input" required>
@@ -1176,7 +1218,7 @@
             <option value="7+ Kişi (Grup)">7+ Kişi (Grup)</option>
           </select>
 
-          <input type="text" id="rez-not" class="form-input" placeholder="Özel Not (Örn: Karavan önü, doğum günü vb.)">
+          <textarea id="rez-istek" class="form-textarea" placeholder="Özel İstekleriniz (İsteğe bağlı - Örn: Doğum günü masası, sahil tarafı, bebek sandalyesi vb.)"></textarea>
 
           <button type="submit" class="btn-primary-action btn-rez-submit">
             <span>Rezervasyon Oluştur</span>
@@ -1306,6 +1348,21 @@
       <button class="btn-create-order" style="width:100%; justify-content:center;" onclick="modalKapat('modal-success')">
         Tamam
       </button>
+    </div>
+  </div>
+
+  <div class="custom-modal" id="modal-taxi" onclick="if(event.target === this) modalKapat('modal-taxi')">
+    <div class="modal-card">
+      <div class="modal-circle-icon">🚕</div>
+      <span class="taxi-badge-pill">NOMÂD MİSAFİRLERİNE ÖZEL</span>
+      <h3 style="font-size:1.22rem; font-weight:900; color:#ffffff; margin-bottom:8px;">Müşterimize Özel Fiyat</h3>
+      <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.45; margin-bottom:18px;">
+        Nomâd Karavan Coffee misafirlerine özel indirimli tarife ile bulunduğunuz noktaya hızlı taksi yönlendirilir.
+      </p>
+      <a class="btn-primary-action btn-rez-submit" href="tel:+905362573445" style="width:100%;">
+        <span>📞 Taksiyi Ara</span>
+      </a>
+      <button class="btn-modal-secondary" onclick="modalKapat('modal-taxi')">Vazgeç</button>
     </div>
   </div>
 
@@ -1465,6 +1522,10 @@
       setTimeout(() => toast.classList.remove('show'), 2600);
     }
 
+    function taksiModalAc() {
+      document.getElementById('modal-taxi').style.display = 'flex';
+    }
+
     function wifiKopyala() {
       if (!isMasaModu) return;
       navigator.clipboard.writeText("nomadkaravan").then(() => {
@@ -1503,14 +1564,52 @@
       } catch (err) {}
     }
 
+    function telefonHataTemizle() {
+      const telInput = document.getElementById('rez-tel');
+      const hataEl = document.getElementById('rez-tel-error');
+      telInput.classList.remove('input-error');
+      hataEl.style.display = 'none';
+    }
+
+    function telefonGecerliMi(rawTel) {
+      const rakamlar = rawTel.replace(/\D/g, '');
+      if (rakamlar.length === 11 && rakamlar.startsWith('05')) return true;
+      if (rakamlar.length === 10 && rakamlar.startsWith('5')) return true;
+      if (rakamlar.length === 12 && rakamlar.startsWith('905')) return true;
+      return false;
+    }
+
     async function rezervasyonGonder(e) {
       e.preventDefault();
-      const ad = document.getElementById('rez-ad').value.trim();
-      const tel = document.getElementById('rez-tel').value.trim();
+      const adInput = document.getElementById('rez-ad');
+      const telInput = document.getElementById('rez-tel');
+      const hataEl = document.getElementById('rez-tel-error');
+
+      const ad = adInput.value.trim();
+      const tel = telInput.value.trim();
       const tarih = document.getElementById('rez-tarih').value;
       const saat = document.getElementById('rez-saat').value;
       const kisi = document.getElementById('rez-kisi').value;
-      const not = document.getElementById('rez-not').value.trim();
+      const ozelIstek = document.getElementById('rez-istek').value.trim();
+
+      if (!ad) {
+        adInput.focus();
+        bildirimGoster("Lütfen adınızı ve soyadınızı giriniz.", "⚠️");
+        return;
+      }
+
+      if (!telefonGecerliMi(tel)) {
+        telInput.classList.add('input-error');
+        hataEl.style.display = 'block';
+        telInput.focus();
+        bildirimGoster("Telefon numarası eksik veya hatalı!", "⚠️");
+        return;
+      }
+
+      if (!tarih || !saat) {
+        bildirimGoster("Lütfen tarih ve saat seçiniz.", "⚠️");
+        return;
+      }
 
       const rezPaketi = {
         ad,
@@ -1518,7 +1617,7 @@
         tarih,
         saat,
         kisi,
-        not: not || "-",
+        not: ozelIstek || "-",
         kaynak: isMasaModu ? `Masa ${masaNo}` : "Web / Google",
         zamanDamgasi: Date.now()
       };
