@@ -1670,8 +1670,6 @@
 
   <script>
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
-    const KAFE_LAT = 38.5015;
-    const KAFE_LON = 42.2835;
 
     const urlParams = new URLSearchParams(window.location.search);
     const rawMasa = urlParams.get('masa');
@@ -1686,11 +1684,11 @@
 
     function haritayiAc() {
       const isApple = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && !window.MSStream;
-      const sorgu = encodeURIComponent("Nomad Karavan Coffee, Tatvan Sahil Kordonu, Bitlis");
+      const tamAdres = encodeURIComponent("Sahil, Vahit Kiler Caddesi No 47, 13200 Tatvan/Bitlis");
       if (isApple) {
-        window.location.href = `https://maps.apple.com/?ll=${KAFE_LAT},${KAFE_LON}&q=${sorgu}`;
+        window.location.href = `https://maps.apple.com/?address=${tamAdres}&q=${tamAdres}`;
       } else {
-        window.open(`https://www.google.com/maps/search/?api=1&query=${sorgu}`, "_blank");
+        window.open(`https://www.google.com/maps/search/?api=1&query=${tamAdres}`, "_blank");
       }
     }
 
