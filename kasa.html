@@ -1093,9 +1093,9 @@
     }
 
     .eod-history-items-inline {
-      font-size: 0.8rem;
-      color: #cbd5e1;
-      line-height: 1.45;
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      line-height: 1.5;
     }
 
     .eod-order-detail-box {
@@ -1348,10 +1348,10 @@
         </div>
 
         <button class="btn-eod-detail-toggle" id="btn-toggle-eod-details" onclick="gunSonuDetayAcKapat()">
-          <span>📋 Detaylı Bak (Seçili Günde Alınan Ürünleri & Ödeme Türlerini Gör)</span>
+          <span>▲ Detaylı Listeyi Gizle</span>
         </button>
 
-        <div id="eod-detailed-wrapper" style="display:none;">
+        <div id="eod-detailed-wrapper" style="display:block;">
           <div style="font-size:0.78rem; font-weight:800; color:var(--slate-muted); margin-bottom:8px;">
             Seçili tarihte kapanan masalar, ödeme yöntemleri ve alınan ürünler aşağıdadır. Tam fiş için kayda dokunun:
           </div>
@@ -2085,7 +2085,6 @@
       }
     }
 
-    /* --- NAKİT / KREDİ KARTI SEÇİMLİ HESAP KAPATMA --- */
     function hesapKapatModalAc() {
       if (!seciliMasa) return;
       const kapananData = canliMasalar[String(seciliMasa)];
@@ -2131,7 +2130,6 @@
       masaDetayiGoster(seciliMasa);
     }
 
-    /* --- TAKVİMLİ GÜN SONU RAPORU & NAKİT/KART DÖKÜMÜ --- */
     function gunSonuModalAc() {
       const bugun = bugununIsoTarihi();
       document.getElementById('eod-date-picker').value = bugun;
@@ -2140,9 +2138,9 @@
       document.getElementById('eod-pin-err').style.display = 'none';
       document.getElementById('eod-pin-gate').style.display = 'block';
       document.getElementById('eod-content-area').style.display = 'none';
-      document.getElementById('eod-detailed-wrapper').style.display = 'none';
+      document.getElementById('eod-detailed-wrapper').style.display = 'block';
       document.getElementById('eod-selected-order-detail').style.display = 'none';
-      document.getElementById('btn-toggle-eod-details').innerHTML = `<span>📋 Detaylı Bak (Seçili Günde Alınan Ürünleri & Ödeme Türlerini Gör)</span>`;
+      document.getElementById('btn-toggle-eod-details').innerHTML = `<span>▲ Detaylı Listeyi Gizle</span>`;
       document.getElementById('modal-eod-report').style.display = 'flex';
     }
 
@@ -2155,6 +2153,8 @@
       document.getElementById('eod-pin-err').style.display = 'none';
       document.getElementById('eod-pin-gate').style.display = 'none';
       document.getElementById('eod-content-area').style.display = 'block';
+      document.getElementById('eod-detailed-wrapper').style.display = 'block';
+      document.getElementById('btn-toggle-eod-details').innerHTML = `<span>▲ Detaylı Listeyi Gizle</span>`;
       const seciliTarih = document.getElementById('eod-date-picker').value || bugununIsoTarihi();
       await gunSonuVerileriniYukle(seciliTarih);
     }
@@ -2274,7 +2274,7 @@
 
         const urunList = item.urunler || [];
         const urunOzet = urunList.length > 0
-          ? urunList.map(u => `${u.adet}× ${u.ad}`).join(', ')
+          ? urunList.map(u => `${u.adet}× ${u.ad} (${u.tutar} ₺)`).join(' • ')
           : "Ürün detayı kaydedilmemiş";
 
         const card = document.createElement('div');
