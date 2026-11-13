@@ -8,20 +8,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #16191e;
-      --bg-card: rgba(38, 43, 52, 0.78);
-      --card-light: rgba(226, 232, 240, 0.09);
-      --card-border: rgba(203, 213, 225, 0.22);
-      --silver-bright: #e2e8f0;
-      --silver-mid: #94a3b8;
-      --terracotta: #ea580c;
-      --terracotta-glow: rgba(234, 88, 12, 0.4);
-      --terracotta-dark: #c2410c;
-      --amber: #f59e0b;
-      --amber-glow: rgba(245, 158, 11, 0.42);
+      --bg-green-deep: #13221b;
+      --bg-slate-gray: #1f252b;
+      --card-gray-surface: rgba(54, 61, 69, 0.82);
+      --card-green-tint: rgba(24, 48, 37, 0.85);
+      --card-border: rgba(203, 213, 225, 0.25);
+      --silver-gray: #e2e8f0;
+      --slate-muted: #cbd5e1;
+      --forest-green: #1b4d36;
+      --emerald-bright: #10b981;
+      --fire-orange: #ea580c;
+      --fire-amber: #f59e0b;
+      --fire-glow: rgba(234, 88, 12, 0.45);
       --text-main: #f8fafc;
-      --text-muted: #cbd5e1;
-      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.48);
+      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.5);
     }
 
     * {
@@ -33,7 +33,7 @@
     }
 
     body {
-      background: linear-gradient(180deg, #1b1f26 0%, #13161b 100%);
+      background: linear-gradient(165deg, #1b2428 0%, #14261d 48%, #1d2127 100%);
       color: var(--text-main);
       min-height: 100vh;
       overflow-x: hidden;
@@ -52,7 +52,7 @@
       width: 100vw;
       height: 100vh;
       z-index: 99999;
-      background: radial-gradient(circle at center, #2a303b 0%, #12151a 100%);
+      background: radial-gradient(circle at center, #253336 0%, #121c17 65%, #16181c 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -70,15 +70,15 @@
       position: absolute;
       width: 340px;
       height: 340px;
-      background: radial-gradient(circle, rgba(226, 232, 240, 0.22) 0%, transparent 68%);
+      background: radial-gradient(circle, rgba(234, 88, 12, 0.35) 0%, rgba(16, 185, 129, 0.15) 50%, transparent 72%);
       filter: blur(55px);
       animation: auraPulse 2.8s ease-in-out infinite alternate;
       z-index: 1;
     }
 
     @keyframes auraPulse {
-      from { transform: scale(0.92); opacity: 0.5; }
-      to { transform: scale(1.15); opacity: 0.9; }
+      from { transform: scale(0.92); opacity: 0.55; }
+      to { transform: scale(1.15); opacity: 0.95; }
     }
 
     .splash-content {
@@ -96,7 +96,7 @@
       letter-spacing: 3px;
       text-transform: uppercase;
       font-weight: 800;
-      color: var(--silver-bright);
+      color: var(--fire-amber);
       margin-bottom: 6px;
     }
 
@@ -110,7 +110,7 @@
     }
 
     .splash-brand-title span {
-      background: linear-gradient(135deg, var(--silver-bright) 0%, var(--amber) 100%);
+      background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -129,10 +129,11 @@
       position: absolute;
       inset: 6px;
       border-radius: 50%;
-      border: 2px solid transparent;
-      border-top: 2px solid var(--silver-bright);
-      border-right: 2px solid var(--amber);
-      box-shadow: 0 0 22px rgba(226, 232, 240, 0.3);
+      border: 2.5px solid transparent;
+      border-top: 2.5px solid var(--fire-orange);
+      border-right: 2.5px solid var(--emerald-bright);
+      border-bottom: 2.5px solid var(--silver-gray);
+      box-shadow: 0 0 22px rgba(234, 88, 12, 0.35);
       animation: spinEnergy 1.6s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     }
 
@@ -158,7 +159,7 @@
       width: 118px;
       height: 118px;
       border-radius: 50%;
-      background: linear-gradient(145deg, #333945 0%, #1d2129 100%);
+      background: linear-gradient(145deg, #323942 0%, #192d23 100%);
       border: 2px solid rgba(226, 232, 240, 0.45);
       display: flex;
       align-items: center;
@@ -193,7 +194,7 @@
     .progress-fill {
       width: 0%;
       height: 100%;
-      background: linear-gradient(90deg, var(--silver-bright) 0%, var(--amber) 100%);
+      background: linear-gradient(90deg, var(--emerald-bright) 0%, var(--fire-amber) 55%, var(--fire-orange) 100%);
       border-radius: 20px;
       transition: width 0.08s linear;
     }
@@ -206,7 +207,7 @@
     }
 
     .progress-number {
-      color: var(--amber);
+      color: var(--fire-amber);
       font-weight: 900;
     }
 
@@ -236,19 +237,19 @@
       left: -60px;
       width: 340px;
       height: 340px;
-      background: radial-gradient(circle, rgba(226, 232, 240, 0.14) 0%, transparent 70%);
-      filter: blur(50px);
+      background: radial-gradient(circle, rgba(234, 88, 12, 0.22) 0%, transparent 70%);
+      filter: blur(55px);
       z-index: 0;
       pointer-events: none;
     }
 
     .ambient-glow-2 {
       position: fixed;
-      bottom: 10%;
+      bottom: 8%;
       right: -80px;
       width: 360px;
       height: 360px;
-      background: radial-gradient(circle, rgba(148, 163, 184, 0.16) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(27, 77, 54, 0.34) 0%, transparent 70%);
       filter: blur(60px);
       z-index: 0;
       pointer-events: none;
@@ -258,9 +259,9 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(24, 28, 35, 0.92);
+      background: linear-gradient(90deg, rgba(35, 41, 48, 0.94) 0%, rgba(22, 40, 31, 0.94) 100%);
       backdrop-filter: blur(18px);
-      border-bottom: 1.5px solid var(--card-border);
+      border-bottom: 1.5px solid rgba(234, 88, 12, 0.32);
       padding: 12px 18px;
       display: flex;
       justify-content: space-between;
@@ -276,12 +277,12 @@
     .brand-logo-emblem {
       width: 48px;
       height: 48px;
-      background: linear-gradient(145deg, #3b4250 0%, #232832 100%);
+      background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%);
       border-radius: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1.5px solid rgba(226, 232, 240, 0.5);
+      border: 1.5px solid rgba(245, 158, 11, 0.55);
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
       flex-shrink: 0;
     }
@@ -300,16 +301,16 @@
 
     .brand-info p {
       font-size: 0.72rem;
-      color: var(--silver-mid);
+      color: var(--fire-amber);
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1.2px;
     }
 
     .table-chip {
-      background: rgba(234, 88, 12, 0.2);
-      border: 1.5px solid var(--terracotta);
-      color: #fdba74;
+      background: rgba(234, 88, 12, 0.22);
+      border: 1.5px solid var(--fire-orange);
+      color: #fed7aa;
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.8rem;
@@ -320,22 +321,22 @@
     }
 
     .table-chip.online-visitor {
-      background: rgba(226, 232, 240, 0.14);
-      border-color: rgba(226, 232, 240, 0.45);
-      color: var(--silver-bright);
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #a7f3d0;
     }
 
     .table-dot {
       width: 8px;
       height: 8px;
-      background: var(--terracotta);
+      background: var(--fire-orange);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--terracotta);
+      box-shadow: 0 0 8px var(--fire-orange);
     }
 
     .table-chip.online-visitor .table-dot {
-      background: var(--silver-bright);
-      box-shadow: 0 0 8px var(--silver-bright);
+      background: var(--emerald-bright);
+      box-shadow: 0 0 8px var(--emerald-bright);
     }
 
     .order-status-banner {
@@ -354,20 +355,20 @@
 
     .order-status-banner.preparing {
       display: flex;
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(234, 88, 12, 0.24) 100%);
-      border: 1.5px solid var(--amber);
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.24) 0%, rgba(234, 88, 12, 0.28) 100%);
+      border: 1.5px solid var(--fire-amber);
       animation: statusPulse 2.2s infinite;
     }
 
     .order-status-banner.ready {
       display: flex;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.26) 0%, rgba(5, 150, 105, 0.3) 100%);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.26) 0%, rgba(27, 77, 54, 0.45) 100%);
       border: 1.5px solid #34d399;
     }
 
     @keyframes statusPulse {
-      0%, 100% { box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25); }
-      50% { box-shadow: 0 8px 30px rgba(245, 158, 11, 0.5); }
+      0%, 100% { box-shadow: 0 8px 24px rgba(234, 88, 12, 0.25); }
+      50% { box-shadow: 0 8px 30px rgba(234, 88, 12, 0.55); }
     }
 
     .status-banner-left {
@@ -380,7 +381,7 @@
       width: 42px;
       height: 42px;
       border-radius: 13px;
-      background: rgba(15, 23, 42, 0.55);
+      background: rgba(24, 30, 36, 0.65);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -406,7 +407,7 @@
       font-weight: 900;
       padding: 5px 10px;
       border-radius: 10px;
-      background: var(--amber);
+      background: var(--fire-amber);
       color: #0f172a;
       white-space: nowrap;
       text-transform: uppercase;
@@ -420,8 +421,8 @@
     .notif-perm-bar {
       display: none;
       margin: 12px 16px 0;
-      background: rgba(226, 232, 240, 0.12);
-      border: 1px solid rgba(226, 232, 240, 0.35);
+      background: rgba(54, 61, 69, 0.85);
+      border: 1px solid rgba(245, 158, 11, 0.45);
       border-radius: 16px;
       padding: 11px 14px;
       align-items: center;
@@ -438,8 +439,8 @@
     }
 
     .btn-enable-notif {
-      background: var(--silver-bright);
-      color: #0f172a;
+      background: var(--fire-orange);
+      color: #ffffff;
       border: none;
       padding: 7px 12px;
       border-radius: 10px;
@@ -465,7 +466,7 @@
       overflow: hidden;
       position: relative;
       box-shadow: var(--shadow-3d);
-      border: 1.5px solid rgba(226, 232, 240, 0.35);
+      border: 1.5px solid rgba(234, 88, 12, 0.45);
       background: #232730;
     }
 
@@ -492,7 +493,7 @@
     }
 
     .service-btn {
-      background: linear-gradient(145deg, rgba(51, 58, 70, 0.85) 0%, rgba(36, 41, 50, 0.9) 100%);
+      background: linear-gradient(145deg, rgba(58, 65, 74, 0.88) 0%, rgba(28, 49, 39, 0.88) 100%);
       backdrop-filter: blur(14px);
       border: 1.5px solid var(--card-border);
       border-radius: 20px;
@@ -511,8 +512,8 @@
 
     .service-btn:active {
       transform: scale(0.95);
-      border-color: var(--silver-bright);
-      background: rgba(226, 232, 240, 0.16);
+      border-color: var(--fire-amber);
+      background: rgba(234, 88, 12, 0.25);
     }
 
     .service-icon {
@@ -531,16 +532,16 @@
 
     .btn-giant-menu {
       width: 100%;
-      background: linear-gradient(135deg, #475569 0%, #ea580c 100%);
+      background: linear-gradient(135deg, #ea580c 0%, #374151 50%, #1b4d36 100%);
       color: #ffffff;
-      border: 1.5px solid rgba(226, 232, 240, 0.45);
+      border: 1.5px solid rgba(245, 158, 11, 0.5);
       padding: 24px 20px;
       border-radius: 26px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
-      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 14px 36px var(--fire-glow);
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       overflow: hidden;
@@ -573,7 +574,7 @@
 
     .giant-text-sub {
       font-size: 0.74rem;
-      color: #e2e8f0;
+      color: #fed7aa;
       font-weight: 800;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -591,8 +592,8 @@
     .giant-arrow-circle {
       width: 44px;
       height: 44px;
-      background: #1e232b;
-      border: 1.5px solid rgba(226, 232, 240, 0.4);
+      background: #1a2421;
+      border: 1.5px solid rgba(245, 158, 11, 0.5);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -607,8 +608,8 @@
     .btn-craft-banner {
       width: 100%;
       margin-top: 12px;
-      background: linear-gradient(145deg, rgba(55, 62, 75, 0.88) 0%, rgba(38, 43, 52, 0.94) 100%);
-      border: 1.5px solid rgba(226, 232, 240, 0.38);
+      background: linear-gradient(145deg, rgba(58, 65, 74, 0.9) 0%, rgba(27, 54, 41, 0.92) 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.48);
       border-radius: 20px;
       padding: 15px 18px;
       display: flex;
@@ -624,7 +625,7 @@
     }
 
     .social-banner-box {
-      background: linear-gradient(145deg, rgba(51, 58, 70, 0.85) 0%, rgba(36, 41, 50, 0.92) 100%);
+      background: linear-gradient(145deg, rgba(56, 63, 72, 0.88) 0%, rgba(26, 48, 38, 0.9) 100%);
       backdrop-filter: blur(14px);
       border: 1.5px solid var(--card-border);
       border-radius: 22px;
@@ -655,18 +656,18 @@
 
     .social-sub {
       font-size: 0.74rem;
-      color: var(--silver-mid);
+      color: var(--fire-amber);
       font-weight: 700;
     }
 
     .social-arrow {
       font-size: 1.2rem;
-      color: var(--silver-bright);
+      color: var(--fire-amber);
       font-weight: 800;
     }
 
     .card-panel-box {
-      background: linear-gradient(145deg, rgba(48, 55, 67, 0.86) 0%, rgba(33, 38, 46, 0.94) 100%);
+      background: linear-gradient(145deg, rgba(54, 61, 69, 0.88) 0%, rgba(26, 45, 36, 0.92) 100%);
       backdrop-filter: blur(14px);
       border: 1.5px solid var(--card-border);
       border-radius: 24px;
@@ -675,8 +676,8 @@
     }
 
     .card-panel-box.rez-highlight {
-      border: 1.5px solid rgba(226, 232, 240, 0.42);
-      background: linear-gradient(145deg, rgba(58, 66, 80, 0.9) 0%, rgba(36, 41, 50, 0.95) 100%);
+      border: 1.5px solid rgba(234, 88, 12, 0.5);
+      background: linear-gradient(145deg, rgba(60, 67, 77, 0.92) 0%, rgba(24, 52, 39, 0.95) 100%);
     }
 
     .card-panel-box h3 {
@@ -691,7 +692,7 @@
 
     .card-panel-box p {
       font-size: 0.76rem;
-      color: var(--text-muted);
+      color: var(--slate-muted);
       margin-bottom: 14px;
       line-height: 1.38;
     }
@@ -704,7 +705,7 @@
     }
 
     .rez-type-btn {
-      background: rgba(24, 28, 35, 0.9);
+      background: rgba(28, 33, 39, 0.92);
       border: 1.5px solid var(--card-border);
       border-radius: 14px;
       padding: 12px 10px;
@@ -720,10 +721,10 @@
     }
 
     .rez-type-btn.selected {
-      background: rgba(234, 88, 12, 0.26);
-      border-color: var(--amber);
+      background: linear-gradient(135deg, rgba(234, 88, 12, 0.35) 0%, rgba(27, 77, 54, 0.45) 100%);
+      border-color: var(--fire-amber);
       color: #ffffff;
-      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
     }
 
     .form-stack {
@@ -740,7 +741,7 @@
 
     .form-input, .form-select, .form-textarea {
       width: 100%;
-      background: rgba(22, 26, 33, 0.92);
+      background: rgba(26, 31, 37, 0.94);
       border: 1px solid var(--card-border);
       padding: 12px 14px;
       border-radius: 14px;
@@ -752,8 +753,8 @@
     }
 
     .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-color: var(--silver-bright);
-      box-shadow: 0 0 12px rgba(226, 232, 240, 0.25);
+      border-color: var(--fire-amber);
+      box-shadow: 0 0 12px var(--fire-glow);
     }
 
     .form-input.input-error {
@@ -775,7 +776,7 @@
     }
 
     .btn-primary-action {
-      background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+      background: linear-gradient(135deg, var(--fire-orange) 0%, #c2410c 100%);
       color: #ffffff;
       border: none;
       padding: 14px;
@@ -787,7 +788,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 6px 20px var(--terracotta-glow);
+      box-shadow: 0 6px 20px var(--fire-glow);
       transition: transform 0.15s;
       text-decoration: none;
     }
@@ -797,24 +798,24 @@
     }
 
     .btn-rez-submit {
-      background: linear-gradient(135deg, var(--silver-bright) 0%, #cbd5e1 100%);
+      background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
       color: #0f172a;
       font-weight: 900;
-      box-shadow: 0 6px 20px rgba(226, 232, 240, 0.25);
+      box-shadow: 0 6px 20px var(--fire-glow);
     }
 
     footer {
       text-align: center;
       padding: 26px 16px 40px;
-      color: var(--silver-mid);
+      color: var(--slate-muted);
       font-size: 0.74rem;
       border-top: 1px solid var(--card-border);
-      background: rgba(22, 25, 31, 0.96);
+      background: rgba(22, 27, 30, 0.96);
       margin-top: 20px;
     }
 
     footer a {
-      color: var(--silver-bright);
+      color: var(--fire-amber);
       text-decoration: none;
       font-weight: 800;
     }
@@ -824,7 +825,7 @@
       align-items: center;
       gap: 12px;
       padding: 14px 16px;
-      background: rgba(24, 28, 35, 0.95);
+      background: rgba(26, 33, 36, 0.95);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--card-border);
       position: sticky;
@@ -833,9 +834,9 @@
     }
 
     .btn-back-home {
-      background: rgba(51, 58, 70, 0.9);
+      background: rgba(54, 61, 69, 0.9);
       border: 1px solid var(--card-border);
-      color: var(--silver-bright);
+      color: var(--fire-amber);
       padding: 9px 18px;
       border-radius: 14px;
       font-size: 0.85rem;
@@ -852,7 +853,7 @@
       padding: 12px 16px;
       overflow-x: auto;
       scrollbar-width: none;
-      background: rgba(24, 28, 35, 0.9);
+      background: rgba(24, 32, 33, 0.92);
       backdrop-filter: blur(12px);
       position: sticky;
       top: 138px;
@@ -865,9 +866,9 @@
     }
 
     .tab-pill {
-      background: rgba(45, 51, 62, 0.88);
+      background: rgba(54, 61, 69, 0.88);
       border: 1px solid var(--card-border);
-      color: var(--text-muted);
+      color: var(--slate-muted);
       padding: 10px 18px;
       border-radius: 20px;
       font-size: 0.84rem;
@@ -878,16 +879,16 @@
     }
 
     .tab-pill.craft-tab {
-      border-color: rgba(245, 158, 11, 0.5);
-      color: var(--amber);
+      border-color: rgba(245, 158, 11, 0.55);
+      color: var(--fire-amber);
     }
 
     .tab-pill.active {
-      background: var(--silver-bright);
-      border-color: var(--silver-bright);
-      color: #0f172a;
+      background: linear-gradient(135deg, var(--fire-orange) 0%, var(--forest-green) 100%);
+      border-color: var(--fire-amber);
+      color: #ffffff;
       font-weight: 900;
-      box-shadow: 0 4px 16px rgba(226, 232, 240, 0.3);
+      box-shadow: 0 4px 16px var(--fire-glow);
     }
 
     .product-list {
@@ -899,8 +900,8 @@
     }
 
     .craft-studio {
-      background: linear-gradient(145deg, rgba(48, 55, 67, 0.9) 0%, rgba(33, 38, 46, 0.95) 100%);
-      border: 1.5px solid rgba(226, 232, 240, 0.4);
+      background: linear-gradient(145deg, rgba(54, 61, 69, 0.92) 0%, rgba(25, 48, 37, 0.95) 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
       border-radius: 24px;
       padding: 20px 16px;
       box-shadow: var(--shadow-3d);
@@ -912,7 +913,7 @@
     .craft-group-title {
       font-size: 0.8rem;
       font-weight: 900;
-      color: var(--silver-bright);
+      color: var(--fire-amber);
       text-transform: uppercase;
       letter-spacing: 0.8px;
       margin-bottom: 8px;
@@ -925,7 +926,7 @@
     }
 
     .craft-chip {
-      background: rgba(24, 28, 35, 0.92);
+      background: rgba(26, 31, 37, 0.94);
       border: 1.5px solid var(--card-border);
       border-radius: 14px;
       padding: 12px 10px;
@@ -941,25 +942,25 @@
 
     .craft-chip span.c-price {
       font-size: 0.75rem;
-      color: var(--amber);
+      color: var(--fire-amber);
       font-weight: 800;
     }
 
     .craft-chip.selected {
-      background: rgba(226, 232, 240, 0.18);
-      border-color: var(--silver-bright);
+      background: rgba(234, 88, 12, 0.28);
+      border-color: var(--fire-amber);
       color: #ffffff;
     }
 
     .craft-summary-box {
-      background: rgba(22, 26, 33, 0.95);
-      border: 1px solid rgba(226, 232, 240, 0.35);
+      background: rgba(22, 28, 30, 0.95);
+      border: 1px solid rgba(245, 158, 11, 0.4);
       border-radius: 16px;
       padding: 14px;
     }
 
     .product-card {
-      background: linear-gradient(145deg, rgba(48, 55, 67, 0.84) 0%, rgba(34, 39, 48, 0.92) 100%);
+      background: linear-gradient(145deg, rgba(54, 61, 69, 0.86) 0%, rgba(27, 47, 38, 0.9) 100%);
       backdrop-filter: blur(14px);
       border: 1.5px solid var(--card-border);
       border-radius: 22px;
@@ -978,7 +979,7 @@
       object-fit: cover;
       flex-shrink: 0;
       box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-      border: 1px solid rgba(226, 232, 240, 0.2);
+      border: 1px solid rgba(226, 232, 240, 0.25);
     }
 
     .product-content {
@@ -999,7 +1000,7 @@
 
     .prod-desc {
       font-size: 0.76rem;
-      color: var(--text-muted);
+      color: var(--slate-muted);
       line-height: 1.35;
       margin-bottom: 6px;
     }
@@ -1014,13 +1015,13 @@
     .prod-price {
       font-size: 1.1rem;
       font-weight: 900;
-      color: var(--amber);
+      color: var(--fire-amber);
     }
 
     .qty-box {
       display: flex;
       align-items: center;
-      background: rgba(22, 26, 33, 0.92);
+      background: rgba(24, 29, 34, 0.94);
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid var(--card-border);
@@ -1041,7 +1042,7 @@
     }
 
     .qty-btn.plus {
-      background: var(--terracotta);
+      background: var(--fire-orange);
       color: #ffffff;
     }
 
@@ -1056,9 +1057,9 @@
     .visitor-qr-note {
       font-size: 0.72rem;
       font-weight: 800;
-      color: var(--silver-bright);
-      background: rgba(226, 232, 240, 0.14);
-      border: 1px solid rgba(226, 232, 240, 0.32);
+      color: #a7f3d0;
+      background: rgba(16, 185, 129, 0.16);
+      border: 1px solid rgba(16, 185, 129, 0.35);
       padding: 5px 10px;
       border-radius: 10px;
     }
@@ -1068,8 +1069,8 @@
       bottom: 16px;
       left: 14px;
       right: 14px;
-      background: rgba(28, 33, 41, 0.96);
-      border: 1.5px solid rgba(226, 232, 240, 0.45);
+      background: rgba(32, 39, 43, 0.96);
+      border: 1.5px solid rgba(245, 158, 11, 0.5);
       border-radius: 18px;
       padding: 12px 16px;
       display: flex;
@@ -1085,8 +1086,8 @@
       bottom: 20px;
       left: 14px;
       right: 14px;
-      background: linear-gradient(135deg, #2d3440 0%, #1e232c 100%);
-      border: 1.5px solid rgba(226, 232, 240, 0.45);
+      background: linear-gradient(135deg, #2b323b 0%, #1b4d36 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.55);
       border-radius: 22px;
       padding: 14px 20px;
       color: #ffffff;
@@ -1117,11 +1118,11 @@
     .cart-price-sum {
       font-size: 1.25rem;
       font-weight: 900;
-      color: var(--amber);
+      color: var(--fire-amber);
     }
 
     .btn-create-order {
-      background: var(--terracotta);
+      background: var(--fire-orange);
       color: #ffffff;
       border: none;
       padding: 12px 22px;
@@ -1132,7 +1133,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 6px 18px var(--terracotta-glow);
+      box-shadow: 0 6px 18px var(--fire-glow);
     }
 
     .toast-box {
@@ -1140,8 +1141,8 @@
       top: 84px;
       left: 50%;
       transform: translateX(-50%) translateY(-20px);
-      background: #e2e8f0;
-      color: #0f172a;
+      background: var(--fire-orange);
+      color: #ffffff;
       padding: 10px 22px;
       border-radius: 20px;
       font-size: 0.85rem;
@@ -1149,7 +1150,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 8px 24px var(--fire-glow);
       z-index: 300;
       opacity: 0;
       pointer-events: none;
@@ -1165,7 +1166,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(15, 18, 24, 0.88);
+      background: rgba(16, 22, 20, 0.88);
       backdrop-filter: blur(12px);
       z-index: 250;
       align-items: center;
@@ -1174,14 +1175,14 @@
     }
 
     .modal-card {
-      background: #232832;
+      background: linear-gradient(145deg, #2d343d 0%, #193126 100%);
       border-radius: 24px;
       padding: 28px 22px;
       text-align: center;
       max-width: 330px;
       width: 100%;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-      border: 1.5px solid rgba(226, 232, 240, 0.35);
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
       animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -1194,8 +1195,8 @@
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: rgba(226, 232, 240, 0.16);
-      color: var(--silver-bright);
+      background: rgba(234, 88, 12, 0.22);
+      color: var(--fire-amber);
       font-size: 1.8rem;
       display: flex;
       align-items: center;
@@ -1206,8 +1207,8 @@
     .taxi-badge-pill {
       display: inline-block;
       background: rgba(245, 158, 11, 0.18);
-      border: 1px solid var(--amber);
-      color: var(--amber);
+      border: 1px solid var(--fire-amber);
+      color: var(--fire-amber);
       font-size: 0.74rem;
       font-weight: 900;
       padding: 5px 12px;
@@ -1221,7 +1222,7 @@
       width: 100%;
       background: transparent;
       border: 1px solid rgba(226, 232, 240, 0.25);
-      color: var(--text-muted);
+      color: var(--slate-muted);
       padding: 10px;
       border-radius: 12px;
       font-size: 0.82rem;
@@ -1252,19 +1253,19 @@
               </linearGradient>
             </defs>
             <path d="M29 12c1.2-2.2-1.2-3.8 0-6" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
-            <path d="M36 11c1.2-2.2-1.2-3.8 0-6" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round"/>
+            <path d="M36 11c1.2-2.2-1.2-3.8 0-6" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
             <path d="M12 46h50c3.3 0 6-2.7 6-6v-6c0-9.9-8.1-18-18-18H28c-9.9 0-18 8.1-18 18v6c0 3.3 2.7 6 2 6z" fill="url(#silverBodySplash)" stroke="#f8fafc" stroke-width="1.5"/>
-            <path d="M11 33h56" stroke="#475569" stroke-width="1.6"/>
+            <path d="M11 33h56" stroke="#ea580c" stroke-width="2"/>
             <path d="M14 25h50" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
-            <rect x="19" y="21" width="14" height="9" rx="4" fill="#1e293b" stroke="#f8fafc" stroke-width="1.5"/>
+            <rect x="19" y="21" width="14" height="9" rx="4" fill="#182e24" stroke="#f8fafc" stroke-width="1.5"/>
             <path d="M21 23l4 4" stroke="#94a3b8" stroke-width="1.3" stroke-linecap="round"/>
-            <rect x="38" y="21" width="11" height="24" rx="3" fill="#334155" stroke="#cbd5e1" stroke-width="1.3"/>
+            <rect x="38" y="21" width="11" height="24" rx="3" fill="#1b4d36" stroke="#cbd5e1" stroke-width="1.3"/>
             <circle cx="46.5" cy="34" r="1.3" fill="#f59e0b"/>
-            <rect x="53" y="22" width="9" height="8" rx="3.5" fill="#1e293b" stroke="#f8fafc" stroke-width="1.4"/>
+            <rect x="53" y="22" width="9" height="8" rx="3.5" fill="#182e24" stroke="#f8fafc" stroke-width="1.4"/>
             <path d="M68 44h8v2h-8z" fill="#94a3b8"/>
             <path d="M74 41v5" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="29" cy="46" r="7.5" fill="#0f172a" stroke="#e2e8f0" stroke-width="2"/>
-            <circle cx="29" cy="46" r="3.5" fill="#94a3b8"/>
+            <circle cx="29" cy="46" r="7.5" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+            <circle cx="29" cy="46" r="3.5" fill="#cbd5e1"/>
             <circle cx="29" cy="46" r="1.4" fill="#0f172a"/>
           </svg>
         </div>
@@ -1297,15 +1298,15 @@
             </linearGradient>
           </defs>
           <path d="M30 12c1.2-2.2-1.2-3.8 0-6" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M37 11c1.2-2.2-1.2-3.8 0-6" stroke="#e2e8f0" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M37 11c1.2-2.2-1.2-3.8 0-6" stroke="#ea580c" stroke-width="2.2" stroke-linecap="round"/>
           <path d="M12 46h50c3.3 0 6-2.7 6-6v-6c0-9.9-8.1-18-18-18H28c-9.9 0-18 8.1-18 18v6c0 3.3 2.7 6 2 6z" fill="url(#silverBodyHeader)" stroke="#f8fafc" stroke-width="1.6"/>
-          <path d="M11 33h56" stroke="#475569" stroke-width="1.8"/>
-          <rect x="19" y="21" width="14" height="9" rx="4" fill="#1e293b" stroke="#f8fafc" stroke-width="1.5"/>
-          <rect x="38" y="21" width="11" height="24" rx="3" fill="#334155" stroke="#cbd5e1" stroke-width="1.4"/>
+          <path d="M11 33h56" stroke="#ea580c" stroke-width="2"/>
+          <rect x="19" y="21" width="14" height="9" rx="4" fill="#182e24" stroke="#f8fafc" stroke-width="1.5"/>
+          <rect x="38" y="21" width="11" height="24" rx="3" fill="#1b4d36" stroke="#cbd5e1" stroke-width="1.4"/>
           <circle cx="46.5" cy="34" r="1.4" fill="#f59e0b"/>
-          <rect x="53" y="22" width="9" height="8" rx="3.5" fill="#1e293b" stroke="#f8fafc" stroke-width="1.4"/>
+          <rect x="53" y="22" width="9" height="8" rx="3.5" fill="#182e24" stroke="#f8fafc" stroke-width="1.4"/>
           <path d="M68 44h8v2h-8z" fill="#cbd5e1"/>
-          <circle cx="29" cy="46" r="7.5" fill="#0f172a" stroke="#f8fafc" stroke-width="2"/>
+          <circle cx="29" cy="46" r="7.5" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
           <circle cx="29" cy="46" r="3.2" fill="#cbd5e1"/>
         </svg>
       </div>
@@ -1431,11 +1432,11 @@
         <div style="display:flex; align-items:center; gap:12px; text-align:left;">
           <span style="font-size:1.5rem;">✨</span>
           <div>
-            <div style="font-size:0.92rem; font-weight:900; color:var(--silver-bright);">KENDİ KAHVENİ TASARLA</div>
+            <div style="font-size:0.92rem; font-weight:900; color:var(--fire-amber);">KENDİ KAHVENİ TASARLA</div>
             <div style="font-size:0.74rem; color:#cbd5e1;" id="craft-banner-sub">Sütünü, şurubunu ve espresso shot sayını seç</div>
           </div>
         </div>
-        <span style="font-size:1.2rem; font-weight:900; color:var(--silver-bright);">→</span>
+        <span style="font-size:1.2rem; font-weight:900; color:var(--fire-amber);">→</span>
       </button>
     </div>
 
@@ -1529,7 +1530,7 @@
     <div class="modal-card">
       <div class="modal-circle-icon" id="modal-icon">✓</div>
       <h3 id="modal-title" style="font-size:1.2rem; font-weight:900; color:#ffffff; margin-bottom:8px;">Siparişiniz İletildi!</h3>
-      <p id="modal-desc" style="font-size:0.82rem; color:var(--text-muted); line-height:1.45; margin-bottom:20px;">
+      <p id="modal-desc" style="font-size:0.82rem; color:var(--slate-muted); line-height:1.45; margin-bottom:20px;">
         Siparişiniz baristaya ve kasaya anlık olarak düştü. Hemen hazırlanıp masanıza servis edilecek.
       </p>
       <button class="btn-create-order" style="width:100%; justify-content:center;" onclick="modalKapat('modal-success')">
@@ -1543,7 +1544,7 @@
       <div class="modal-circle-icon">🚕</div>
       <span class="taxi-badge-pill">NOMÂD MİSAFİRLERİNE ÖZEL</span>
       <h3 style="font-size:1.22rem; font-weight:900; color:#ffffff; margin-bottom:8px;">Müşterimize Özel Fiyat</h3>
-      <p style="font-size:0.82rem; color:var(--text-muted); line-height:1.45; margin-bottom:18px;">
+      <p style="font-size:0.82rem; color:var(--slate-muted); line-height:1.45; margin-bottom:18px;">
         Nomâd Karavan Coffee misafirlerine özel indirimli tarife ile bulunduğunuz noktaya hızlı taksi yönlendirilir.
       </p>
       <a class="btn-primary-action btn-rez-submit" href="tel:+905362573445" style="width:100%;">
@@ -2139,7 +2140,7 @@
           ? `<button class="btn-primary-action btn-rez-submit" style="width:100%;" onclick="ozelKahveyiSepeteEkle()">
               <span>Özel Kahveyi Sepete Ekle — ${toplamFiyat} ₺</span>
              </button>`
-          : `<div style="text-align:center; padding:10px; border-radius:12px; background:rgba(226,232,240,0.14); border:1px solid #cbd5e1; color:#f8fafc; font-size:0.84rem; font-weight:800;">
+          : `<div style="text-align:center; padding:10px; border-radius:12px; background:rgba(16,185,129,0.16); border:1px solid #10b981; color:#a7f3d0; font-size:0.84rem; font-weight:800;">
               Tahmini Tutar: ${toplamFiyat} ₺ (Sipariş için masadaki QR kodu okutunuz)
              </div>`;
 
@@ -2147,7 +2148,7 @@
           <div class="craft-studio">
             <div>
               <h3 style="font-size:1.1rem; font-weight:900; color:#ffffff; margin-bottom:4px;">✨ Kendi Kahveni Tasarla</h3>
-              <p style="font-size:0.76rem; color:var(--text-muted);">Kendi kahve reçeteni oluştur ve fiyatını anında gör.</p>
+              <p style="font-size:0.76rem; color:var(--slate-muted);">Kendi kahve reçeteni oluştur ve fiyatını anında gör.</p>
             </div>
             ${grupHtml("1. Kahve Bazını Seç", "baz", bazlar)}
             ${grupHtml("2. Servis Sıcaklığı", "sicaklik", sicakliklar)}
@@ -2156,7 +2157,7 @@
             ${grupHtml("5. Kahve Yoğunluğu", "ekstra", ekstralar)}
 
             <div class="craft-summary-box">
-              <div style="font-size:0.76rem; color:var(--amber); font-weight:800; margin-bottom:4px;">SEÇİLEN REÇETE:</div>
+              <div style="font-size:0.76rem; color:var(--fire-amber); font-weight:800; margin-bottom:4px;">SEÇİLEN REÇETE:</div>
               <div style="font-size:0.86rem; font-weight:800; color:#ffffff; margin-bottom:12px;">
                 ${ozelKahveSecim.baz.ad} (${ozelKahveSecim.sicaklik.ad}) • ${ozelKahveSecim.sut.ad} • ${ozelKahveSecim.surup.ad} • ${ozelKahveSecim.ekstra.ad}
               </div>
