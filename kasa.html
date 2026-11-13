@@ -8,17 +8,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #16191e;
-      --bg-card: rgba(44, 50, 61, 0.84);
-      --card-border: rgba(203, 213, 225, 0.24);
-      --silver-bright: #e2e8f0;
-      --silver-mid: #94a3b8;
-      --terracotta: #ea580c;
-      --terracotta-glow: rgba(234, 88, 12, 0.42);
-      --terracotta-dark: #c2410c;
-      --amber: #f59e0b;
+      --bg-green-deep: #13221b;
+      --bg-slate-gray: #1f252b;
+      --card-gray-surface: rgba(54, 61, 69, 0.84);
+      --card-border: rgba(203, 213, 225, 0.25);
+      --silver-gray: #e2e8f0;
+      --slate-muted: #cbd5e1;
+      --forest-green: #1b4d36;
+      --emerald-bright: #10b981;
+      --fire-orange: #ea580c;
+      --fire-amber: #f59e0b;
+      --fire-glow: rgba(234, 88, 12, 0.45);
       --text-main: #f8fafc;
-      --text-muted: #cbd5e1;
     }
 
     * {
@@ -30,7 +31,7 @@
     }
 
     body {
-      background: linear-gradient(180deg, #1c2028 0%, #13161c 100%);
+      background: linear-gradient(165deg, #1b2428 0%, #14261d 50%, #1d2127 100%);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -43,7 +44,7 @@
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: radial-gradient(circle at center, #2b313d 0%, #111419 100%);
+      background: radial-gradient(circle at center, #253336 0%, #121c17 65%, #16181c 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -51,8 +52,8 @@
     }
 
     .pin-card {
-      background: rgba(36, 41, 50, 0.96);
-      border: 1.5px solid rgba(226, 232, 240, 0.4);
+      background: linear-gradient(145deg, #323942 0%, #192d23 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
       border-radius: 26px;
       padding: 30px 24px;
       width: 100%;
@@ -66,8 +67,8 @@
       height: 56px;
       margin: 0 auto 14px;
       border-radius: 18px;
-      background: linear-gradient(145deg, #475569 0%, #1e293b 100%);
-      border: 1.5px solid var(--silver-bright);
+      background: linear-gradient(135deg, var(--fire-orange) 0%, var(--forest-green) 100%);
+      border: 1.5px solid var(--fire-amber);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -83,13 +84,13 @@
 
     .pin-card p {
       font-size: 0.76rem;
-      color: var(--text-muted);
+      color: var(--slate-muted);
       margin-bottom: 18px;
     }
 
     .pin-input {
       width: 100%;
-      background: rgba(18, 21, 27, 0.95);
+      background: rgba(20, 26, 29, 0.95);
       border: 1.5px solid var(--card-border);
       border-radius: 14px;
       padding: 14px;
@@ -97,18 +98,18 @@
       font-weight: 900;
       letter-spacing: 6px;
       text-align: center;
-      color: var(--silver-bright);
+      color: var(--fire-amber);
       outline: none;
       margin-bottom: 12px;
     }
 
     .pin-input:focus {
-      border-color: var(--silver-bright);
+      border-color: var(--fire-amber);
     }
 
     .btn-pin-submit {
       width: 100%;
-      background: linear-gradient(135deg, var(--silver-bright) 0%, #cbd5e1 100%);
+      background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
       color: #0f172a;
       border: none;
       padding: 14px;
@@ -127,9 +128,9 @@
     }
 
     header {
-      background: rgba(24, 28, 35, 0.94);
+      background: linear-gradient(90deg, rgba(35, 41, 48, 0.95) 0%, rgba(22, 40, 31, 0.95) 100%);
       backdrop-filter: blur(16px);
-      border-bottom: 1.5px solid var(--card-border);
+      border-bottom: 1.5px solid rgba(234, 88, 12, 0.32);
       padding: 14px 20px;
       display: flex;
       flex-wrap: wrap;
@@ -150,12 +151,12 @@
     .brand-logo-emblem {
       width: 46px;
       height: 46px;
-      background: linear-gradient(145deg, #3b4250 0%, #232832 100%);
+      background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%);
       border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1.5px solid rgba(226, 232, 240, 0.5);
+      border: 1.5px solid rgba(245, 158, 11, 0.55);
       flex-shrink: 0;
     }
 
@@ -172,7 +173,7 @@
 
     .brand-info p {
       font-size: 0.72rem;
-      color: var(--silver-mid);
+      color: var(--fire-amber);
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -186,7 +187,7 @@
     }
 
     .btn-sound-unlock {
-      background: var(--amber);
+      background: var(--fire-amber);
       color: #0f172a;
       border: none;
       padding: 9px 16px;
@@ -202,9 +203,9 @@
     }
 
     .btn-sound-unlock.unlocked {
-      background: rgba(226, 232, 240, 0.16);
-      color: var(--silver-bright);
-      border: 1.5px solid rgba(226, 232, 240, 0.45);
+      background: rgba(16, 185, 129, 0.22);
+      color: #6ee7b7;
+      border: 1.5px solid #10b981;
       box-shadow: none;
       animation: none;
     }
@@ -237,14 +238,14 @@
     }
 
     .badge-empty {
-      background: rgba(226, 232, 240, 0.12);
-      border: 1.5px solid rgba(226, 232, 240, 0.35);
-      color: var(--silver-bright);
+      background: rgba(27, 77, 54, 0.38);
+      border: 1.5px solid rgba(16, 185, 129, 0.45);
+      color: #a7f3d0;
     }
 
     .badge-busy {
       background: rgba(234, 88, 12, 0.24);
-      border: 1.5px solid var(--terracotta);
+      border: 1.5px solid var(--fire-orange);
       color: #fdba74;
     }
 
@@ -322,7 +323,7 @@
     .section-title {
       font-size: 0.9rem;
       font-weight: 900;
-      color: var(--silver-bright);
+      color: var(--fire-amber);
       margin-bottom: 14px;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -337,7 +338,7 @@
 
     .table-card {
       position: relative;
-      background: var(--bg-card);
+      background: linear-gradient(145deg, rgba(56, 63, 72, 0.86) 0%, rgba(27, 48, 38, 0.88) 100%);
       backdrop-filter: blur(14px);
       border-radius: 16px;
       padding: 14px 8px;
@@ -356,28 +357,28 @@
       border: 1.5px solid rgba(203, 213, 225, 0.25);
     }
     .table-card.empty .table-status-text {
-      color: var(--silver-bright);
-      background: rgba(226, 232, 240, 0.14);
+      color: #a7f3d0;
+      background: rgba(27, 77, 54, 0.45);
       padding: 3px 9px;
       border-radius: 10px;
     }
 
     .table-card.busy {
-      border: 2px solid var(--terracotta);
-      background: rgba(58, 32, 28, 0.85);
-      box-shadow: 0 10px 28px var(--terracotta-glow);
+      border: 2px solid var(--fire-orange);
+      background: linear-gradient(145deg, rgba(68, 40, 32, 0.9) 0%, rgba(46, 36, 34, 0.92) 100%);
+      box-shadow: 0 10px 28px var(--fire-glow);
       animation: pulseAlert 2.5s infinite;
     }
     .table-card.busy .table-status-text {
       color: #ffffff;
-      background: var(--terracotta);
+      background: var(--fire-orange);
       padding: 3px 9px;
       border-radius: 10px;
     }
 
     .table-card.busy.is-ready {
       border-color: #10b981;
-      background: rgba(20, 56, 44, 0.85);
+      background: linear-gradient(145deg, rgba(46, 54, 62, 0.9) 0%, rgba(22, 62, 46, 0.92) 100%);
       box-shadow: 0 8px 22px rgba(16, 185, 129, 0.3);
       animation: none;
     }
@@ -435,7 +436,7 @@
     .table-amount {
       font-size: 0.9rem;
       font-weight: 900;
-      color: var(--amber);
+      color: var(--fire-amber);
       margin-top: 2px;
     }
 
@@ -446,8 +447,8 @@
     }
 
     .rez-card {
-      background: rgba(44, 50, 61, 0.9);
-      border: 1.5px solid rgba(226, 232, 240, 0.35);
+      background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.42);
       border-radius: 16px;
       padding: 14px 16px;
       display: flex;
@@ -470,7 +471,7 @@
     }
 
     .rez-badge {
-      background: var(--silver-bright);
+      background: var(--silver-gray);
       color: #0f172a;
       font-size: 0.72rem;
       font-weight: 900;
@@ -482,7 +483,7 @@
     .rez-tur-tag {
       display: inline-block;
       background: rgba(234, 88, 12, 0.25);
-      border: 1px solid var(--terracotta);
+      border: 1px solid var(--fire-orange);
       color: #fdba74;
       font-size: 0.74rem;
       font-weight: 900;
@@ -505,9 +506,9 @@
 
     .btn-rez-call {
       flex: 1;
-      background: rgba(226, 232, 240, 0.16);
-      border: 1px solid var(--silver-bright);
-      color: var(--silver-bright);
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #6ee7b7;
       text-decoration: none;
       text-align: center;
       padding: 7px;
@@ -518,7 +519,7 @@
 
     .btn-rez-del {
       background: rgba(234, 88, 12, 0.22);
-      border: 1px solid var(--terracotta);
+      border: 1px solid var(--fire-orange);
       color: #fdba74;
       padding: 7px 12px;
       border-radius: 10px;
@@ -529,7 +530,7 @@
 
     .detail-section {
       width: 420px;
-      background: rgba(28, 32, 40, 0.96);
+      background: linear-gradient(180deg, rgba(33, 39, 45, 0.96) 0%, rgba(22, 38, 30, 0.96) 100%);
       backdrop-filter: blur(18px);
       border-left: 1.5px solid var(--card-border);
       display: flex;
@@ -553,7 +554,7 @@
 
     .detail-time {
       font-size: 0.75rem;
-      color: var(--silver-mid);
+      color: var(--fire-amber);
       font-weight: 700;
     }
 
@@ -571,7 +572,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 12px 14px;
-      background: var(--bg-card);
+      background: var(--card-gray-surface);
       border: 1px solid var(--card-border);
       border-radius: 14px;
       gap: 10px;
@@ -622,7 +623,7 @@
 
     .item-unit-info {
       font-size: 0.74rem;
-      color: var(--text-muted);
+      color: var(--slate-muted);
       font-weight: 600;
     }
 
@@ -635,7 +636,7 @@
     .item-price {
       font-size: 0.98rem;
       font-weight: 900;
-      color: var(--amber);
+      color: var(--fire-amber);
       min-width: 52px;
       text-align: right;
     }
@@ -655,7 +656,7 @@
     .btn-item-delete {
       background: rgba(234, 88, 12, 0.22);
       color: #fdba74;
-      border: 1px solid var(--terracotta);
+      border: 1px solid var(--fire-orange);
       width: 28px;
       height: 28px;
       border-radius: 8px;
@@ -666,7 +667,7 @@
     .detail-footer {
       padding: 18px 22px;
       border-top: 1.5px solid var(--card-border);
-      background: rgba(24, 28, 35, 0.96);
+      background: rgba(22, 28, 30, 0.96);
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -681,21 +682,21 @@
 
     .total-title {
       font-size: 0.92rem;
-      color: var(--text-muted);
+      color: var(--slate-muted);
       font-weight: 700;
     }
 
     .total-sum {
       font-size: 1.6rem;
       font-weight: 900;
-      color: var(--amber);
+      color: var(--fire-amber);
     }
 
     .btn-order-ready {
       width: 100%;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      background: linear-gradient(135deg, #10b981 0%, #1b4d36 100%);
       color: #ffffff;
-      border: none;
+      border: 1px solid rgba(110, 231, 183, 0.4);
       padding: 14px;
       border-radius: 14px;
       font-size: 0.92rem;
@@ -705,7 +706,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
       transition: transform 0.15s;
     }
 
@@ -722,7 +723,7 @@
 
     .btn-close-order {
       width: 100%;
-      background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+      background: linear-gradient(135deg, var(--fire-orange) 0%, #c2410c 100%);
       color: #fff;
       border: none;
       padding: 13px;
@@ -734,13 +735,13 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 6px 20px var(--terracotta-glow);
+      box-shadow: 0 6px 20px var(--fire-glow);
     }
 
     .empty-state {
       margin: auto;
       text-align: center;
-      color: var(--text-muted);
+      color: var(--slate-muted);
       font-size: 0.86rem;
       font-weight: 600;
       padding: 30px 16px;
@@ -784,15 +785,15 @@
             </linearGradient>
           </defs>
           <path d="M30 12c1.2-2.2-1.2-3.8 0-6" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M37 11c1.2-2.2-1.2-3.8 0-6" stroke="#e2e8f0" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M37 11c1.2-2.2-1.2-3.8 0-6" stroke="#ea580c" stroke-width="2.2" stroke-linecap="round"/>
           <path d="M12 46h50c3.3 0 6-2.7 6-6v-6c0-9.9-8.1-18-18-18H28c-9.9 0-18 8.1-18 18v6c0 3.3 2.7 6 2 6z" fill="url(#silverBodyKasa)" stroke="#f8fafc" stroke-width="1.6"/>
-          <path d="M11 33h56" stroke="#475569" stroke-width="1.8"/>
-          <rect x="19" y="21" width="14" height="9" rx="4" fill="#1e293b" stroke="#f8fafc" stroke-width="1.5"/>
-          <rect x="38" y="21" width="11" height="24" rx="3" fill="#334155" stroke="#cbd5e1" stroke-width="1.4"/>
+          <path d="M11 33h56" stroke="#ea580c" stroke-width="2"/>
+          <rect x="19" y="21" width="14" height="9" rx="4" fill="#182e24" stroke="#f8fafc" stroke-width="1.5"/>
+          <rect x="38" y="21" width="11" height="24" rx="3" fill="#1b4d36" stroke="#cbd5e1" stroke-width="1.4"/>
           <circle cx="46.5" cy="34" r="1.4" fill="#f59e0b"/>
-          <rect x="53" y="22" width="9" height="8" rx="3.5" fill="#1e293b" stroke="#f8fafc" stroke-width="1.4"/>
+          <rect x="53" y="22" width="9" height="8" rx="3.5" fill="#182e24" stroke="#f8fafc" stroke-width="1.4"/>
           <path d="M68 44h8v2h-8z" fill="#cbd5e1"/>
-          <circle cx="29" cy="46" r="7.5" fill="#0f172a" stroke="#f8fafc" stroke-width="2"/>
+          <circle cx="29" cy="46" r="7.5" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
           <circle cx="29" cy="46" r="3.2" fill="#cbd5e1"/>
         </svg>
       </div>
@@ -809,11 +810,11 @@
       </button>
 
       <div class="badge-pill badge-busy">
-        <span class="dot" style="background:var(--terracotta);"></span>
+        <span class="dot" style="background:var(--fire-orange);"></span>
         <span id="stat-busy">0 Dolu</span>
       </div>
       <div class="badge-pill badge-empty">
-        <span class="dot" style="background:var(--silver-bright);"></span>
+        <span class="dot" style="background:var(--emerald-bright);"></span>
         <span id="stat-empty">50 Boş</span>
       </div>
 
@@ -830,7 +831,7 @@
 
       <div class="section-title">📅 Gelen Rezervasyonlar</div>
       <div class="rez-list" id="rez-container">
-        <div style="font-size:0.8rem; color:var(--text-muted);">Henüz yeni rezervasyon yok.</div>
+        <div style="font-size:0.8rem; color:var(--slate-muted);">Henüz yeni rezervasyon yok.</div>
       </div>
     </div>
 
@@ -1089,7 +1090,7 @@
       const container = document.getElementById('rez-container');
       if (!rezObj) {
         bilinenRezSayisi = 0;
-        container.innerHTML = `<div style="font-size:0.8rem; color:var(--text-muted);">Henüz yeni rezervasyon yok.</div>`;
+        container.innerHTML = `<div style="font-size:0.8rem; color:var(--slate-muted);">Henüz yeni rezervasyon yok.</div>`;
         return;
       }
 
@@ -1113,7 +1114,7 @@
           <span class="rez-tur-tag">${turEtiketi}</span>
           <div class="rez-info">📅 ${tarihiDuzGoster(r.tarih)} • ⏰ ${r.saat}</div>
           <div class="rez-info">📞 ${r.tel}</div>
-          <div class="rez-info" style="color:var(--amber);">📝 Özel İstek: ${r.not}</div>
+          <div class="rez-info" style="color:var(--fire-amber);">📝 Özel İstek: ${r.not}</div>
           <div class="rez-actions">
             <a class="btn-rez-call" href="tel:${r.tel}">Ara</a>
             <button class="btn-rez-del" onclick="rezervasyonSil('${k}')">Tamamlandı / Sil</button>
