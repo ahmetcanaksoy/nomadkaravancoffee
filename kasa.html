@@ -801,7 +801,6 @@
       gap: 12px;
     }
 
-    /* MODALLAR */
     .kasa-modal {
       display: none;
       position: fixed;
@@ -820,8 +819,8 @@
       border-radius: 24px;
       padding: 22px;
       width: 100%;
-      max-width: 440px;
-      max-height: 88vh;
+      max-width: 460px;
+      max-height: 90vh;
       overflow-y: auto;
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
     }
@@ -910,7 +909,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .eod-stat-card {
@@ -934,12 +933,29 @@
       color: var(--fire-amber);
     }
 
+    .btn-eod-detail-toggle {
+      width: 100%;
+      background: rgba(59, 130, 246, 0.22);
+      border: 1.5px solid rgba(96, 165, 250, 0.6);
+      color: #93c5fd;
+      padding: 11px;
+      border-radius: 12px;
+      font-size: 0.84rem;
+      font-weight: 900;
+      cursor: pointer;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
     .eod-history-list {
-      max-height: 28vh;
+      max-height: 32vh;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 7px;
       margin-bottom: 14px;
     }
 
@@ -947,11 +963,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(22, 28, 32, 0.85);
-      padding: 8px 12px;
-      border-radius: 10px;
-      font-size: 0.78rem;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(22, 28, 32, 0.92);
+      padding: 10px 12px;
+      border-radius: 11px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(245, 158, 11, 0.28);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .eod-history-row:hover {
+      background: rgba(45, 55, 65, 0.95);
+    }
+
+    .eod-order-detail-box {
+      background: rgba(16, 21, 25, 0.96);
+      border: 1.5px solid var(--fire-amber);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 14px;
     }
 
     @media (max-width: 900px) {
@@ -1116,7 +1146,7 @@
     </div>
   </div>
 
-  <!-- GÜN SONU RAPORU & SIFIRLAMA MODALI -->
+  <!-- GÜN SONU RAPORU & DETAYLI GEÇMİŞ & SIFIRLAMA MODALI -->
   <div class="kasa-modal" id="modal-eod-report" onclick="if(event.target === this) kasaModalKapat('modal-eod-report')">
     <div class="kasa-modal-box">
       <div class="modal-head">
@@ -1145,8 +1175,17 @@
           </div>
         </div>
 
-        <div style="font-size:0.76rem; font-weight:900; color:var(--fire-amber); margin-bottom:8px;">KAPANAN HESAP GEÇMİŞİ</div>
-        <div class="eod-history-list" id="eod-history-container"></div>
+        <button class="btn-eod-detail-toggle" id="btn-toggle-eod-details" onclick="gunSonuDetayAcKapat()">
+          <span>📋 Detaylı Bak (Geçmiş Siparişleri Gör)</span>
+        </button>
+
+        <div id="eod-detailed-wrapper" style="display:none;">
+          <div style="font-size:0.74rem; font-weight:800; color:var(--slate-muted); margin-bottom:6px;">
+            İçeriğini görmek için herhangi bir geçmiş siparişe dokunun:
+          </div>
+          <div class="eod-history-list" id="eod-history-container"></div>
+          <div id="eod-selected-order-detail" style="display:none;"></div>
+        </div>
 
         <div style="background:rgba(239, 68, 68, 0.14); border:1px solid #ef4444; border-radius:14px; padding:12px;">
           <div style="font-size:0.76rem; font-weight:900; color:#fca5a5; margin-bottom:8px;">
@@ -1195,6 +1234,7 @@
     const TOPLAM_MASA = 50;
     let seciliMasa = null;
     let canliMasalar = {};
+    let gunSonuKayitlari = {};
     let sonSiparisZamanlari = {};
     let islenenGarsonCagrilari = new Set();
     let islenenSiparisBildirimleri = new Set();
@@ -1562,7 +1602,6 @@
       });
     }
 
-    /* --- ELLE SİPARİŞ EKLEME --- */
     function manuelSiparisModalAc() {
       if (!seciliMasa) return;
       document.getElementById('manual-modal-title').innerText = `Masa ${seciliMasa} • Elle Sipariş Ekle`;
@@ -1645,7 +1684,6 @@
       masaDetayiGoster(seciliMasa);
     }
 
-    /* --- MASADAN MASAYA AKTARMA --- */
     function masaAktarModalAc() {
       if (!seciliMasa) return;
       const data = canliMasalar[String(seciliMasa)];
@@ -1799,6 +1837,7 @@
             masaNo: seciliMasa,
             tutar: kapananData.toplamTutar || 0,
             saat: saatStr,
+            urunler: kapananData.urunler || [],
             zamanDamgasi: Date.now()
           })
         });
@@ -1815,13 +1854,15 @@
       }
     }
 
-    /* --- ŞİFRELİ GÜN SONU RAPORU & SIFIRLAMA --- */
     function gunSonuModalAc() {
       document.getElementById('eod-pin-input').value = '';
       document.getElementById('eod-reset-pin').value = '';
       document.getElementById('eod-pin-err').style.display = 'none';
       document.getElementById('eod-pin-gate').style.display = 'block';
       document.getElementById('eod-content-area').style.display = 'none';
+      document.getElementById('eod-detailed-wrapper').style.display = 'none';
+      document.getElementById('eod-selected-order-detail').style.display = 'none';
+      document.getElementById('btn-toggle-eod-details').innerHTML = `<span>📋 Detaylı Bak (Geçmiş Siparişleri Gör)</span>`;
       document.getElementById('modal-eod-report').style.display = 'flex';
     }
 
@@ -1837,9 +1878,60 @@
       await gunSonuVerileriniYukle();
     }
 
+    function gunSonuDetayAcKapat() {
+      const wrap = document.getElementById('eod-detailed-wrapper');
+      const btn = document.getElementById('btn-toggle-eod-details');
+      const acik = wrap.style.display === 'block';
+      if (acik) {
+        wrap.style.display = 'none';
+        btn.innerHTML = `<span>📋 Detaylı Bak (Geçmiş Siparişleri Gör)</span>`;
+      } else {
+        wrap.style.display = 'block';
+        btn.innerHTML = `<span>▲ Detaylı Listeyi Gizle</span>`;
+      }
+    }
+
+    function gecmisAdisyonDetayGoster(key) {
+      const kayit = gunSonuKayitlari[key];
+      const box = document.getElementById('eod-selected-order-detail');
+      if (!kayit) return;
+
+      const urunListesi = kayit.urunler || [];
+      let icerikHtml = "";
+      if (urunListesi.length === 0) {
+        icerikHtml = `<div style="font-size:0.76rem; color:var(--slate-muted);">Bu adisyon için ürün kalemi detayı bulunmuyor.</div>`;
+      } else {
+        icerikHtml = urunListesi.map(u => `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.78rem; gap:8px;">
+            <div>
+              <div style="font-weight:800; color:#ffffff;">${u.adet}× ${u.ad}</div>
+              ${u.detay ? `<div style="font-size:0.7rem; color:#fdba74;">✨ ${u.detay}</div>` : ''}
+            </div>
+            <div style="font-weight:900; color:var(--fire-amber); white-space:nowrap;">${u.tutar} ₺</div>
+          </div>
+        `).join('');
+      }
+
+      box.style.display = 'block';
+      box.innerHTML = `
+        <div class="eod-order-detail-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid rgba(245,158,11,0.35);">
+            <span style="font-size:0.86rem; font-weight:900; color:var(--fire-amber);">🧾 Masa ${kayit.masaNo} Detayı (${kayit.saat || '-'})</span>
+            <button onclick="document.getElementById('eod-selected-order-detail').style.display='none'" style="background:none; border:none; color:#cbd5e1; font-weight:900; cursor:pointer;">✕</button>
+          </div>
+          ${icerikHtml}
+          <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:0.86rem; font-weight:900; color:#10b981;">
+            <span>Ödenen Toplam:</span>
+            <span>${kayit.tutar} ₺</span>
+          </div>
+        </div>
+      `;
+    }
+
     async function gunSonuVerileriniYukle() {
       const res = await fetch(`${FIREBASE_URL}/gun_sonu/kapananlar.json`);
       const veriler = await res.json();
+      gunSonuKayitlari = veriler || {};
       const historyEl = document.getElementById('eod-history-container');
       historyEl.innerHTML = "";
 
@@ -1855,10 +1947,15 @@
       keys.reverse().forEach(k => {
         const item = veriler[k];
         toplamCiro += Number(item.tutar || 0);
+        const urunSayisi = (item.urunler || []).reduce((t, u) => t + (u.adet || 1), 0);
         const row = document.createElement('div');
         row.className = 'eod-history-row';
+        row.onclick = () => gecmisAdisyonDetayGoster(k);
         row.innerHTML = `
-          <span><strong>Masa ${item.masaNo}</strong> • ${item.saat || '-'}</span>
+          <div>
+            <strong>Masa ${item.masaNo}</strong> • ${item.saat || '-'}
+            <span style="font-size:0.7rem; color:#93c5fd; margin-left:6px;">(${urunSayisi} ürün • Detay →)</span>
+          </div>
           <span style="color:var(--fire-amber); font-weight:900;">${item.tutar} ₺</span>
         `;
         historyEl.appendChild(row);
@@ -1877,6 +1974,7 @@
       if (confirm("Gün sonu cirosu sıfırlanacak ve gün kapatılacak. Emin misiniz?")) {
         await fetch(`${FIREBASE_URL}/gun_sonu/kapananlar.json`, { method: 'DELETE' });
         document.getElementById('eod-reset-pin').value = '';
+        document.getElementById('eod-selected-order-detail').style.display = 'none';
         await gunSonuVerileriniYukle();
         alert("Gün başarıyla kapatıldı ve ciro sıfırlandı.");
       }
