@@ -699,8 +699,8 @@
 
     .rez-type-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
       margin-bottom: 2px;
     }
 
@@ -708,15 +708,17 @@
       background: rgba(28, 33, 39, 0.92);
       border: 1.5px solid var(--card-border);
       border-radius: 14px;
-      padding: 12px 10px;
+      padding: 11px 6px;
       color: #cbd5e1;
-      font-size: 0.84rem;
+      font-size: 0.76rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
+      text-align: center;
       transition: all 0.15s;
     }
 
@@ -859,7 +861,6 @@
       cursor: pointer;
     }
 
-    /* KARE KATEGORİ KARTLARI */
     .category-square-grid {
       padding: 18px 16px 120px;
       display: grid;
@@ -1474,17 +1475,21 @@
     <div class="section-wrap wave-item wave-3" id="rez-section-wrap">
       <div class="card-panel-box rez-highlight">
         <h3>📅 Rezervasyon</h3>
-        <p>Ateş başı keyfi veya masa rezervasyonu için alanınızı seçip bilgilerinizi doldurun; talebiniz anında bize ulaşsın.</p>
+        <p>Ateş başı keyfi, masa rezervasyonu veya canlı müzik geceleri için alanınızı seçip bilgilerinizi doldurun; talebiniz anında bize ulaşsın.</p>
 
         <form class="form-stack" onsubmit="rezervasyonGonder(event)" novalidate>
           <div class="rez-type-grid">
             <div class="rez-type-btn selected" id="rez-opt-ates" onclick="rezTurSec('Ateş Başı')">
-              <span>🔥</span>
+              <span style="font-size:1.15rem;">🔥</span>
               <span>Ateş Başı</span>
             </div>
             <div class="rez-type-btn" id="rez-opt-masa" onclick="rezTurSec('Masa Rezervasyonu')">
-              <span>🪑</span>
-              <span>Masa Rezervasyonu</span>
+              <span style="font-size:1.15rem;">🪑</span>
+              <span>Masa</span>
+            </div>
+            <div class="rez-type-btn" id="rez-opt-muzik" onclick="rezTurSec('Canlı Müzik')">
+              <span style="font-size:1.15rem;">🎵</span>
+              <span>Canlı Müzik</span>
             </div>
           </div>
 
@@ -1654,7 +1659,7 @@
       <span class="taxi-badge-pill">NOMÂD MİSAFİRLERİNE ÖZEL</span>
       <h3 style="font-size:1.22rem; font-weight:900; color:#ffffff; margin-bottom:8px;">Müşterimize Özel Fiyat</h3>
       <p style="font-size:0.82rem; color:var(--slate-muted); line-height:1.45; margin-bottom:18px;">
-        Nomâd Karavan Coffee misafirlerine özel indirimli tarife ile bulunduğunuz noktaya hızlı taksi yönlendirilir.
+        Nomâd Karavan Coffee misafirlerine özel indirimli tarife ile dilediğiniz noktaya hızlı ulaşım.
       </p>
       <a class="btn-primary-action btn-rez-submit" href="tel:+905362573445" style="width:100%;">
         <span>📞 Taksiyi Ara</span>
@@ -1779,6 +1784,7 @@
       seciliRezTuru = tur;
       document.getElementById('rez-opt-ates').classList.toggle('selected', tur === 'Ateş Başı');
       document.getElementById('rez-opt-masa').classList.toggle('selected', tur === 'Masa Rezervasyonu');
+      document.getElementById('rez-opt-muzik').classList.toggle('selected', tur === 'Canlı Müzik');
     }
 
     function tarihiDuzFormatla(isoTarih) {
@@ -2049,7 +2055,11 @@
         });
       } catch (err) {}
 
-      document.getElementById('modal-icon').innerText = seciliRezTuru === "Ateş Başı" ? "🔥" : "📅";
+      let rezIkon = "📅";
+      if (seciliRezTuru === "Ateş Başı") rezIkon = "🔥";
+      if (seciliRezTuru === "Canlı Müzik") rezIkon = "🎵";
+
+      document.getElementById('modal-icon').innerText = rezIkon;
       document.getElementById('modal-title').innerText = "Rezervasyonunuz Alındı!";
       document.getElementById('modal-desc').innerText = `${duzTarih} saat ${saat} için ${seciliRezTuru} (${kisi}) talebiniz kasaya iletildi.`;
       document.getElementById('modal-success').style.display = 'flex';
