@@ -212,6 +212,20 @@
       animation: none;
     }
 
+    .btn-eod-open {
+      background: rgba(245, 158, 11, 0.18);
+      color: var(--fire-amber);
+      border: 1.5px solid rgba(245, 158, 11, 0.5);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     .btn-lock-now {
       background: rgba(255, 255, 255, 0.08);
       color: #cbd5e1;
@@ -355,7 +369,6 @@
       user-select: none;
     }
 
-    /* 1. BOŞ MASA = YEŞİL */
     .table-card.empty {
       border: 1.5px solid rgba(16, 185, 129, 0.65);
       background: linear-gradient(145deg, rgba(20, 62, 45, 0.85) 0%, rgba(16, 46, 34, 0.9) 100%);
@@ -369,7 +382,6 @@
       font-weight: 900;
     }
 
-    /* 2. YENİ SİPARİŞ VAR (HAZIRLANIYOR) = TURUNCU + ÜNLEM */
     .table-card.busy {
       border: 2px solid #f97316;
       background: linear-gradient(145deg, rgba(124, 45, 18, 0.92) 0%, rgba(67, 26, 14, 0.94) 100%);
@@ -383,7 +395,6 @@
       border-radius: 10px;
     }
 
-    /* 3. SİPARİŞ HAZIRLANDI / MASA DOLU = KIRMIZI (ÜNLEM KALKAR) */
     .table-card.busy.is-ready {
       border: 2px solid #ef4444;
       background: linear-gradient(145deg, rgba(127, 29, 29, 0.9) 0%, rgba(69, 17, 17, 0.94) 100%);
@@ -548,15 +559,16 @@
     }
 
     .detail-header {
-      padding: 18px 22px;
+      padding: 16px 20px;
       border-bottom: 1.5px solid var(--card-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
     }
 
     .detail-header h3 {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       font-weight: 900;
       color: #ffffff;
     }
@@ -565,6 +577,19 @@
       font-size: 0.75rem;
       color: var(--fire-amber);
       font-weight: 700;
+    }
+
+    .btn-manual-add-top {
+      background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
+      color: #0f172a;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 11px;
+      font-size: 0.76rem;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
     }
 
     .detail-content {
@@ -674,19 +699,19 @@
     }
 
     .detail-footer {
-      padding: 18px 22px;
+      padding: 16px 20px;
       border-top: 1.5px solid var(--card-border);
       background: rgba(22, 28, 30, 0.96);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
     }
 
     .total-box {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
     .total-title {
@@ -706,9 +731,9 @@
       background: linear-gradient(135deg, #10b981 0%, #1b4d36 100%);
       color: #ffffff;
       border: 1px solid rgba(110, 231, 183, 0.4);
-      padding: 14px;
+      padding: 13px;
       border-radius: 14px;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 900;
       cursor: pointer;
       display: flex;
@@ -730,12 +755,28 @@
       box-shadow: none;
     }
 
+    .btn-transfer-table {
+      width: 100%;
+      background: rgba(59, 130, 246, 0.2);
+      color: #93c5fd;
+      border: 1.5px solid rgba(96, 165, 250, 0.55);
+      padding: 11px;
+      border-radius: 14px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
     .btn-close-order {
       width: 100%;
       background: linear-gradient(135deg, var(--fire-orange) 0%, #c2410c 100%);
       color: #fff;
       border: none;
-      padding: 13px;
+      padding: 12px;
       border-radius: 14px;
       font-size: 0.88rem;
       font-weight: 800;
@@ -754,6 +795,163 @@
       font-size: 0.86rem;
       font-weight: 600;
       padding: 30px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* MODALLAR */
+    .kasa-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(12, 16, 18, 0.88);
+      backdrop-filter: blur(10px);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .kasa-modal-box {
+      background: linear-gradient(145deg, #2d343d 0%, #192f24 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.45);
+      border-radius: 24px;
+      padding: 22px;
+      width: 100%;
+      max-width: 440px;
+      max-height: 88vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .modal-head h3 {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .btn-modal-x {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .manual-item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 44vh;
+      overflow-y: auto;
+      margin-bottom: 14px;
+    }
+
+    .manual-prod-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(22, 28, 32, 0.85);
+      border: 1px solid var(--card-border);
+      padding: 10px 12px;
+      border-radius: 12px;
+      gap: 8px;
+    }
+
+    .btn-add-one {
+      background: var(--fire-orange);
+      color: #ffffff;
+      border: none;
+      padding: 7px 12px;
+      border-radius: 9px;
+      font-size: 0.78rem;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .custom-manual-box {
+      background: rgba(20, 25, 29, 0.9);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .kasa-input {
+      width: 100%;
+      background: rgba(30, 36, 42, 0.95);
+      border: 1px solid var(--card-border);
+      padding: 10px 12px;
+      border-radius: 10px;
+      color: #ffffff;
+      font-size: 0.84rem;
+      outline: none;
+    }
+
+    .eod-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .eod-stat-card {
+      background: rgba(20, 26, 30, 0.9);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .eod-stat-label {
+      font-size: 0.72rem;
+      color: var(--slate-muted);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .eod-stat-val {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--fire-amber);
+    }
+
+    .eod-history-list {
+      max-height: 28vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .eod-history-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(22, 28, 32, 0.85);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     @media (max-width: 900px) {
@@ -818,6 +1016,11 @@
         <span>Sesi Aktif Et</span>
       </button>
 
+      <button class="btn-eod-open" onclick="gunSonuModalAc()">
+        <span>📊</span>
+        <span>Gün Sonu</span>
+      </button>
+
       <div class="badge-pill badge-busy">
         <span class="dot" style="background:#ef4444;"></span>
         <span id="stat-busy">0 Dolu</span>
@@ -850,10 +1053,13 @@
           <h3 id="panel-table-title">Masa Seçiniz</h3>
           <span class="detail-time" id="panel-order-time">-</span>
         </div>
+        <button class="btn-manual-add-top" id="btn-open-manual" style="display:none;" onclick="manuelSiparisModalAc()">
+          + Elle Sipariş Ekle
+        </button>
       </div>
 
       <div class="detail-content" id="panel-orders-list">
-        <div class="empty-state">Detayları görmek için listeden bir masaya dokunun.</div>
+        <div class="empty-state">Detayları görmek veya elle sipariş girmek için listeden bir masaya dokunun.</div>
       </div>
 
       <div class="detail-footer" id="panel-footer" style="display:none;">
@@ -864,6 +1070,9 @@
         <button class="btn-order-ready" id="btn-siparis-hazir" onclick="siparisHazirBildir()">
           ✓ Sipariş Hazır (Müşteriye Bildir)
         </button>
+        <button class="btn-transfer-table" onclick="masaAktarModalAc()">
+          ⇄ Masayı Başka Masaya Aktar
+        </button>
         <button class="btn-close-order" onclick="masayiBosalt()">
           ✕ Hesabı Kapat / Masayı Boşalt
         </button>
@@ -871,9 +1080,117 @@
     </div>
   </div>
 
+  <!-- ELLE SİPARİŞ EKLEME MODALI -->
+  <div class="kasa-modal" id="modal-manual-order" onclick="if(event.target === this) kasaModalKapat('modal-manual-order')">
+    <div class="kasa-modal-box">
+      <div class="modal-head">
+        <h3 id="manual-modal-title">Masa - Elle Sipariş Ekle</h3>
+        <button class="btn-modal-x" onclick="kasaModalKapat('modal-manual-order')">✕</button>
+      </div>
+      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Tost)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
+      <div class="manual-item-list" id="manual-products-container"></div>
+
+      <div class="custom-manual-box">
+        <div style="font-size:0.76rem; font-weight:900; color:var(--fire-amber);">Özel Kalem / Manuel Tutar Ekle</div>
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:8px;">
+          <input type="text" id="custom-item-name" class="kasa-input" placeholder="Ürün adı (Örn: Ekstra Su)">
+          <input type="number" id="custom-item-price" class="kasa-input" placeholder="Fiyat ₺">
+        </div>
+        <button class="btn-add-one" style="width:100%; padding:10px;" onclick="ozelManuelUrunEkle()">+ Özel Kalemi Masaya Ekle</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MASA AKTARMA MODALI -->
+  <div class="kasa-modal" id="modal-transfer-table" onclick="if(event.target === this) kasaModalKapat('modal-transfer-table')">
+    <div class="kasa-modal-box" style="max-width:360px;">
+      <div class="modal-head">
+        <h3 id="transfer-modal-title">Masayı Aktar</h3>
+        <button class="btn-modal-x" onclick="kasaModalKapat('modal-transfer-table')">✕</button>
+      </div>
+      <p style="font-size:0.8rem; color:var(--slate-muted); margin-bottom:12px;">
+        Bu masadaki tüm siparişlerin aktarılacağı hedef masayı seçin (Hedef masa doluysa adisyonlar birleştirilir):
+      </p>
+      <select id="transfer-target-select" class="kasa-input" style="margin-bottom:14px; font-weight:800;"></select>
+      <button class="btn-pin-submit" onclick="masayiAktarOnayla()">⇄ Seçili Masaya Aktar</button>
+    </div>
+  </div>
+
+  <!-- GÜN SONU RAPORU & SIFIRLAMA MODALI -->
+  <div class="kasa-modal" id="modal-eod-report" onclick="if(event.target === this) kasaModalKapat('modal-eod-report')">
+    <div class="kasa-modal-box">
+      <div class="modal-head">
+        <h3>📊 Şifreli Gün Sonu Raporu</h3>
+        <button class="btn-modal-x" onclick="kasaModalKapat('modal-eod-report')">✕</button>
+      </div>
+
+      <div id="eod-pin-gate">
+        <p style="font-size:0.8rem; color:var(--slate-muted); margin-bottom:12px; text-align:center;">
+          Gün sonu cirosunu görüntülemek için kasa şifresini giriniz:
+        </p>
+        <input type="password" id="eod-pin-input" class="pin-input" inputmode="numeric" maxlength="8" placeholder="••••">
+        <button class="btn-pin-submit" onclick="gunSonuSifreDogrula()">Raporu Göster →</button>
+        <div class="pin-error" id="eod-pin-err" style="text-align:center;">Hatalı şifre!</div>
+      </div>
+
+      <div id="eod-content-area" style="display:none;">
+        <div class="eod-stat-grid">
+          <div class="eod-stat-card">
+            <div class="eod-stat-label">TOPLAM GÜN SONU CİRO</div>
+            <div class="eod-stat-val" id="eod-total-revenue">0 ₺</div>
+          </div>
+          <div class="eod-stat-card">
+            <div class="eod-stat-label">KAPATILAN ADİSYON</div>
+            <div class="eod-stat-val" id="eod-total-orders" style="color:#10b981;">0</div>
+          </div>
+        </div>
+
+        <div style="font-size:0.76rem; font-weight:900; color:var(--fire-amber); margin-bottom:8px;">KAPANAN HESAP GEÇMİŞİ</div>
+        <div class="eod-history-list" id="eod-history-container"></div>
+
+        <div style="background:rgba(239, 68, 68, 0.14); border:1px solid #ef4444; border-radius:14px; padding:12px;">
+          <div style="font-size:0.76rem; font-weight:900; color:#fca5a5; margin-bottom:8px;">
+            🔒 Günü Kapat & Sıfırla (Şifre Onaylı)
+          </div>
+          <div style="display:flex; gap:8px;">
+            <input type="password" id="eod-reset-pin" class="kasa-input" inputmode="numeric" placeholder="Sıfırlama Şifresi">
+            <button class="btn-close-order" style="width:auto; white-space:nowrap; padding:10px 14px;" onclick="gunuKapatVeSifirla()">
+              Günü Kapat
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const KASA_SIFRESI = "1453";
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
+
+    const MENU_URUNLERI = [
+      { id: 1, ad: "Flat White", fiyat: 110 },
+      { id: 2, ad: "V60 Filtre Kahve", fiyat: 120 },
+      { id: 3, ad: "Caffe Latte", fiyat: 110 },
+      { id: 4, ad: "Cappuccino", fiyat: 110 },
+      { id: 5, ad: "Cortado", fiyat: 105 },
+      { id: 6, ad: "Caffe Mocha", fiyat: 130 },
+      { id: 7, ad: "Geleneksel Türk Kahvesi", fiyat: 75 },
+      { id: 8, ad: "Iced Americano", fiyat: 100 },
+      { id: 9, ad: "Iced Caffe Latte", fiyat: 115 },
+      { id: 10, ad: "Iced Caramel Macchiato", fiyat: 135 },
+      { id: 11, ad: "Cold Brew Karavan Özel", fiyat: 130 },
+      { id: 12, ad: "Berry Hibiscus Cooler", fiyat: 125 },
+      { id: 13, ad: "San Sebastian Cheesecake", fiyat: 155 },
+      { id: 14, ad: "Lotus Brownie", fiyat: 140 },
+      { id: 15, ad: "İtalyan Tiramisu", fiyat: 135 },
+      { id: 16, ad: "Çilekli Magnolia", fiyat: 120 },
+      { id: 17, ad: "Karavan Gurme Tost", fiyat: 165 },
+      { id: 18, ad: "Kruvasan Sandviç", fiyat: 145 },
+      { id: 19, ad: "Avokadolu Kaşarlı Tost", fiyat: 150 },
+      { id: 20, ad: "Demleme Karadeniz Çayı", fiyat: 30 },
+      { id: 21, ad: "Bitki & Kış Çayı", fiyat: 85 },
+      { id: 22, ad: "San Pellegrino Maden Suyu", fiyat: 55 }
+    ];
 
     const TOPLAM_MASA = 50;
     let seciliMasa = null;
@@ -922,6 +1239,10 @@
       sessionStorage.removeItem('nomad_kasa_yetki');
       document.getElementById('kasa-pin-input').value = '';
       document.getElementById('pin-lock-screen').style.display = 'flex';
+    }
+
+    function kasaModalKapat(id) {
+      document.getElementById(id).style.display = 'none';
     }
 
     function sesMotorunuUyandir() {
@@ -1191,13 +1512,19 @@
       const data = canliMasalar[String(masaNo)];
 
       document.getElementById('panel-table-title').innerText = `Masa ${masaNo} Adisyonu`;
+      document.getElementById('btn-open-manual').style.display = 'inline-block';
       const listEl = document.getElementById('panel-orders-list');
       const footerEl = document.getElementById('panel-footer');
       const hazirBtn = document.getElementById('btn-siparis-hazir');
 
       if (!data || !data.urunler || data.urunler.length === 0) {
         document.getElementById('panel-order-time').innerText = "Henüz sipariş yok";
-        listEl.innerHTML = `<div class="empty-state">Bu masa şu anda boş.</div>`;
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <span>Bu masa şu anda boş.</span>
+            <button class="btn-manual-add-top" onclick="manuelSiparisModalAc()">+ Garson / Elle Sipariş Gir</button>
+          </div>
+        `;
         footerEl.style.display = "none";
         return;
       }
@@ -1233,6 +1560,161 @@
         `;
         listEl.appendChild(row);
       });
+    }
+
+    /* --- ELLE SİPARİŞ EKLEME --- */
+    function manuelSiparisModalAc() {
+      if (!seciliMasa) return;
+      document.getElementById('manual-modal-title').innerText = `Masa ${seciliMasa} • Elle Sipariş Ekle`;
+      document.getElementById('manual-search-input').value = '';
+      manuelUrunleriCiz();
+      document.getElementById('modal-manual-order').style.display = 'flex';
+    }
+
+    function manuelUrunleriCiz() {
+      const q = document.getElementById('manual-search-input').value.trim().toLowerCase();
+      const container = document.getElementById('manual-products-container');
+      container.innerHTML = "";
+      const filtreli = MENU_URUNLERI.filter(u => u.ad.toLowerCase().includes(q));
+      filtreli.forEach(u => {
+        const row = document.createElement('div');
+        row.className = 'manual-prod-row';
+        row.innerHTML = `
+          <div>
+            <div style="font-size:0.86rem; font-weight:800; color:#fff;">${u.ad}</div>
+            <div style="font-size:0.76rem; color:var(--fire-amber); font-weight:800;">${u.fiyat} ₺</div>
+          </div>
+          <button class="btn-add-one" onclick="masayaManuelKalemKaydet('${u.ad.replace(/'/g, "\\'")}', ${u.fiyat})">+ Ekle</button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    async function ozelManuelUrunEkle() {
+      const ad = document.getElementById('custom-item-name').value.trim();
+      const fiyat = Number(document.getElementById('custom-item-price').value);
+      if (!ad || !fiyat || fiyat <= 0) {
+        alert("Geçerli bir ürün adı ve fiyat giriniz.");
+        return;
+      }
+      await masayaManuelKalemKaydet(ad, fiyat);
+      document.getElementById('custom-item-name').value = '';
+      document.getElementById('custom-item-price').value = '';
+    }
+
+    async function masayaManuelKalemKaydet(urunAdi, birimFiyat) {
+      if (!seciliMasa) return;
+      const masaKey = String(seciliMasa);
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      let mevcut = canliMasalar[masaKey];
+
+      if (!mevcut || !mevcut.urunler) {
+        mevcut = { urunler: [], toplamTutar: 0, saat: saatStr };
+      }
+
+      const varOlan = mevcut.urunler.find(u => u.ad === urunAdi && !u.detay);
+      if (varOlan) {
+        varOlan.adet += 1;
+        varOlan.tutar = varOlan.adet * varOlan.birimFiyat;
+        varOlan.yeni = true;
+      } else {
+        mevcut.urunler.push({
+          ad: urunAdi,
+          detay: "Garson Girişi",
+          adet: 1,
+          birimFiyat: birimFiyat,
+          tutar: birimFiyat,
+          yeni: true
+        });
+      }
+
+      mevcut.toplamTutar = mevcut.urunler.reduce((acc, c) => acc + c.tutar, 0);
+      mevcut.saat = saatStr;
+      mevcut.sonGuncelleme = Date.now();
+      mevcut.durum = 'hazirlaniyor';
+      mevcut.okunmamis = true;
+
+      canliMasalar[masaKey] = mevcut;
+      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(mevcut)
+      });
+
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
+    }
+
+    /* --- MASADAN MASAYA AKTARMA --- */
+    function masaAktarModalAc() {
+      if (!seciliMasa) return;
+      const data = canliMasalar[String(seciliMasa)];
+      if (!data || !data.urunler || data.urunler.length === 0) return;
+
+      document.getElementById('transfer-modal-title').innerText = `Masa ${seciliMasa} → Başka Masaya Aktar`;
+      const selectEl = document.getElementById('transfer-target-select');
+      selectEl.innerHTML = "";
+
+      for (let i = 1; i <= TOPLAM_MASA; i++) {
+        if (i === seciliMasa) continue;
+        const hedefData = canliMasalar[String(i)];
+        const hedefDolu = hedefData && hedefData.urunler && hedefData.urunler.length > 0;
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.innerText = hedefDolu ? `Masa ${i} (Dolu: ${hedefData.toplamTutar} ₺ - Birleştir)` : `Masa ${i} (Boş)`;
+        selectEl.appendChild(opt);
+      }
+
+      document.getElementById('modal-transfer-table').style.display = 'flex';
+    }
+
+    async function masayiAktarOnayla() {
+      if (!seciliMasa) return;
+      const kaynakNo = seciliMasa;
+      const hedefNo = Number(document.getElementById('transfer-target-select').value);
+      if (!hedefNo || kaynakNo === hedefNo) return;
+
+      const kaynakData = canliMasalar[String(kaynakNo)];
+      if (!kaynakData || !kaynakData.urunler) return;
+
+      const hedefData = canliMasalar[String(hedefNo)];
+      let yeniHedefData;
+
+      if (hedefData && hedefData.urunler && hedefData.urunler.length > 0) {
+        yeniHedefData = {
+          urunler: [...hedefData.urunler, ...kaynakData.urunler],
+          toplamTutar: hedefData.toplamTutar + kaynakData.toplamTutar,
+          saat: kaynakData.saat || hedefData.saat,
+          sonGuncelleme: Date.now(),
+          durum: (kaynakData.durum === 'hazirlaniyor' || hedefData.durum === 'hazirlaniyor') ? 'hazirlaniyor' : 'hazir',
+          okunmamis: Boolean(kaynakData.okunmamis || hedefData.okunmamis)
+        };
+      } else {
+        yeniHedefData = {
+          ...kaynakData,
+          sonGuncelleme: Date.now()
+        };
+      }
+
+      await fetch(`${FIREBASE_URL}/masalar/${hedefNo}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(yeniHedefData)
+      });
+
+      delete canliMasalar[String(kaynakNo)];
+      await fetch(`${FIREBASE_URL}/masalar/${kaynakNo}.json`, { method: 'DELETE' });
+      await fetch(`${FIREBASE_URL}/kapali_oturumlar/${kaynakNo}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Date.now())
+      });
+
+      canliMasalar[String(hedefNo)] = yeniHedefData;
+      seciliMasa = hedefNo;
+      kasaModalKapat('modal-transfer-table');
+      masalariCiz();
+      masaDetayiGoster(hedefNo);
     }
 
     async function siparisHazirBildir() {
@@ -1305,7 +1787,22 @@
 
     async function masayiBosalt() {
       if (!seciliMasa) return;
-      if (confirm(`Masa ${seciliMasa} hesabını kapatıp masayı boşaltmak istediğinize emin misiniz?`)) {
+      const kapananData = canliMasalar[String(seciliMasa)];
+      if (!kapananData) return;
+
+      if (confirm(`Masa ${seciliMasa} (${kapananData.toplamTutar} ₺) hesabını kapatıp masayı boşaltmak istediğinize emin misiniz?`)) {
+        const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+        await fetch(`${FIREBASE_URL}/gun_sonu/kapananlar.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            masaNo: seciliMasa,
+            tutar: kapananData.toplamTutar || 0,
+            saat: saatStr,
+            zamanDamgasi: Date.now()
+          })
+        });
+
         delete canliMasalar[String(seciliMasa)];
         await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
         await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
@@ -1315,6 +1812,73 @@
         });
         masalariCiz();
         masaDetayiGoster(seciliMasa);
+      }
+    }
+
+    /* --- ŞİFRELİ GÜN SONU RAPORU & SIFIRLAMA --- */
+    function gunSonuModalAc() {
+      document.getElementById('eod-pin-input').value = '';
+      document.getElementById('eod-reset-pin').value = '';
+      document.getElementById('eod-pin-err').style.display = 'none';
+      document.getElementById('eod-pin-gate').style.display = 'block';
+      document.getElementById('eod-content-area').style.display = 'none';
+      document.getElementById('modal-eod-report').style.display = 'flex';
+    }
+
+    async function gunSonuSifreDogrula() {
+      const pin = document.getElementById('eod-pin-input').value.trim();
+      if (pin !== KASA_SIFRESI) {
+        document.getElementById('eod-pin-err').style.display = 'block';
+        return;
+      }
+      document.getElementById('eod-pin-err').style.display = 'none';
+      document.getElementById('eod-pin-gate').style.display = 'none';
+      document.getElementById('eod-content-area').style.display = 'block';
+      await gunSonuVerileriniYukle();
+    }
+
+    async function gunSonuVerileriniYukle() {
+      const res = await fetch(`${FIREBASE_URL}/gun_sonu/kapananlar.json`);
+      const veriler = await res.json();
+      const historyEl = document.getElementById('eod-history-container');
+      historyEl.innerHTML = "";
+
+      if (!veriler) {
+        document.getElementById('eod-total-revenue').innerText = "0 ₺";
+        document.getElementById('eod-total-orders').innerText = "0";
+        historyEl.innerHTML = `<div style="font-size:0.78rem; color:var(--slate-muted); text-align:center; padding:12px;">Henüz kapatılmış adisyon bulunmuyor.</div>`;
+        return;
+      }
+
+      let toplamCiro = 0;
+      const keys = Object.keys(veriler);
+      keys.reverse().forEach(k => {
+        const item = veriler[k];
+        toplamCiro += Number(item.tutar || 0);
+        const row = document.createElement('div');
+        row.className = 'eod-history-row';
+        row.innerHTML = `
+          <span><strong>Masa ${item.masaNo}</strong> • ${item.saat || '-'}</span>
+          <span style="color:var(--fire-amber); font-weight:900;">${item.tutar} ₺</span>
+        `;
+        historyEl.appendChild(row);
+      });
+
+      document.getElementById('eod-total-revenue').innerText = `${toplamCiro} ₺`;
+      document.getElementById('eod-total-orders').innerText = `${keys.length} Adisyon`;
+    }
+
+    async function gunuKapatVeSifirla() {
+      const resetPin = document.getElementById('eod-reset-pin').value.trim();
+      if (resetPin !== KASA_SIFRESI) {
+        alert("Sıfırlama şifresi hatalı! Günü kapatmak için doğru kasa şifresini giriniz.");
+        return;
+      }
+      if (confirm("Gün sonu cirosu sıfırlanacak ve gün kapatılacak. Emin misiniz?")) {
+        await fetch(`${FIREBASE_URL}/gun_sonu/kapananlar.json`, { method: 'DELETE' });
+        document.getElementById('eod-reset-pin').value = '';
+        await gunSonuVerileriniYukle();
+        alert("Gün başarıyla kapatıldı ve ciro sıfırlandı.");
       }
     }
 
