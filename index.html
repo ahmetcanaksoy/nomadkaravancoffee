@@ -1674,7 +1674,13 @@
     const KAFE_LON = 42.2835;
 
     const urlParams = new URLSearchParams(window.location.search);
-    const rawMasa = urlParams.get('masa');
+    let rawMasa = urlParams.get('masa');
+    
+    // Eğer URL'de masa parametresi yoksa ama hash veya storage'da varsa koru
+    if (!rawMasa && window.location.hash.includes('masa=')) {
+      rawMasa = window.location.hash.split('masa=')[1];
+    }
+    
     let isMasaModu = Boolean(rawMasa && rawMasa.trim() !== "");
     const masaNo = isMasaModu ? rawMasa.trim() : null;
     const oturumBaslangic = Date.now();
