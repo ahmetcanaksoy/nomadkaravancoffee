@@ -1359,10 +1359,10 @@
           <span class="service-name">Garson</span>
         </div>
 
-        <a class="service-btn" href="https://maps.google.com/?q=Nomad+Karavan+Coffee+Tatvan" target="_blank">
+        <div class="service-btn" onclick="haritayiAc()">
           <span class="service-icon">📍</span>
           <span class="service-name">Konum</span>
-        </a>
+        </div>
 
         <div class="service-btn" onclick="taksiModalAc()">
           <span class="service-icon">🚕</span>
@@ -1374,7 +1374,7 @@
     <div class="section-wrap wave-item wave-3" id="rez-section-wrap">
       <div class="card-panel-box rez-highlight">
         <h3>📅 Rezervasyon</h3>
-        <p>Ateş başı keyfi veya masa rezervasyonu için alanınızı seçip bilgilerinizi doldurun; talebiniz anında kasaya düşer.</p>
+        <p>Ateş başı keyfi veya masa rezervasyonu için alanınızı seçip bilgilerinizi doldurun; talebiniz anında bize ulaşsın.</p>
 
         <form class="form-stack" onsubmit="rezervasyonGonder(event)" novalidate>
           <div class="rez-type-grid">
@@ -1558,7 +1558,7 @@
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
     const KAFE_LAT = 38.5015;
     const KAFE_LON = 42.2835;
-    const MAKSIMUM_MESAFE_METRE = 120;
+    const MAKSIMUM_MESAFE_METRE = 350;
 
     const urlParams = new URLSearchParams(window.location.search);
     const rawMasa = urlParams.get('masa');
@@ -1570,6 +1570,15 @@
     let clientAudioCtx = null;
     let baslikInterval = null;
     const orijinalBaslik = document.title;
+
+    function haritayiAc() {
+      const isApple = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && !window.MSStream;
+      if (isApple) {
+        window.location.href = `https://maps.apple.com/?q=Nomad+Karavan+Coffee+Tatvan&ll=${KAFE_LAT},${KAFE_LON}`;
+      } else {
+        window.open("https://maps.google.com/?q=Nomad+Karavan+Coffee+Tatvan", "_blank");
+      }
+    }
 
     function bildirimCubuguKontrol() {
       const permBar = document.getElementById('notif-perm-bar');
@@ -1694,13 +1703,17 @@
         }
         navigator.geolocation.getCurrentPosition(
           (pos) => {
+            if (pos.coords.accuracy && pos.coords.accuracy > 250) {
+              resolve(true);
+              return;
+            }
             const mesafe = mesafeHesaplaMetre(pos.coords.latitude, pos.coords.longitude, KAFE_LAT, KAFE_LON);
             resolve(mesafe <= MAKSIMUM_MESAFE_METRE);
           },
           () => {
             resolve(true);
           },
-          { enableHighAccuracy: true, timeout: 5000, maximumAge: 15000 }
+          { enableHighAccuracy: false, timeout: 4000, maximumAge: 60000 }
         );
       });
     }
