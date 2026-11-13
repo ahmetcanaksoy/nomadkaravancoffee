@@ -512,6 +512,12 @@
       align-self: flex-start;
     }
 
+    .rez-tur-tag.muzik-tag {
+      background: rgba(168, 85, 247, 0.25);
+      border-color: #c084fc;
+      color: #e9d5ff;
+    }
+
     .rez-info {
       font-size: 0.78rem;
       color: #e2e8f0;
@@ -826,7 +832,7 @@
     }
 
     .kasa-modal-box.eod-wide {
-      max-width: 760px;
+      max-width: 780px;
     }
 
     .modal-head {
@@ -854,6 +860,67 @@
       font-size: 1rem;
       font-weight: 900;
       cursor: pointer;
+    }
+
+    .pay-choice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .btn-pay-cash {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: 1.5px solid #6ee7b7;
+      padding: 18px 12px;
+      border-radius: 16px;
+      font-size: 0.96rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35);
+    }
+
+    .btn-pay-card {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: #ffffff;
+      border: 1.5px solid #93c5fd;
+      padding: 18px 12px;
+      border-radius: 16px;
+      font-size: 0.96rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 8px 22px rgba(59, 130, 246, 0.35);
+    }
+
+    .pay-pill {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .pay-pill.cash {
+      background: rgba(16, 185, 129, 0.22);
+      border: 1px solid #10b981;
+      color: #6ee7b7;
+    }
+
+    .pay-pill.card {
+      background: rgba(59, 130, 246, 0.22);
+      border: 1px solid #60a5fa;
+      color: #93c5fd;
     }
 
     .manual-item-list {
@@ -910,7 +977,6 @@
       color-scheme: dark;
     }
 
-    /* TAKVİM & GEÇMİŞ TARİH SEÇİCİ BAR */
     .eod-calendar-bar {
       background: rgba(18, 24, 28, 0.92);
       border: 1.5px solid rgba(245, 158, 11, 0.42);
@@ -943,30 +1009,36 @@
       white-space: nowrap;
     }
 
-    .eod-stat-grid {
+    .eod-stat-grid-4 {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
       margin-bottom: 14px;
+    }
+
+    @media (min-width: 620px) {
+      .eod-stat-grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .eod-stat-card {
       background: rgba(20, 26, 30, 0.9);
       border: 1px solid var(--card-border);
       border-radius: 16px;
-      padding: 16px;
+      padding: 14px 10px;
       text-align: center;
     }
 
     .eod-stat-label {
-      font-size: 0.76rem;
+      font-size: 0.7rem;
       color: var(--slate-muted);
       font-weight: 800;
       margin-bottom: 4px;
     }
 
     .eod-stat-val {
-      font-size: 1.6rem;
+      font-size: 1.35rem;
       font-weight: 900;
       color: var(--fire-amber);
     }
@@ -1153,8 +1225,37 @@
         <button class="btn-transfer-table" onclick="masaAktarModalAc()">
           ⇄ Masayı Başka Masaya Aktar
         </button>
-        <button class="btn-close-order" onclick="masayiBosalt()">
+        <button class="btn-close-order" onclick="hesapKapatModalAc()">
           ✕ Hesabı Kapat / Masayı Boşalt
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÖDEME YÖNTEMİ (NAKİT / KREDİ KARTI) SEÇİM MODALI -->
+  <div class="kasa-modal" id="modal-payment-method" onclick="if(event.target === this) kasaModalKapat('modal-payment-method')">
+    <div class="kasa-modal-box" style="max-width:380px; text-align:center;">
+      <div class="modal-head">
+        <h3 id="pay-modal-title">Ödeme Yöntemi Seçiniz</h3>
+        <button class="btn-modal-x" onclick="kasaModalKapat('modal-payment-method')">✕</button>
+      </div>
+      <p style="font-size:0.84rem; color:var(--slate-muted); margin-bottom:6px;">
+        Tahsil Edilecek Tutar:
+      </p>
+      <div id="pay-modal-amount" style="font-size:1.85rem; font-weight:900; color:var(--fire-amber); margin-bottom:10px;">
+        0 ₺
+      </div>
+      <p style="font-size:0.78rem; color:var(--slate-muted);">
+        Hesabı kapatmak için ödeme türünü seçin:
+      </p>
+      <div class="pay-choice-grid">
+        <button class="btn-pay-cash" onclick="odemeyiTamamlaVeMasayiKapat('Nakit')">
+          <span style="font-size:1.6rem;">💵</span>
+          <span>Nakit</span>
+        </button>
+        <button class="btn-pay-card" onclick="odemeyiTamamlaVeMasayiKapat('Kredi Kartı')">
+          <span style="font-size:1.6rem;">💳</span>
+          <span>Kredi Kartı</span>
         </button>
       </div>
     </div>
@@ -1226,24 +1327,33 @@
           </div>
         </div>
 
-        <div class="eod-stat-grid">
+        <!-- 4'LÜ ÖZET: TOPLAM CİRO + NAKİT + KREDİ KARTI + ADİSYON -->
+        <div class="eod-stat-grid-4">
           <div class="eod-stat-card">
-            <div class="eod-stat-label" id="eod-revenue-title">SEÇİLİ GÜN TOPLAM CİRO</div>
+            <div class="eod-stat-label" id="eod-revenue-title">TOPLAM CİRO</div>
             <div class="eod-stat-val" id="eod-total-revenue">0 ₺</div>
+          </div>
+          <div class="eod-stat-card" style="border-color:rgba(16, 185, 129, 0.45);">
+            <div class="eod-stat-label">💵 NAKİT CİRO</div>
+            <div class="eod-stat-val" id="eod-cash-revenue" style="color:#10b981;">0 ₺</div>
+          </div>
+          <div class="eod-stat-card" style="border-color:rgba(96, 165, 250, 0.45);">
+            <div class="eod-stat-label">💳 KREDİ KARTI</div>
+            <div class="eod-stat-val" id="eod-card-revenue" style="color:#60a5fa;">0 ₺</div>
           </div>
           <div class="eod-stat-card">
             <div class="eod-stat-label">KAPATILAN ADİSYON</div>
-            <div class="eod-stat-val" id="eod-total-orders" style="color:#10b981;">0</div>
+            <div class="eod-stat-val" id="eod-total-orders" style="color:#e2e8f0;">0</div>
           </div>
         </div>
 
         <button class="btn-eod-detail-toggle" id="btn-toggle-eod-details" onclick="gunSonuDetayAcKapat()">
-          <span>📋 Detaylı Bak (Seçili Günde Alınan Ürünleri & Masa İçeriklerini Gör)</span>
+          <span>📋 Detaylı Bak (Seçili Günde Alınan Ürünleri & Ödeme Türlerini Gör)</span>
         </button>
 
         <div id="eod-detailed-wrapper" style="display:none;">
           <div style="font-size:0.78rem; font-weight:800; color:var(--slate-muted); margin-bottom:8px;">
-            Seçili tarihte kapanan masalar ve alınan ürünler aşağıdadır. Tam fiş için kayda dokunun:
+            Seçili tarihte kapanan masalar, ödeme yöntemleri ve alınan ürünler aşağıdadır. Tam fiş için kayda dokunun:
           </div>
           <div id="eod-selected-order-detail" style="display:none;"></div>
           <div class="eod-history-list" id="eod-history-container"></div>
@@ -1617,7 +1727,15 @@
       container.innerHTML = "";
       keys.reverse().forEach(k => {
         const r = rezObj[k];
-        const turEtiketi = r.tur === "Ateş Başı" ? "🔥 Ateş Başı" : "🪑 Masa Rezervasyonu";
+        let turEtiketi = "🪑 Masa Rezervasyonu";
+        let ekstraSinif = "";
+        if (r.tur === "Ateş Başı") {
+          turEtiketi = "🔥 Ateş Başı";
+        } else if (r.tur === "Canlı Müzik") {
+          turEtiketi = "🎵 Canlı Müzik";
+          ekstraSinif = "muzik-tag";
+        }
+
         const card = document.createElement('div');
         card.className = 'rez-card';
         card.innerHTML = `
@@ -1625,7 +1743,7 @@
             <span class="rez-name">${r.ad}</span>
             <span class="rez-badge">${r.kisi}</span>
           </div>
-          <span class="rez-tur-tag">${turEtiketi}</span>
+          <span class="rez-tur-tag ${ekstraSinif}">${turEtiketi}</span>
           <div class="rez-info">📅 ${tarihiDuzGoster(r.tarih)} • ⏰ ${r.saat}</div>
           <div class="rez-info">📞 ${r.tel}</div>
           <div class="rez-info" style="color:var(--fire-amber);">📝 Özel İstek: ${r.not}</div>
@@ -1967,41 +2085,53 @@
       }
     }
 
-    async function masayiBosalt() {
+    /* --- NAKİT / KREDİ KARTI SEÇİMLİ HESAP KAPATMA --- */
+    function hesapKapatModalAc() {
       if (!seciliMasa) return;
       const kapananData = canliMasalar[String(seciliMasa)];
       if (!kapananData) return;
 
-      if (confirm(`Masa ${seciliMasa} (${kapananData.toplamTutar} ₺) hesabını kapatıp masayı boşaltmak istediğinize emin misiniz?`)) {
-        const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-        const bugunKey = bugununIsoTarihi();
-
-        await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${bugunKey}.json`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            masaNo: seciliMasa,
-            tutar: kapananData.toplamTutar || 0,
-            saat: saatStr,
-            tarih: bugunKey,
-            urunler: kapananData.urunler || [],
-            zamanDamgasi: Date.now()
-          })
-        });
-
-        delete canliMasalar[String(seciliMasa)];
-        await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
-        await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(Date.now())
-        });
-        masalariCiz();
-        masaDetayiGoster(seciliMasa);
-      }
+      document.getElementById('pay-modal-title').innerText = `Masa ${seciliMasa} • Hesap Kapat`;
+      document.getElementById('pay-modal-amount').innerText = `${kapananData.toplamTutar || 0} ₺`;
+      document.getElementById('modal-payment-method').style.display = 'flex';
     }
 
-    /* --- TAKVİMLİ GÜN SONU RAPORU & GEÇMİŞ ARŞİV --- */
+    async function odemeyiTamamlaVeMasayiKapat(odemeTuru) {
+      if (!seciliMasa) return;
+      const kapananData = canliMasalar[String(seciliMasa)];
+      if (!kapananData) return;
+
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      const bugunKey = bugununIsoTarihi();
+
+      await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${bugunKey}.json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          masaNo: seciliMasa,
+          tutar: kapananData.toplamTutar || 0,
+          odemeTuru: odemeTuru,
+          saat: saatStr,
+          tarih: bugunKey,
+          urunler: kapananData.urunler || [],
+          zamanDamgasi: Date.now()
+        })
+      });
+
+      delete canliMasalar[String(seciliMasa)];
+      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
+      await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Date.now())
+      });
+
+      kasaModalKapat('modal-payment-method');
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
+    }
+
+    /* --- TAKVİMLİ GÜN SONU RAPORU & NAKİT/KART DÖKÜMÜ --- */
     function gunSonuModalAc() {
       const bugun = bugununIsoTarihi();
       document.getElementById('eod-date-picker').value = bugun;
@@ -2012,7 +2142,7 @@
       document.getElementById('eod-content-area').style.display = 'none';
       document.getElementById('eod-detailed-wrapper').style.display = 'none';
       document.getElementById('eod-selected-order-detail').style.display = 'none';
-      document.getElementById('btn-toggle-eod-details').innerHTML = `<span>📋 Detaylı Bak (Seçili Günde Alınan Ürünleri & Masa İçeriklerini Gör)</span>`;
+      document.getElementById('btn-toggle-eod-details').innerHTML = `<span>📋 Detaylı Bak (Seçili Günde Alınan Ürünleri & Ödeme Türlerini Gör)</span>`;
       document.getElementById('modal-eod-report').style.display = 'flex';
     }
 
@@ -2048,7 +2178,7 @@
       const acik = wrap.style.display === 'block';
       if (acik) {
         wrap.style.display = 'none';
-        btn.innerHTML = `<span>📋 Detaylı Bak (Seçili Günde Alınan Ürünleri & Masa İçeriklerini Gör)</span>`;
+        btn.innerHTML = `<span>📋 Detaylı Bak (Seçili Günde Alınan Ürünleri & Ödeme Türlerini Gör)</span>`;
       } else {
         wrap.style.display = 'block';
         btn.innerHTML = `<span>▲ Detaylı Listeyi Gizle</span>`;
@@ -2059,6 +2189,11 @@
       const kayit = gunSonuKayitlari[key];
       const box = document.getElementById('eod-selected-order-detail');
       if (!kayit) return;
+
+      const odeme = kayit.odemeTuru || "Nakit";
+      const odemeRozet = odeme === "Kredi Kartı"
+        ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
+        : `<span class="pay-pill cash">💵 Nakit</span>`;
 
       const urunListesi = kayit.urunler || [];
       let icerikHtml = "";
@@ -2080,12 +2215,14 @@
       box.innerHTML = `
         <div class="eod-order-detail-box">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid rgba(245,158,11,0.35);">
-            <span style="font-size:0.92rem; font-weight:900; color:var(--fire-amber);">🧾 Masa ${kayit.masaNo} Fiş Detayı (${tarihiDuzGoster(kayit.tarih)} • ${kayit.saat || '-'})</span>
+            <span style="font-size:0.92rem; font-weight:900; color:var(--fire-amber);">
+              🧾 Masa ${kayit.masaNo} (${tarihiDuzGoster(kayit.tarih)} • ${kayit.saat || '-'}) ${odemeRozet}
+            </span>
             <button onclick="document.getElementById('eod-selected-order-detail').style.display='none'" style="background:none; border:none; color:#cbd5e1; font-weight:900; cursor:pointer; font-size:1rem;">✕</button>
           </div>
           ${icerikHtml}
           <div style="display:flex; justify-content:space-between; margin-top:10px; font-size:0.92rem; font-weight:900; color:#10b981;">
-            <span>Ödenen Toplam:</span>
+            <span>Ödenen Toplam (${odeme}):</span>
             <span>${kayit.tutar} ₺</span>
           </div>
         </div>
@@ -2096,7 +2233,7 @@
       const duzTarihYazi = tarihiDuzGoster(tarihKey);
       const bugunMu = tarihKey === bugununIsoTarihi();
       document.getElementById('eod-selected-date-label').innerText = bugunMu ? `${duzTarihYazi} (Bugün)` : `${duzTarihYazi} (Geçmiş Kayıt)`;
-      document.getElementById('eod-revenue-title').innerText = `${duzTarihYazi} TOPLAM CİRO`;
+      document.getElementById('eod-revenue-title').innerText = `TOPLAM CİRO`;
       document.getElementById('eod-reset-warning-label').innerText = `🔒 ${duzTarihYazi} Tarihini Kapat & Sıfırla (Şifre Onaylı)`;
 
       const res = await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${tarihKey}.json`);
@@ -2107,16 +2244,34 @@
 
       if (!veriler) {
         document.getElementById('eod-total-revenue').innerText = "0 ₺";
+        document.getElementById('eod-cash-revenue').innerText = "0 ₺";
+        document.getElementById('eod-card-revenue').innerText = "0 ₺";
         document.getElementById('eod-total-orders').innerText = "0";
         historyEl.innerHTML = `<div style="font-size:0.82rem; color:var(--slate-muted); text-align:center; padding:16px;">${duzTarihYazi} tarihinde kapatılmış adisyon kaydı bulunmuyor.</div>`;
         return;
       }
 
       let toplamCiro = 0;
+      let nakitCiro = 0;
+      let kartCiro = 0;
+
       const keys = Object.keys(veriler);
       keys.reverse().forEach(k => {
         const item = veriler[k];
-        toplamCiro += Number(item.tutar || 0);
+        const tutar = Number(item.tutar || 0);
+        const odeme = item.odemeTuru || "Nakit";
+
+        toplamCiro += tutar;
+        if (odeme === "Kredi Kartı") {
+          kartCiro += tutar;
+        } else {
+          nakitCiro += tutar;
+        }
+
+        const odemeRozet = odeme === "Kredi Kartı"
+          ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
+          : `<span class="pay-pill cash">💵 Nakit</span>`;
+
         const urunList = item.urunler || [];
         const urunOzet = urunList.length > 0
           ? urunList.map(u => `${u.adet}× ${u.ad}`).join(', ')
@@ -2130,8 +2285,9 @@
             <div>
               <strong style="color:#fff;">Masa ${item.masaNo}</strong>
               <span style="color:var(--slate-muted); font-size:0.78rem; margin-left:6px;">⏰ ${item.saat || '-'}</span>
+              ${odemeRozet}
             </div>
-            <span style="color:var(--fire-amber); font-weight:900; font-size:0.96rem;">${item.tutar} ₺</span>
+            <span style="color:var(--fire-amber); font-weight:900; font-size:0.96rem;">${tutar} ₺</span>
           </div>
           <div class="eod-history-items-inline">
             <strong style="color:#93c5fd;">Alınanlar:</strong> ${urunOzet}
@@ -2141,6 +2297,8 @@
       });
 
       document.getElementById('eod-total-revenue').innerText = `${toplamCiro} ₺`;
+      document.getElementById('eod-cash-revenue').innerText = `${nakitCiro} ₺`;
+      document.getElementById('eod-card-revenue').innerText = `${kartCiro} ₺`;
       document.getElementById('eod-total-orders').innerText = `${keys.length} Adisyon`;
     }
 
