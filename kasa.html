@@ -20,6 +20,7 @@
       --fire-orange: #ea580c;
       --fire-amber: #f59e0b;
       --fire-glow: rgba(234, 88, 12, 0.45);
+      --occupied-red: #ef4444;
       --text-main: #f8fafc;
     }
 
@@ -239,15 +240,15 @@
     }
 
     .badge-empty {
-      background: rgba(27, 77, 54, 0.38);
-      border: 1.5px solid rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.22);
+      border: 1.5px solid #10b981;
       color: #a7f3d0;
     }
 
     .badge-busy {
-      background: rgba(234, 88, 12, 0.24);
-      border: 1.5px solid var(--fire-orange);
-      color: #fdba74;
+      background: rgba(239, 68, 68, 0.22);
+      border: 1.5px solid #ef4444;
+      color: #fecaca;
     }
 
     .dot {
@@ -354,42 +355,49 @@
       user-select: none;
     }
 
+    /* 1. BOŞ MASA = YEŞİL */
     .table-card.empty {
-      border: 1.5px solid rgba(203, 213, 225, 0.25);
+      border: 1.5px solid rgba(16, 185, 129, 0.65);
+      background: linear-gradient(145deg, rgba(20, 62, 45, 0.85) 0%, rgba(16, 46, 34, 0.9) 100%);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.16);
     }
     .table-card.empty .table-status-text {
-      color: #a7f3d0;
-      background: rgba(27, 77, 54, 0.45);
-      padding: 3px 9px;
+      color: #064e3b;
+      background: #10b981;
+      padding: 3px 10px;
       border-radius: 10px;
+      font-weight: 900;
     }
 
+    /* 2. YENİ SİPARİŞ VAR (HAZIRLANIYOR) = TURUNCU + ÜNLEM */
     .table-card.busy {
-      border: 2px solid var(--fire-orange);
-      background: linear-gradient(145deg, rgba(68, 40, 32, 0.9) 0%, rgba(46, 36, 34, 0.92) 100%);
-      box-shadow: 0 10px 28px var(--fire-glow);
-      animation: pulseAlert 2.5s infinite;
+      border: 2px solid #f97316;
+      background: linear-gradient(145deg, rgba(124, 45, 18, 0.92) 0%, rgba(67, 26, 14, 0.94) 100%);
+      box-shadow: 0 10px 28px rgba(249, 115, 22, 0.45);
+      animation: pulseAlert 2.2s infinite;
     }
     .table-card.busy .table-status-text {
       color: #ffffff;
-      background: var(--fire-orange);
+      background: #ea580c;
       padding: 3px 9px;
       border-radius: 10px;
     }
 
+    /* 3. SİPARİŞ HAZIRLANDI / MASA DOLU = KIRMIZI (ÜNLEM KALKAR) */
     .table-card.busy.is-ready {
-      border-color: #10b981;
-      background: linear-gradient(145deg, rgba(46, 54, 62, 0.9) 0%, rgba(22, 62, 46, 0.92) 100%);
-      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.3);
+      border: 2px solid #ef4444;
+      background: linear-gradient(145deg, rgba(127, 29, 29, 0.9) 0%, rgba(69, 17, 17, 0.94) 100%);
+      box-shadow: 0 8px 22px rgba(239, 68, 68, 0.35);
       animation: none;
     }
     .table-card.busy.is-ready .table-status-text {
-      background: #10b981;
-      color: #064e3b;
+      background: #ef4444;
+      color: #ffffff;
     }
 
-    .table-card.has-unread {
-      border: 2.5px solid #facc15;
+    .table-card.selected-table {
+      outline: 2.5px solid #ffffff;
+      outline-offset: 2px;
     }
 
     .unread-exclaim-badge {
@@ -407,7 +415,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 14px rgba(250, 204, 21, 0.75);
+      box-shadow: 0 4px 14px rgba(250, 204, 21, 0.8);
       animation: exclaimPulse 1s infinite;
       z-index: 5;
     }
@@ -418,9 +426,9 @@
     }
 
     @keyframes pulseAlert {
-      0% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.5); }
-      70% { box-shadow: 0 0 0 12px rgba(234, 88, 12, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0); }
+      0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.55); }
+      70% { box-shadow: 0 0 0 12px rgba(249, 115, 22, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
     }
 
     .table-number {
@@ -716,9 +724,9 @@
     }
 
     .btn-order-ready.already-sent {
-      background: rgba(16, 185, 129, 0.18);
-      border: 1.5px solid #10b981;
-      color: #6ee7b7;
+      background: rgba(239, 68, 68, 0.18);
+      border: 1.5px solid #ef4444;
+      color: #fecaca;
       box-shadow: none;
     }
 
@@ -811,7 +819,7 @@
       </button>
 
       <div class="badge-pill badge-busy">
-        <span class="dot" style="background:var(--fire-orange);"></span>
+        <span class="dot" style="background:#ef4444;"></span>
         <span id="stat-busy">0 Dolu</span>
       </div>
       <div class="badge-pill badge-empty">
@@ -1141,22 +1149,22 @@
         const masaKey = String(i);
         const data = canliMasalar[masaKey];
         const isBusy = data && data.urunler && data.urunler.length > 0;
-        const hasUnread = isBusy && Boolean(data.okunmamis);
         const isReady = isBusy && data.durum === 'hazir';
+        const hasPendingOrder = isBusy && !isReady;
 
         if (isBusy) doluSayisi++;
 
         const card = document.createElement('div');
-        card.className = `table-card ${isBusy ? 'busy' : 'empty'} ${isReady ? 'is-ready' : ''} ${hasUnread ? 'has-unread' : ''}`;
+        card.className = `table-card ${isBusy ? 'busy' : 'empty'} ${isReady ? 'is-ready' : ''} ${seciliMasa === i ? 'selected-table' : ''}`;
         card.onclick = () => masayaTiklandi(i);
 
         let durumYazi = 'BOŞ';
         if (isBusy) {
-          durumYazi = isReady ? 'HAZIR ✓' : 'HAZIRLANIYOR';
+          durumYazi = isReady ? 'DOLU • HAZIR ✓' : 'YENİ SİPARİŞ';
         }
 
         card.innerHTML = `
-          ${hasUnread ? `<div class="unread-exclaim-badge">!</div>` : ''}
+          ${hasPendingOrder ? `<div class="unread-exclaim-badge">!</div>` : ''}
           <div class="table-number">Masa ${i}</div>
           <div class="table-status-text">${durumYazi}</div>
           ${isBusy ? `<div class="table-amount">${data.toplamTutar} ₺</div>` : ''}
@@ -1172,38 +1180,8 @@
       }
     }
 
-    async function masayaTiklandi(masaNo) {
-      const oncekiMasa = seciliMasa;
-      if (oncekiMasa && oncekiMasa !== masaNo && canliMasalar[String(oncekiMasa)] && canliMasalar[String(oncekiMasa)].urunler) {
-        const oncekiData = canliMasalar[String(oncekiMasa)];
-        let degisti = false;
-        oncekiData.urunler.forEach(u => {
-          if (u.yeni) {
-            u.yeni = false;
-            degisti = true;
-          }
-        });
-        if (degisti) {
-          fetch(`${FIREBASE_URL}/masalar/${oncekiMasa}.json`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(oncekiData)
-          });
-        }
-      }
-
+    function masayaTiklandi(masaNo) {
       seciliMasa = masaNo;
-      const data = canliMasalar[String(masaNo)];
-
-      if (data && data.okunmamis) {
-        data.okunmamis = false;
-        fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-      }
-
       masalariCiz();
       masaDetayiGoster(masaNo);
     }
@@ -1230,10 +1208,10 @@
 
       if (data.durum === 'hazir') {
         hazirBtn.classList.add('already-sent');
-        hazirBtn.innerText = `✓ Masa ${masaNo} İçin Hazır Bildirimi Gönderildi`;
+        hazirBtn.innerText = `✓ Sipariş Hazırlandı (Masa Dolu)`;
       } else {
         hazirBtn.classList.remove('already-sent');
-        hazirBtn.innerText = `✓ Sipariş Hazır (Masa ${masaNo} Bildir)`;
+        hazirBtn.innerText = `✓ Sipariş Hazır (Müşteriye Bildir)`;
       }
 
       listEl.innerHTML = "";
