@@ -1573,9 +1573,9 @@
     function haritayiAc() {
       const isApple = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) && !window.MSStream;
       if (isApple) {
-        window.location.href = `https://maps.apple.com/?q=Nomad+Karavan+Coffee+Tatvan&ll=${KAFE_LAT},${KAFE_LON}`;
+        window.location.href = `https://maps.apple.com/?ll=${KAFE_LAT},${KAFE_LON}&q=Nomad+Karavan+Coffee`;
       } else {
-        window.open("https://maps.google.com/?q=Nomad+Karavan+Coffee+Tatvan", "_blank");
+        window.open(`https://www.google.com/maps/search/?api=1&query=${KAFE_LAT},${KAFE_LON}`, "_blank");
       }
     }
 
