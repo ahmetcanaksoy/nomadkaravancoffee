@@ -1067,6 +1067,17 @@
       background: #1e262c;
     }
 
+    /* BURASI YENİ: KARE KARTLARDA RESİM YÜKLENEMEZSE ÇIKAN KARANLIK YEDEK KUTU */
+    .cat-square-card .product-thumb-fallback {
+      width: 100%;
+      height: 100%;
+      border-radius: 22px;
+      border: none;
+      background: linear-gradient(145deg, #232a32 0%, #14281e 100%);
+      font-size: 3rem;
+      opacity: 0.8;
+    }
+
     .product-thumb-fallback {
       width: 95px;
       height: 95px;
@@ -1670,14 +1681,15 @@
 
   <script>
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
-    const KAFE_LAT = 38.5015;
-    const KAFE_LON = 42.2835;
-
+    
+    // Masa parametresini Hash ve URL üzerinden daha keskin arayalım
     const urlParams = new URLSearchParams(window.location.search);
     let rawMasa = urlParams.get('masa');
+    
     if (!rawMasa && window.location.hash.includes('masa=')) {
       rawMasa = window.location.hash.split('masa=')[1];
     }
+    
     let isMasaModu = Boolean(rawMasa && rawMasa.trim() !== "");
     const masaNo = isMasaModu ? rawMasa.trim() : null;
     const oturumBaslangic = Date.now();
@@ -2135,19 +2147,6 @@
       { id: "tasarla", ad: "✨ Kendi Kahveni Tasarla", resim: "kat-tasarla.jpg", ikon: "✨" }
     ];
 
-    const kategoriYedekResimleri = {
-      cay: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=400&q=80",
-      sicak: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80",
-      soguk: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80",
-      frozen: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=400&q=80",
-      milkshake: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80",
-      kokteyl: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=400&q=80",
-      nargile: "https://images.unsplash.com/photo-1527661591475-527312dd65f5?auto=format&fit=crop&w=400&q=80",
-      fastfood: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80",
-      mesrubat: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=400&q=80",
-      tatli: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=400&q=80"
-    };
-
     const urunler = [
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
       { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
@@ -2311,7 +2310,7 @@
         card.className = "cat-square-card";
         card.onclick = () => tabSec(kat.id);
         card.innerHTML = `
-          <img src="${kat.resim}" alt="${kat.ad}" loading="lazy" onerror="this.style.display='none';">
+          <img src="${kat.resim}" alt="${kat.ad}" loading="lazy" onerror="resimYuklenemedi(this, '${kat.ikon}')">
           <div class="cat-square-overlay">
             <div style="font-size:1.6rem; margin-bottom:4px;">${kat.ikon}</div>
             <div class="cat-square-title">${kat.ad}</div>
@@ -2529,7 +2528,7 @@
       const bar = document.getElementById('cart-floating-bar');
       if (toplamAdet > 0) {
         document.getElementById('cart-items-count').innerText = `${toplamAdet} Kalem Ürün`;
-        document.getElementById('cart-price-sum').innerText = `${toplamTutar} ₺`;
+        document.getElementById('cart-total-price').innerText = `${toplamTutar} ₺`;
         bar.classList.add('active');
       } else {
         bar.classList.remove('active');
