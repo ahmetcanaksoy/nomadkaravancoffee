@@ -1558,7 +1558,6 @@
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
     const KAFE_LAT = 38.5015;
     const KAFE_LON = 42.2835;
-    const MAKSIMUM_MESAFE_METRE = 350;
 
     const urlParams = new URLSearchParams(window.location.search);
     const rawMasa = urlParams.get('masa');
@@ -1682,40 +1681,6 @@
         return `${parcalar[2]}.${parcalar[1]}.${parcalar[0]}`;
       }
       return isoTarih;
-    }
-
-    function mesafeHesaplaMetre(lat1, lon1, lat2, lon2) {
-      const R = 6371e3;
-      const f1 = lat1 * Math.PI / 180;
-      const f2 = lat2 * Math.PI / 180;
-      const df = (lat2 - lat1) * Math.PI / 180;
-      const dl = (lon2 - lon1) * Math.PI / 180;
-      const a = Math.sin(df / 2) * Math.sin(df / 2) + Math.cos(f1) * Math.cos(f2) * Math.sin(dl / 2) * Math.sin(dl / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c;
-    }
-
-    function kafedeMiKontrolEt() {
-      return new Promise((resolve) => {
-        if (!navigator.geolocation) {
-          resolve(true);
-          return;
-        }
-        navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            if (pos.coords.accuracy && pos.coords.accuracy > 250) {
-              resolve(true);
-              return;
-            }
-            const mesafe = mesafeHesaplaMetre(pos.coords.latitude, pos.coords.longitude, KAFE_LAT, KAFE_LON);
-            resolve(mesafe <= MAKSIMUM_MESAFE_METRE);
-          },
-          () => {
-            resolve(true);
-          },
-          { enableHighAccuracy: false, timeout: 4000, maximumAge: 60000 }
-        );
-      });
     }
 
     function siparisDurumBannerGuncelle(durum) {
@@ -1897,12 +1862,6 @@
       if (!isMasaModu) return;
       const kapandi = await masaDurumunuKontrolEt();
       if (kapandi) return;
-
-      const kafede = await kafedeMiKontrolEt();
-      if (!kafede) {
-        bildirimGoster("Garson çağırmak için kafede bulunmalısınız!", "📍");
-        return;
-      }
 
       const cagriPaketi = {
         masaNo: String(masaNo),
@@ -2270,12 +2229,6 @@
 
       const kapandi = await masaDurumunuKontrolEt();
       if (kapandi) return;
-
-      const kafede = await kafedeMiKontrolEt();
-      if (!kafede) {
-        bildirimGoster("Sipariş vermek için kafede bulunmalısınız!", "📍");
-        return;
-      }
 
       const siparisDetay = [];
       let genelToplam = 0;
