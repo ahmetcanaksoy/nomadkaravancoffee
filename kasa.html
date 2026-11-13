@@ -1117,13 +1117,13 @@
         <h3 id="manual-modal-title">Masa - Elle Sipariş Ekle</h3>
         <button class="btn-modal-x" onclick="kasaModalKapat('modal-manual-order')">✕</button>
       </div>
-      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Frozen, Çay)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
+      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Nargile, Burger)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
       <div class="manual-item-list" id="manual-products-container"></div>
 
       <div class="custom-manual-box">
         <div style="font-size:0.76rem; font-weight:900; color:var(--fire-amber);">Özel Kalem / Manuel Tutar Ekle</div>
         <div style="display:grid; grid-template-columns: 2fr 1fr; gap:8px;">
-          <input type="text" id="custom-item-name" class="kasa-input" placeholder="Ürün adı (Örn: Ekstra Su)">
+          <input type="text" id="custom-item-name" class="kasa-input" placeholder="Ürün adı (Örn: Ekstra Köz)">
           <input type="number" id="custom-item-price" class="kasa-input" placeholder="Fiyat ₺">
         </div>
         <button class="btn-add-one" style="width:100%; padding:10px;" onclick="ozelManuelUrunEkle()">+ Özel Kalemi Masaya Ekle</button>
@@ -1207,6 +1207,15 @@
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
 
     const MENU_URUNLERI = [
+      { id: 601, ad: "Çay", fiyat: 50 },
+      { id: 602, ad: "Ada Çayı", fiyat: 160 },
+      { id: 603, ad: "Ihlamur", fiyat: 160 },
+      { id: 604, ad: "Yeşil Çay", fiyat: 160 },
+      { id: 605, ad: "Papatya Çayı", fiyat: 160 },
+      { id: 606, ad: "Nane Limon", fiyat: 160 },
+      { id: 607, ad: "Hibiscus Çayı", fiyat: 160 },
+      { id: 608, ad: "Elma Çayı", fiyat: 160 },
+      { id: 609, ad: "Kış Çayı", fiyat: 160 },
       { id: 101, ad: "Nomâd Spesiyal (Sıcak Kahve)", fiyat: 205 },
       { id: 102, ad: "Caffè Latte", fiyat: 200 },
       { id: 103, ad: "Caffè Mocha", fiyat: 225 },
@@ -1261,15 +1270,20 @@
       { id: 508, ad: "Raspberry Velvet", fiyat: 240 },
       { id: 509, ad: "Golden Sunset", fiyat: 240 },
       { id: 510, ad: "Kuzukulağı Kokteyl", fiyat: 240 },
-      { id: 601, ad: "Çay", fiyat: 50 },
-      { id: 602, ad: "Ada Çayı", fiyat: 160 },
-      { id: 603, ad: "Ihlamur", fiyat: 160 },
-      { id: 604, ad: "Yeşil Çay", fiyat: 160 },
-      { id: 605, ad: "Papatya Çayı", fiyat: 160 },
-      { id: 606, ad: "Nane Limon", fiyat: 160 },
-      { id: 607, ad: "Hibiscus Çayı", fiyat: 160 },
-      { id: 608, ad: "Elma Çayı", fiyat: 160 },
-      { id: 609, ad: "Kış Çayı", fiyat: 160 },
+      { id: 901, ad: "Nomâd Spesiyal Nargile", fiyat: 350 },
+      { id: 902, ad: "Çift Elma Nargile", fiyat: 300 },
+      { id: 903, ad: "Üzüm Nane Nargile", fiyat: 300 },
+      { id: 904, ad: "Damla Sakızlı Nargile", fiyat: 300 },
+      { id: 905, ad: "Kavun Nane Nargile", fiyat: 300 },
+      { id: 906, ad: "Yaban Mersini Nargile", fiyat: 320 },
+      { id: 907, ad: "Love 66 Nargile", fiyat: 330 },
+      { id: 1001, ad: "Karavan Gurme Burger", fiyat: 290 },
+      { id: 1002, ad: "Cheeseburger", fiyat: 310 },
+      { id: 1003, ad: "Çıtır Tavuk Burger", fiyat: 260 },
+      { id: 1004, ad: "Karışık Gurme Tost", fiyat: 180 },
+      { id: 1005, ad: "Kaşarlı Tost", fiyat: 150 },
+      { id: 1006, ad: "Patates Kızartması", fiyat: 140 },
+      { id: 1007, ad: "Çıtır Tavuk Sepeti", fiyat: 240 },
       { id: 701, ad: "Fuse Tea Çeşitleri", fiyat: 100 },
       { id: 702, ad: "Coca-Cola", fiyat: 100 },
       { id: 703, ad: "Fanta", fiyat: 100 },
