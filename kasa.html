@@ -1336,7 +1336,7 @@
         <h3 id="manual-modal-title">Masa - Elle Sipariş Ekle</h3>
         <button class="btn-modal-x" onclick="kasaModalKapat('modal-manual-order')">✕</button>
       </div>
-      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Nargile, Waffle)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
+      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Nargile, Tost)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
       <div class="manual-item-list" id="manual-products-container"></div>
 
       <div class="custom-manual-box">
@@ -1441,7 +1441,6 @@
       </div>
     </div>
   </div>
-
   <script>
     const KASA_SIFRESI = "1453";
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
@@ -1545,12 +1544,11 @@
       { id: 931, ad: "Meyve Başlıklı Mandalina Nargile", fiyat: 450 },
       { id: 932, ad: "Meyve Başlıklı Çarkıfelek Nargile", fiyat: 450 },
       { id: 933, ad: "Lüle Değişimi", fiyat: 300 },
-      { id: 1004, ad: "Karışık Gurme Tost", fiyat: 180 },
-      { id: 1005, ad: "Kaşarlı Tost", fiyat: 150 },
-      { id: 1008, ad: "Sucuklu Tost", fiyat: 160 },
-      { id: 1009, ad: "Patso", fiyat: 140 },
-      { id: 1006, ad: "Patates Kızartması", fiyat: 140 },
-      { id: 1007, ad: "Çıtır Tavuk Sepeti", fiyat: 240 },
+      { id: 1001, ad: "Karavan Tost", fiyat: 350 },
+      { id: 1002, ad: "Kavurmalı Tost", fiyat: 300 },
+      { id: 1003, ad: "Karışık Tost", fiyat: 250 },
+      { id: 1004, ad: "Sucuklu Tost", fiyat: 200 },
+      { id: 1005, ad: "Kaşarlı Tost", fiyat: 200 },
       { id: 701, ad: "Fuse Tea Çeşitleri", fiyat: 100 },
       { id: 702, ad: "Coca-Cola", fiyat: 100 },
       { id: 703, ad: "Fanta", fiyat: 100 },
