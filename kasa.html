@@ -1512,13 +1512,39 @@
       { id: 510, ad: "Raspberry Velvet", fiyat: 240 },
       { id: 511, ad: "Golden Sunset", fiyat: 240 },
       { id: 512, ad: "Kuzukulağı Kokteyl", fiyat: 240 },
-      { id: 901, ad: "Nomâd Spesiyal Nargile", fiyat: 350 },
-      { id: 902, ad: "Çift Elma Nargile", fiyat: 300 },
-      { id: 903, ad: "Üzüm Nane Nargile", fiyat: 300 },
-      { id: 904, ad: "Damla Sakızlı Nargile", fiyat: 300 },
-      { id: 905, ad: "Kavun Nane Nargile", fiyat: 300 },
-      { id: 906, ad: "Yaban Mersini Nargile", fiyat: 320 },
-      { id: 907, ad: "Love 66 Nargile", fiyat: 330 },
+      { id: 901, ad: "Pişmiş Şeftali Nargile", fiyat: 450 },
+      { id: 902, ad: "Mango Nargile", fiyat: 450 },
+      { id: 903, ad: "Çilek Nargile", fiyat: 450 },
+      { id: 904, ad: "Damla Sakızı Nargile", fiyat: 450 },
+      { id: 905, ad: "Üzüm Nargile", fiyat: 450 },
+      { id: 906, ad: "Vivident (Mentollü Sakız) Nargile", fiyat: 450 },
+      { id: 907, ad: "İzmir Romantik Nargile", fiyat: 450 },
+      { id: 908, ad: "Karpuz Nargile", fiyat: 450 },
+      { id: 909, ad: "Love 66 Nargile", fiyat: 450 },
+      { id: 910, ad: "Ananas Nargile", fiyat: 450 },
+      { id: 911, ad: "Dejavu Nargile", fiyat: 450 },
+      { id: 912, ad: "Cappuccino Nargile", fiyat: 450 },
+      { id: 913, ad: "Nane Nargile", fiyat: 450 },
+      { id: 914, ad: "Portakal Krema Nargile", fiyat: 450 },
+      { id: 915, ad: "Moscow Nargile", fiyat: 450 },
+      { id: 916, ad: "Latte Nargile", fiyat: 450 },
+      { id: 917, ad: "Lady Killer Nargile", fiyat: 450 },
+      { id: 918, ad: "Kavun Nargile", fiyat: 450 },
+      { id: 919, ad: "Polombir Nargile", fiyat: 450 },
+      { id: 920, ad: "Anason Nargile", fiyat: 550 },
+      { id: 921, ad: "Limon Nargile", fiyat: 450 },
+      { id: 922, ad: "Ice Cola Nargile", fiyat: 450 },
+      { id: 923, ad: "Tiramisu Nargile", fiyat: 450 },
+      { id: 924, ad: "Marilyn Monroe Nargile", fiyat: 450 },
+      { id: 925, ad: "Meyve Başlıklı Elma Nargile", fiyat: 450 },
+      { id: 926, ad: "Meyve Başlıklı Muz Kivi Nargile", fiyat: 450 },
+      { id: 927, ad: "Meyve Başlıklı Böğürtlen Nargile", fiyat: 450 },
+      { id: 928, ad: "Meyve Başlıklı Nar Nargile", fiyat: 450 },
+      { id: 929, ad: "Meyve Başlıklı Yaban Mersini Nargile", fiyat: 450 },
+      { id: 930, ad: "Meyve Başlıklı Nane Limon Nargile", fiyat: 450 },
+      { id: 931, ad: "Meyve Başlıklı Mandalina Nargile", fiyat: 450 },
+      { id: 932, ad: "Meyve Başlıklı Çarkıfelek Nargile", fiyat: 450 },
+      { id: 933, ad: "Lüle Değişimi", fiyat: 300 },
       { id: 1004, ad: "Karışık Gurme Tost", fiyat: 180 },
       { id: 1005, ad: "Kaşarlı Tost", fiyat: 150 },
       { id: 1008, ad: "Sucuklu Tost", fiyat: 160 },
@@ -1589,7 +1615,7 @@
         hataEl.style.display = 'none';
         sesTekBasimAktifEt();
         buluttanVeriCek();
-        kasaNotuCek(); // Giriş yapıldığında notu çek
+        kasaNotuCek(); 
       } else {
         hataEl.style.display = 'block';
         document.getElementById('kasa-pin-input').value = '';
@@ -1762,9 +1788,16 @@
               islenenGarsonCagrilari.add(cKey);
               const cagri = cagrilar[cKey];
               calGarsonSesi();
+
+              // Nargile Şefi mi, Normal Garson mu?
+              let mesajMetni = `Masa ${cagri.masaNo} garson çağırıyor! (${cagri.saat})`;
+              if (cagri.mesaj && cagri.mesaj === "nargile şefi çağırıyor!") {
+                mesajMetni = `Masa ${cagri.masaNo} nargile şefi çağırıyor! 💨 (${cagri.saat})`;
+              }
+
               kaliciBildirimEkle(
                 `garson_${cKey}`,
-                `Masa ${cagri.masaNo} garson çağırıyor! (${cagri.saat})`,
+                mesajMetni,
                 cagri.masaNo
               );
               fetch(`${FIREBASE_URL}/garson_cagrilari/${cKey}.json`, { method: 'DELETE' });
@@ -1831,7 +1864,6 @@
       }
     }
 
-    /* ==== YENİ: KASA NOTLARI KAYDETME VE ÇEKME ==== */
     async function kasaNotuCek() {
       try {
         const res = await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`);
@@ -2086,7 +2118,7 @@
         yeniHedefData = {
           urunler: [...hedefData.urunler, ...kaynakData.urunler],
           toplamTutar: hedefData.toplamTutar + kaynakData.toplamTutar,
-          saat: kaynakData.saat || hedefData.saat,
+           saat: kaynakData.saat || hedefData.saat,
           sonGuncelleme: Date.now(),
           durum: (kaynakData.durum === 'hazirlaniyor' || hedefData.durum === 'hazirlaniyor') ? 'hazirlaniyor' : 'hazir',
           okunmamis: Boolean(kaynakData.okunmamis || hedefData.okunmamis)
@@ -2232,8 +2264,6 @@
       masaDetayiGoster(seciliMasa);
     }
 
-    /* ==== GÜNÜ BAŞLAT VE SIFIRLA İŞLEMLERİ ==== */
-
     async function gunuBaslat() {
       const pin = prompt("🌅 Yeni güne başlamak için kasa şifrenizi girin. (Açık kalmış eski masalar ve bildirimler temizlenecektir):");
       if (pin === KASA_SIFRESI) {
@@ -2265,7 +2295,7 @@
             await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/rezervasyonlar.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' }); // Notları da temizle
+            await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' });
             alert("Sistem fabrikaya ayarlarına döndürüldü. Tamamen 0'dan başlıyorsunuz.");
             location.reload();
           } catch(e) {
