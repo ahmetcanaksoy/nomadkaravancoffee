@@ -1155,6 +1155,7 @@
     .qty-btn.plus {
       background: var(--fire-orange);
       color: #ffffff;
+      cursor: pointer;
     }
 
     .qty-num {
@@ -1681,6 +1682,7 @@
   <script>
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
     
+    // Masa parametresini Hash ve URL üzerinden daha keskin arayalım
     const urlParams = new URLSearchParams(window.location.search);
     let rawMasa = urlParams.get('masa');
     
@@ -2133,17 +2135,17 @@
 
     const kategoriKartlari = [
       { id: "hepsi", ad: "Tümü", resim: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=800&auto=format&fit=crop", ikon: "📋" },
-      { id: "cay", ad: "Çay & Bitki Çayları", resim: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=800&auto=format&fit=crop", ikon: "🫖" },
+      { id: "cay", ad: "Çay & Bitki Çayları", resim: "https://images.unsplash.com/photo-1597481499756-3c73f2936a76?q=80&w=800&auto=format&fit=crop", ikon: "🫖" },
       { id: "sicak", ad: "Sıcak Kahveler", resim: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=800&auto=format&fit=crop", ikon: "☕" },
-      { id: "soguk", ad: "Soğuk Kahveler", resim: "https://images.unsplash.com/photo-1461023058943-0708a5532ce2?q=80&w=800&auto=format&fit=crop", ikon: "🧊" },
+      { id: "soguk", ad: "Soğuk Kahveler", resim: "https://images.unsplash.com/photo-1499961024600-ad094db305cc?q=80&w=800&auto=format&fit=crop", ikon: "🧊" },
       { id: "frozen", ad: "Frozenler", resim: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=800&auto=format&fit=crop", ikon: "🍧" },
       { id: "milkshake", ad: "Milkshake Çeşitleri", resim: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=800&auto=format&fit=crop", ikon: "🥤" },
       { id: "kokteyl", ad: "Kokteyller & Redbull Kokteyl", resim: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop", ikon: "🍹" },
       { id: "nargile", ad: "Nargile", resim: "https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=800&auto=format&fit=crop", ikon: "💨" },
-      { id: "fastfood", ad: "Fast Food", resim: "https://images.unsplash.com/photo-1615719413546-198b25453f85?q=80&w=800&auto=format&fit=crop", ikon: "🍔" },
+      { id: "fastfood", ad: "Fast Food", resim: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=800&auto=format&fit=crop", ikon: "🍔" },
       { id: "mesrubat", ad: "Meşrubatlar", resim: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=800&auto=format&fit=crop", ikon: "🥫" },
       { id: "tatli", ad: "Pasta & Tatlı Çeşitleri", resim: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=800&auto=format&fit=crop", ikon: "🍰" },
-      { id: "tasarla", ad: "✨ Kendi Kahveni Tasarla", resim: "https://images.unsplash.com/photo-1495474472201-315fba728f3a?q=80&w=800&auto=format&fit=crop", ikon: "✨" }
+      { id: "tasarla", ad: "✨ Kendi Kahveni Tasarla", resim: "https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=800&auto=format&fit=crop", ikon: "✨" }
     ];
 
     const urunler = [
@@ -2203,7 +2205,7 @@
       { id: 311, ad: "Limon Frozen", kategori: "frozen", aciklama: "Taze sıkılmış limon ferahlığı ve kar buz serinliği", fiyat: 210, resim: "limon-frozen.jpg" },
 
       // 5. MILKSHAKE ÇEŞİTLERİ (SPESİYAL İNTERNETTEN)
-      { id: 401, ad: "Nomâd Spesiyal", kategori: "milkshake", ozel: true, aciklama: "", fiyat: 220, resim: "https://images.unsplash.com/photo-1553177595-4de6bb080e5b?q=80&w=800&auto=format&fit=crop" },
+      { id: 401, ad: "Nomâd Spesiyal", kategori: "milkshake", ozel: true, aciklama: "", fiyat: 220, resim: "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=800&auto=format&fit=crop" },
       { id: 402, ad: "Çilekli Milkshake", kategori: "milkshake", aciklama: "Soğuk süt, vanilyalı dondurma ve yoğun çilek püresi", fiyat: 220, resim: "cilekli-milkshake.jpg" },
       { id: 403, ad: "Muzlu Milkshake", kategori: "milkshake", aciklama: "Taze muz, soğuk süt ve kremamsı dondurma kıvamı", fiyat: 220, resim: "muzlu-milkshake.jpg" },
       { id: 404, ad: "Çikolatalı Milkshake", kategori: "milkshake", aciklama: "Belçika çikolatası sosu, soğuk süt ve yoğun dondurma", fiyat: 220, resim: "cikolatali-milkshake.jpg" },
@@ -2224,8 +2226,8 @@
       { id: 511, ad: "Golden Sunset", kategori: "kokteyl", aciklama: "Taze portakal ve tropikal mango aromalı ferahlatıcı kokteyl", fiyat: 240, resim: "golden-sunset.jpg" },
       { id: 512, ad: "Kuzukulağı Kokteyl", kategori: "kokteyl", aciklama: "Taze yeşil kuzukulağı yaprakları, limon ferahlığı ve soğuk servis", fiyat: 240, resim: "kuzukulagi-kokteyl.jpg" },
 
-      // 7. NARGİLE (SPESİYAL İNTERNETTEN)
-      { id: 901, ad: "Nomâd Spesiyal Nargile", kategori: "nargile", ozel: true, aciklama: "", fiyat: 350, resim: "https://images.unsplash.com/photo-1572455044327-7348c1be7267?q=80&w=800&auto=format&fit=crop" },
+      // 7. NARGİLE (HEPSİ AYNI GÖRSEL)
+      { id: 901, ad: "Nomâd Spesiyal Nargile", kategori: "nargile", ozel: true, aciklama: "", fiyat: 350, resim: "nargile.jpg" },
       { id: 902, ad: "Çift Elma Nargile", kategori: "nargile", aciklama: "Klasik kırmızı ve yeşil elma aromalı yoğun duman keyfi", fiyat: 300, resim: "nargile.jpg" },
       { id: 903, ad: "Üzüm Nane Nargile", kategori: "nargile", aciklama: "Tatlı siyah üzüm ve ferahlatıcı taze nane harmanı", fiyat: 300, resim: "nargile.jpg" },
       { id: 904, ad: "Damla Sakızlı Nargile", kategori: "nargile", aciklama: "Geleneksel Ege damla sakızı aromalı yumuşak içim", fiyat: 300, resim: "nargile.jpg" },
@@ -2237,6 +2239,7 @@
       { id: 1004, ad: "Karışık Gurme Tost", kategori: "fastfood", aciklama: "Sucuk, kavurma, eriyen kaşar peyniri ve tereyağlı kızarmış tost ekmeği", fiyat: 180, resim: "karisik-gurme-tost.jpg" },
       { id: 1005, ad: "Kaşarlı Tost", kategori: "fastfood", aciklama: "Bol eritilmiş taze kaşar peyniri ve tereyağlı tost ekmeği", fiyat: 150, resim: "kasarli-tost.jpg" },
       { id: 1008, ad: "Sucuklu Tost", kategori: "fastfood", aciklama: "Bol sucuklu ve tereyağlı çıtır sıcak tost", fiyat: 160, resim: "sucuklu-tost.jpg" },
+      { id: 1009, ad: "Patso", kategori: "fastfood", aciklama: "Ekmek arası çıtır patates kızartması, ketçap ve mayonez ile", fiyat: 140, resim: "patso.jpg" },
       { id: 1006, ad: "Patates Kızartması", kategori: "fastfood", aciklama: "Altın sarısı çıtır parmak patates, ketçap ve mayonez eşliğinde", fiyat: 140, resim: "patates-kizartmasi.jpg" },
       { id: 1007, ad: "Çıtır Tavuk Sepeti", kategori: "fastfood", aciklama: "Çıtır tavuk parçaları, baharatlı patates kızartması ve özel dip soslar", fiyat: 240, resim: "citir-tavuk-sepeti.jpg" },
 
