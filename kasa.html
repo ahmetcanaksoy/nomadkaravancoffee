@@ -1336,7 +1336,7 @@
         <h3 id="manual-modal-title">Masa - Elle Sipariş Ekle</h3>
         <button class="btn-modal-x" onclick="kasaModalKapat('modal-manual-order')">✕</button>
       </div>
-      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Nargile, Tost)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
+      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Nargile, Waffle)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
       <div class="manual-item-list" id="manual-products-container"></div>
 
       <div class="custom-manual-box">
@@ -1441,11 +1441,45 @@
       </div>
     </div>
   </div>
+
   <script>
     const KASA_SIFRESI = "1453";
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
 
     const MENU_URUNLERI = [
+      { id: 901, ad: "Pişmiş Şeftali Nargile", fiyat: 450 },
+      { id: 902, ad: "Mango Nargile", fiyat: 450 },
+      { id: 903, ad: "Çilek Nargile", fiyat: 450 },
+      { id: 904, ad: "Damla Sakızı Nargile", fiyat: 450 },
+      { id: 905, ad: "Üzüm Nargile", fiyat: 450 },
+      { id: 906, ad: "Vivident (Mentollü Sakız) Nargile", fiyat: 450 },
+      { id: 907, ad: "İzmir Romantik Nargile", fiyat: 450 },
+      { id: 908, ad: "Karpuz Nargile", fiyat: 450 },
+      { id: 909, ad: "Love 66 Nargile", fiyat: 450 },
+      { id: 910, ad: "Ananas Nargile", fiyat: 450 },
+      { id: 911, ad: "Dejavu Nargile", fiyat: 450 },
+      { id: 912, ad: "Cappuccino Nargile", fiyat: 450 },
+      { id: 913, ad: "Nane Nargile", fiyat: 450 },
+      { id: 914, ad: "Portakal Krema Nargile", fiyat: 450 },
+      { id: 915, ad: "Moscow Nargile", fiyat: 450 },
+      { id: 916, ad: "Latte Nargile", fiyat: 450 },
+      { id: 917, ad: "Lady Killer Nargile", fiyat: 450 },
+      { id: 918, ad: "Kavun Nargile", fiyat: 450 },
+      { id: 919, ad: "Polombir Nargile", fiyat: 450 },
+      { id: 920, ad: "Anason Nargile", fiyat: 550 },
+      { id: 921, ad: "Limon Nargile", fiyat: 450 },
+      { id: 922, ad: "Cola (Ice Kola) Nargile", fiyat: 450 },
+      { id: 923, ad: "Tiramisu Nargile", fiyat: 450 },
+      { id: 924, ad: "Marilyn Monroe Nargile", fiyat: 450 },
+      { id: 925, ad: "Elma Başlıklı Nargile", fiyat: 450 },
+      { id: 926, ad: "Muz Kivi Başlıklı Nargile", fiyat: 450 },
+      { id: 927, ad: "Böğürtlen Başlıklı Nargile", fiyat: 450 },
+      { id: 928, ad: "Nar Başlıklı Nargile", fiyat: 450 },
+      { id: 929, ad: "Yaban Mersini Başlıklı Nargile", fiyat: 450 },
+      { id: 930, ad: "Nane Limon Başlıklı Nargile", fiyat: 450 },
+      { id: 931, ad: "Mandalina Başlıklı Nargile", fiyat: 450 },
+      { id: 932, ad: "Çarkıfelek Meyvesi Başlıklı Nargile", fiyat: 450 },
+      { id: 933, ad: "Lüle Değişimi", fiyat: 300 },
       { id: 601, ad: "Çay", fiyat: 50 },
       { id: 602, ad: "Ada Çayı", fiyat: 160 },
       { id: 603, ad: "Ihlamur", fiyat: 160 },
@@ -1511,44 +1545,10 @@
       { id: 510, ad: "Raspberry Velvet", fiyat: 240 },
       { id: 511, ad: "Golden Sunset", fiyat: 240 },
       { id: 512, ad: "Kuzukulağı Kokteyl", fiyat: 240 },
-      { id: 901, ad: "Pişmiş Şeftali Nargile", fiyat: 450 },
-      { id: 902, ad: "Mango Nargile", fiyat: 450 },
-      { id: 903, ad: "Çilek Nargile", fiyat: 450 },
-      { id: 904, ad: "Damla Sakızı Nargile", fiyat: 450 },
-      { id: 905, ad: "Üzüm Nargile", fiyat: 450 },
-      { id: 906, ad: "Vivident (Mentollü Sakız) Nargile", fiyat: 450 },
-      { id: 907, ad: "İzmir Romantik Nargile", fiyat: 450 },
-      { id: 908, ad: "Karpuz Nargile", fiyat: 450 },
-      { id: 909, ad: "Love 66 Nargile", fiyat: 450 },
-      { id: 910, ad: "Ananas Nargile", fiyat: 450 },
-      { id: 911, ad: "Dejavu Nargile", fiyat: 450 },
-      { id: 912, ad: "Cappuccino Nargile", fiyat: 450 },
-      { id: 913, ad: "Nane Nargile", fiyat: 450 },
-      { id: 914, ad: "Portakal Krema Nargile", fiyat: 450 },
-      { id: 915, ad: "Moscow Nargile", fiyat: 450 },
-      { id: 916, ad: "Latte Nargile", fiyat: 450 },
-      { id: 917, ad: "Lady Killer Nargile", fiyat: 450 },
-      { id: 918, ad: "Kavun Nargile", fiyat: 450 },
-      { id: 919, ad: "Polombir Nargile", fiyat: 450 },
-      { id: 920, ad: "Anason Nargile", fiyat: 550 },
-      { id: 921, ad: "Limon Nargile", fiyat: 450 },
-      { id: 922, ad: "Ice Cola Nargile", fiyat: 450 },
-      { id: 923, ad: "Tiramisu Nargile", fiyat: 450 },
-      { id: 924, ad: "Marilyn Monroe Nargile", fiyat: 450 },
-      { id: 925, ad: "Meyve Başlıklı Elma Nargile", fiyat: 450 },
-      { id: 926, ad: "Meyve Başlıklı Muz Kivi Nargile", fiyat: 450 },
-      { id: 927, ad: "Meyve Başlıklı Böğürtlen Nargile", fiyat: 450 },
-      { id: 928, ad: "Meyve Başlıklı Nar Nargile", fiyat: 450 },
-      { id: 929, ad: "Meyve Başlıklı Yaban Mersini Nargile", fiyat: 450 },
-      { id: 930, ad: "Meyve Başlıklı Nane Limon Nargile", fiyat: 450 },
-      { id: 931, ad: "Meyve Başlıklı Mandalina Nargile", fiyat: 450 },
-      { id: 932, ad: "Meyve Başlıklı Çarkıfelek Nargile", fiyat: 450 },
-      { id: 933, ad: "Lüle Değişimi", fiyat: 300 },
-      { id: 1001, ad: "Karavan Tost", fiyat: 350 },
-      { id: 1002, ad: "Kavurmalı Tost", fiyat: 300 },
-      { id: 1003, ad: "Karışık Tost", fiyat: 250 },
-      { id: 1004, ad: "Sucuklu Tost", fiyat: 200 },
-      { id: 1005, ad: "Kaşarlı Tost", fiyat: 200 },
+      { id: 1004, ad: "Karışık Gurme Tost", fiyat: 180 },
+      { id: 1005, ad: "Kaşarlı Tost", fiyat: 150 },
+      { id: 1008, ad: "Sucuklu Tost", fiyat: 160 },
+      { id: 1006, ad: "Patates Kızartması", fiyat: 140 },
       { id: 701, ad: "Fuse Tea Çeşitleri", fiyat: 100 },
       { id: 702, ad: "Coca-Cola", fiyat: 100 },
       { id: 703, ad: "Fanta", fiyat: 100 },
@@ -1786,16 +1786,14 @@
               islenenGarsonCagrilari.add(cKey);
               const cagri = cagrilar[cKey];
               calGarsonSesi();
-
-              // Nargile Şefi mi, Normal Garson mu?
-              let mesajMetni = `Masa ${cagri.masaNo} garson çağırıyor! (${cagri.saat})`;
-              if (cagri.mesaj && cagri.mesaj === "nargile şefi çağırıyor!") {
-                mesajMetni = `Masa ${cagri.masaNo} nargile şefi çağırıyor! 💨 (${cagri.saat})`;
-              }
+              
+              let cagriMesaj = cagri.tur === "Nargile Şefi" 
+                ? `Masa ${cagri.masaNo} Nargile Şefi (Köz/Destek) istiyor! (${cagri.saat})` 
+                : `Masa ${cagri.masaNo} garson çağırıyor! (${cagri.saat})`;
 
               kaliciBildirimEkle(
                 `garson_${cKey}`,
-                mesajMetni,
+                cagriMesaj,
                 cagri.masaNo
               );
               fetch(`${FIREBASE_URL}/garson_cagrilari/${cKey}.json`, { method: 'DELETE' });
@@ -2116,7 +2114,7 @@
         yeniHedefData = {
           urunler: [...hedefData.urunler, ...kaynakData.urunler],
           toplamTutar: hedefData.toplamTutar + kaynakData.toplamTutar,
-           saat: kaynakData.saat || hedefData.saat,
+          saat: kaynakData.saat || hedefData.saat,
           sonGuncelleme: Date.now(),
           durum: (kaynakData.durum === 'hazirlaniyor' || hedefData.durum === 'hazirlaniyor') ? 'hazirlaniyor' : 'hazir',
           okunmamis: Boolean(kaynakData.okunmamis || hedefData.okunmamis)
