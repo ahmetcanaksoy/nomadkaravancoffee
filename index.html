@@ -2225,14 +2225,14 @@
       { id: 511, ad: "Golden Sunset", kategori: "kokteyl", aciklama: "Taze portakal ve tropikal mango aromalı ferahlatıcı kokteyl", fiyat: 240, resim: "golden-sunset.jpg" },
       { id: 512, ad: "Kuzukulağı Kokteyl", kategori: "kokteyl", aciklama: "Taze yeşil kuzukulağı yaprakları, limon ferahlığı ve soğuk servis", fiyat: 240, resim: "kuzukulagi-kokteyl.jpg" },
 
-      // 7. NARGİLE
-      { id: 901, ad: "Nomâd Spesiyal Nargile", kategori: "nargile", ozel: true, aciklama: "", fiyat: 350, resim: "nomad-spesiyal-nargile.jpg" },
-      { id: 902, ad: "Çift Elma Nargile", kategori: "nargile", aciklama: "Klasik kırmızı ve yeşil elma aromalı yoğun duman keyfi", fiyat: 300, resim: "cift-elma-nargile.jpg" },
-      { id: 903, ad: "Üzüm Nane Nargile", kategori: "nargile", aciklama: "Tatlı siyah üzüm ve ferahlatıcı taze nane harmanı", fiyat: 300, resim: "uzum-nane-nargile.jpg" },
-      { id: 904, ad: "Damla Sakızlı Nargile", kategori: "nargile", aciklama: "Geleneksel Ege damla sakızı aromalı yumuşak içim", fiyat: 300, resim: "damla-sakizli-nargile.jpg" },
-      { id: 905, ad: "Kavun Nane Nargile", kategori: "nargile", aciklama: "Olgun kavun tatlılığı ve serin nane yaprağı dengesi", fiyat: 300, resim: "kavun-nane-nargile.jpg" },
-      { id: 906, ad: "Yaban Mersini Nargile", kategori: "nargile", aciklama: "Orman meyvesi ve yaban mersini özlü aromatik karışım", fiyat: 320, resim: "yaban-mersini-nargile.jpg" },
-      { id: 907, ad: "Love 66 Nargile", kategori: "nargile", aciklama: "Tropikal meyveler, kavun ve hafif mentol esintili özel seri", fiyat: 330, resim: "love-66-nargile.jpg" },
+      // 7. NARGİLE (HEPSİ AYNI GÖRSEL)
+      { id: 901, ad: "Nomâd Spesiyal Nargile", kategori: "nargile", ozel: true, aciklama: "", fiyat: 350, resim: "nargile.jpg" },
+      { id: 902, ad: "Çift Elma Nargile", kategori: "nargile", aciklama: "Klasik kırmızı ve yeşil elma aromalı yoğun duman keyfi", fiyat: 300, resim: "nargile.jpg" },
+      { id: 903, ad: "Üzüm Nane Nargile", kategori: "nargile", aciklama: "Tatlı siyah üzüm ve ferahlatıcı taze nane harmanı", fiyat: 300, resim: "nargile.jpg" },
+      { id: 904, ad: "Damla Sakızlı Nargile", kategori: "nargile", aciklama: "Geleneksel Ege damla sakızı aromalı yumuşak içim", fiyat: 300, resim: "nargile.jpg" },
+      { id: 905, ad: "Kavun Nane Nargile", kategori: "nargile", aciklama: "Olgun kavun tatlılığı ve serin nane yaprağı dengesi", fiyat: 300, resim: "nargile.jpg" },
+      { id: 906, ad: "Yaban Mersini Nargile", kategori: "nargile", aciklama: "Orman meyvesi ve yaban mersini özlü aromatik karışım", fiyat: 320, resim: "nargile.jpg" },
+      { id: 907, ad: "Love 66 Nargile", kategori: "nargile", aciklama: "Tropikal meyveler, kavun ve hafif mentol esintili özel seri", fiyat: 330, resim: "nargile.jpg" },
 
       // 8. FAST FOOD
       { id: 1001, ad: "Karavan Gurme Burger", kategori: "fastfood", aciklama: "150 gr dana burger köftesi, karamelize soğan, turşu, özel sos ve patates kızartması", fiyat: 290, resim: "karavan-gurme-burger.jpg" },
@@ -2547,7 +2547,7 @@
       const bar = document.getElementById('cart-floating-bar');
       if (toplamAdet > 0) {
         document.getElementById('cart-items-count').innerText = `${toplamAdet} Kalem Ürün`;
-        document.getElementById('cart-total-price').innerText = `${toplamTutar} ₺`;
+        document.getElementById('cart-price-sum').innerText = `${toplamTutar} ₺`;
         bar.classList.add('active');
       } else {
         bar.classList.remove('active');
