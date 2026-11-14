@@ -2107,7 +2107,6 @@
       bildirimGoster("E-posta istemciniz açılıyor...", "✉️");
     }
 
-    /* BURASI YENİ: HİÇBİR İNTERNET RESMİ KALMADI, HEPSİ DOSYAYA BAĞLANDI */
     const kategoriBasliklari = {
       cay: "Çay & Bitki Çayları",
       sicak: "Sıcak Kahveler",
@@ -2269,7 +2268,7 @@
         } else {
           tabSec(kategori);
         }
-        try { history.pushState({ page: 'menu' }, '', '#menu'); } catch(e) {}
+        try { history.pushState({ page: 'menu' }, '', window.location.pathname + window.location.search); } catch(e) {}
       } else {
         document.getElementById('view-home').classList.add('active');
         try { history.pushState({ page: 'home' }, '', window.location.pathname + window.location.search); } catch(e) {}
