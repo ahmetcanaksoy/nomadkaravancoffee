@@ -1620,13 +1620,13 @@
     <div class="menu-tabs" id="menu-tabs-bar" style="display:none;">
       <button class="tab-pill craft-tab" id="tab-tasarla" onclick="tabSec('tasarla')">✨ Kendi Kahveni Tasarla</button>
       <button class="tab-pill" id="tab-hepsi" onclick="tabSec('hepsi')">Tümü</button>
+      <button class="tab-pill" id="tab-nargile" onclick="tabSec('nargile')">Nargile</button>
       <button class="tab-pill" id="tab-cay" onclick="tabSec('cay')">Çay & Bitki Çayları</button>
       <button class="tab-pill" id="tab-sicak" onclick="tabSec('sicak')">Sıcak Kahveler</button>
       <button class="tab-pill" id="tab-soguk" onclick="tabSec('soguk')">Soğuk Kahveler</button>
       <button class="tab-pill" id="tab-frozen" onclick="tabSec('frozen')">Frozenler</button>
       <button class="tab-pill" id="tab-milkshake" onclick="tabSec('milkshake')">Milkshake Çeşitleri</button>
       <button class="tab-pill" id="tab-kokteyl" onclick="tabSec('kokteyl')">Kokteyller & Redbull Kokteyl</button>
-      <button class="tab-pill" id="tab-nargile" onclick="tabSec('nargile')">Nargile</button>
       <button class="tab-pill" id="tab-fastfood" onclick="tabSec('fastfood')">Fast Food</button>
       <button class="tab-pill" id="tab-mesrubat" onclick="tabSec('mesrubat')">Meşrubatlar</button>
       <button class="tab-pill" id="tab-tatli" onclick="tabSec('tatli')">Pasta & Tatlı Çeşitleri</button>
@@ -2015,6 +2015,32 @@
       } catch (err) {}
     }
 
+    async function nargileSefiCagir() {
+      if (!isMasaModu) return;
+      const kapandi = await masaDurumunuKontrolEt();
+      if (kapandi) return;
+
+      const cagriPaketi = {
+        masaNo: String(masaNo),
+        saat: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+        zamanDamgasi: Date.now(),
+        mesaj: "nargile şefi çağırıyor!"
+      };
+
+      document.getElementById('modal-icon').innerText = "💨";
+      document.getElementById('modal-title').innerText = "Nargile Şefi Çağrıldı!";
+      document.getElementById('modal-desc').innerText = `Masa ${masaNo} için nargile ekibine haber verildi. Ekibimiz en kısa sürede masanıza gelecektir.`;
+      document.getElementById('modal-success').style.display = 'flex';
+
+      try {
+        await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cagriPaketi)
+        });
+      } catch (err) {}
+    }
+
     function telefonHataTemizle() {
       const telInput = document.getElementById('rez-tel');
       const hataEl = document.getElementById('rez-tel-error');
@@ -2108,26 +2134,26 @@
     }
 
     const kategoriBasliklari = {
+      nargile: "Nargile",
       cay: "Çay & Bitki Çayları",
       sicak: "Sıcak Kahveler",
       soguk: "Soğuk Kahveler",
       frozen: "Frozenler",
       milkshake: "Milkshake Çeşitleri",
       kokteyl: "Kokteyller & Redbull Kokteyl",
-      nargile: "Nargile",
       fastfood: "Fast Food",
       mesrubat: "Meşrubatlar",
       tatli: "Pasta & Tatlı Çeşitleri"
     };
 
     const kategoriIkonlari = {
+      nargile: "💨",
       cay: "🫖",
       sicak: "☕",
       soguk: "🧊",
       frozen: "🍧",
       milkshake: "🥤",
       kokteyl: "🍹",
-      nargile: "💨",
       fastfood: "🍔",
       mesrubat: "🥫",
       tatli: "🍰"
@@ -2135,13 +2161,13 @@
 
     const kategoriKartlari = [
       { id: "hepsi", ad: "Tümü", resim: "kat-tumu.jpg", ikon: "📋" },
+      { id: "nargile", ad: "Nargile", resim: "nargile2.jpg", ikon: "💨" },
       { id: "cay", ad: "Çay & Bitki Çayları", resim: "cay2.jpg", ikon: "🫖" },
       { id: "sicak", ad: "Sıcak Kahveler", resim: "kat-sicak-kahve.jpg", ikon: "☕" },
       { id: "soguk", ad: "Soğuk Kahveler", resim: "sogukkahve2.jpg", ikon: "🧊" },
       { id: "frozen", ad: "Frozenler", resim: "kat-frozen.jpg", ikon: "🍧" },
       { id: "milkshake", ad: "Milkshake Çeşitleri", resim: "kat-milkshake.jpg", ikon: "🥤" },
       { id: "kokteyl", ad: "Kokteyller & Redbull Kokteyl", resim: "kat-kokteyl.jpg", ikon: "🍹" },
-      { id: "nargile", ad: "Nargile", resim: "nargile2.jpg", ikon: "💨" },
       { id: "fastfood", ad: "Fast Food", resim: "kat-fastfood.jpg", ikon: "🍔" },
       { id: "mesrubat", ad: "Meşrubatlar", resim: "kat-mesrubat.jpg", ikon: "🥫" },
       { id: "tatli", ad: "Pasta & Tatlı Çeşitleri", resim: "kat-tatli.jpg", ikon: "🍰" },
@@ -2214,13 +2240,39 @@
       { id: 510, ad: "Raspberry Velvet", kategori: "kokteyl", aciklama: "Taze ahududu ve açai meyvesinin kadifemsi buluşması", fiyat: 240, resim: "raspberry-velvet.jpg" },
       { id: 511, ad: "Golden Sunset", kategori: "kokteyl", aciklama: "Taze portakal ve tropikal mango aromalı ferahlatıcı kokteyl", fiyat: 240, resim: "golden-sunset.jpg" },
       { id: 512, ad: "Kuzukulağı Kokteyl", kategori: "kokteyl", aciklama: "Taze yeşil kuzukulağı yaprakları, limon ferahlığı ve soğuk servis", fiyat: 240, resim: "kuzukulagi-kokteyl.jpg" },
-      { id: 901, ad: "Nomâd Spesiyal Nargile", kategori: "nargile", ozel: true, aciklama: "", fiyat: 350, resim: "nargile.jpg" },
-      { id: 902, ad: "Çift Elma Nargile", kategori: "nargile", aciklama: "Klasik kırmızı ve yeşil elma aromalı yoğun duman keyfi", fiyat: 300, resim: "nargile.jpg" },
-      { id: 903, ad: "Üzüm Nane Nargile", kategori: "nargile", aciklama: "Tatlı siyah üzüm ve ferahlatıcı taze nane harmanı", fiyat: 300, resim: "nargile.jpg" },
-      { id: 904, ad: "Damla Sakızlı Nargile", kategori: "nargile", aciklama: "Geleneksel Ege damla sakızı aromalı yumuşak içim", fiyat: 300, resim: "nargile.jpg" },
-      { id: 905, ad: "Kavun Nane Nargile", kategori: "nargile", aciklama: "Olgun kavun tatlılığı ve serin nane yaprağı dengesi", fiyat: 300, resim: "nargile.jpg" },
-      { id: 906, ad: "Yaban Mersini Nargile", kategori: "nargile", aciklama: "Orman meyvesi ve yaban mersini özlü aromatik karışım", fiyat: 320, resim: "nargile.jpg" },
-      { id: 907, ad: "Love 66 Nargile", kategori: "nargile", aciklama: "Tropikal meyveler, kavun ve hafif mentol esintili özel seri", fiyat: 330, resim: "nargile.jpg" },
+      { id: 901, ad: "Pişmiş Şeftali Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 902, ad: "Mango Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 903, ad: "Çilek Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 904, ad: "Damla Sakızı Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 905, ad: "Üzüm Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 906, ad: "Vivident (Mentollü Sakız) Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 907, ad: "İzmir Romantik Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 908, ad: "Karpuz Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 909, ad: "Love 66 Nargile", kategori: "nargile", aciklama: "Karpuz, kavun, çilek, maracuja, mentol", fiyat: 450, resim: "nargile.jpg" },
+      { id: 910, ad: "Ananas Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 911, ad: "Dejavu Nargile", kategori: "nargile", aciklama: "Kavun, karpuz, vanilya, mentol", fiyat: 450, resim: "nargile.jpg" },
+      { id: 912, ad: "Cappuccino Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 913, ad: "Nane Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 914, ad: "Portakal Krema Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 915, ad: "Moscow Nargile", kategori: "nargile", aciklama: "Muz, orman meyvesi, mentol", fiyat: 450, resim: "nargile.jpg" },
+      { id: 916, ad: "Latte Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 917, ad: "Lady Killer Nargile", kategori: "nargile", aciklama: "Mango, kavun, çilek, mentol", fiyat: 450, resim: "nargile.jpg" },
+      { id: 918, ad: "Kavun Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 919, ad: "Polombir Nargile", kategori: "nargile", aciklama: "Vanilyalı dondurma", fiyat: 450, resim: "nargile.jpg" },
+      { id: 920, ad: "Anason Nargile", kategori: "nargile", ozel: true, aciklama: "", fiyat: 550, resim: "nargile.jpg" },
+      { id: 921, ad: "Limon Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 922, ad: "Ice Cola Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 923, ad: "Tiramisu Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 924, ad: "Marilyn Monroe Nargile", kategori: "nargile", aciklama: "Buz, gül, misket limon", fiyat: 450, resim: "nargile.jpg" },
+      { id: 925, ad: "Meyve Başlıklı Elma Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 926, ad: "Meyve Başlıklı Muz Kivi Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 927, ad: "Meyve Başlıklı Böğürtlen Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 928, ad: "Meyve Başlıklı Nar Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 929, ad: "Meyve Başlıklı Yaban Mersini Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 930, ad: "Meyve Başlıklı Nane Limon Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 931, ad: "Meyve Başlıklı Mandalina Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 932, ad: "Meyve Başlıklı Çarkıfelek Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
+      { id: 933, ad: "Lüle Değişimi", kategori: "nargile", aciklama: "Mevcut nargileniz için lüle değişimi", fiyat: 300, resim: "nargile.jpg" },
       { id: 1004, ad: "Karışık Gurme Tost", kategori: "fastfood", aciklama: "Sucuk, kavurma, eriyen kaşar peyniri ve tereyağlı kızarmış tost ekmeği", fiyat: 180, resim: "karisik-gurme-tost.jpg" },
       { id: 1005, ad: "Kaşarlı Tost", kategori: "fastfood", aciklama: "Bol eritilmiş taze kaşar peyniri ve tereyağlı tost ekmeği", fiyat: 150, resim: "kasarli-tost.jpg" },
       { id: 1008, ad: "Sucuklu Tost", kategori: "fastfood", aciklama: "Bol sucuklu ve tereyağlı çıtır sıcak tost", fiyat: 160, resim: "sucuklu-tost.jpg" },
@@ -2372,6 +2424,18 @@
     function menuyuCiz() {
       const container = document.getElementById('products-list');
       container.innerHTML = "";
+
+      if (aktifKategori === 'nargile' && isMasaModu) {
+        const sefBtnWrapper = document.createElement('div');
+        sefBtnWrapper.style.marginBottom = "8px";
+        sefBtnWrapper.innerHTML = `
+          <button class="btn-primary-action" style="width:100%; background:linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);" onclick="nargileSefiCagir()">
+            <span>💨 Nargile Şefini Çağır</span>
+            <span>🔔</span>
+          </button>
+        `;
+        container.appendChild(sefBtnWrapper);
+      }
 
       if (aktifKategori === 'tasarla') {
         const toplamFiyat = ozelKahveSecim.baz.fiyat + ozelKahveSecim.sicaklik.fiyat + ozelKahveSecim.sut.fiyat + ozelKahveSecim.surup.fiyat + ozelKahveSecim.ekstra.fiyat;
