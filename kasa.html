@@ -231,6 +231,7 @@
       color: #10b981;
       border: 1.5px solid rgba(16, 185, 129, 0.5);
     }
+    
     .btn-hard-reset {
       background: rgba(239, 68, 68, 0.18);
       color: #ef4444;
@@ -565,7 +566,6 @@
       cursor: pointer;
     }
 
-    /* ==== KASA NOTLARI TASARIMI ==== */
     .kasa-notes-card {
       background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%);
       border: 1.5px solid rgba(245, 158, 11, 0.42);
@@ -577,6 +577,7 @@
       flex-direction: column;
       gap: 10px;
     }
+
     .kasa-notes-card textarea {
       width: 100%;
       background: rgba(20, 26, 29, 0.95);
@@ -590,9 +591,11 @@
       min-height: 80px;
       font-family: inherit;
     }
+
     .kasa-notes-card textarea:focus {
       border-color: var(--fire-amber);
     }
+
     .btn-note-save {
       background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
       color: #0f172a;
@@ -913,20 +916,25 @@
       cursor: pointer;
     }
 
+    /* BÖL BÖLÜŞTÜR - KISMİ ÖDEME STİLLERİ */
     .pay-choice-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin-top: 14px;
     }
+    
+    .pay-choice-grid.split-mode {
+      grid-template-columns: 1fr;
+    }
 
     .btn-pay-cash {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: #ffffff;
       border: 1.5px solid #6ee7b7;
-      padding: 18px 12px;
+      padding: 14px 12px;
       border-radius: 16px;
-      font-size: 0.96rem;
+      font-size: 0.9rem;
       font-weight: 900;
       cursor: pointer;
       display: flex;
@@ -940,9 +948,9 @@
       background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
       color: #ffffff;
       border: 1.5px solid #93c5fd;
-      padding: 18px 12px;
+      padding: 14px 12px;
       border-radius: 16px;
-      font-size: 0.96rem;
+      font-size: 0.9rem;
       font-weight: 900;
       cursor: pointer;
       display: flex;
@@ -950,6 +958,50 @@
       align-items: center;
       gap: 6px;
       box-shadow: 0 8px 22px rgba(59, 130, 246, 0.35);
+    }
+    
+    .btn-pay-split {
+      grid-column: span 2;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--fire-amber);
+      border: 1.5px dashed rgba(245, 158, 11, 0.5);
+      padding: 14px 12px;
+      border-radius: 16px;
+      font-size: 0.9rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .split-pay-box {
+      display: none;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1.5px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-top: 14px;
+      text-align: left;
+    }
+
+    .split-input {
+      width: 100%;
+      background: rgba(30, 36, 42, 0.95);
+      border: 1.5px solid var(--fire-amber);
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: var(--fire-amber);
+      font-size: 1.2rem;
+      font-weight: 900;
+      outline: none;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    
+    .split-input::placeholder {
+      color: rgba(245, 158, 11, 0.4);
     }
 
     .pay-pill {
@@ -1170,7 +1222,7 @@
     }
   </style>
 </head>
-<body>
+<body class="loading-lock">
 
   <div id="pin-lock-screen">
     <form class="pin-card" onsubmit="sifreKontrol(event)">
@@ -1284,7 +1336,7 @@
 
       <div class="detail-footer" id="panel-footer" style="display:none;">
         <div class="total-box">
-          <span class="total-title">Genel Toplam:</span>
+          <span class="total-title">Genel Kalan Toplam:</span>
           <span class="total-sum" id="panel-total-price">0 ₺</span>
         </div>
         <button class="btn-order-ready" id="btn-siparis-hazir" onclick="siparisHazirBildir()">
@@ -1294,37 +1346,52 @@
           ⇄ Masayı Başka Masaya Aktar
         </button>
         <button class="btn-close-order" onclick="hesapKapatModalAc()">
-          ✕ Hesabı Kapat / Masayı Boşalt
+          ✕ Hesabı Kapat / Ödeme Al
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ÖDEME YÖNTEMİ (NAKİT / KREDİ KARTI) SEÇİM MODALI -->
+  <!-- ÖDEME YÖNTEMİ VE KISMİ ÖDEME (BÖL) MODALI -->
   <div class="kasa-modal" id="modal-payment-method" onclick="if(event.target === this) kasaModalKapat('modal-payment-method')">
     <div class="kasa-modal-box" style="max-width:380px; text-align:center;">
       <div class="modal-head">
-        <h3 id="pay-modal-title">Ödeme Yöntemi Seçiniz</h3>
+        <h3 id="pay-modal-title">Ödeme Al</h3>
         <button class="btn-modal-x" onclick="kasaModalKapat('modal-payment-method')">✕</button>
       </div>
       <p style="font-size:0.84rem; color:var(--slate-muted); margin-bottom:6px;">
-        Tahsil Edilecek Tutar:
+        Kalan Hesap Tutarı:
       </p>
       <div id="pay-modal-amount" style="font-size:1.85rem; font-weight:900; color:var(--fire-amber); margin-bottom:10px;">
         0 ₺
       </div>
-      <p style="font-size:0.78rem; color:var(--slate-muted);">
-        Hesabı kapatmak için ödeme türünü seçin:
-      </p>
-      <div class="pay-choice-grid">
-        <button class="btn-pay-cash" onclick="odemeyiTamamlaVeMasayiKapat('Nakit')">
+      
+      <!-- Ana Seçenekler -->
+      <div class="pay-choice-grid" id="main-pay-grid">
+        <button class="btn-pay-cash" onclick="odemeyiTamamla(null, 'Nakit')">
           <span style="font-size:1.6rem;">💵</span>
-          <span>Nakit</span>
+          <span>Hepsi Nakit</span>
         </button>
-        <button class="btn-pay-card" onclick="odemeyiTamamlaVeMasayiKapat('Kredi Kartı')">
+        <button class="btn-pay-card" onclick="odemeyiTamamla(null, 'Kredi Kartı')">
           <span style="font-size:1.6rem;">💳</span>
-          <span>Kredi Kartı</span>
+          <span>Hepsi Kart</span>
         </button>
+        <button class="btn-pay-split" onclick="kismiOdemeEkraniniAc()">
+          ✂️ Böl / Kısmi Ödeme Al
+        </button>
+      </div>
+
+      <!-- Kısmi Ödeme Giriş Ekranı (Gizli Başlar) -->
+      <div class="split-pay-box" id="split-pay-box">
+        <div style="font-size:0.78rem; font-weight:800; color:var(--slate-muted); margin-bottom:8px; text-align:center;">
+          Şimdi Alınan Tutarı Giriniz:
+        </div>
+        <input type="number" id="split-amount-input" class="split-input" placeholder="0" inputmode="numeric">
+        <div style="display:flex; gap:8px;">
+          <button class="btn-pay-cash" style="flex:1; padding:10px; font-size:0.8rem;" onclick="kismiOdemeYap('Nakit')">Nakit Al</button>
+          <button class="btn-pay-card" style="flex:1; padding:10px; font-size:0.8rem;" onclick="kismiOdemeYap('Kredi Kartı')">Kart Al</button>
+        </div>
+        <button class="btn-modal-secondary" onclick="kismiOdemeEkraniniKapat()" style="margin-top:8px;">İptal / Geri Dön</button>
       </div>
     </div>
   </div>
@@ -1441,7 +1508,6 @@
       </div>
     </div>
   </div>
-
   <script>
     const KASA_SIFRESI = "1453";
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
@@ -1548,7 +1614,6 @@
       { id: 1004, ad: "Karışık Gurme Tost", fiyat: 180 },
       { id: 1005, ad: "Kaşarlı Tost", fiyat: 150 },
       { id: 1008, ad: "Sucuklu Tost", fiyat: 160 },
-      { id: 1006, ad: "Patates Kızartması", fiyat: 140 },
       { id: 701, ad: "Fuse Tea Çeşitleri", fiyat: 100 },
       { id: 702, ad: "Coca-Cola", fiyat: 100 },
       { id: 703, ad: "Fanta", fiyat: 100 },
@@ -1629,6 +1694,9 @@
 
     function kasaModalKapat(id) {
       document.getElementById(id).style.display = 'none';
+      if(id === 'modal-payment-method') {
+        kismiOdemeEkraniniKapat();
+      }
     }
 
     function sesMotorunuUyandir() {
@@ -1791,11 +1859,7 @@
                 ? `Masa ${cagri.masaNo} Nargile Şefi (Köz/Destek) istiyor! (${cagri.saat})` 
                 : `Masa ${cagri.masaNo} garson çağırıyor! (${cagri.saat})`;
 
-              kaliciBildirimEkle(
-                `garson_${cKey}`,
-                cagriMesaj,
-                cagri.masaNo
-              );
+              kaliciBildirimEkle(`garson_${cKey}`, cagriMesaj, cagri.masaNo);
               fetch(`${FIREBASE_URL}/garson_cagrilari/${cKey}.json`, { method: 'DELETE' });
             }
           }
@@ -1975,18 +2039,25 @@
 
       listEl.innerHTML = "";
       data.urunler.forEach((item, index) => {
+        const isKismiOdemeKalemi = item.ad && item.ad.includes('Kısmi Ödeme');
         const row = document.createElement('div');
         row.className = `order-item-row ${item.yeni ? 'is-new-order' : ''}`;
+        
+        if (isKismiOdemeKalemi) {
+          row.style.background = 'rgba(16, 185, 129, 0.1)';
+          row.style.borderColor = '#10b981';
+        }
+        
         row.innerHTML = `
           <div class="item-left">
             ${item.yeni ? `<span class="new-order-pill">YENİ SİPARİŞ</span>` : ''}
-            <span class="item-name">${item.ad}</span>
-            ${item.detay ? `<span class="item-custom-recipe">✨ ${item.detay}</span>` : ''}
-            <span class="item-unit-info">${item.adet} adet × ${item.birimFiyat} ₺</span>
+            <span class="item-name" style="${isKismiOdemeKalemi ? 'color:#10b981; font-weight:900;' : ''}">${item.ad}</span>
+            ${item.detay ? `<span class="item-custom-recipe" style="${isKismiOdemeKalemi ? 'background:rgba(16,185,129,0.2); border-color:#10b981; color:#a7f3d0;' : ''}">${isKismiOdemeKalemi ? '✓' : '✨'} ${item.detay}</span>` : ''}
+            <span class="item-unit-info">${item.adet} adet ${isKismiOdemeKalemi ? '' : `× ${item.birimFiyat} ₺`}</span>
           </div>
           <div class="item-actions">
-            <span class="item-price">${item.tutar} ₺</span>
-            <button class="btn-qty-minus" onclick="adetAzalt(${masaNo}, ${index})">−</button>
+            <span class="item-price" style="${isKismiOdemeKalemi ? 'color:#10b981;' : ''}">${item.tutar} ₺</span>
+            ${!isKismiOdemeKalemi ? `<button class="btn-qty-minus" onclick="adetAzalt(${masaNo}, ${index})">−</button>` : ''}
             <button class="btn-item-delete" onclick="urunuSil(${masaNo}, ${index})">✕</button>
           </div>
         `;
@@ -2197,7 +2268,7 @@
       const data = canliMasalar[String(masaNo)];
       if (!data || !data.urunler[index]) return;
 
-      if (confirm(`"${data.urunler[index].ad}" adisyondan çıkarılsın mı?`)) {
+      if (confirm(`Bu kalemi adisyondan çıkarmak istediğinize emin misiniz?`)) {
         data.urunler.splice(index, 1);
         data.toplamTutar = data.urunler.reduce((acc, curr) => acc + curr.tutar, 0);
 
@@ -2220,9 +2291,91 @@
       const kapananData = canliMasalar[String(seciliMasa)];
       if (!kapananData) return;
 
-      document.getElementById('pay-modal-title').innerText = `Masa ${seciliMasa} • Hesap Kapat`;
       document.getElementById('pay-modal-amount').innerText = `${kapananData.toplamTutar || 0} ₺`;
+      kismiOdemeEkraniniKapat(); 
       document.getElementById('modal-payment-method').style.display = 'flex';
+    }
+
+    function kismiOdemeEkraniniAc() {
+      document.getElementById('main-pay-grid').style.display = 'none';
+      document.getElementById('split-pay-box').style.display = 'block';
+      document.getElementById('split-amount-input').value = '';
+      document.getElementById('split-amount-input').focus();
+    }
+
+    function kismiOdemeEkraniniKapat() {
+      document.getElementById('main-pay-grid').style.display = 'grid';
+      document.getElementById('split-pay-box').style.display = 'none';
+    }
+
+    async function kismiOdemeYap(odemeTuru) {
+      if (!seciliMasa) return;
+      const masaData = canliMasalar[String(seciliMasa)];
+      if (!masaData) return;
+
+      const miktarStr = document.getElementById('split-amount-input').value;
+      const miktar = Number(miktarStr);
+
+      if (isNaN(miktar) || miktar <= 0) {
+        alert("Geçerli bir tutar giriniz.");
+        return;
+      }
+      
+      if (miktar > masaData.toplamTutar) {
+        alert(`Girilen tutar (${miktar} ₺) masanın toplam borcundan (${masaData.toplamTutar} ₺) büyük olamaz!`);
+        return;
+      }
+
+      const bugunKey = bugununIsoTarihi();
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+
+      await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${bugunKey}.json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          masaNo: seciliMasa,
+          tutar: miktar,
+          odemeTuru: odemeTuru,
+          saat: saatStr,
+          tarih: bugunKey,
+          urunler: [{ ad: "Bölüşülen Hesap (Kısmi Ödeme)", adet: 1, tutar: miktar }],
+          zamanDamgasi: Date.now()
+        })
+      });
+
+      masaData.urunler.push({
+        ad: `Kısmi Ödeme Tahsilatı`,
+        adet: 1,
+        birimFiyat: -miktar,
+        tutar: -miktar,
+        yeni: false,
+        detay: `${odemeTuru} ile alındı`
+      });
+      masaData.toplamTutar -= miktar;
+      masaData.sonGuncelleme = Date.now();
+
+      if (masaData.toplamTutar <= 0) {
+        delete canliMasalar[String(seciliMasa)];
+        await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
+        await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Date.now())
+        });
+        kasaModalKapat('modal-payment-method');
+        alert("Hesap tamamen ödendi, masa kapatıldı!");
+      } else {
+        await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(masaData)
+        });
+        document.getElementById('pay-modal-amount').innerText = `${masaData.toplamTutar} ₺`;
+        kismiOdemeEkraniniKapat();
+      }
+
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
     }
 
     async function odemeyiTamamlaVeMasayiKapat(odemeTuru) {
@@ -2291,7 +2444,7 @@
             await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/rezervasyonlar.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' }); 
             alert("Sistem fabrikaya ayarlarına döndürüldü. Tamamen 0'dan başlıyorsunuz.");
             location.reload();
           } catch(e) {
@@ -2373,15 +2526,18 @@
       if (urunListesi.length === 0) {
         icerikHtml = `<div style="font-size:0.78rem; color:var(--slate-muted);">Bu adisyon için ürün kalemi detayı bulunmuyor.</div>`;
       } else {
-        icerikHtml = urunListesi.map(u => `
+        icerikHtml = urunListesi.map(u => {
+          const eksiMi = (u.tutar < 0 || u.birimFiyat < 0);
+          return `
           <div style="display:flex; justify-content:space-between; align-items:flex-start; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.84rem; gap:8px;">
             <div>
-              <div style="font-weight:800; color:#ffffff;">${u.adet}× ${u.ad}</div>
-              ${u.detay ? `<div style="font-size:0.74rem; color:#fdba74;">✨ ${u.detay}</div>` : ''}
+              <div style="font-weight:800; color:${eksiMi ? '#10b981' : '#ffffff'};">${u.adet}× ${u.ad}</div>
+              ${u.detay ? `<div style="font-size:0.74rem; color:${eksiMi ? '#a7f3d0' : '#fdba74'};">${eksiMi ? '✓' : '✨'} ${u.detay}</div>` : ''}
             </div>
-            <div style="font-weight:900; color:var(--fire-amber); white-space:nowrap;">${u.tutar} ₺</div>
+            <div style="font-weight:900; color:${eksiMi ? '#10b981' : 'var(--fire-amber)'}; white-space:nowrap;">${u.tutar} ₺</div>
           </div>
-        `).join('');
+          `;
+        }).join('');
       }
 
       box.style.display = 'block';
@@ -2427,6 +2583,7 @@
       let toplamCiro = 0;
       let nakitCiro = 0;
       let kartCiro = 0;
+      let adisyonSayisi = 0;
 
       const keys = Object.keys(veriler);
       keys.reverse().forEach(k => {
@@ -2440,10 +2597,16 @@
         } else {
           nakitCiro += tutar;
         }
+        
+        if(!item.isKismi) {
+          adisyonSayisi++;
+        }
 
         const odemeRozet = odeme === "Kredi Kartı"
           ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
           : `<span class="pay-pill cash">💵 Nakit</span>`;
+
+        const isKismi = item.isKismi ? `<span style="background:#f59e0b; color:#0f172a; padding:2px 6px; border-radius:4px; font-size:0.65rem; font-weight:900; margin-left:6px;">KISMİ ÖDEME</span>` : '';
 
         const urunList = item.urunler || [];
         const urunOzet = urunList.length > 0
@@ -2459,6 +2622,7 @@
               <strong style="color:#fff;">Masa ${item.masaNo}</strong>
               <span style="color:var(--slate-muted); font-size:0.78rem; margin-left:6px;">⏰ ${item.saat || '-'}</span>
               ${odemeRozet}
+              ${isKismi}
             </div>
             <span style="color:var(--fire-amber); font-weight:900; font-size:0.96rem;">${tutar} ₺</span>
           </div>
@@ -2472,7 +2636,7 @@
       document.getElementById('eod-total-revenue').innerText = `${toplamCiro} ₺`;
       document.getElementById('eod-cash-revenue').innerText = `${nakitCiro} ₺`;
       document.getElementById('eod-card-revenue').innerText = `${kartCiro} ₺`;
-      document.getElementById('eod-total-orders').innerText = `${keys.length} Adisyon`;
+      document.getElementById('eod-total-orders').innerText = `${adisyonSayisi} Adisyon`;
     }
 
     async function gunuKapatVeSifirla() {
