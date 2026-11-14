@@ -2148,7 +2148,6 @@
     ];
 
     const urunler = [
-      // 1. ÇAY & BİTKİ ÇAYLARI
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
       { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
       { id: 603, ad: "Ihlamur", kategori: "cay", aciklama: "French press demlemesi çiçek ve yaprak ıhlamur, fincan servisi", fiyat: 160, resim: "ihlamur.jpg" },
@@ -2158,8 +2157,6 @@
       { id: 607, ad: "Hibiscus Çayı", kategori: "cay", aciklama: "French press demlemesi yakut kırmızısı hibiscus çiçeği çayı", fiyat: 160, resim: "hibiscus-cayi.jpg" },
       { id: 608, ad: "Elma Çayı", kategori: "cay", aciklama: "French press ile demlenmiş elma dilimleri ve tarçın dokunuşu", fiyat: 160, resim: "elma-cayi.jpg" },
       { id: 609, ad: "Kış Çayı", kategori: "cay", aciklama: "French press demlemesi ıhlamur, zencefil, tarçın ve karanfil harmanı", fiyat: 160, resim: "kis-cayi.jpg" },
-
-      // 2. SICAK KAHVELER
       { id: 101, ad: "Nomâd Spesiyal", kategori: "sicak", ozel: true, aciklama: "", fiyat: 205, resim: "nomad-spesiyal-sicak.jpg" },
       { id: 102, ad: "Caffè Latte", kategori: "sicak", aciklama: "Taze çekilmiş espresso ve buharda ısıtılmış kadifemsi süt", fiyat: 200, resim: "caffe-latte.jpg" },
       { id: 103, ad: "Caffè Mocha", kategori: "sicak", aciklama: "Sıcak espresso, eritilmiş gerçek çikolata ve kadifemsi süt kreması", fiyat: 225, resim: "caffe-mocha.jpg" },
@@ -2177,8 +2174,6 @@
       { id: 115, ad: "Cookie Latte", kategori: "sicak", aciklama: "Taze kurabiye aroması, sıcak süt ve kadifemsi espresso", fiyat: 225, resim: "cookie-latte.jpg" },
       { id: 116, ad: "White Chocolate Mocha", kategori: "sicak", aciklama: "Beyaz çikolata kreması, espresso ve buharda ısıtılmış süt", fiyat: 225, resim: "white-chocolate-mocha.jpg" },
       { id: 117, ad: "Caramel Macchiato", kategori: "sicak", aciklama: "Vanilya aromalı sıcak süt, espresso ve üzeri karamel sos çizgileri", fiyat: 225, resim: "caramel-macchiato.jpg" },
-
-      // 3. SOĞUK KAHVELER
       { id: 201, ad: "Nomâd Spesiyal", kategori: "soguk", ozel: true, aciklama: "", fiyat: 210, resim: "nomad-spesiyal-soguk.jpg" },
       { id: 202, ad: "Iced Latte", kategori: "soguk", aciklama: "Kristal buz parçaları, soğuk taze süt ve çift shot espresso", fiyat: 200, resim: "iced-latte.jpg" },
       { id: 203, ad: "Iced Mocha", kategori: "soguk", aciklama: "Buzlu süt, yoğun çikolata sosu ve taze espresso birleşimi", fiyat: 220, resim: "iced-mocha.jpg" },
@@ -2189,8 +2184,6 @@
       { id: 208, ad: "Iced Hazelnut Latte", kategori: "soguk", aciklama: "Fındık şurubu, soğuk taze süt, buz ve taze espresso", fiyat: 220, resim: "iced-hazelnut-latte.jpg" },
       { id: 209, ad: "Iced Cookie Latte", kategori: "soguk", aciklama: "Kurabiye aroması, buzlu süt ve espresso katmanı", fiyat: 220, resim: "iced-cookie-latte.jpg" },
       { id: 210, ad: "Iced White Chocolate Mocha", kategori: "soguk", aciklama: "Beyaz çikolata sosu, soğuk süt, buz ve espresso", fiyat: 220, resim: "iced-white-chocolate-mocha.jpg" },
-
-      // 4. FROZENLER
       { id: 301, ad: "Nomâd Spesiyal", kategori: "frozen", ozel: true, aciklama: "", fiyat: 210, resim: "nomad-spesiyal-frozen.jpg" },
       { id: 302, ad: "Karadut Frozen", kategori: "frozen", aciklama: "Gerçek karadut özü ve ince kırılmış buz ile ferah kıvam", fiyat: 210, resim: "karadut-frozen.jpg" },
       { id: 303, ad: "Muz Frozen", kategori: "frozen", aciklama: "Taze muz aroması ve kar buz kıvamında soğuk içecek", fiyat: 210, resim: "muz-frozen.jpg" },
@@ -2202,16 +2195,12 @@
       { id: 309, ad: "Orman Meyveli Frozen", kategori: "frozen", aciklama: "Çilek, ahududu, böğürtlen ve yaban mersini harmanı", fiyat: 210, resim: "orman-meyveli-frozen.jpg" },
       { id: 310, ad: "Çarkıfelek Frozen", kategori: "frozen", aciklama: "Egzotik passion fruit aroması ve ferah buz dokusu", fiyat: 210, resim: "carkifelek-frozen.jpg" },
       { id: 311, ad: "Limon Frozen", kategori: "frozen", aciklama: "Taze sıkılmış limon ferahlığı ve kar buz serinliği", fiyat: 210, resim: "limon-frozen.jpg" },
-
-      // 5. MILKSHAKE ÇEŞİTLERİ
       { id: 401, ad: "Nomâd Spesiyal", kategori: "milkshake", ozel: true, aciklama: "", fiyat: 220, resim: "nomad-spesiyal-milkshake.jpg" },
       { id: 402, ad: "Çilekli Milkshake", kategori: "milkshake", aciklama: "Soğuk süt, vanilyalı dondurma ve yoğun çilek püresi", fiyat: 220, resim: "cilekli-milkshake.jpg" },
       { id: 403, ad: "Muzlu Milkshake", kategori: "milkshake", aciklama: "Taze muz, soğuk süt ve kremamsı dondurma kıvamı", fiyat: 220, resim: "muzlu-milkshake.jpg" },
       { id: 404, ad: "Çikolatalı Milkshake", kategori: "milkshake", aciklama: "Belçika çikolatası sosu, soğuk süt ve yoğun dondurma", fiyat: 220, resim: "cikolatali-milkshake.jpg" },
       { id: 405, ad: "Karamelli Milkshake", kategori: "milkshake", aciklama: "Altın karamel sosu, soğuk süt ve kadifemsi dondurma", fiyat: 220, resim: "karamelli-milkshake.jpg" },
       { id: 406, ad: "Vanilyalı Milkshake", kategori: "milkshake", aciklama: "Madagaskar vanilyası, soğuk süt ve krema dokusu", fiyat: 220, resim: "vanilyali-milkshake.jpg" },
-
-      // 6. KOKTEYLLER & REDBULL KOKTEYL
       { id: 501, ad: "Nomâd Spesiyal", kategori: "kokteyl", ozel: true, aciklama: "", fiyat: 245, resim: "nomad-spesiyal-kokteyl.jpg" },
       { id: 502, ad: "Ekşi Redbull Kokteyl", kategori: "kokteyl", aciklama: "Soğuk Redbull, taze narenciye ekşisi ve kristal buz", fiyat: 260, resim: "eksi-redbull-kokteyl.jpg" },
       { id: 503, ad: "Tatlı Redbull Kokteyl", kategori: "kokteyl", aciklama: "Soğuk Redbull, kırmızı orman meyveleri ve tropikal şurup", fiyat: 260, resim: "tatli-redbull-kokteyl.jpg" },
@@ -2224,8 +2213,6 @@
       { id: 510, ad: "Raspberry Velvet", kategori: "kokteyl", aciklama: "Taze ahududu ve açai meyvesinin kadifemsi buluşması", fiyat: 240, resim: "raspberry-velvet.jpg" },
       { id: 511, ad: "Golden Sunset", kategori: "kokteyl", aciklama: "Taze portakal ve tropikal mango aromalı ferahlatıcı kokteyl", fiyat: 240, resim: "golden-sunset.jpg" },
       { id: 512, ad: "Kuzukulağı Kokteyl", kategori: "kokteyl", aciklama: "Taze yeşil kuzukulağı yaprakları, limon ferahlığı ve soğuk servis", fiyat: 240, resim: "kuzukulagi-kokteyl.jpg" },
-
-      // 7. NARGİLE (HEPSİ AYNI GÖRSEL)
       { id: 901, ad: "Nomâd Spesiyal Nargile", kategori: "nargile", ozel: true, aciklama: "", fiyat: 350, resim: "nargile.jpg" },
       { id: 902, ad: "Çift Elma Nargile", kategori: "nargile", aciklama: "Klasik kırmızı ve yeşil elma aromalı yoğun duman keyfi", fiyat: 300, resim: "nargile.jpg" },
       { id: 903, ad: "Üzüm Nane Nargile", kategori: "nargile", aciklama: "Tatlı siyah üzüm ve ferahlatıcı taze nane harmanı", fiyat: 300, resim: "nargile.jpg" },
@@ -2233,17 +2220,12 @@
       { id: 905, ad: "Kavun Nane Nargile", kategori: "nargile", aciklama: "Olgun kavun tatlılığı ve serin nane yaprağı dengesi", fiyat: 300, resim: "nargile.jpg" },
       { id: 906, ad: "Yaban Mersini Nargile", kategori: "nargile", aciklama: "Orman meyvesi ve yaban mersini özlü aromatik karışım", fiyat: 320, resim: "nargile.jpg" },
       { id: 907, ad: "Love 66 Nargile", kategori: "nargile", aciklama: "Tropikal meyveler, kavun ve hafif mentol esintili özel seri", fiyat: 330, resim: "nargile.jpg" },
-
-      // 8. FAST FOOD
-      { id: 1001, ad: "Karavan Gurme Burger", kategori: "fastfood", aciklama: "150 gr dana burger köftesi, karamelize soğan, turşu, özel sos ve patates kızartması", fiyat: 290, resim: "karavan-gurme-burger.jpg" },
       { id: 1004, ad: "Karışık Gurme Tost", kategori: "fastfood", aciklama: "Sucuk, kavurma, eriyen kaşar peyniri ve tereyağlı kızarmış tost ekmeği", fiyat: 180, resim: "karisik-gurme-tost.jpg" },
       { id: 1005, ad: "Kaşarlı Tost", kategori: "fastfood", aciklama: "Bol eritilmiş taze kaşar peyniri ve tereyağlı tost ekmeği", fiyat: 150, resim: "kasarli-tost.jpg" },
       { id: 1008, ad: "Sucuklu Tost", kategori: "fastfood", aciklama: "Bol sucuklu ve tereyağlı çıtır sıcak tost", fiyat: 160, resim: "sucuklu-tost.jpg" },
       { id: 1009, ad: "Patso", kategori: "fastfood", aciklama: "Ekmek arası çıtır patates kızartması, ketçap ve mayonez ile", fiyat: 140, resim: "patso.jpg" },
       { id: 1006, ad: "Patates Kızartması", kategori: "fastfood", aciklama: "Altın sarısı çıtır parmak patates, ketçap ve mayonez eşliğinde", fiyat: 140, resim: "patates-kizartmasi.jpg" },
       { id: 1007, ad: "Çıtır Tavuk Sepeti", kategori: "fastfood", aciklama: "Çıtır tavuk parçaları, baharatlı patates kızartması ve özel dip soslar", fiyat: 240, resim: "citir-tavuk-sepeti.jpg" },
-
-      // 9. MEŞRUBATLAR
       { id: 701, ad: "Fuse Tea Çeşitleri", kategori: "mesrubat", aciklama: "Şeftali, limon veya mango aromalı soğuk çay (330 ml)", fiyat: 100, resim: "fuse-tea.jpg" },
       { id: 702, ad: "Coca-Cola", kategori: "mesrubat", aciklama: "Soğuk kutu / cam şişe servis (330 ml)", fiyat: 100, resim: "coca-cola.jpg" },
       { id: 703, ad: "Fanta", kategori: "mesrubat", aciklama: "Portakal aromalı soğuk gazlı içecek (330 ml)", fiyat: 100, resim: "fanta.jpg" },
@@ -2252,8 +2234,6 @@
       { id: 706, ad: "Soda Çeşitleri", kategori: "mesrubat", aciklama: "Sade veya meyve aromalı doğal maden suyu", fiyat: 70, resim: "soda.jpg" },
       { id: 707, ad: "Redbull Çeşitleri", kategori: "mesrubat", aciklama: "Klasik veya aromalı soğuk Redbull enerji içeceği", fiyat: 150, resim: "redbull.jpg" },
       { id: 708, ad: "Limonata", kategori: "mesrubat", aciklama: "Taze sıkılmış limon, nane yaprakları ve buz ile günlük hazırlanır", fiyat: 170, resim: "limonata.jpg" },
-
-      // 10. PASTA & TATLI ÇEŞİTLERİ
       { id: 801, ad: "Frambuazlı Cheesecake", kategori: "tatli", aciklama: "Kremamsı peynir dolgusu, bisküvi tabanı ve taze frambuaz sosu", fiyat: 250, resim: "frambuazli-cheesecake.jpg" },
       { id: 802, ad: "Limonlu Cheesecake", kategori: "tatli", aciklama: "Ferah limon kreması soslu fırınlanmış klasik cheesecake", fiyat: 250, resim: "limonlu-cheesecake.jpg" },
       { id: 803, ad: "Lotuslu Cheesecake", kategori: "tatli", aciklama: "Karamelize Lotus Biscoff kreması ve çıtır bisküvi parçacıklarıyla", fiyat: 250, resim: "lotuslu-cheesecake.jpg" },
