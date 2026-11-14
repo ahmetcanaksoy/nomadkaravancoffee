@@ -565,6 +565,46 @@
       cursor: pointer;
     }
 
+    /* ==== KASA NOTLARI TASARIMI ==== */
+    .kasa-notes-card {
+      background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.42);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .kasa-notes-card textarea {
+      width: 100%;
+      background: rgba(20, 26, 29, 0.95);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px;
+      color: #ffffff;
+      font-size: 0.84rem;
+      outline: none;
+      resize: vertical;
+      min-height: 80px;
+      font-family: inherit;
+    }
+    .kasa-notes-card textarea:focus {
+      border-color: var(--fire-amber);
+    }
+    .btn-note-save {
+      background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
+      color: #0f172a;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
     .detail-section {
       width: 420px;
       background: linear-gradient(180deg, rgba(33, 39, 45, 0.96) 0%, rgba(22, 38, 30, 0.96) 100%);
@@ -1218,6 +1258,13 @@
       <div class="rez-list" id="rez-container">
         <div style="font-size:0.8rem; color:var(--slate-muted);">Henüz yeni rezervasyon yok.</div>
       </div>
+
+      <!-- KASA NOTLARI BÖLÜMÜ -->
+      <div class="section-title" style="margin-top:24px;">📝 Kasa Notları (Vardiya / Hatırlatma)</div>
+      <div class="kasa-notes-card">
+        <textarea id="kasa-genel-not" placeholder="Biten ürünleri veya personel notlarını buraya yazıp kaydedebilirsiniz..."></textarea>
+        <button class="btn-note-save" onclick="kasaNotuKaydet()">Kaydet ✓</button>
+      </div>
     </div>
 
     <div class="detail-section">
@@ -1542,6 +1589,7 @@
         hataEl.style.display = 'none';
         sesTekBasimAktifEt();
         buluttanVeriCek();
+        kasaNotuCek(); // Giriş yapıldığında notu çek
       } else {
         hataEl.style.display = 'block';
         document.getElementById('kasa-pin-input').value = '';
@@ -1780,6 +1828,40 @@
       if (confirm("Bu rezervasyon kaydı silinsin mi?")) {
         await fetch(`${FIREBASE_URL}/rezervasyonlar/${key}.json`, { method: 'DELETE' });
         buluttanVeriCek();
+      }
+    }
+
+    /* ==== YENİ: KASA NOTLARI KAYDETME VE ÇEKME ==== */
+    async function kasaNotuCek() {
+      try {
+        const res = await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`);
+        const data = await res.json();
+        if (data && data.metin) {
+          document.getElementById('kasa-genel-not').value = data.metin;
+        }
+      } catch(e) {}
+    }
+
+    async function kasaNotuKaydet() {
+      const metin = document.getElementById('kasa-genel-not').value;
+      const btn = document.querySelector('.btn-note-save');
+      btn.innerText = "Kaydediliyor...";
+      try {
+        await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ metin: metin, zaman: Date.now() })
+        });
+        btn.innerText = "Kaydedildi ✓";
+        btn.style.background = "linear-gradient(135deg, #10b981 0%, #059669 100%)";
+        btn.style.color = "#ffffff";
+        setTimeout(() => {
+          btn.innerText = "Kaydet ✓";
+          btn.style.background = "linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%)";
+          btn.style.color = "#0f172a";
+        }, 2500);
+      } catch(e) {
+        btn.innerText = "Hata! Tekrar Dene";
       }
     }
 
@@ -2150,7 +2232,7 @@
       masaDetayiGoster(seciliMasa);
     }
 
-    /* ==== YENİ EKLENEN İŞLEMLER ==== */
+    /* ==== GÜNÜ BAŞLAT VE SIFIRLA İŞLEMLERİ ==== */
 
     async function gunuBaslat() {
       const pin = prompt("🌅 Yeni güne başlamak için kasa şifrenizi girin. (Açık kalmış eski masalar ve bildirimler temizlenecektir):");
@@ -2183,6 +2265,7 @@
             await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/rezervasyonlar.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' }); // Notları da temizle
             alert("Sistem fabrikaya ayarlarına döndürüldü. Tamamen 0'dan başlıyorsunuz.");
             location.reload();
           } catch(e) {
@@ -2386,7 +2469,11 @@
 
     masalariCiz();
     setInterval(buluttanVeriCek, 2000);
-    if (kasaAcik) buluttanVeriCek();
+    
+    if (kasaAcik) {
+      buluttanVeriCek();
+      kasaNotuCek();
+    }
   </script>
 </body>
 </html>
