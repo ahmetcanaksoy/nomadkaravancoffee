@@ -1620,16 +1620,16 @@
     <div class="menu-tabs" id="menu-tabs-bar" style="display:none;">
       <button class="tab-pill craft-tab" id="tab-tasarla" onclick="tabSec('tasarla')">✨ Kendi Kahveni Tasarla</button>
       <button class="tab-pill" id="tab-hepsi" onclick="tabSec('hepsi')">Tümü</button>
-      <button class="tab-pill" id="tab-nargile" onclick="tabSec('nargile')">Nargile</button>
       <button class="tab-pill" id="tab-cay" onclick="tabSec('cay')">Çay & Bitki Çayları</button>
       <button class="tab-pill" id="tab-sicak" onclick="tabSec('sicak')">Sıcak Kahveler</button>
       <button class="tab-pill" id="tab-soguk" onclick="tabSec('soguk')">Soğuk Kahveler</button>
       <button class="tab-pill" id="tab-frozen" onclick="tabSec('frozen')">Frozenler</button>
       <button class="tab-pill" id="tab-milkshake" onclick="tabSec('milkshake')">Milkshake Çeşitleri</button>
       <button class="tab-pill" id="tab-kokteyl" onclick="tabSec('kokteyl')">Kokteyller & Redbull Kokteyl</button>
-      <button class="tab-pill" id="tab-fastfood" onclick="tabSec('fastfood')">Fast Food</button>
+      <button class="tab-pill" id="tab-tost" onclick="tabSec('tost')">Tost Çeşitleri</button>
       <button class="tab-pill" id="tab-mesrubat" onclick="tabSec('mesrubat')">Meşrubatlar</button>
       <button class="tab-pill" id="tab-tatli" onclick="tabSec('tatli')">Pasta & Tatlı Çeşitleri</button>
+      <button class="tab-pill" id="tab-nargile" onclick="tabSec('nargile')">Nargile</button>
     </div>
 
     <div class="category-square-grid" id="category-squares-container"></div>
@@ -2134,43 +2134,43 @@
     }
 
     const kategoriBasliklari = {
-      nargile: "Nargile",
       cay: "Çay & Bitki Çayları",
       sicak: "Sıcak Kahveler",
       soguk: "Soğuk Kahveler",
       frozen: "Frozenler",
       milkshake: "Milkshake Çeşitleri",
       kokteyl: "Kokteyller & Redbull Kokteyl",
-      fastfood: "Fast Food",
+      tost: "Tost Çeşitleri",
       mesrubat: "Meşrubatlar",
-      tatli: "Pasta & Tatlı Çeşitleri"
+      tatli: "Pasta & Tatlı Çeşitleri",
+      nargile: "Nargile"
     };
 
     const kategoriIkonlari = {
-      nargile: "💨",
       cay: "🫖",
       sicak: "☕",
       soguk: "🧊",
       frozen: "🍧",
       milkshake: "🥤",
       kokteyl: "🍹",
-      fastfood: "🍔",
+      tost: "🥪",
       mesrubat: "🥫",
-      tatli: "🍰"
+      tatli: "🍰",
+      nargile: "💨"
     };
 
     const kategoriKartlari = [
       { id: "hepsi", ad: "Tümü", resim: "kat-tumu.jpg", ikon: "📋" },
-      { id: "nargile", ad: "Nargile", resim: "nargile2.jpg", ikon: "💨" },
-      { id: "cay", ad: "Çay & Bitki Çayları", resim: "cay2.jpg", ikon: "🫖" },
+      { id: "cay", ad: "Çay & Bitki Çayları", resim: "kat-cay.jpg", ikon: "🫖" },
       { id: "sicak", ad: "Sıcak Kahveler", resim: "kat-sicak-kahve.jpg", ikon: "☕" },
-      { id: "soguk", ad: "Soğuk Kahveler", resim: "sogukkahve2.jpg", ikon: "🧊" },
+      { id: "soguk", ad: "Soğuk Kahveler", resim: "kat-soguk-kahve.jpg", ikon: "🧊" },
       { id: "frozen", ad: "Frozenler", resim: "kat-frozen.jpg", ikon: "🍧" },
       { id: "milkshake", ad: "Milkshake Çeşitleri", resim: "kat-milkshake.jpg", ikon: "🥤" },
       { id: "kokteyl", ad: "Kokteyller & Redbull Kokteyl", resim: "kat-kokteyl.jpg", ikon: "🍹" },
-      { id: "fastfood", ad: "Fast Food", resim: "kat-fastfood.jpg", ikon: "🍔" },
+      { id: "tost", ad: "Tost Çeşitleri", resim: "kat-tost.jpg", ikon: "🥪" },
       { id: "mesrubat", ad: "Meşrubatlar", resim: "kat-mesrubat.jpg", ikon: "🥫" },
       { id: "tatli", ad: "Pasta & Tatlı Çeşitleri", resim: "kat-tatli.jpg", ikon: "🍰" },
+      { id: "nargile", ad: "Nargile", resim: "kat-nargile.jpg", ikon: "💨" },
       { id: "tasarla", ad: "✨ Kendi Kahveni Tasarla", resim: "kat-tasarla.jpg", ikon: "✨" }
     ];
 
@@ -2240,6 +2240,28 @@
       { id: 510, ad: "Raspberry Velvet", kategori: "kokteyl", aciklama: "Taze ahududu ve açai meyvesinin kadifemsi buluşması", fiyat: 240, resim: "raspberry-velvet.jpg" },
       { id: 511, ad: "Golden Sunset", kategori: "kokteyl", aciklama: "Taze portakal ve tropikal mango aromalı ferahlatıcı kokteyl", fiyat: 240, resim: "golden-sunset.jpg" },
       { id: 512, ad: "Kuzukulağı Kokteyl", kategori: "kokteyl", aciklama: "Taze yeşil kuzukulağı yaprakları, limon ferahlığı ve soğuk servis", fiyat: 240, resim: "kuzukulagi-kokteyl.jpg" },
+      { id: 1001, ad: "Karavan Tost", kategori: "tost", aciklama: "Dana kavurma, dana sucuk, kaşar peyniri, tereyağlı kızarmış ekmek", fiyat: 350, resim: "karavan-tost.jpg" },
+      { id: 1002, ad: "Kavurmalı Tost", kategori: "tost", aciklama: "Dana kavurma, kaşar peyniri, tereyağlı kızarmış ekmek", fiyat: 300, resim: "kavurmali-tost.jpg" },
+      { id: 1003, ad: "Karışık Tost", kategori: "tost", aciklama: "Dana sucuk, kaşar peyniri, tereyağlı kızarmış ekmek", fiyat: 250, resim: "karisik-tost.jpg" },
+      { id: 1004, ad: "Sucuklu Tost", kategori: "tost", aciklama: "Dana sucuk, tereyağlı kızarmış ekmek", fiyat: 200, resim: "sucuklu-tost.jpg" },
+      { id: 1005, ad: "Kaşarlı Tost", kategori: "tost", aciklama: "Kaşar peyniri, tereyağlı kızarmış ekmek", fiyat: 200, resim: "kasarli-tost.jpg" },
+      { id: 701, ad: "Fuse Tea Çeşitleri", kategori: "mesrubat", aciklama: "Şeftali, limon veya mango aromalı soğuk çay (330 ml)", fiyat: 100, resim: "fuse-tea.jpg" },
+      { id: 702, ad: "Coca-Cola", kategori: "mesrubat", aciklama: "Soğuk kutu / cam şişe servis (330 ml)", fiyat: 100, resim: "coca-cola.jpg" },
+      { id: 703, ad: "Fanta", kategori: "mesrubat", aciklama: "Portakal aromalı soğuk gazlı içecek (330 ml)", fiyat: 100, resim: "fanta.jpg" },
+      { id: 704, ad: "Cappy Meyve Suyu", kategori: "mesrubat", aciklama: "Şeftali, vişne veya karışık meyve nektarı (330 ml)", fiyat: 100, resim: "cappy.jpg" },
+      { id: 705, ad: "Su", kategori: "mesrubat", aciklama: "Doğal kaynak suyu (500 ml)", fiyat: 25, resim: "su.jpg" },
+      { id: 706, ad: "Soda Çeşitleri", kategori: "mesrubat", aciklama: "Sade veya meyve aromalı doğal maden suyu", fiyat: 70, resim: "soda.jpg" },
+      { id: 707, ad: "Redbull Çeşitleri", kategori: "mesrubat", aciklama: "Klasik veya aromalı soğuk Redbull enerji içeceği", fiyat: 150, resim: "redbull.jpg" },
+      { id: 708, ad: "Limonata", kategori: "mesrubat", aciklama: "Taze sıkılmış limon, nane yaprakları ve buz ile günlük hazırlanır", fiyat: 170, resim: "limonata.jpg" },
+      { id: 801, ad: "Frambuazlı Cheesecake", kategori: "tatli", aciklama: "Kremamsı peynir dolgusu, bisküvi tabanı ve taze frambuaz sosu", fiyat: 250, resim: "frambuazli-cheesecake.jpg" },
+      { id: 802, ad: "Limonlu Cheesecake", kategori: "tatli", aciklama: "Ferah limon kreması soslu fırınlanmış klasik cheesecake", fiyat: 250, resim: "limonlu-cheesecake.jpg" },
+      { id: 803, ad: "Lotuslu Cheesecake", kategori: "tatli", aciklama: "Karamelize Lotus Biscoff kreması ve çıtır bisküvi parçacıklarıyla", fiyat: 250, resim: "lotuslu-cheesecake.jpg" },
+      { id: 804, ad: "Orman Meyveli Pasta", kategori: "tatli", aciklama: "Yumuşak pandispanya katları arasında pastacı kreması ve taze orman meyveleri", fiyat: 250, resim: "orman-meyveli-pasta.jpg" },
+      { id: 805, ad: "Mozaik Pasta", kategori: "tatli", aciklama: "Yoğun kakao, tereyağı ve kırık petibör bisküvili çikolatalı klasik dilim", fiyat: 250, resim: "mozaik-pasta.jpg" },
+      { id: 806, ad: "Mono Siyah Profiterollü Pasta", kategori: "tatli", aciklama: "Bitter çikolata ganaj kaplı, içi krema dolgulu profiterol toplarıyla", fiyat: 250, resim: "mono-siyah-profiterollu-pasta.jpg" },
+      { id: 807, ad: "Fıstık Rüyası Pasta", kategori: "tatli", aciklama: "Kavrulmuş Antep fıstığı kreması ve yumuşak yeşil fıstıklı kek katmanları", fiyat: 250, resim: "fistik-ruyasi-pasta.jpg" },
+      { id: 808, ad: "Sufle", kategori: "tatli", aciklama: "Sıcak fırından çıkan akışkan Belçika çikolatalı sufle", fiyat: 250, resim: "sufle.jpg" },
+      { id: 809, ad: "Waffle", kategori: "tatli", aciklama: "Çıtır Belçika waffle hamuru, eritilmiş çikolata, muz, çilek ve fındık parçacıkları", fiyat: 250, resim: "waffle.jpg" },
       { id: 901, ad: "Pişmiş Şeftali Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
       { id: 902, ad: "Mango Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
       { id: 903, ad: "Çilek Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
@@ -2259,7 +2281,7 @@
       { id: 917, ad: "Lady Killer Nargile", kategori: "nargile", aciklama: "Mango, kavun, çilek, mentol", fiyat: 450, resim: "nargile.jpg" },
       { id: 918, ad: "Kavun Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
       { id: 919, ad: "Polombir Nargile", kategori: "nargile", aciklama: "Vanilyalı dondurma", fiyat: 450, resim: "nargile.jpg" },
-      { id: 920, ad: "Anason Nargile", kategori: "nargile", ozel: true, aciklama: "", fiyat: 550, resim: "nargile.jpg" },
+      { id: 920, ad: "Anason Nargile", kategori: "nargile", ozel: true, aciklama: "", fiyat: 550, resim: "nomad-spesiyal-nargile.jpg" },
       { id: 921, ad: "Limon Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
       { id: 922, ad: "Ice Cola Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
       { id: 923, ad: "Tiramisu Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
@@ -2272,30 +2294,7 @@
       { id: 930, ad: "Meyve Başlıklı Nane Limon Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
       { id: 931, ad: "Meyve Başlıklı Mandalina Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
       { id: 932, ad: "Meyve Başlıklı Çarkıfelek Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile.jpg" },
-      { id: 933, ad: "Lüle Değişimi", kategori: "nargile", aciklama: "Mevcut nargileniz için lüle değişimi", fiyat: 300, resim: "nargile.jpg" },
-      { id: 1004, ad: "Karışık Gurme Tost", kategori: "fastfood", aciklama: "Sucuk, kavurma, eriyen kaşar peyniri ve tereyağlı kızarmış tost ekmeği", fiyat: 180, resim: "karisik-gurme-tost.jpg" },
-      { id: 1005, ad: "Kaşarlı Tost", kategori: "fastfood", aciklama: "Bol eritilmiş taze kaşar peyniri ve tereyağlı tost ekmeği", fiyat: 150, resim: "kasarli-tost.jpg" },
-      { id: 1008, ad: "Sucuklu Tost", kategori: "fastfood", aciklama: "Bol sucuklu ve tereyağlı çıtır sıcak tost", fiyat: 160, resim: "sucuklu-tost.jpg" },
-      { id: 1009, ad: "Patso", kategori: "fastfood", aciklama: "Ekmek arası çıtır patates kızartması, ketçap ve mayonez ile", fiyat: 140, resim: "patso.jpg" },
-      { id: 1006, ad: "Patates Kızartması", kategori: "fastfood", aciklama: "Altın sarısı çıtır parmak patates, ketçap ve mayonez eşliğinde", fiyat: 140, resim: "patates-kizartmasi.jpg" },
-      { id: 1007, ad: "Çıtır Tavuk Sepeti", kategori: "fastfood", aciklama: "Çıtır tavuk parçaları, baharatlı patates kızartması ve özel dip soslar", fiyat: 240, resim: "citir-tavuk-sepeti.jpg" },
-      { id: 701, ad: "Fuse Tea Çeşitleri", kategori: "mesrubat", aciklama: "Şeftali, limon veya mango aromalı soğuk çay (330 ml)", fiyat: 100, resim: "fuse-tea.jpg" },
-      { id: 702, ad: "Coca-Cola", kategori: "mesrubat", aciklama: "Soğuk kutu / cam şişe servis (330 ml)", fiyat: 100, resim: "coca-cola.jpg" },
-      { id: 703, ad: "Fanta", kategori: "mesrubat", aciklama: "Portakal aromalı soğuk gazlı içecek (330 ml)", fiyat: 100, resim: "fanta.jpg" },
-      { id: 704, ad: "Cappy Meyve Suyu", kategori: "mesrubat", aciklama: "Şeftali, vişne veya karışık meyve nektarı (330 ml)", fiyat: 100, resim: "cappy.jpg" },
-      { id: 705, ad: "Su", kategori: "mesrubat", aciklama: "Doğal kaynak suyu (500 ml)", fiyat: 25, resim: "su.jpg" },
-      { id: 706, ad: "Soda Çeşitleri", kategori: "mesrubat", aciklama: "Sade veya meyve aromalı doğal maden suyu", fiyat: 70, resim: "soda.jpg" },
-      { id: 707, ad: "Redbull Çeşitleri", kategori: "mesrubat", aciklama: "Klasik veya aromalı soğuk Redbull enerji içeceği", fiyat: 150, resim: "redbull.jpg" },
-      { id: 708, ad: "Limonata", kategori: "mesrubat", aciklama: "Taze sıkılmış limon, nane yaprakları ve buz ile günlük hazırlanır", fiyat: 170, resim: "limonata.jpg" },
-      { id: 801, ad: "Frambuazlı Cheesecake", kategori: "tatli", aciklama: "Kremamsı peynir dolgusu, bisküvi tabanı ve taze frambuaz sosu", fiyat: 250, resim: "frambuazli-cheesecake.jpg" },
-      { id: 802, ad: "Limonlu Cheesecake", kategori: "tatli", aciklama: "Ferah limon kreması soslu fırınlanmış klasik cheesecake", fiyat: 250, resim: "limonlu-cheesecake.jpg" },
-      { id: 803, ad: "Lotuslu Cheesecake", kategori: "tatli", aciklama: "Karamelize Lotus Biscoff kreması ve çıtır bisküvi parçacıklarıyla", fiyat: 250, resim: "lotuslu-cheesecake.jpg" },
-      { id: 804, ad: "Orman Meyveli Pasta", kategori: "tatli", aciklama: "Yumuşak pandispanya katları arasında pastacı kreması ve taze orman meyveleri", fiyat: 250, resim: "orman-meyveli-pasta.jpg" },
-      { id: 805, ad: "Mozaik Pasta", kategori: "tatli", aciklama: "Yoğun kakao, tereyağı ve kırık petibör bisküvili çikolatalı klasik dilim", fiyat: 250, resim: "mozaik-pasta.jpg" },
-      { id: 806, ad: "Mono Siyah Profiterollü Pasta", kategori: "tatli", aciklama: "Bitter çikolata ganaj kaplı, içi krema dolgulu profiterol toplarıyla", fiyat: 250, resim: "mono-siyah-profiterollu-pasta.jpg" },
-      { id: 807, ad: "Fıstık Rüyası Pasta", kategori: "tatli", aciklama: "Kavrulmuş Antep fıstığı kreması ve yumuşak yeşil fıstıklı kek katmanları", fiyat: 250, resim: "fistik-ruyasi-pasta.jpg" },
-      { id: 808, ad: "Sufle", kategori: "tatli", aciklama: "Sıcak fırından çıkan akışkan Belçika çikolatalı sufle", fiyat: 250, resim: "sufle.jpg" },
-      { id: 809, ad: "Waffle", kategori: "tatli", aciklama: "Çıtır Belçika waffle hamuru, eritilmiş çikolata, muz, çilek ve fındık parçacıkları", fiyat: 250, resim: "waffle.jpg" }
+      { id: 933, ad: "Lüle Değişimi", kategori: "nargile", aciklama: "Mevcut nargileniz için lüle değişimi", fiyat: 300, resim: "nargile.jpg" }
     ];
 
     let ozelKahveSecim = {
