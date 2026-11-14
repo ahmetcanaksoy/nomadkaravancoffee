@@ -226,6 +226,17 @@
       gap: 6px;
     }
 
+    .btn-day-start {
+      background: rgba(16, 185, 129, 0.18);
+      color: #10b981;
+      border: 1.5px solid rgba(16, 185, 129, 0.5);
+    }
+    .btn-hard-reset {
+      background: rgba(239, 68, 68, 0.18);
+      color: #ef4444;
+      border: 1.5px solid rgba(239, 68, 68, 0.5);
+    }
+
     .btn-lock-now {
       background: rgba(255, 255, 255, 0.08);
       color: #cbd5e1;
@@ -1168,9 +1179,19 @@
         <span>Sesi Aktif Et</span>
       </button>
 
+      <button class="btn-eod-open btn-day-start" onclick="gunuBaslat()">
+        <span>🌅</span>
+        <span>Günü Başlat</span>
+      </button>
+
       <button class="btn-eod-open" onclick="gunSonuModalAc()">
-        <span>📊</span>
-        <span>Gün Sonu</span>
+        <span>🌃</span>
+        <span>Günü Bitir / Rapor</span>
+      </button>
+
+      <button class="btn-eod-open btn-hard-reset" onclick="tamSifirlamaYap()">
+        <span>⚠️</span>
+        <span>Sıfırla</span>
       </button>
 
       <div class="badge-pill badge-busy">
@@ -2127,6 +2148,50 @@
       kasaModalKapat('modal-payment-method');
       masalariCiz();
       masaDetayiGoster(seciliMasa);
+    }
+
+    /* ==== YENİ EKLENEN İŞLEMLER ==== */
+
+    async function gunuBaslat() {
+      const pin = prompt("🌅 Yeni güne başlamak için kasa şifrenizi girin. (Açık kalmış eski masalar ve bildirimler temizlenecektir):");
+      if (pin === KASA_SIFRESI) {
+        if(confirm("Tüm açık masalar temizlenip yeni gün başlatılacak. Onaylıyor musunuz?")) {
+          try {
+            await fetch(`${FIREBASE_URL}/masalar.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/kapali_oturumlar.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
+            alert("Harika! Yeni gün başlatıldı, tüm masalar 0'landı.");
+            location.reload();
+          } catch(e) {
+            alert("Bağlantı hatası oluştu.");
+          }
+        }
+      } else if (pin !== null) {
+        alert("Hatalı şifre!");
+      }
+    }
+
+    async function tamSifirlamaYap() {
+      const pin = prompt("DİKKAT! Tüm geçmiş veriler, bugünün cirosu, rezervasyonlar ve masalar tamamen SİLİNECEK. Fabrika ayarlarına dönmek için kasa şifresini girin:");
+      if (pin === KASA_SIFRESI) {
+        if (confirm("SON UYARI: Her şey sıfırlanacak ve bu işlem asla geri alınamaz! Gerçekten onaylıyor musunuz?")) {
+          try {
+            await fetch(`${FIREBASE_URL}/masalar.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/gun_sonu.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/kapali_oturumlar.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/rezervasyonlar.json`, { method: 'DELETE' });
+            alert("Sistem fabrikaya ayarlarına döndürüldü. Tamamen 0'dan başlıyorsunuz.");
+            location.reload();
+          } catch(e) {
+            alert("Bağlantı hatası oluştu.");
+          }
+        }
+      } else if (pin !== null) {
+        alert("Hatalı şifre girdiniz!");
+      }
     }
 
     function gunSonuModalAc() {
