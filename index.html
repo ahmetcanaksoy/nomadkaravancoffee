@@ -862,489 +862,10 @@
       font-weight: 900;
       cursor: pointer;
     }
-
-    .category-square-grid {
-      padding: 18px 16px 140px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .cat-square-card {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      border-radius: 22px;
-      overflow: hidden;
-      border: 1.5px solid rgba(245, 158, 11, 0.42);
-      background: linear-gradient(145deg, #2d353e 0%, #1a3327 100%);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42);
-      cursor: pointer;
-      transition: transform 0.18s ease;
-    }
-
-    .cat-square-card:active {
-      transform: scale(0.96);
-    }
-
-    .cat-square-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .cat-square-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.12) 0%, rgba(15, 23, 42, 0.55) 55%, rgba(12, 20, 17, 0.94) 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 14px;
-    }
-
-    .cat-square-title {
-      font-size: 0.96rem;
-      font-weight: 900;
-      color: #ffffff;
-      line-height: 1.2;
-      margin-bottom: 3px;
-    }
-
-    .cat-square-count {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--fire-amber);
-    }
-
-    .menu-tabs {
-      display: flex;
-      gap: 8px;
-      padding: 12px 16px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      background: rgba(24, 32, 33, 0.92);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 132px;
-      z-index: 90;
-      border-bottom: 1px solid var(--card-border);
-    }
-
-    .menu-tabs::-webkit-scrollbar {
-      display: none;
-    }
-
-    .tab-pill {
-      background: rgba(54, 61, 69, 0.88);
-      border: 1px solid var(--card-border);
-      color: var(--slate-muted);
-      padding: 10px 18px;
-      border-radius: 20px;
-      font-size: 0.84rem;
-      font-weight: 700;
-      white-space: nowrap;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .tab-pill.craft-tab {
-      border-color: rgba(245, 158, 11, 0.55);
-      color: var(--fire-amber);
-    }
-
-    .tab-pill.active {
-      background: linear-gradient(135deg, var(--fire-orange) 0%, var(--forest-green) 100%);
-      border-color: var(--fire-amber);
-      color: #ffffff;
-      font-weight: 900;
-      box-shadow: 0 4px 16px var(--fire-glow);
-    }
-
-    .product-list {
-      padding: 18px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      padding-bottom: 140px;
-    }
-
-    .category-divider-heading {
-      font-size: 0.95rem;
-      font-weight: 900;
-      color: var(--fire-amber);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      padding: 10px 6px 4px;
-      border-bottom: 1.5px solid rgba(245, 158, 11, 0.32);
-      margin-top: 6px;
-    }
-
-    .craft-studio {
-      background: linear-gradient(145deg, rgba(54, 61, 69, 0.92) 0%, rgba(25, 48, 37, 0.95) 100%);
-      border: 1.5px solid rgba(245, 158, 11, 0.45);
-      border-radius: 24px;
-      padding: 20px 16px;
-      box-shadow: var(--shadow-3d);
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .craft-group-title {
-      font-size: 0.8rem;
-      font-weight: 900;
-      color: var(--fire-amber);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 8px;
-    }
-
-    .craft-options-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-    }
-
-    .craft-chip {
-      background: rgba(26, 31, 37, 0.94);
-      border: 1.5px solid var(--card-border);
-      border-radius: 14px;
-      padding: 12px 10px;
-      color: #e2e8f0;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.15s;
-    }
-
-    .craft-chip span.c-price {
-      font-size: 0.75rem;
-      color: var(--fire-amber);
-      font-weight: 800;
-    }
-
-    .craft-chip.selected {
-      background: rgba(234, 88, 12, 0.28);
-      border-color: var(--fire-amber);
-      color: #ffffff;
-    }
-
-    .craft-summary-box {
-      background: rgba(22, 28, 30, 0.95);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      border-radius: 16px;
-      padding: 14px;
-    }
-
-    .product-card {
-      background: linear-gradient(145deg, rgba(54, 61, 69, 0.86) 0%, rgba(27, 47, 38, 0.9) 100%);
-      backdrop-filter: blur(14px);
-      border: 1.5px solid var(--card-border);
-      border-radius: 22px;
-      padding: 14px;
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-      min-height: 110px;
-    }
-
-    .product-card.special-card {
-      border-color: rgba(245, 158, 11, 0.65);
-      background: linear-gradient(145deg, rgba(68, 56, 44, 0.9) 0%, rgba(28, 52, 40, 0.94) 100%);
-    }
-
-    .product-thumb {
-      width: 95px;
-      height: 95px;
-      border-radius: 16px;
-      object-fit: cover;
-      flex-shrink: 0;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-      border: 1px solid rgba(226, 232, 240, 0.25);
-      background: #1e262c;
-    }
-
-    .cat-square-card .product-thumb-fallback {
-      width: 100%;
-      height: 100%;
-      border-radius: 22px;
-      border: none;
-      background: linear-gradient(145deg, #232a32 0%, #14281e 100%);
-      font-size: 3rem;
-      opacity: 0.8;
-    }
-
-    .product-thumb-fallback {
-      width: 95px;
-      height: 95px;
-      border-radius: 16px;
-      flex-shrink: 0;
-      background: linear-gradient(145deg, #2d3740 0%, #193126 100%);
-      border: 1.5px solid rgba(245, 158, 11, 0.45);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      color: var(--fire-amber);
-      font-size: 1.7rem;
-    }
-
-    .product-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 95px;
-    }
-
-    .prod-title {
-      font-size: 0.98rem;
-      font-weight: 800;
-      color: #ffffff;
-      line-height: 1.25;
-      margin-bottom: 4px;
-    }
-
-    .prod-desc {
-      font-size: 0.75rem;
-      color: var(--slate-muted);
-      line-height: 1.35;
-      margin-bottom: 6px;
-    }
-
-    .prod-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-    }
-
-    .prod-price {
-      font-size: 1.1rem;
-      font-weight: 900;
-      color: var(--fire-amber);
-    }
-
-    .qty-box {
-      display: flex;
-      align-items: center;
-      background: rgba(24, 29, 34, 0.94);
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--card-border);
-    }
-
-    .qty-btn {
-      background: transparent;
-      border: none;
-      width: 34px;
-      height: 34px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.15rem;
-      color: #ffffff;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .qty-btn.plus {
-      background: var(--fire-orange);
-      color: #ffffff;
-    }
-
-    .qty-num {
-      min-width: 26px;
-      text-align: center;
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: #ffffff;
-    }
-
-    .visitor-qr-note {
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: #a7f3d0;
-      background: rgba(16, 185, 129, 0.16);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      padding: 5px 10px;
-      border-radius: 10px;
-    }
-
-    .visitor-bottom-banner {
-      position: fixed;
-      bottom: 16px;
-      left: 14px;
-      right: 14px;
-      background: rgba(32, 39, 43, 0.96);
-      border: 1.5px solid rgba(245, 158, 11, 0.5);
-      border-radius: 18px;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      z-index: 150;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.65);
-    }
-
-    .floating-cart-bar {
-      position: fixed;
-      bottom: 20px;
-      left: 14px;
-      right: 14px;
-      background: linear-gradient(135deg, #2b323b 0%, #1b4d36 100%);
-      border: 1.5px solid rgba(245, 158, 11, 0.55);
-      border-radius: 22px;
-      padding: 14px 20px;
-      color: #ffffff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
-      z-index: 160;
-      transform: translateY(180%);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .floating-cart-bar.active {
-      transform: translateY(0);
-    }
-
-    .cart-summary {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .cart-total-badge {
-      font-size: 0.74rem;
-      color: #cbd5e1;
-      font-weight: 600;
-    }
-
-    .cart-price-sum {
-      font-size: 1.25rem;
-      font-weight: 900;
-      color: var(--fire-amber);
-    }
-
-    .btn-create-order {
-      background: var(--fire-orange);
-      color: #ffffff;
-      border: none;
-      padding: 12px 22px;
-      border-radius: 14px;
-      font-size: 0.92rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 6px 18px var(--fire-glow);
-    }
-
-    .toast-box {
-      position: fixed;
-      top: 84px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-20px);
-      background: var(--fire-orange);
-      color: #ffffff;
-      padding: 10px 22px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 8px 24px var(--fire-glow);
-      z-index: 300;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.25s ease;
-    }
-
-    .toast-box.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .custom-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(16, 22, 20, 0.88);
-      backdrop-filter: blur(12px);
-      z-index: 250;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .modal-card {
-      background: linear-gradient(145deg, #2d343d 0%, #193126 100%);
-      border-radius: 24px;
-      padding: 28px 22px;
-      text-align: center;
-      max-width: 330px;
-      width: 100%;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-      border: 1.5px solid rgba(245, 158, 11, 0.45);
-      animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes popIn {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    .modal-circle-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: rgba(234, 88, 12, 0.22);
-      color: var(--fire-amber);
-      font-size: 1.8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-    }
-
-    .taxi-badge-pill {
-      display: inline-block;
-      background: rgba(245, 158, 11, 0.18);
-      border: 1px solid var(--fire-amber);
-      color: var(--fire-amber);
-      font-size: 0.74rem;
-      font-weight: 900;
-      padding: 5px 12px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      letter-spacing: 0.4px;
-    }
-
-    .btn-modal-secondary {
-      margin-top: 10px;
-      width: 100%;
-      background: transparent;
-      border: 1px solid rgba(226, 232, 240, 0.25);
-      color: var(--slate-muted);
-      padding: 10px;
-      border-radius: 12px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
   </style>
 </head>
-<body class="loading-lock">
+
+  <body class="loading-lock">
 
   <div id="intro-splash">
     <div class="splash-aura"></div>
@@ -1680,7 +1201,7 @@
     </div>
   </div>
 
-  <script>
+    <script>
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
     
     // Masa parametresini Hash ve URL üzerinden daha keskin arayalım
@@ -2164,6 +1685,7 @@
     };
 
     const kategoriKartlari = [
+      { id: "tasarla", ad: "✨ Kendi Kahveni Tasarla", resim: "kat-tasarla.jpg", ikon: "✨" },
       { id: "hepsi", ad: "Tümü", resim: "kat-tumu.jpg", ikon: "📋" },
       { id: "nargile", ad: "Nargile", resim: "kat-nargile.jpg", ikon: "💨" },
       { id: "cay", ad: "Çay & Bitki Çayları", resim: "kat-cay.jpg", ikon: "🫖" },
@@ -2174,8 +1696,7 @@
       { id: "kokteyl", ad: "Kokteyller & Redbull Kokteyl", resim: "kat-kokteyl.jpg", ikon: "🍹" },
       { id: "fastfood", ad: "Fast Food", resim: "kat-fastfood.jpg", ikon: "🍔" },
       { id: "mesrubat", ad: "Meşrubatlar", resim: "kat-mesrubat.jpg", ikon: "🥫" },
-      { id: "tatli", ad: "Pasta & Tatlı Çeşitleri", resim: "kat-tatli.jpg", ikon: "🍰" },
-      { id: "tasarla", ad: "✨ Kendi Kahveni Tasarla", resim: "kat-tasarla.jpg", ikon: "✨" }
+      { id: "tatli", ad: "Pasta & Tatlı Çeşitleri", resim: "kat-tatli.jpg", ikon: "🍰" }
     ];
 
     const urunler = [
@@ -2212,92 +1733,92 @@
       { id: 931, ad: "Mandalina Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "kat-nargile.jpg" },
       { id: 932, ad: "Çarkıfelek Meyvesi Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "kat-nargile.jpg" },
       { id: 933, ad: "Lüle Değişimi", kategori: "nargile", aciklama: "Nargileniz için taze lüle değişimi", fiyat: 300, resim: "kat-nargile.jpg" },
-      { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
-      { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
-      { id: 603, ad: "Ihlamur", kategori: "cay", aciklama: "French press demlemesi çiçek ve yaprak ıhlamur, fincan servisi", fiyat: 160, resim: "ihlamur.jpg" },
-      { id: 604, ad: "Yeşil Çay", kategori: "cay", aciklama: "French press ile demlenmiş yumuşak içimli doğal yeşil çay", fiyat: 160, resim: "yesil-cay.jpg" },
-      { id: 605, ad: "Papatya Çayı", kategori: "cay", aciklama: "French press demlemesi doğal kır papatyası çiçekleri", fiyat: 160, resim: "papatya-cayi.jpg" },
-      { id: 606, ad: "Nane Limon", kategori: "cay", aciklama: "French press ile demlenmiş kurutulmuş nane yaprakları ve limon", fiyat: 160, resim: "nane-limon.jpg" },
-      { id: 607, ad: "Hibiscus Çayı", kategori: "cay", aciklama: "French press demlemesi yakut kırmızısı hibiscus çiçeği çayı", fiyat: 160, resim: "hibiscus-cayi.jpg" },
-      { id: 608, ad: "Elma Çayı", kategori: "cay", aciklama: "French press ile demlenmiş elma dilimleri ve tarçın dokunuşu", fiyat: 160, resim: "elma-cayi.jpg" },
-      { id: 609, ad: "Kış Çayı", kategori: "cay", aciklama: "French press demlemesi ıhlamur, zencefil, tarçın ve karanfil harmanı", fiyat: 160, resim: "kis-cayi.jpg" },
-      { id: 101, ad: "Nomâd Spesiyal (Sıcak Kahve)", kategori: "sicak", ozel: true, aciklama: "", fiyat: 205, resim: "nomad-spesiyal-sicak.jpg" },
-      { id: 102, ad: "Caffè Latte", kategori: "sicak", aciklama: "Taze çekilmiş espresso ve buharda ısıtılmış kadifemsi süt", fiyat: 200, resim: "caffe-latte.jpg" },
-      { id: 103, ad: "Caffè Mocha", kategori: "sicak", aciklama: "Sıcak espresso, eritilmiş gerçek çikolata ve kadifemsi süt kreması", fiyat: 225, resim: "caffe-mocha.jpg" },
-      { id: 104, ad: "Flat White", kategori: "sicak", aciklama: "Çift shot espresso üzerine mikro köpüklü ipeksi süt", fiyat: 210, resim: "flat-white.jpg" },
-      { id: 105, ad: "Cortado", kategori: "sicak", aciklama: "Eşit oranda çift shot espresso ve sıcak süt dengesi", fiyat: 210, resim: "cortado.jpg" },
-      { id: 106, ad: "Cappuccino", kategori: "sicak", aciklama: "Espresso, sıcak süt ve bol kıvamlı süt kreması köpüğü", fiyat: 200, resim: "cappuccino.jpg" },
-      { id: 107, ad: "Macchiato", kategori: "sicak", aciklama: "Şeffaf fincanda altta süt, ortada yoğun kahve ve üstte beyaz süt köpüğü", fiyat: 200, resim: "macchiato.jpg" },
-      { id: 108, ad: "Americano", kategori: "sicak", aciklama: "Sıcak su ile inceltilmiş zengin aromalı çift shot espresso", fiyat: 190, resim: "americano.jpg" },
-      { id: 109, ad: "Filtre Kahve", kategori: "sicak", aciklama: "Taze kavrulmuş nitelikli çekirdeklerden günlük demleme", fiyat: 170, resim: "filtre-kahve.jpg" },
-      { id: 110, ad: "Espresso", kategori: "sicak", aciklama: "Yoğun gövdeli, altın kremalı tek shot klasik İtalyan espressosu", fiyat: 110, resim: "espresso.jpg" },
-      { id: 111, ad: "Double Espresso", kategori: "sicak", aciklama: "Çift shot yoğun ve yüksek aromalı saf espresso deneyimi", fiyat: 130, resim: "double-espresso.jpg" },
-      { id: 112, ad: "Caramel Latte", kategori: "sicak", aciklama: "Espresso, sıcak süt ve altın karamel şurubu uyumu", fiyat: 225, resim: "caramel-latte.jpg" },
-      { id: 113, ad: "Toffee Nut Latte", kategori: "sicak", aciklama: "Kavrulmuş fındık ve tereyağlı karamel aromalı sıcak latte", fiyat: 225, resim: "toffee-nut-latte.jpg" },
-      { id: 114, ad: "Hazelnut Latte", kategori: "sicak", aciklama: "Taze espresso, sıcak süt ve yoğun fındık aroması", fiyat: 225, resim: "hazelnut-latte.jpg" },
-      { id: 115, ad: "Cookie Latte", kategori: "sicak", aciklama: "Taze kurabiye aroması, sıcak süt ve kadifemsi espresso", fiyat: 225, resim: "cookie-latte.jpg" },
-      { id: 116, ad: "White Chocolate Mocha", kategori: "sicak", aciklama: "Beyaz çikolata kreması, espresso ve buharda ısıtılmış süt", fiyat: 225, resim: "white-chocolate-mocha.jpg" },
-      { id: 117, ad: "Caramel Macchiato", kategori: "sicak", aciklama: "Vanilya aromalı sıcak süt, espresso ve üzeri karamel sos çizgileri", fiyat: 225, resim: "caramel-macchiato.jpg" },
-      { id: 201, ad: "Nomâd Spesiyal (Soğuk Kahve)", kategori: "soguk", ozel: true, aciklama: "", fiyat: 210, resim: "nomad-spesiyal-soguk.jpg" },
-      { id: 202, ad: "Iced Latte", kategori: "soguk", aciklama: "Kristal buz parçaları, soğuk taze süt ve çift shot espresso", fiyat: 200, resim: "iced-latte.jpg" },
-      { id: 203, ad: "Iced Mocha", kategori: "soguk", aciklama: "Buzlu süt, yoğun çikolata sosu ve taze espresso birleşimi", fiyat: 220, resim: "iced-mocha.jpg" },
-      { id: 204, ad: "Iced Filter Coffee", kategori: "soguk", aciklama: "Soğutulmuş nitelikli filtre kahve ve bol kristal buz", fiyat: 170, resim: "iced-filter-coffee.jpg" },
-      { id: 205, ad: "Iced Americano", kategori: "soguk", aciklama: "Soğuk su, bol buz ve çift shot espresso ferahlığı", fiyat: 200, resim: "iced-americano.jpg" },
-      { id: 206, ad: "Iced Caramel Latte", kategori: "soguk", aciklama: "Soğuk süt, espresso, buz ve tatlı karamel şurubu", fiyat: 220, resim: "iced-caramel-latte.jpg" },
-      { id: 207, ad: "Iced Toffee Nut Latte", kategori: "soguk", aciklama: "Buzlu süt, kavrulmuş fındık-karamel aroması ve espresso", fiyat: 220, resim: "iced-toffee-nut-latte.jpg" },
-      { id: 208, ad: "Iced Hazelnut Latte", kategori: "soguk", aciklama: "Fındık şurubu, soğuk taze süt, buz ve taze espresso", fiyat: 220, resim: "iced-hazelnut-latte.jpg" },
-      { id: 209, ad: "Iced Cookie Latte", kategori: "soguk", aciklama: "Kurabiye aroması, buzlu süt ve espresso katmanı", fiyat: 220, resim: "iced-cookie-latte.jpg" },
-      { id: 210, ad: "Iced White Chocolate Mocha", kategori: "soguk", aciklama: "Beyaz çikolata sosu, soğuk süt, buz ve espresso", fiyat: 220, resim: "iced-white-chocolate-mocha.jpg" },
-      { id: 301, ad: "Nomâd Spesiyal (Frozen)", kategori: "frozen", ozel: true, aciklama: "", fiyat: 210, resim: "nomad-spesiyal-frozen.jpg" },
-      { id: 302, ad: "Karadut Frozen", kategori: "frozen", aciklama: "Gerçek karadut özü ve ince kırılmış buz ile ferah kıvam", fiyat: 210, resim: "karadut-frozen.jpg" },
-      { id: 303, ad: "Muz Frozen", kategori: "frozen", aciklama: "Taze muz aroması ve kar buz kıvamında soğuk içecek", fiyat: 210, resim: "muz-frozen.jpg" },
-      { id: 304, ad: "Çilek Frozen", kategori: "frozen", aciklama: "Olgun çilek püresi ve buz kristalleriyle hazırlanan serinletici tat", fiyat: 210, resim: "cilek-frozen.jpg" },
-      { id: 305, ad: "Mango Frozen", kategori: "frozen", aciklama: "Tropikal mango püresi ve ince çekilmiş buz karışımı", fiyat: 210, resim: "mango-frozen.jpg" },
-      { id: 306, ad: "Ananas Frozen", kategori: "frozen", aciklama: "Tatlı ananas özü ve ferahlatıcı kar buz dokusu", fiyat: 210, resim: "ananas-frozen.jpg" },
-      { id: 307, ad: "Mango Ananas Frozen", kategori: "frozen", aciklama: "Tropikal mango ve tatlı ananasın buzla buluşan ikili uyumu", fiyat: 220, resim: "mango-ananas-frozen.jpg" },
-      { id: 308, ad: "Böğürtlen Frozen", kategori: "frozen", aciklama: "Yabani böğürtlen püresi ve serinletici buz karışımı", fiyat: 210, resim: "bogurtlen-frozen.jpg" },
-      { id: 309, ad: "Orman Meyveli Frozen", kategori: "frozen", aciklama: "Çilek, ahududu, böğürtlen ve yaban mersini harmanı", fiyat: 210, resim: "orman-meyveli-frozen.jpg" },
-      { id: 310, ad: "Çarkıfelek Frozen", kategori: "frozen", aciklama: "Egzotik passion fruit aroması ve ferah buz dokusu", fiyat: 210, resim: "carkifelek-frozen.jpg" },
-      { id: 311, ad: "Limon Frozen", kategori: "frozen", aciklama: "Taze sıkılmış limon ferahlığı ve kar buz serinliği", fiyat: 210, resim: "limon-frozen.jpg" },
-      { id: 401, ad: "Nomâd Spesiyal (Milkshake)", kategori: "milkshake", ozel: true, aciklama: "", fiyat: 220, resim: "nomad-spesiyal-milkshake.jpg" },
-      { id: 402, ad: "Çilekli Milkshake", kategori: "milkshake", aciklama: "Soğuk süt, vanilyalı dondurma ve yoğun çilek püresi", fiyat: 220, resim: "cilekli-milkshake.jpg" },
-      { id: 403, ad: "Muzlu Milkshake", kategori: "milkshake", aciklama: "Taze muz, soğuk süt ve kremamsı dondurma kıvamı", fiyat: 220, resim: "muzlu-milkshake.jpg" },
-      { id: 404, ad: "Çikolatalı Milkshake", kategori: "milkshake", aciklama: "Belçika çikolatası sosu, soğuk süt ve yoğun dondurma", fiyat: 220, resim: "cikolatali-milkshake.jpg" },
-      { id: 405, ad: "Karamelli Milkshake", kategori: "milkshake", aciklama: "Altın karamel sosu, soğuk süt ve kadifemsi dondurma", fiyat: 220, resim: "karamelli-milkshake.jpg" },
-      { id: 406, ad: "Vanilyalı Milkshake", kategori: "milkshake", aciklama: "Madagaskar vanilyası, soğuk süt ve krema dokusu", fiyat: 220, resim: "vanilyali-milkshake.jpg" },
-      { id: 501, ad: "Nomâd Spesiyal (Kokteyl)", kategori: "kokteyl", ozel: true, aciklama: "", fiyat: 245, resim: "nomad-spesiyal-kokteyl.jpg" },
-      { id: 502, ad: "Ekşi Redbull Kokteyl", kategori: "kokteyl", aciklama: "Soğuk Redbull, taze narenciye ekşisi ve kristal buz", fiyat: 260, resim: "eksi-redbull-kokteyl.jpg" },
-      { id: 503, ad: "Tatlı Redbull Kokteyl", kategori: "kokteyl", aciklama: "Soğuk Redbull, kırmızı orman meyveleri ve tropikal şurup", fiyat: 260, resim: "tatli-redbull-kokteyl.jpg" },
-      { id: 504, ad: "Cool Lime", kategori: "kokteyl", aciklama: "Taze misket limonu, ferah nane yaprakları ve kristal buz", fiyat: 240, resim: "cool-lime.jpg" },
-      { id: 505, ad: "Berry Hibiscus", kategori: "kokteyl", aciklama: "Orman meyveleri özü, soğuk hibiscus demlemesi ve taze böğürtlen", fiyat: 240, resim: "berry-hibiscus.jpg" },
-      { id: 506, ad: "Açai Berry Sunset", kategori: "kokteyl", aciklama: "Çilek ve açai meyvesi özleriyle hazırlanan gün batımı kokteyli", fiyat: 240, resim: "acai-berry-sunset.jpg" },
-      { id: 507, ad: "Purple Mirage", kategori: "kokteyl", aciklama: "Turunç aroması ve mavi kelebek çiçeği özlü özel renk geçişli kokteyl", fiyat: 240, resim: "purple-mirage.jpg" },
-      { id: 508, ad: "Dragon Mango Sunset", kategori: "kokteyl", aciklama: "Ejder meyvesi ve tropikal mango meyvesi karışımı", fiyat: 240, resim: "dragon-mango-sunset.jpg" },
-      { id: 509, ad: "Pitaya Breeze", kategori: "kokteyl", aciklama: "Ejder meyvesi, olgun mango ve orman meyveleri ferahlığı", fiyat: 240, resim: "pitaya-breeze.jpg" },
-      { id: 510, ad: "Raspberry Velvet", kategori: "kokteyl", aciklama: "Taze ahududu ve açai meyvesinin kadifemsi buluşması", fiyat: 240, resim: "raspberry-velvet.jpg" },
-      { id: 511, ad: "Golden Sunset", kategori: "kokteyl", aciklama: "Taze portakal ve tropikal mango aromalı ferahlatıcı kokteyl", fiyat: 240, resim: "golden-sunset.jpg" },
-      { id: 512, ad: "Kuzukulağı Kokteyl", kategori: "kokteyl", aciklama: "Taze yeşil kuzukulağı yaprakları, limon ferahlığı ve soğuk servis", fiyat: 240, resim: "kuzukulagi-kokteyl.jpg" },
-      { id: 1004, ad: "Karışık Gurme Tost", kategori: "fastfood", aciklama: "Sucuk, kavurma, eriyen kaşar peyniri ve tereyağlı kızarmış tost ekmeği", fiyat: 180, resim: "karisik-gurme-tost.jpg" },
-      { id: 1005, ad: "Kaşarlı Tost", kategori: "fastfood", aciklama: "Bol eritilmiş taze kaşar peyniri ve tereyağlı tost ekmeği", fiyat: 150, resim: "kasarli-tost.jpg" },
-      { id: 1008, ad: "Sucuklu Tost", kategori: "fastfood", aciklama: "Bol sucuklu ve tereyağlı çıtır sıcak tost", fiyat: 160, resim: "sucuklu-tost.jpg" },
-      { id: 1006, ad: "Patates Kızartması", kategori: "fastfood", aciklama: "Altın sarısı çıtır parmak patates, ketçap ve mayonez eşliğinde", fiyat: 140, resim: "patates-kizartmasi.jpg" },
-      { id: 701, ad: "Fuse Tea Çeşitleri", kategori: "mesrubat", aciklama: "Şeftali, limon veya mango aromalı soğuk çay (330 ml)", fiyat: 100, resim: "fuse-tea.jpg" },
-      { id: 702, ad: "Coca-Cola", kategori: "mesrubat", aciklama: "Soğuk kutu / cam şişe servis (330 ml)", fiyat: 100, resim: "coca-cola.jpg" },
-      { id: 703, ad: "Fanta", kategori: "mesrubat", aciklama: "Portakal aromalı soğuk gazlı içecek (330 ml)", fiyat: 100, resim: "fanta.jpg" },
-      { id: 704, ad: "Cappy Meyve Suyu", kategori: "mesrubat", aciklama: "Şeftali, vişne veya karışık meyve nektarı (330 ml)", fiyat: 100, resim: "cappy.jpg" },
-      { id: 705, ad: "Su", kategori: "mesrubat", aciklama: "Doğal kaynak suyu (500 ml)", fiyat: 25, resim: "su.jpg" },
-      { id: 706, ad: "Soda Çeşitleri", kategori: "mesrubat", aciklama: "Sade veya meyve aromalı doğal maden suyu", fiyat: 70, resim: "soda.jpg" },
-      { id: 707, ad: "Redbull Çeşitleri", kategori: "mesrubat", aciklama: "Klasik veya aromalı soğuk Redbull enerji içeceği", fiyat: 150, resim: "redbull.jpg" },
-      { id: 708, ad: "Limonata", kategori: "mesrubat", aciklama: "Taze sıkılmış limon, nane yaprakları ve buz ile günlük hazırlanır", fiyat: 170, resim: "limonata.jpg" },
-      { id: 801, ad: "Frambuazlı Cheesecake", kategori: "tatli", aciklama: "Kremamsı peynir dolgusu, bisküvi tabanı ve taze frambuaz sosu", fiyat: 250, resim: "frambuazli-cheesecake.jpg" },
-      { id: 802, ad: "Limonlu Cheesecake", kategori: "tatli", aciklama: "Ferah limon kreması soslu fırınlanmış klasik cheesecake", fiyat: 250, resim: "limonlu-cheesecake.jpg" },
-      { id: 803, ad: "Lotuslu Cheesecake", kategori: "tatli", aciklama: "Karamelize Lotus Biscoff kreması ve çıtır bisküvi parçacıklarıyla", fiyat: 250, resim: "lotuslu-cheesecake.jpg" },
-      { id: 804, ad: "Orman Meyveli Pasta", kategori: "tatli", aciklama: "Yumuşak pandispanya katları arasında pastacı kreması ve taze orman meyveleri", fiyat: 250, resim: "orman-meyveli-pasta.jpg" },
-      { id: 805, ad: "Mozaik Pasta", kategori: "tatli", aciklama: "Yoğun kakao, tereyağı ve kırık petibör bisküvili çikolatalı klasik dilim", fiyat: 250, resim: "mozaik-pasta.jpg" },
-      { id: 806, ad: "Mono Siyah Profiterollü Pasta", kategori: "tatli", aciklama: "Bitter çikolata ganaj kaplı, içi krema dolgulu profiterol toplarıyla", fiyat: 250, resim: "mono-siyah-profiterollu-pasta.jpg" },
-      { id: 807, ad: "Fıstık Rüyası Pasta", kategori: "tatli", aciklama: "Kavrulmuş Antep fıstığı kreması ve yumuşak yeşil fıstıklı kek katmanları", fiyat: 250, resim: "fistik-ruyasi-pasta.jpg" },
-      { id: 808, ad: "Sufle", kategori: "tatli", aciklama: "Sıcak fırından çıkan akışkan Belçika çikolatalı sufle", fiyat: 250, resim: "sufle.jpg" },
-      { id: 809, ad: "Waffle", kategori: "tatli", aciklama: "Çıtır Belçika waffle hamuru, eritilmiş çikolata, muz, çilek ve fındık parçacıkları", fiyat: 250, resim: "waffle.jpg" }
+      { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "kat-cay.jpg" },
+      { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "kat-cay.jpg" },
+      { id: 603, ad: "Ihlamur", kategori: "cay", aciklama: "French press demlemesi çiçek ve yaprak ıhlamur, fincan servisi", fiyat: 160, resim: "kat-cay.jpg" },
+      { id: 604, ad: "Yeşil Çay", kategori: "cay", aciklama: "French press ile demlenmiş yumuşak içimli doğal yeşil çay", fiyat: 160, resim: "kat-cay.jpg" },
+      { id: 605, ad: "Papatya Çayı", kategori: "cay", aciklama: "French press demlemesi doğal kır papatyası çiçekleri", fiyat: 160, resim: "kat-cay.jpg" },
+      { id: 606, ad: "Nane Limon", kategori: "cay", aciklama: "French press ile demlenmiş kurutulmuş nane yaprakları ve limon", fiyat: 160, resim: "kat-cay.jpg" },
+      { id: 607, ad: "Hibiscus Çayı", kategori: "cay", aciklama: "French press demlemesi yakut kırmızısı hibiscus çiçeği çayı", fiyat: 160, resim: "kat-cay.jpg" },
+      { id: 608, ad: "Elma Çayı", kategori: "cay", aciklama: "French press ile demlenmiş elma dilimleri ve tarçın dokunuşu", fiyat: 160, resim: "kat-cay.jpg" },
+      { id: 609, ad: "Kış Çayı", kategori: "cay", aciklama: "French press demlemesi ıhlamur, zencefil, tarçın ve karanfil harmanı", fiyat: 160, resim: "kat-cay.jpg" },
+      { id: 101, ad: "Nomâd Spesiyal (Sıcak Kahve)", kategori: "sicak", ozel: true, aciklama: "", fiyat: 205, resim: "kat-sicak-kahve.jpg" },
+      { id: 102, ad: "Caffè Latte", kategori: "sicak", aciklama: "Taze çekilmiş espresso ve buharda ısıtılmış kadifemsi süt", fiyat: 200, resim: "kat-sicak-kahve.jpg" },
+      { id: 103, ad: "Caffè Mocha", kategori: "sicak", aciklama: "Sıcak espresso, eritilmiş gerçek çikolata ve kadifemsi süt kreması", fiyat: 225, resim: "kat-sicak-kahve.jpg" },
+      { id: 104, ad: "Flat White", kategori: "sicak", aciklama: "Çift shot espresso üzerine mikro köpüklü ipeksi süt", fiyat: 210, resim: "kat-sicak-kahve.jpg" },
+      { id: 105, ad: "Cortado", kategori: "sicak", aciklama: "Eşit oranda çift shot espresso ve sıcak süt dengesi", fiyat: 210, resim: "kat-sicak-kahve.jpg" },
+      { id: 106, ad: "Cappuccino", kategori: "sicak", aciklama: "Espresso, sıcak süt ve bol kıvamlı süt kreması köpüğü", fiyat: 200, resim: "kat-sicak-kahve.jpg" },
+      { id: 107, ad: "Macchiato", kategori: "sicak", aciklama: "Şeffaf fincanda altta süt, ortada yoğun kahve ve üstte beyaz süt köpüğü", fiyat: 200, resim: "kat-sicak-kahve.jpg" },
+      { id: 108, ad: "Americano", kategori: "sicak", aciklama: "Sıcak su ile inceltilmiş zengin aromalı çift shot espresso", fiyat: 190, resim: "kat-sicak-kahve.jpg" },
+      { id: 109, ad: "Filtre Kahve", kategori: "sicak", aciklama: "Taze kavrulmuş nitelikli çekirdeklerden günlük demleme", fiyat: 170, resim: "kat-sicak-kahve.jpg" },
+      { id: 110, ad: "Espresso", kategori: "sicak", aciklama: "Yoğun gövdeli, altın kremalı tek shot klasik İtalyan espressosu", fiyat: 110, resim: "kat-sicak-kahve.jpg" },
+      { id: 111, ad: "Double Espresso", kategori: "sicak", aciklama: "Çift shot yoğun ve yüksek aromalı saf espresso deneyimi", fiyat: 130, resim: "kat-sicak-kahve.jpg" },
+      { id: 112, ad: "Caramel Latte", kategori: "sicak", aciklama: "Espresso, sıcak süt ve altın karamel şurubu uyumu", fiyat: 225, resim: "kat-sicak-kahve.jpg" },
+      { id: 113, ad: "Toffee Nut Latte", kategori: "sicak", aciklama: "Kavrulmuş fındık ve tereyağlı karamel aromalı sıcak latte", fiyat: 225, resim: "kat-sicak-kahve.jpg" },
+      { id: 114, ad: "Hazelnut Latte", kategori: "sicak", aciklama: "Taze espresso, sıcak süt ve yoğun fındık aroması", fiyat: 225, resim: "kat-sicak-kahve.jpg" },
+      { id: 115, ad: "Cookie Latte", kategori: "sicak", aciklama: "Taze kurabiye aroması, sıcak süt ve kadifemsi espresso", fiyat: 225, resim: "kat-sicak-kahve.jpg" },
+      { id: 116, ad: "White Chocolate Mocha", kategori: "sicak", aciklama: "Beyaz çikolata kreması, espresso ve buharda ısıtılmış süt", fiyat: 225, resim: "kat-sicak-kahve.jpg" },
+      { id: 117, ad: "Caramel Macchiato", kategori: "sicak", aciklama: "Vanilya aromalı sıcak süt, espresso ve üzeri karamel sos çizgileri", fiyat: 225, resim: "kat-sicak-kahve.jpg" },
+      { id: 201, ad: "Nomâd Spesiyal (Soğuk Kahve)", kategori: "soguk", ozel: true, aciklama: "", fiyat: 210, resim: "kat-soguk-kahve.jpg" },
+      { id: 202, ad: "Iced Latte", kategori: "soguk", aciklama: "Kristal buz parçaları, soğuk taze süt ve çift shot espresso", fiyat: 200, resim: "kat-soguk-kahve.jpg" },
+      { id: 203, ad: "Iced Mocha", kategori: "soguk", aciklama: "Buzlu süt, yoğun çikolata sosu ve taze espresso birleşimi", fiyat: 220, resim: "kat-soguk-kahve.jpg" },
+      { id: 204, ad: "Iced Filter Coffee", kategori: "soguk", aciklama: "Soğutulmuş nitelikli filtre kahve ve bol kristal buz", fiyat: 170, resim: "kat-soguk-kahve.jpg" },
+      { id: 205, ad: "Iced Americano", kategori: "soguk", aciklama: "Soğuk su, bol buz ve çift shot espresso ferahlığı", fiyat: 200, resim: "kat-soguk-kahve.jpg" },
+      { id: 206, ad: "Iced Caramel Latte", kategori: "soguk", aciklama: "Soğuk süt, espresso, buz ve tatlı karamel şurubu", fiyat: 220, resim: "kat-soguk-kahve.jpg" },
+      { id: 207, ad: "Iced Toffee Nut Latte", kategori: "soguk", aciklama: "Buzlu süt, kavrulmuş fındık-karamel aroması ve espresso", fiyat: 220, resim: "kat-soguk-kahve.jpg" },
+      { id: 208, ad: "Iced Hazelnut Latte", kategori: "soguk", aciklama: "Fındık şurubu, soğuk taze süt, buz ve taze espresso", fiyat: 220, resim: "kat-soguk-kahve.jpg" },
+      { id: 209, ad: "Iced Cookie Latte", kategori: "soguk", aciklama: "Kurabiye aroması, buzlu süt ve espresso katmanı", fiyat: 220, resim: "kat-soguk-kahve.jpg" },
+      { id: 210, ad: "Iced White Chocolate Mocha", kategori: "soguk", aciklama: "Beyaz çikolata sosu, soğuk süt, buz ve espresso", fiyat: 220, resim: "kat-soguk-kahve.jpg" },
+      { id: 301, ad: "Nomâd Spesiyal (Frozen)", kategori: "frozen", ozel: true, aciklama: "", fiyat: 210, resim: "kat-frozen.jpg" },
+      { id: 302, ad: "Karadut Frozen", kategori: "frozen", aciklama: "Gerçek karadut özü ve ince kırılmış buz ile ferah kıvam", fiyat: 210, resim: "kat-frozen.jpg" },
+      { id: 303, ad: "Muz Frozen", kategori: "frozen", aciklama: "Taze muz aroması ve kar buz kıvamında soğuk içecek", fiyat: 210, resim: "kat-frozen.jpg" },
+      { id: 304, ad: "Çilek Frozen", kategori: "frozen", aciklama: "Olgun çilek püresi ve buz kristalleriyle hazırlanan serinletici tat", fiyat: 210, resim: "kat-frozen.jpg" },
+      { id: 305, ad: "Mango Frozen", kategori: "frozen", aciklama: "Tropikal mango püresi ve ince çekilmiş buz karışımı", fiyat: 210, resim: "kat-frozen.jpg" },
+      { id: 306, ad: "Ananas Frozen", kategori: "frozen", aciklama: "Tatlı ananas özü ve ferahlatıcı kar buz dokusu", fiyat: 210, resim: "kat-frozen.jpg" },
+      { id: 307, ad: "Mango Ananas Frozen", kategori: "frozen", aciklama: "Tropikal mango ve tatlı ananasın buzla buluşan ikili uyumu", fiyat: 220, resim: "kat-frozen.jpg" },
+      { id: 308, ad: "Böğürtlen Frozen", kategori: "frozen", aciklama: "Yabani böğürtlen püresi ve serinletici buz karışımı", fiyat: 210, resim: "kat-frozen.jpg" },
+      { id: 309, ad: "Orman Meyveli Frozen", kategori: "frozen", aciklama: "Çilek, ahududu, böğürtlen ve yaban mersini harmanı", fiyat: 210, resim: "kat-frozen.jpg" },
+      { id: 310, ad: "Çarkıfelek Frozen", kategori: "frozen", aciklama: "Egzotik passion fruit aroması ve ferah buz dokusu", fiyat: 210, resim: "kat-frozen.jpg" },
+      { id: 311, ad: "Limon Frozen", kategori: "frozen", aciklama: "Taze sıkılmış limon ferahlığı ve kar buz serinliği", fiyat: 210, resim: "kat-frozen.jpg" },
+      { id: 401, ad: "Nomâd Spesiyal (Milkshake)", kategori: "milkshake", ozel: true, aciklama: "", fiyat: 220, resim: "kat-milkshake.jpg" },
+      { id: 402, ad: "Çilekli Milkshake", kategori: "milkshake", aciklama: "Soğuk süt, vanilyalı dondurma ve yoğun çilek püresi", fiyat: 220, resim: "kat-milkshake.jpg" },
+      { id: 403, ad: "Muzlu Milkshake", kategori: "milkshake", aciklama: "Taze muz, soğuk süt ve kremamsı dondurma kıvamı", fiyat: 220, resim: "kat-milkshake.jpg" },
+      { id: 404, ad: "Çikolatalı Milkshake", kategori: "milkshake", aciklama: "Belçika çikolatası sosu, soğuk süt ve yoğun dondurma", fiyat: 220, resim: "kat-milkshake.jpg" },
+      { id: 405, ad: "Karamelli Milkshake", kategori: "milkshake", aciklama: "Altın karamel sosu, soğuk süt ve kadifemsi dondurma", fiyat: 220, resim: "kat-milkshake.jpg" },
+      { id: 406, ad: "Vanilyalı Milkshake", kategori: "milkshake", aciklama: "Madagaskar vanilyası, soğuk süt ve krema dokusu", fiyat: 220, resim: "kat-milkshake.jpg" },
+      { id: 501, ad: "Nomâd Spesiyal (Kokteyl)", kategori: "kokteyl", ozel: true, aciklama: "", fiyat: 245, resim: "kat-kokteyl.jpg" },
+      { id: 502, ad: "Ekşi Redbull Kokteyl", kategori: "kokteyl", aciklama: "Soğuk Redbull, taze narenciye ekşisi ve kristal buz", fiyat: 260, resim: "kat-kokteyl.jpg" },
+      { id: 503, ad: "Tatlı Redbull Kokteyl", kategori: "kokteyl", aciklama: "Soğuk Redbull, kırmızı orman meyveleri ve tropikal şurup", fiyat: 260, resim: "kat-kokteyl.jpg" },
+      { id: 504, ad: "Cool Lime", kategori: "kokteyl", aciklama: "Taze misket limonu, ferah nane yaprakları ve kristal buz", fiyat: 240, resim: "kat-kokteyl.jpg" },
+      { id: 505, ad: "Berry Hibiscus", kategori: "kokteyl", aciklama: "Orman meyveleri özü, soğuk hibiscus demlemesi ve taze böğürtlen", fiyat: 240, resim: "kat-kokteyl.jpg" },
+      { id: 506, ad: "Açai Berry Sunset", kategori: "kokteyl", aciklama: "Çilek ve açai meyvesi özleriyle hazırlanan gün batımı kokteyli", fiyat: 240, resim: "kat-kokteyl.jpg" },
+      { id: 507, ad: "Purple Mirage", kategori: "kokteyl", aciklama: "Turunç aroması ve mavi kelebek çiçeği özlü özel renk geçişli kokteyl", fiyat: 240, resim: "kat-kokteyl.jpg" },
+      { id: 508, ad: "Dragon Mango Sunset", kategori: "kokteyl", aciklama: "Ejder meyvesi ve tropikal mango meyvesi karışımı", fiyat: 240, resim: "kat-kokteyl.jpg" },
+      { id: 509, ad: "Pitaya Breeze", kategori: "kokteyl", aciklama: "Ejder meyvesi, olgun mango ve orman meyveleri ferahlığı", fiyat: 240, resim: "kat-kokteyl.jpg" },
+      { id: 510, ad: "Raspberry Velvet", kategori: "kokteyl", aciklama: "Taze ahududu ve açai meyvesinin kadifemsi buluşması", fiyat: 240, resim: "kat-kokteyl.jpg" },
+      { id: 511, ad: "Golden Sunset", kategori: "kokteyl", aciklama: "Taze portakal ve tropikal mango aromalı ferahlatıcı kokteyl", fiyat: 240, resim: "kat-kokteyl.jpg" },
+      { id: 512, ad: "Kuzukulağı Kokteyl", kategori: "kokteyl", aciklama: "Taze yeşil kuzukulağı yaprakları, limon ferahlığı ve soğuk servis", fiyat: 240, resim: "kat-kokteyl.jpg" },
+      { id: 1004, ad: "Karışık Gurme Tost", kategori: "fastfood", aciklama: "Sucuk, kavurma, eriyen kaşar peyniri ve tereyağlı kızarmış tost ekmeği", fiyat: 180, resim: "kat-fastfood.jpg" },
+      { id: 1005, ad: "Kaşarlı Tost", kategori: "fastfood", aciklama: "Bol eritilmiş taze kaşar peyniri ve tereyağlı tost ekmeği", fiyat: 150, resim: "kat-fastfood.jpg" },
+      { id: 1008, ad: "Sucuklu Tost", kategori: "fastfood", aciklama: "Bol sucuklu ve tereyağlı çıtır sıcak tost", fiyat: 160, resim: "kat-fastfood.jpg" },
+      { id: 1006, ad: "Patates Kızartması", kategori: "fastfood", aciklama: "Altın sarısı çıtır parmak patates, ketçap ve mayonez eşliğinde", fiyat: 140, resim: "kat-fastfood.jpg" },
+      { id: 701, ad: "Fuse Tea Çeşitleri", kategori: "mesrubat", aciklama: "Şeftali, limon veya mango aromalı soğuk çay (330 ml)", fiyat: 100, resim: "kat-mesrubat.jpg" },
+      { id: 702, ad: "Coca-Cola", kategori: "mesrubat", aciklama: "Soğuk kutu / cam şişe servis (330 ml)", fiyat: 100, resim: "kat-mesrubat.jpg" },
+      { id: 703, ad: "Fanta", kategori: "mesrubat", aciklama: "Portakal aromalı soğuk gazlı içecek (330 ml)", fiyat: 100, resim: "kat-mesrubat.jpg" },
+      { id: 704, ad: "Cappy Meyve Suyu", kategori: "mesrubat", aciklama: "Şeftali, vişne veya karışık meyve nektarı (330 ml)", fiyat: 100, resim: "kat-mesrubat.jpg" },
+      { id: 705, ad: "Su", kategori: "mesrubat", aciklama: "Doğal kaynak suyu (500 ml)", fiyat: 25, resim: "kat-mesrubat.jpg" },
+      { id: 706, ad: "Soda Çeşitleri", kategori: "mesrubat", aciklama: "Sade veya meyve aromalı doğal maden suyu", fiyat: 70, resim: "kat-mesrubat.jpg" },
+      { id: 707, ad: "Redbull Çeşitleri", kategori: "mesrubat", aciklama: "Klasik veya aromalı soğuk Redbull enerji içeceği", fiyat: 150, resim: "kat-mesrubat.jpg" },
+      { id: 708, ad: "Limonata", kategori: "mesrubat", aciklama: "Taze sıkılmış limon, nane yaprakları ve buz ile günlük hazırlanır", fiyat: 170, resim: "kat-mesrubat.jpg" },
+      { id: 801, ad: "Frambuazlı Cheesecake", kategori: "tatli", aciklama: "Kremamsı peynir dolgusu, bisküvi tabanı ve taze frambuaz sosu", fiyat: 250, resim: "kat-tatli.jpg" },
+      { id: 802, ad: "Limonlu Cheesecake", kategori: "tatli", aciklama: "Ferah limon kreması soslu fırınlanmış klasik cheesecake", fiyat: 250, resim: "kat-tatli.jpg" },
+      { id: 803, ad: "Lotuslu Cheesecake", kategori: "tatli", aciklama: "Karamelize Lotus Biscoff kreması ve çıtır bisküvi parçacıklarıyla", fiyat: 250, resim: "kat-tatli.jpg" },
+      { id: 804, ad: "Orman Meyveli Pasta", kategori: "tatli", aciklama: "Yumuşak pandispanya katları arasında pastacı kreması ve taze orman meyveleri", fiyat: 250, resim: "kat-tatli.jpg" },
+      { id: 805, ad: "Mozaik Pasta", kategori: "tatli", aciklama: "Yoğun kakao, tereyağı ve kırık petibör bisküvili çikolatalı klasik dilim", fiyat: 250, resim: "kat-tatli.jpg" },
+      { id: 806, ad: "Mono Siyah Profiterollü Pasta", kategori: "tatli", aciklama: "Bitter çikolata ganaj kaplı, içi krema dolgulu profiterol toplarıyla", fiyat: 250, resim: "kat-tatli.jpg" },
+      { id: 807, ad: "Fıstık Rüyası Pasta", kategori: "tatli", aciklama: "Kavrulmuş Antep fıstığı kreması ve yumuşak yeşil fıstıklı kek katmanları", fiyat: 250, resim: "kat-tatli.jpg" },
+      { id: 808, ad: "Sufle", kategori: "tatli", aciklama: "Sıcak fırından çıkan akışkan Belçika çikolatalı sufle", fiyat: 250, resim: "kat-tatli.jpg" },
+      { id: 809, ad: "Waffle", kategori: "tatli", aciklama: "Çıtır Belçika waffle hamuru, eritilmiş çikolata, muz, çilek ve fındık parçacıkları", fiyat: 250, resim: "kat-tatli.jpg" }
     ];
 
     let ozelKahveSecim = {
