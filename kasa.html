@@ -77,1148 +77,190 @@
       font-size: 1.6rem;
     }
 
-    .pin-card h2 {
-      font-size: 1.15rem;
-      font-weight: 900;
-      color: #ffffff;
-      margin-bottom: 4px;
-    }
-
-    .pin-card p {
-      font-size: 0.76rem;
-      color: var(--slate-muted);
-      margin-bottom: 18px;
-    }
+    .pin-card h2 { font-size: 1.15rem; font-weight: 900; color: #ffffff; margin-bottom: 4px; }
+    .pin-card p { font-size: 0.76rem; color: var(--slate-muted); margin-bottom: 18px; }
 
     .pin-input {
-      width: 100%;
-      background: rgba(20, 26, 29, 0.95);
-      border: 1.5px solid var(--card-border);
-      border-radius: 14px;
-      padding: 14px;
-      font-size: 1.3rem;
-      font-weight: 900;
-      letter-spacing: 6px;
-      text-align: center;
-      color: var(--fire-amber);
-      outline: none;
-      margin-bottom: 12px;
+      width: 100%; background: rgba(20, 26, 29, 0.95); border: 1.5px solid var(--card-border);
+      border-radius: 14px; padding: 14px; font-size: 1.3rem; font-weight: 900; letter-spacing: 6px;
+      text-align: center; color: var(--fire-amber); outline: none; margin-bottom: 12px;
     }
-
-    .pin-input:focus {
-      border-color: var(--fire-amber);
-    }
+    .pin-input:focus { border-color: var(--fire-amber); }
 
     .btn-pin-submit {
-      width: 100%;
-      background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
-      color: #0f172a;
-      border: none;
-      padding: 14px;
-      border-radius: 14px;
-      font-size: 0.92rem;
-      font-weight: 900;
-      cursor: pointer;
+      width: 100%; background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
+      color: #0f172a; border: none; padding: 14px; border-radius: 14px; font-size: 0.92rem; font-weight: 900; cursor: pointer;
     }
-
-    .pin-error {
-      color: #f87171;
-      font-size: 0.78rem;
-      font-weight: 800;
-      margin-top: 10px;
-      display: none;
-    }
+    .pin-error { color: #f87171; font-size: 0.78rem; font-weight: 800; margin-top: 10px; display: none; }
 
     header {
       background: linear-gradient(90deg, rgba(35, 41, 48, 0.95) 0%, rgba(22, 40, 31, 0.95) 100%);
-      backdrop-filter: blur(16px);
-      border-bottom: 1.5px solid rgba(234, 88, 12, 0.32);
-      padding: 14px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      position: relative;
-      z-index: 50;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(16px); border-bottom: 1.5px solid rgba(234, 88, 12, 0.32);
+      padding: 14px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; position: relative; z-index: 50; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     }
-
-    .brand-wrap {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
     .brand-logo-emblem {
-      width: 46px;
-      height: 46px;
-      background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1.5px solid rgba(245, 158, 11, 0.55);
-      flex-shrink: 0;
+      width: 46px; height: 46px; background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%);
+      border-radius: 14px; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(245, 158, 11, 0.55); flex-shrink: 0;
     }
+    .brand-logo-emblem svg { width: 34px; height: 34px; }
+    .brand-info h1 { font-size: 1rem; font-weight: 900; color: #ffffff; }
+    .brand-info p { font-size: 0.72rem; color: var(--fire-amber); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
 
-    .brand-logo-emblem svg {
-      width: 34px;
-      height: 34px;
-    }
-
-    .brand-info h1 {
-      font-size: 1rem;
-      font-weight: 900;
-      color: #ffffff;
-    }
-
-    .brand-info p {
-      font-size: 0.72rem;
-      color: var(--fire-amber);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .header-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .btn-sound-unlock {
-      background: var(--fire-amber);
-      color: #0f172a;
-      border: none;
-      padding: 9px 16px;
-      border-radius: 20px;
-      font-size: 0.82rem;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
-      animation: pulseSound 2s infinite;
-    }
-
-    .btn-sound-unlock.unlocked {
-      background: rgba(16, 185, 129, 0.22);
-      color: #6ee7b7;
-      border: 1.5px solid #10b981;
-      box-shadow: none;
-      animation: none;
-    }
-
-    .btn-eod-open {
-      background: rgba(245, 158, 11, 0.18);
-      color: var(--fire-amber);
-      border: 1.5px solid rgba(245, 158, 11, 0.5);
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-day-start {
-      background: rgba(16, 185, 129, 0.18);
-      color: #10b981;
-      border: 1.5px solid rgba(16, 185, 129, 0.5);
-    }
+    .header-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     
-    .btn-hard-reset {
-      background: rgba(239, 68, 68, 0.18);
-      color: #ef4444;
-      border: 1.5px solid rgba(239, 68, 68, 0.5);
-    }
-
-    .btn-lock-now {
-      background: rgba(255, 255, 255, 0.08);
-      color: #cbd5e1;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 8px 12px;
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    @keyframes pulseSound {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.04); }
-      100% { transform: scale(1); }
-    }
-
-    .badge-pill {
-      font-size: 0.8rem;
-      font-weight: 800;
-      padding: 7px 14px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .badge-empty {
-      background: rgba(16, 185, 129, 0.22);
-      border: 1.5px solid #10b981;
-      color: #a7f3d0;
-    }
-
-    .badge-busy {
-      background: rgba(239, 68, 68, 0.22);
-      border: 1.5px solid #ef4444;
-      color: #fecaca;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-
-    .persistent-alerts-stack {
-      position: relative;
-      z-index: 45;
-      padding: 12px 20px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .persistent-alerts-stack:empty {
-      display: none;
-    }
-
-    .sticky-notif-card {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.96) 0%, rgba(234, 88, 12, 0.96) 100%);
-      color: #0f172a;
-      border: 2px solid #ffffff;
-      border-radius: 16px;
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      box-shadow: 0 10px 26px rgba(245, 158, 11, 0.45);
-      animation: notifBounce 0.3s ease;
-    }
-
-    @keyframes notifBounce {
-      from { transform: translateY(-10px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .sticky-notif-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 900;
-      font-size: 0.9rem;
-    }
-
-    .sticky-notif-btn {
-      background: #0f172a;
-      color: #f59e0b;
-      padding: 6px 12px;
-      border-radius: 10px;
-      font-size: 0.74rem;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .dashboard-layout {
-      flex: 1;
-      display: flex;
-      overflow: hidden;
-      position: relative;
-      z-index: 10;
-    }
-
-    .tables-section {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    .section-title {
-      font-size: 0.9rem;
-      font-weight: 900;
-      color: var(--fire-amber);
-      margin-bottom: 14px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .table-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
-      gap: 10px;
-      margin-bottom: 28px;
-    }
-
-    .table-card {
-      position: relative;
-      background: linear-gradient(145deg, rgba(56, 63, 72, 0.86) 0%, rgba(27, 48, 38, 0.88) 100%);
-      backdrop-filter: blur(14px);
-      border-radius: 16px;
-      padding: 14px 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
-      transition: all 0.2s;
-      user-select: none;
-    }
-
-    .table-card.empty {
-      border: 1.5px solid rgba(16, 185, 129, 0.65);
-      background: linear-gradient(145deg, rgba(20, 62, 45, 0.85) 0%, rgba(16, 46, 34, 0.9) 100%);
-      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.16);
-    }
-    .table-card.empty .table-status-text {
-      color: #064e3b;
-      background: #10b981;
-      padding: 3px 10px;
-      border-radius: 10px;
-      font-weight: 900;
-    }
-
-    .table-card.busy {
-      border: 2px solid #f97316;
-      background: linear-gradient(145deg, rgba(124, 45, 18, 0.92) 0%, rgba(67, 26, 14, 0.94) 100%);
-      box-shadow: 0 10px 28px rgba(249, 115, 22, 0.45);
-      animation: pulseAlert 2.2s infinite;
-    }
-    .table-card.busy .table-status-text {
-      color: #ffffff;
-      background: #ea580c;
-      padding: 3px 9px;
-      border-radius: 10px;
-    }
-
-    .table-card.busy.is-ready {
-      border: 2px solid #ef4444;
-      background: linear-gradient(145deg, rgba(127, 29, 29, 0.9) 0%, rgba(69, 17, 17, 0.94) 100%);
-      box-shadow: 0 8px 22px rgba(239, 68, 68, 0.35);
-      animation: none;
-    }
-    .table-card.busy.is-ready .table-status-text {
-      background: #ef4444;
-      color: #ffffff;
-    }
-
-    .table-card.selected-table {
-      outline: 2.5px solid #ffffff;
-      outline-offset: 2px;
-    }
-
-    .unread-exclaim-badge {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #facc15;
-      color: #0f172a;
-      border: 2px solid #16191e;
-      font-size: 1rem;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 14px rgba(250, 204, 21, 0.8);
-      animation: exclaimPulse 1s infinite;
-      z-index: 5;
-    }
-
-    @keyframes exclaimPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.18); }
-    }
-
-    @keyframes pulseAlert {
-      0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.55); }
-      70% { box-shadow: 0 0 0 12px rgba(249, 115, 22, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
-    }
-
-    .table-number {
-      font-size: 1.1rem;
-      font-weight: 900;
-      color: #ffffff;
-    }
-
-    .table-status-text {
-      font-size: 0.68rem;
-      font-weight: 800;
-    }
-
-    .table-amount {
-      font-size: 0.9rem;
-      font-weight: 900;
-      color: var(--fire-amber);
-      margin-top: 2px;
-    }
-
-    .rez-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 12px;
-    }
-
-    .rez-card {
-      background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%);
-      border: 1.5px solid rgba(245, 158, 11, 0.42);
-      border-radius: 16px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-    }
-
-    .rez-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .rez-name {
-      font-size: 0.95rem;
-      font-weight: 900;
-      color: #ffffff;
-    }
-
-    .rez-badge {
-      background: var(--silver-gray);
-      color: #0f172a;
-      font-size: 0.72rem;
-      font-weight: 900;
-      padding: 3px 10px;
-      border-radius: 10px;
-      white-space: nowrap;
-    }
-
-    .rez-tur-tag {
-      display: inline-block;
-      background: rgba(234, 88, 12, 0.25);
-      border: 1px solid var(--fire-orange);
-      color: #fdba74;
-      font-size: 0.74rem;
-      font-weight: 900;
-      padding: 4px 10px;
-      border-radius: 8px;
-      align-self: flex-start;
-    }
-
-    .rez-tur-tag.muzik-tag {
-      background: rgba(168, 85, 247, 0.25);
-      border-color: #c084fc;
-      color: #e9d5ff;
-    }
-
-    .rez-info {
-      font-size: 0.78rem;
-      color: #e2e8f0;
-      font-weight: 600;
-    }
-
-    .rez-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .btn-rez-call {
-      flex: 1;
-      background: rgba(16, 185, 129, 0.2);
-      border: 1px solid #10b981;
-      color: #6ee7b7;
-      text-decoration: none;
-      text-align: center;
-      padding: 7px;
-      border-radius: 10px;
-      font-size: 0.76rem;
-      font-weight: 800;
-    }
-
-    .btn-rez-del {
-      background: rgba(234, 88, 12, 0.22);
-      border: 1px solid var(--fire-orange);
-      color: #fdba74;
-      padding: 7px 12px;
-      border-radius: 10px;
-      font-size: 0.76rem;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .kasa-notes-card {
-      background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%);
-      border: 1.5px solid rgba(245, 158, 11, 0.42);
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .kasa-notes-card textarea {
-      width: 100%;
-      background: rgba(20, 26, 29, 0.95);
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      padding: 12px;
-      color: #ffffff;
-      font-size: 0.84rem;
-      outline: none;
-      resize: vertical;
-      min-height: 80px;
-      font-family: inherit;
-    }
-
-    .kasa-notes-card textarea:focus {
-      border-color: var(--fire-amber);
-    }
-
-    .btn-note-save {
-      background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
-      color: #0f172a;
-      border: none;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 0.82rem;
-      font-weight: 900;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .detail-section {
-      width: 420px;
-      background: linear-gradient(180deg, rgba(33, 39, 45, 0.96) 0%, rgba(22, 38, 30, 0.96) 100%);
-      backdrop-filter: blur(18px);
-      border-left: 1.5px solid var(--card-border);
-      display: flex;
-      flex-direction: column;
-      box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5);
-    }
-
-    .detail-header {
-      padding: 16px 20px;
-      border-bottom: 1.5px solid var(--card-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .detail-header h3 {
-      font-size: 1.12rem;
-      font-weight: 900;
-      color: #ffffff;
-    }
-
-    .detail-time {
-      font-size: 0.75rem;
-      color: var(--fire-amber);
-      font-weight: 700;
-    }
-
-    .btn-manual-add-top {
-      background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
-      color: #0f172a;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 11px;
-      font-size: 0.76rem;
-      font-weight: 900;
-      cursor: pointer;
-      white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
-    }
-
-    .detail-content {
-      flex: 1;
-      padding: 18px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .order-item-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 14px;
-      background: var(--card-gray-surface);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      gap: 10px;
-    }
-
-    .order-item-row.is-new-order {
-      border: 1.5px solid #facc15;
-      background: rgba(250, 204, 21, 0.12);
-    }
-
-    .new-order-pill {
-      display: inline-block;
-      background: #facc15;
-      color: #0f172a;
-      font-size: 0.66rem;
-      font-weight: 900;
-      padding: 2px 8px;
-      border-radius: 6px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      align-self: flex-start;
-      margin-bottom: 2px;
-    }
-
-    .item-left {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .item-name {
-      font-size: 0.9rem;
-      font-weight: 800;
-      color: #ffffff;
-    }
-
-    .item-custom-recipe {
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: #fdba74;
-      background: rgba(234, 88, 12, 0.18);
-      border: 1px solid rgba(234, 88, 12, 0.4);
-      padding: 4px 8px;
-      border-radius: 8px;
-      margin-top: 2px;
-    }
-
-    .item-unit-info {
-      font-size: 0.74rem;
-      color: var(--slate-muted);
-      font-weight: 600;
-    }
-
-    .item-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .item-price {
-      font-size: 0.98rem;
-      font-weight: 900;
-      color: var(--fire-amber);
-      min-width: 52px;
-      text-align: right;
-    }
-
-    .btn-qty-minus {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .btn-item-delete {
-      background: rgba(234, 88, 12, 0.22);
-      color: #fdba74;
-      border: 1px solid var(--fire-orange);
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
-
-    .detail-footer {
-      padding: 16px 20px;
-      border-top: 1.5px solid var(--card-border);
-      background: rgba(22, 28, 30, 0.96);
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
-
-    .total-box {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2px;
-    }
-
-    .total-title {
-      font-size: 0.92rem;
-      color: var(--slate-muted);
-      font-weight: 700;
-    }
-
-    .total-sum {
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: var(--fire-amber);
-    }
-
-    .btn-order-ready {
-      width: 100%;
-      background: linear-gradient(135deg, #10b981 0%, #1b4d36 100%);
-      color: #ffffff;
-      border: 1px solid rgba(110, 231, 183, 0.4);
-      padding: 13px;
-      border-radius: 14px;
-      font-size: 0.9rem;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-      transition: transform 0.15s;
-    }
-
-    .btn-order-ready:active {
-      transform: scale(0.98);
-    }
-
-    .btn-order-ready.already-sent {
-      background: rgba(239, 68, 68, 0.18);
-      border: 1.5px solid #ef4444;
-      color: #fecaca;
-      box-shadow: none;
-    }
-
-    .btn-transfer-table {
-      width: 100%;
-      background: rgba(59, 130, 246, 0.2);
-      color: #93c5fd;
-      border: 1.5px solid rgba(96, 165, 250, 0.55);
-      padding: 11px;
-      border-radius: 14px;
-      font-size: 0.86rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-close-order {
-      width: 100%;
-      background: linear-gradient(135deg, var(--fire-orange) 0%, #c2410c 100%);
-      color: #fff;
-      border: none;
-      padding: 12px;
-      border-radius: 14px;
-      font-size: 0.88rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 6px 20px var(--fire-glow);
-    }
-
-    .empty-state {
-      margin: auto;
-      text-align: center;
-      color: var(--slate-muted);
-      font-size: 0.86rem;
-      font-weight: 600;
-      padding: 30px 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .kasa-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(12, 16, 18, 0.88);
-      backdrop-filter: blur(10px);
-      z-index: 500;
-      align-items: center;
-      justify-content: center;
-      padding: 14px;
-    }
-
-    .kasa-modal-box {
-      background: linear-gradient(145deg, #2d343d 0%, #192f24 100%);
-      border: 1.5px solid rgba(245, 158, 11, 0.45);
-      border-radius: 24px;
-      padding: 24px;
-      width: 100%;
-      max-width: 480px;
-      max-height: 92vh;
-      overflow-y: auto;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
-    }
-
-    .kasa-modal-box.eod-wide {
-      max-width: 780px;
-    }
-
-    .modal-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--card-border);
-    }
-
-    .modal-head h3 {
-      font-size: 1.12rem;
-      font-weight: 900;
-      color: #ffffff;
-    }
-
-    .btn-modal-x {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      border: none;
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 900;
-      cursor: pointer;
-    }
+    .btn-sound-unlock { background: var(--fire-amber); color: #0f172a; border: none; padding: 9px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4); animation: pulseSound 2s infinite; }
+    .btn-sound-unlock.unlocked { background: rgba(16, 185, 129, 0.22); color: #6ee7b7; border: 1.5px solid #10b981; box-shadow: none; animation: none; }
+    .btn-eod-open { background: rgba(245, 158, 11, 0.18); color: var(--fire-amber); border: 1.5px solid rgba(245, 158, 11, 0.5); padding: 8px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    .btn-day-start { background: rgba(16, 185, 129, 0.18); color: #10b981; border: 1.5px solid rgba(16, 185, 129, 0.5); }
+    .btn-hard-reset { background: rgba(239, 68, 68, 0.18); color: #ef4444; border: 1.5px solid rgba(239, 68, 68, 0.5); }
+    .btn-stock-mng { background: rgba(59, 130, 246, 0.18); color: #93c5fd; border: 1.5px solid rgba(96, 165, 250, 0.5); } /* YENİ STOK BUTONU CSS */
+    
+    .btn-lock-now { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; cursor: pointer; }
+    
+    @keyframes pulseSound { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
+
+    .badge-pill { font-size: 0.8rem; font-weight: 800; padding: 7px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
+    .badge-empty { background: rgba(16, 185, 129, 0.22); border: 1.5px solid #10b981; color: #a7f3d0; }
+    .badge-busy { background: rgba(239, 68, 68, 0.22); border: 1.5px solid #ef4444; color: #fecaca; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    .persistent-alerts-stack { position: relative; z-index: 45; padding: 12px 20px 0; display: flex; flex-direction: column; gap: 8px; }
+    .persistent-alerts-stack:empty { display: none; }
+    .sticky-notif-card { background: linear-gradient(135deg, rgba(245, 158, 11, 0.96) 0%, rgba(234, 88, 12, 0.96) 100%); color: #0f172a; border: 2px solid #ffffff; border-radius: 16px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; cursor: pointer; box-shadow: 0 10px 26px rgba(245, 158, 11, 0.45); animation: notifBounce 0.3s ease; }
+    @keyframes notifBounce { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .sticky-notif-left { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 0.9rem; }
+    .sticky-notif-btn { background: #0f172a; color: #f59e0b; padding: 6px 12px; border-radius: 10px; font-size: 0.74rem; font-weight: 900; white-space: nowrap; }
+
+    .dashboard-layout { flex: 1; display: flex; overflow: hidden; position: relative; z-index: 10; }
+    .tables-section { flex: 1; padding: 20px; overflow-y: auto; }
+    .section-title { font-size: 0.9rem; font-weight: 900; color: var(--fire-amber); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
+
+    .table-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap: 10px; margin-bottom: 28px; }
+    .table-card { position: relative; background: linear-gradient(145deg, rgba(56, 63, 72, 0.86) 0%, rgba(27, 48, 38, 0.88) 100%); backdrop-filter: blur(14px); border-radius: 16px; padding: 14px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32); transition: all 0.2s; user-select: none; }
+    
+    .table-card.empty { border: 1.5px solid rgba(16, 185, 129, 0.65); background: linear-gradient(145deg, rgba(20, 62, 45, 0.85) 0%, rgba(16, 46, 34, 0.9) 100%); box-shadow: 0 6px 18px rgba(16, 185, 129, 0.16); }
+    .table-card.empty .table-status-text { color: #064e3b; background: #10b981; padding: 3px 10px; border-radius: 10px; font-weight: 900; }
+    
+    .table-card.busy { border: 2px solid #f97316; background: linear-gradient(145deg, rgba(124, 45, 18, 0.92) 0%, rgba(67, 26, 14, 0.94) 100%); box-shadow: 0 10px 28px rgba(249, 115, 22, 0.45); animation: pulseAlert 2.2s infinite; }
+    .table-card.busy .table-status-text { color: #ffffff; background: #ea580c; padding: 3px 9px; border-radius: 10px; }
+    
+    .table-card.busy.is-ready { border: 2px solid #ef4444; background: linear-gradient(145deg, rgba(127, 29, 29, 0.9) 0%, rgba(69, 17, 17, 0.94) 100%); box-shadow: 0 8px 22px rgba(239, 68, 68, 0.35); animation: none; }
+    .table-card.busy.is-ready .table-status-text { background: #ef4444; color: #ffffff; }
+    .table-card.selected-table { outline: 2.5px solid #ffffff; outline-offset: 2px; }
+
+    .unread-exclaim-badge { position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; border-radius: 50%; background: #facc15; color: #0f172a; border: 2px solid #16191e; font-size: 1rem; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(250, 204, 21, 0.8); animation: exclaimPulse 1s infinite; z-index: 5; }
+    @keyframes exclaimPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+    @keyframes pulseAlert { 0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.55); } 70% { box-shadow: 0 0 0 12px rgba(249, 115, 22, 0); } 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); } }
+
+    .table-number { font-size: 1.1rem; font-weight: 900; color: #ffffff; }
+    .table-status-text { font-size: 0.68rem; font-weight: 800; }
+    .table-amount { font-size: 0.9rem; font-weight: 900; color: var(--fire-amber); margin-top: 2px; }
+
+    .rez-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+    .rez-card { background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%); border: 1.5px solid rgba(245, 158, 11, 0.42); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+    .rez-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .rez-name { font-size: 0.95rem; font-weight: 900; color: #ffffff; }
+    .rez-badge { background: var(--silver-gray); color: #0f172a; font-size: 0.72rem; font-weight: 900; padding: 3px 10px; border-radius: 10px; white-space: nowrap; }
+    .rez-tur-tag { display: inline-block; background: rgba(234, 88, 12, 0.25); border: 1px solid var(--fire-orange); color: #fdba74; font-size: 0.74rem; font-weight: 900; padding: 4px 10px; border-radius: 8px; align-self: flex-start; }
+    .rez-tur-tag.muzik-tag { background: rgba(168, 85, 247, 0.25); border-color: #c084fc; color: #e9d5ff; }
+    .rez-info { font-size: 0.78rem; color: #e2e8f0; font-weight: 600; }
+    .rez-actions { display: flex; gap: 8px; margin-top: 6px; }
+    .btn-rez-call { flex: 1; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #6ee7b7; text-decoration: none; text-align: center; padding: 7px; border-radius: 10px; font-size: 0.76rem; font-weight: 800; }
+    .btn-rez-del { background: rgba(234, 88, 12, 0.22); border: 1px solid var(--fire-orange); color: #fdba74; padding: 7px 12px; border-radius: 10px; font-size: 0.76rem; font-weight: 800; cursor: pointer; }
+
+    .kasa-notes-card { background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%); border: 1.5px solid rgba(245, 158, 11, 0.42); border-radius: 16px; padding: 14px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.35); display: flex; flex-direction: column; gap: 10px; }
+    .kasa-notes-card textarea { width: 100%; background: rgba(20, 26, 29, 0.95); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px; color: #ffffff; font-size: 0.84rem; outline: none; resize: vertical; min-height: 80px; font-family: inherit; }
+    .kasa-notes-card textarea:focus { border-color: var(--fire-amber); }
+    .btn-note-save { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); color: #0f172a; border: none; padding: 10px; border-radius: 10px; font-size: 0.82rem; font-weight: 900; cursor: pointer; transition: all 0.2s; }
+
+    /* --- ADİSYON DETAYLARI (SAĞ PANEL) --- */
+    .detail-section { width: 420px; background: linear-gradient(180deg, rgba(33, 39, 45, 0.96) 0%, rgba(22, 38, 30, 0.96) 100%); backdrop-filter: blur(18px); border-left: 1.5px solid var(--card-border); display: flex; flex-direction: column; box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5); }
+    .detail-header { padding: 16px 20px; border-bottom: 1.5px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .detail-header h3 { font-size: 1.12rem; font-weight: 900; color: #ffffff; }
+    .detail-time { font-size: 0.75rem; color: var(--fire-amber); font-weight: 700; }
+    .btn-manual-add-top { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); color: #0f172a; border: none; padding: 8px 12px; border-radius: 11px; font-size: 0.76rem; font-weight: 900; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35); }
+    .detail-content { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+    .order-item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--card-gray-surface); border: 1px solid var(--card-border); border-radius: 14px; gap: 10px; }
+    .order-item-row.is-new-order { border: 1.5px solid #facc15; background: rgba(250, 204, 21, 0.12); }
+    .new-order-pill { display: inline-block; background: #facc15; color: #0f172a; font-size: 0.66rem; font-weight: 900; padding: 2px 8px; border-radius: 6px; letter-spacing: 0.5px; text-transform: uppercase; align-self: flex-start; margin-bottom: 2px; }
+    .item-left { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .item-name { font-size: 0.9rem; font-weight: 800; color: #ffffff; }
+    .item-custom-recipe { font-size: 0.74rem; font-weight: 700; color: #fdba74; background: rgba(234, 88, 12, 0.18); border: 1px solid rgba(234, 88, 12, 0.4); padding: 4px 8px; border-radius: 8px; margin-top: 2px; }
+    .item-unit-info { font-size: 0.74rem; color: var(--slate-muted); font-weight: 600; }
+    .item-actions { display: flex; align-items: center; gap: 8px; }
+    .item-price { font-size: 0.98rem; font-weight: 900; color: var(--fire-amber); min-width: 52px; text-align: right; }
+    .btn-qty-minus { background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.25); width: 28px; height: 28px; border-radius: 8px; font-size: 1rem; font-weight: 800; cursor: pointer; }
+    .btn-item-delete { background: rgba(234, 88, 12, 0.22); color: #fdba74; border: 1px solid var(--fire-orange); width: 28px; height: 28px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
+    
+    .detail-footer { padding: 16px 20px; border-top: 1.5px solid var(--card-border); background: rgba(22, 28, 30, 0.96); display: flex; flex-direction: column; gap: 9px; }
+    .total-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
+    .total-title { font-size: 0.92rem; color: var(--slate-muted); font-weight: 700; }
+    .total-sum { font-size: 1.6rem; font-weight: 900; color: var(--fire-amber); }
+    
+    /* GÜNCELLENDİ: SİPARİŞ DURUM BUTONU (HAZIRLANIYOR / HAZIR) */
+    .btn-order-ready { width: 100%; background: linear-gradient(135deg, #10b981 0%, #1b4d36 100%); color: #ffffff; border: 1px solid rgba(110, 231, 183, 0.4); padding: 13px; border-radius: 14px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3); transition: transform 0.15s; }
+    .btn-order-ready:active { transform: scale(0.98); }
+    .btn-order-ready.preparing-state { background: linear-gradient(135deg, var(--fire-orange) 0%, var(--fire-amber) 100%); border-color: var(--fire-amber); box-shadow: 0 6px 20px var(--fire-glow); color: #0f172a; }
+    .btn-order-ready.already-sent { background: rgba(239, 68, 68, 0.18); border: 1.5px solid #ef4444; color: #fecaca; box-shadow: none; }
+
+    .btn-transfer-table { width: 100%; background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1.5px solid rgba(96, 165, 250, 0.55); padding: 11px; border-radius: 14px; font-size: 0.86rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-close-order { width: 100%; background: linear-gradient(135deg, var(--fire-orange) 0%, #c2410c 100%); color: #fff; border: none; padding: 12px; border-radius: 14px; font-size: 0.88rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px var(--fire-glow); }
+    .empty-state { margin: auto; text-align: center; color: var(--slate-muted); font-size: 0.86rem; font-weight: 600; padding: 30px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+    /* --- MODALLAR --- */
+    .kasa-modal { display: none; position: fixed; inset: 0; background: rgba(12, 16, 18, 0.88); backdrop-filter: blur(10px); z-index: 500; align-items: center; justify-content: center; padding: 14px; }
+    .kasa-modal-box { background: linear-gradient(145deg, #2d343d 0%, #192f24 100%); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 24px; padding: 24px; width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75); }
+    .kasa-modal-box.eod-wide { max-width: 780px; }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border); }
+    .modal-head h3 { font-size: 1.12rem; font-weight: 900; color: #ffffff; }
+    .btn-modal-x { background: rgba(255, 255, 255, 0.1); color: #ffffff; border: none; width: 34px; height: 34px; border-radius: 10px; font-size: 1rem; font-weight: 900; cursor: pointer; }
 
     /* BÖL BÖLÜŞTÜR - KISMİ ÖDEME STİLLERİ */
-    .pay-choice-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 14px;
-    }
-    
-    .pay-choice-grid.split-mode {
-      grid-template-columns: 1fr;
-    }
+    .pay-choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+    .btn-pay-cash { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; border: 1.5px solid #6ee7b7; padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35); }
+    .btn-pay-card { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; border: 1.5px solid #93c5fd; padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 8px 22px rgba(59, 130, 246, 0.35); }
+    .btn-pay-split { grid-column: span 2; background: rgba(245, 158, 11, 0.15); color: var(--fire-amber); border: 1.5px dashed rgba(245, 158, 11, 0.5); padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .split-pay-box { display: none; background: rgba(15, 23, 42, 0.5); border: 1.5px solid var(--card-border); border-radius: 16px; padding: 16px; margin-top: 14px; text-align: left; }
+    .split-input { width: 100%; background: rgba(30, 36, 42, 0.95); border: 1.5px solid var(--fire-amber); padding: 12px 14px; border-radius: 12px; color: var(--fire-amber); font-size: 1.2rem; font-weight: 900; outline: none; text-align: center; margin-bottom: 12px; }
+    .split-input::placeholder { color: rgba(245, 158, 11, 0.4); }
 
-    .btn-pay-cash {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: #ffffff;
-      border: 1.5px solid #6ee7b7;
-      padding: 14px 12px;
-      border-radius: 16px;
-      font-size: 0.9rem;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35);
-    }
+    .pay-pill { display: inline-block; font-size: 0.68rem; font-weight: 900; padding: 2px 8px; border-radius: 8px; margin-left: 6px; vertical-align: middle; }
+    .pay-pill.cash { background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #6ee7b7; }
+    .pay-pill.card { background: rgba(59, 130, 246, 0.22); border: 1px solid #60a5fa; color: #93c5fd; }
 
-    .btn-pay-card {
-      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-      color: #ffffff;
-      border: 1.5px solid #93c5fd;
-      padding: 14px 12px;
-      border-radius: 16px;
-      font-size: 0.9rem;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 8px 22px rgba(59, 130, 246, 0.35);
-    }
-    
-    .btn-pay-split {
-      grid-column: span 2;
-      background: rgba(245, 158, 11, 0.15);
-      color: var(--fire-amber);
-      border: 1.5px dashed rgba(245, 158, 11, 0.5);
-      padding: 14px 12px;
-      border-radius: 16px;
-      font-size: 0.9rem;
-      font-weight: 900;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+    /* YENİ STOK YÖNETİMİ LİSTE STİLLERİ */
+    .stock-item-row { display: flex; justify-content: space-between; align-items: center; background: rgba(22, 28, 32, 0.85); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 12px; gap: 8px; margin-bottom: 6px; }
+    .btn-stock-toggle { background: var(--emerald-bright); color: #fff; border: none; padding: 6px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 900; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .btn-stock-toggle.out { background: #ef4444; color: #fff; }
 
-    .split-pay-box {
-      display: none;
-      background: rgba(15, 23, 42, 0.5);
-      border: 1.5px solid var(--card-border);
-      border-radius: 16px;
-      padding: 16px;
-      margin-top: 14px;
-      text-align: left;
-    }
+    .manual-item-list { display: flex; flex-direction: column; gap: 8px; max-height: 44vh; overflow-y: auto; margin-bottom: 14px; }
+    .manual-prod-row { display: flex; justify-content: space-between; align-items: center; background: rgba(22, 28, 32, 0.85); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 12px; gap: 8px; }
+    .btn-add-one { background: var(--fire-orange); color: #ffffff; border: none; padding: 7px 12px; border-radius: 9px; font-size: 0.78rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
 
-    .split-input {
-      width: 100%;
-      background: rgba(30, 36, 42, 0.95);
-      border: 1.5px solid var(--fire-amber);
-      padding: 12px 14px;
-      border-radius: 12px;
-      color: var(--fire-amber);
-      font-size: 1.2rem;
-      font-weight: 900;
-      outline: none;
-      text-align: center;
-      margin-bottom: 12px;
-    }
-    
-    .split-input::placeholder {
-      color: rgba(245, 158, 11, 0.4);
-    }
+    .custom-manual-box { background: rgba(20, 25, 29, 0.9); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .kasa-input { width: 100%; background: rgba(30, 36, 42, 0.95); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 10px; color: #ffffff; font-size: 0.86rem; outline: none; color-scheme: dark; }
 
-    .pay-pill {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 900;
-      padding: 2px 8px;
-      border-radius: 8px;
-      margin-left: 6px;
-      vertical-align: middle;
-    }
-
-    .pay-pill.cash {
-      background: rgba(16, 185, 129, 0.22);
-      border: 1px solid #10b981;
-      color: #6ee7b7;
-    }
-
-    .pay-pill.card {
-      background: rgba(59, 130, 246, 0.22);
-      border: 1px solid #60a5fa;
-      color: #93c5fd;
-    }
-
-    .manual-item-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      max-height: 44vh;
-      overflow-y: auto;
-      margin-bottom: 14px;
-    }
-
-    .manual-prod-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(22, 28, 32, 0.85);
-      border: 1px solid var(--card-border);
-      padding: 10px 12px;
-      border-radius: 12px;
-      gap: 8px;
-    }
-
-    .btn-add-one {
-      background: var(--fire-orange);
-      color: #ffffff;
-      border: none;
-      padding: 7px 12px;
-      border-radius: 9px;
-      font-size: 0.78rem;
-      font-weight: 900;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .custom-manual-box {
-      background: rgba(20, 25, 29, 0.9);
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      border-radius: 14px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .kasa-input {
-      width: 100%;
-      background: rgba(30, 36, 42, 0.95);
-      border: 1px solid var(--card-border);
-      padding: 10px 12px;
-      border-radius: 10px;
-      color: #ffffff;
-      font-size: 0.86rem;
-      outline: none;
-      color-scheme: dark;
-    }
-
-    .eod-calendar-bar {
-      background: rgba(18, 24, 28, 0.92);
-      border: 1.5px solid rgba(245, 158, 11, 0.42);
-      border-radius: 16px;
-      padding: 12px 14px;
-      margin-bottom: 14px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .eod-date-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn-today-jump {
-      background: rgba(16, 185, 129, 0.22);
-      border: 1px solid #10b981;
-      color: #6ee7b7;
-      padding: 9px 12px;
-      border-radius: 10px;
-      font-size: 0.78rem;
-      font-weight: 900;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .eod-stat-grid-4 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    @media (min-width: 620px) {
-      .eod-stat-grid-4 {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    .eod-stat-card {
-      background: rgba(20, 26, 30, 0.9);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 14px 10px;
-      text-align: center;
-    }
-
-    .eod-stat-label {
-      font-size: 0.7rem;
-      color: var(--slate-muted);
-      font-weight: 800;
-      margin-bottom: 4px;
-    }
-
-    .eod-stat-val {
-      font-size: 1.35rem;
-      font-weight: 900;
-      color: var(--fire-amber);
-    }
-
-    .btn-eod-detail-toggle {
-      width: 100%;
-      background: rgba(59, 130, 246, 0.24);
-      border: 1.5px solid rgba(96, 165, 250, 0.65);
-      color: #93c5fd;
-      padding: 12px;
-      border-radius: 14px;
-      font-size: 0.88rem;
-      font-weight: 900;
-      cursor: pointer;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .eod-history-list {
-      max-height: 44vh;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .eod-history-card {
-      background: rgba(22, 28, 32, 0.94);
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1.5px solid rgba(245, 158, 11, 0.35);
-      cursor: pointer;
-      transition: border-color 0.15s;
-    }
-
-    .eod-history-card:hover {
-      border-color: var(--fire-amber);
-    }
-
-    .eod-history-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      font-size: 0.88rem;
-    }
-
-    .eod-history-items-inline {
-      font-size: 0.82rem;
-      color: #e2e8f0;
-      line-height: 1.5;
-    }
-
-    .eod-order-detail-box {
-      background: rgba(16, 21, 25, 0.98);
-      border: 1.5px solid var(--fire-amber);
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 14px;
-    }
+    /* GÜN SONU CSS (Aynı) */
+    .eod-calendar-bar { background: rgba(18, 24, 28, 0.92); border: 1.5px solid rgba(245, 158, 11, 0.42); border-radius: 16px; padding: 12px 14px; margin-bottom: 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+    .eod-date-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .btn-today-jump { background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #6ee7b7; padding: 9px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
+    .eod-stat-grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+    @media (min-width: 620px) { .eod-stat-grid-4 { grid-template-columns: repeat(4, 1fr); } }
+    .eod-stat-card { background: rgba(20, 26, 30, 0.9); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px 10px; text-align: center; }
+    .eod-stat-label { font-size: 0.7rem; color: var(--slate-muted); font-weight: 800; margin-bottom: 4px; }
+    .eod-stat-val { font-size: 1.35rem; font-weight: 900; color: var(--fire-amber); }
+    .btn-eod-detail-toggle { width: 100%; background: rgba(59, 130, 246, 0.24); border: 1.5px solid rgba(96, 165, 250, 0.65); color: #93c5fd; padding: 12px; border-radius: 14px; font-size: 0.88rem; font-weight: 900; cursor: pointer; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .eod-history-list { max-height: 44vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+    .eod-history-card { background: rgba(22, 28, 32, 0.94); padding: 12px 14px; border-radius: 14px; border: 1.5px solid rgba(245, 158, 11, 0.35); cursor: pointer; transition: border-color 0.15s; }
+    .eod-history-card:hover { border-color: var(--fire-amber); }
+    .eod-history-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.88rem; }
+    .eod-history-items-inline { font-size: 0.82rem; color: #e2e8f0; line-height: 1.5; }
+    .eod-order-detail-box { background: rgba(16, 21, 25, 0.98); border: 1.5px solid var(--fire-amber); border-radius: 16px; padding: 14px; margin-bottom: 14px; }
 
     @media (max-width: 900px) {
-      .dashboard-layout {
-        flex-direction: column;
-      }
-      .detail-section {
-        width: 100%;
-        border-left: none;
-        border-top: 1.5px solid var(--card-border);
-        min-height: 45vh;
-      }
+      .dashboard-layout { flex-direction: column; }
+      .detail-section { width: 100%; border-left: none; border-top: 1.5px solid var(--card-border); min-height: 45vh; }
     }
   </style>
 </head>
@@ -1269,6 +311,12 @@
       <button class="btn-sound-unlock" id="btn-sound" onclick="sesTekBasimAktifEt()">
         <span>🔇</span>
         <span>Sesi Aktif Et</span>
+      </button>
+
+      <!-- YENİ STOK YÖNETİMİ BUTONU -->
+      <button class="btn-eod-open btn-stock-mng" onclick="stokYonetimModalAc()">
+        <span>📦</span>
+        <span>Stok / Tükendi Yönetimi</span>
       </button>
 
       <button class="btn-eod-open btn-day-start" onclick="gunuBaslat()">
@@ -1339,9 +387,12 @@
           <span class="total-title">Genel Kalan Toplam:</span>
           <span class="total-sum" id="panel-total-price">0 ₺</span>
         </div>
-        <button class="btn-order-ready" id="btn-siparis-hazir" onclick="siparisHazirBildir()">
-          ✓ Sipariş Hazır (Müşteriye Bildir)
+        
+        <!-- YENİ: AŞAMALI SİPARİŞ DURUMU (DOMİNOS TAKİP) -->
+        <button class="btn-order-ready" id="btn-siparis-hazir" onclick="siparisDurumunuIleriAl()">
+          ⏳ Hazırlanıyor Olarak İşaretle
         </button>
+        
         <button class="btn-transfer-table" onclick="masaAktarModalAc()">
           ⇄ Masayı Başka Masaya Aktar
         </button>
@@ -1349,6 +400,21 @@
           ✕ Hesabı Kapat / Ödeme Al
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- YENİ: STOK (TÜKENDİ) YÖNETİM MODALI -->
+  <div class="kasa-modal" id="modal-stock-management" onclick="if(event.target === this) kasaModalKapat('modal-stock-management')">
+    <div class="kasa-modal-box">
+      <div class="modal-head">
+        <h3 id="stock-modal-title">📦 Ürün Stok Yönetimi</h3>
+        <button class="btn-modal-x" onclick="kasaModalKapat('modal-stock-management')">✕</button>
+      </div>
+      <p style="font-size:0.8rem; color:var(--slate-muted); margin-bottom:12px;">
+        Biten ürünleri buradan "Tükendi" olarak işaretleyin. Müşteriler menüde göremez ve sipariş veremez.
+      </p>
+      <input type="text" id="stock-search-input" class="kasa-input" placeholder="Menüde ürün ara..." oninput="stokUrunleriCiz()" style="margin-bottom:10px;">
+      <div class="manual-item-list" id="stock-products-container"></div>
     </div>
   </div>
 
@@ -1513,123 +579,65 @@
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
 
     const MENU_URUNLERI = [
-      { id: 901, ad: "Pişmiş Şeftali Nargile", fiyat: 450 },
-      { id: 902, ad: "Mango Nargile", fiyat: 450 },
-      { id: 903, ad: "Çilek Nargile", fiyat: 450 },
-      { id: 904, ad: "Damla Sakızı Nargile", fiyat: 450 },
-      { id: 905, ad: "Üzüm Nargile", fiyat: 450 },
-      { id: 906, ad: "Vivident (Mentollü Sakız) Nargile", fiyat: 450 },
-      { id: 907, ad: "İzmir Romantik Nargile", fiyat: 450 },
-      { id: 908, ad: "Karpuz Nargile", fiyat: 450 },
-      { id: 909, ad: "Love 66 Nargile", fiyat: 450 },
-      { id: 910, ad: "Ananas Nargile", fiyat: 450 },
-      { id: 911, ad: "Dejavu Nargile", fiyat: 450 },
-      { id: 912, ad: "Cappuccino Nargile", fiyat: 450 },
-      { id: 913, ad: "Nane Nargile", fiyat: 450 },
-      { id: 914, ad: "Portakal Krema Nargile", fiyat: 450 },
-      { id: 915, ad: "Moscow Nargile", fiyat: 450 },
-      { id: 916, ad: "Latte Nargile", fiyat: 450 },
-      { id: 917, ad: "Lady Killer Nargile", fiyat: 450 },
-      { id: 918, ad: "Kavun Nargile", fiyat: 450 },
-      { id: 919, ad: "Polombir Nargile", fiyat: 450 },
-      { id: 920, ad: "Anason Nargile", fiyat: 550 },
-      { id: 921, ad: "Limon Nargile", fiyat: 450 },
-      { id: 922, ad: "Cola (Ice Kola) Nargile", fiyat: 450 },
-      { id: 923, ad: "Tiramisu Nargile", fiyat: 450 },
-      { id: 924, ad: "Marilyn Monroe Nargile", fiyat: 450 },
-      { id: 925, ad: "Elma Başlıklı Nargile", fiyat: 450 },
-      { id: 926, ad: "Muz Kivi Başlıklı Nargile", fiyat: 450 },
-      { id: 927, ad: "Böğürtlen Başlıklı Nargile", fiyat: 450 },
-      { id: 928, ad: "Nar Başlıklı Nargile", fiyat: 450 },
-      { id: 929, ad: "Yaban Mersini Başlıklı Nargile", fiyat: 450 },
-      { id: 930, ad: "Nane Limon Başlıklı Nargile", fiyat: 450 },
-      { id: 931, ad: "Mandalina Başlıklı Nargile", fiyat: 450 },
-      { id: 932, ad: "Çarkıfelek Meyvesi Başlıklı Nargile", fiyat: 450 },
+      { id: 901, ad: "Pişmiş Şeftali Nargile", fiyat: 450 }, { id: 902, ad: "Mango Nargile", fiyat: 450 },
+      { id: 903, ad: "Çilek Nargile", fiyat: 450 }, { id: 904, ad: "Damla Sakızı Nargile", fiyat: 450 },
+      { id: 905, ad: "Üzüm Nargile", fiyat: 450 }, { id: 906, ad: "Vivident (Mentollü Sakız) Nargile", fiyat: 450 },
+      { id: 907, ad: "İzmir Romantik Nargile", fiyat: 450 }, { id: 908, ad: "Karpuz Nargile", fiyat: 450 },
+      { id: 909, ad: "Love 66 Nargile", fiyat: 450 }, { id: 910, ad: "Ananas Nargile", fiyat: 450 },
+      { id: 911, ad: "Dejavu Nargile", fiyat: 450 }, { id: 912, ad: "Cappuccino Nargile", fiyat: 450 },
+      { id: 913, ad: "Nane Nargile", fiyat: 450 }, { id: 914, ad: "Portakal Krema Nargile", fiyat: 450 },
+      { id: 915, ad: "Moscow Nargile", fiyat: 450 }, { id: 916, ad: "Latte Nargile", fiyat: 450 },
+      { id: 917, ad: "Lady Killer Nargile", fiyat: 450 }, { id: 918, ad: "Kavun Nargile", fiyat: 450 },
+      { id: 919, ad: "Polombir Nargile", fiyat: 450 }, { id: 920, ad: "Anason Nargile", fiyat: 550 },
+      { id: 921, ad: "Limon Nargile", fiyat: 450 }, { id: 922, ad: "Cola (Ice Kola) Nargile", fiyat: 450 },
+      { id: 923, ad: "Tiramisu Nargile", fiyat: 450 }, { id: 924, ad: "Marilyn Monroe Nargile", fiyat: 450 },
+      { id: 925, ad: "Elma Başlıklı Nargile", fiyat: 450 }, { id: 926, ad: "Muz Kivi Başlıklı Nargile", fiyat: 450 },
+      { id: 927, ad: "Böğürtlen Başlıklı Nargile", fiyat: 450 }, { id: 928, ad: "Nar Başlıklı Nargile", fiyat: 450 },
+      { id: 929, ad: "Yaban Mersini Başlıklı Nargile", fiyat: 450 }, { id: 930, ad: "Nane Limon Başlıklı Nargile", fiyat: 450 },
+      { id: 931, ad: "Mandalina Başlıklı Nargile", fiyat: 450 }, { id: 932, ad: "Çarkıfelek Meyvesi Başlıklı Nargile", fiyat: 450 },
       { id: 933, ad: "Lüle Değişimi", fiyat: 300 },
-      { id: 601, ad: "Çay", fiyat: 50 },
-      { id: 602, ad: "Ada Çayı", fiyat: 160 },
-      { id: 603, ad: "Ihlamur", fiyat: 160 },
-      { id: 604, ad: "Yeşil Çay", fiyat: 160 },
-      { id: 605, ad: "Papatya Çayı", fiyat: 160 },
-      { id: 606, ad: "Nane Limon", fiyat: 160 },
-      { id: 607, ad: "Hibiscus Çayı", fiyat: 160 },
-      { id: 608, ad: "Elma Çayı", fiyat: 160 },
-      { id: 609, ad: "Kış Çayı", fiyat: 160 },
-      { id: 101, ad: "Nomâd Spesiyal (Sıcak Kahve)", fiyat: 205 },
-      { id: 102, ad: "Caffè Latte", fiyat: 200 },
-      { id: 103, ad: "Caffè Mocha", fiyat: 225 },
-      { id: 104, ad: "Flat White", fiyat: 210 },
-      { id: 105, ad: "Cortado", fiyat: 210 },
-      { id: 106, ad: "Cappuccino", fiyat: 200 },
-      { id: 107, ad: "Macchiato", fiyat: 200 },
-      { id: 108, ad: "Americano", fiyat: 190 },
-      { id: 109, ad: "Filtre Kahve", fiyat: 170 },
-      { id: 110, ad: "Espresso", fiyat: 110 },
-      { id: 111, ad: "Double Espresso", fiyat: 130 },
-      { id: 112, ad: "Caramel Latte", fiyat: 225 },
-      { id: 113, ad: "Toffee Nut Latte", fiyat: 225 },
-      { id: 114, ad: "Hazelnut Latte", fiyat: 225 },
-      { id: 115, ad: "Cookie Latte", fiyat: 225 },
-      { id: 116, ad: "White Chocolate Mocha", fiyat: 225 },
+      { id: 601, ad: "Çay", fiyat: 50 }, { id: 602, ad: "Ada Çayı", fiyat: 160 },
+      { id: 603, ad: "Ihlamur", fiyat: 160 }, { id: 604, ad: "Yeşil Çay", fiyat: 160 },
+      { id: 605, ad: "Papatya Çayı", fiyat: 160 }, { id: 606, ad: "Nane Limon", fiyat: 160 },
+      { id: 607, ad: "Hibiscus Çayı", fiyat: 160 }, { id: 608, ad: "Elma Çayı", fiyat: 160 }, { id: 609, ad: "Kış Çayı", fiyat: 160 },
+      { id: 101, ad: "Nomâd Spesiyal (Sıcak Kahve)", fiyat: 205 }, { id: 102, ad: "Caffè Latte", fiyat: 200 },
+      { id: 103, ad: "Caffè Mocha", fiyat: 225 }, { id: 104, ad: "Flat White", fiyat: 210 },
+      { id: 105, ad: "Cortado", fiyat: 210 }, { id: 106, ad: "Cappuccino", fiyat: 200 },
+      { id: 107, ad: "Macchiato", fiyat: 200 }, { id: 108, ad: "Americano", fiyat: 190 },
+      { id: 109, ad: "Filtre Kahve", fiyat: 170 }, { id: 110, ad: "Espresso", fiyat: 110 },
+      { id: 111, ad: "Double Espresso", fiyat: 130 }, { id: 112, ad: "Caramel Latte", fiyat: 225 },
+      { id: 113, ad: "Toffee Nut Latte", fiyat: 225 }, { id: 114, ad: "Hazelnut Latte", fiyat: 225 },
+      { id: 115, ad: "Cookie Latte", fiyat: 225 }, { id: 116, ad: "White Chocolate Mocha", fiyat: 225 },
       { id: 117, ad: "Caramel Macchiato", fiyat: 225 },
-      { id: 201, ad: "Nomâd Spesiyal (Soğuk Kahve)", fiyat: 210 },
-      { id: 202, ad: "Iced Latte", fiyat: 200 },
-      { id: 203, ad: "Iced Mocha", fiyat: 220 },
-      { id: 204, ad: "Iced Filter Coffee", fiyat: 170 },
-      { id: 205, ad: "Iced Americano", fiyat: 200 },
-      { id: 206, ad: "Iced Caramel Latte", fiyat: 220 },
-      { id: 207, ad: "Iced Toffee Nut Latte", fiyat: 220 },
-      { id: 208, ad: "Iced Hazelnut Latte", fiyat: 220 },
-      { id: 209, ad: "Iced Cookie Latte", fiyat: 220 },
-      { id: 210, ad: "Iced White Chocolate Mocha", fiyat: 220 },
-      { id: 301, ad: "Nomâd Spesiyal (Frozen)", fiyat: 210 },
-      { id: 302, ad: "Karadut Frozen", fiyat: 210 },
-      { id: 303, ad: "Muz Frozen", fiyat: 210 },
-      { id: 304, ad: "Çilek Frozen", fiyat: 210 },
-      { id: 305, ad: "Mango Frozen", fiyat: 210 },
-      { id: 306, ad: "Ananas Frozen", fiyat: 210 },
-      { id: 307, ad: "Mango Ananas Frozen", fiyat: 220 },
-      { id: 308, ad: "Böğürtlen Frozen", fiyat: 210 },
-      { id: 309, ad: "Orman Meyveli Frozen", fiyat: 210 },
-      { id: 310, ad: "Çarkıfelek Frozen", fiyat: 210 },
-      { id: 311, ad: "Limon Frozen", fiyat: 210 },
-      { id: 401, ad: "Nomâd Spesiyal (Milkshake)", fiyat: 220 },
-      { id: 402, ad: "Çilekli Milkshake", fiyat: 220 },
-      { id: 403, ad: "Muzlu Milkshake", fiyat: 220 },
-      { id: 404, ad: "Çikolatalı Milkshake", fiyat: 220 },
-      { id: 405, ad: "Karamelli Milkshake", fiyat: 220 },
-      { id: 406, ad: "Vanilyalı Milkshake", fiyat: 220 },
-      { id: 501, ad: "Nomâd Spesiyal (Kokteyl)", fiyat: 245 },
-      { id: 502, ad: "Ekşi Redbull Kokteyl", fiyat: 260 },
-      { id: 503, ad: "Tatlı Redbull Kokteyl", fiyat: 260 },
-      { id: 504, ad: "Cool Lime", fiyat: 240 },
-      { id: 505, ad: "Berry Hibiscus", fiyat: 240 },
-      { id: 506, ad: "Açai Berry Sunset", fiyat: 240 },
-      { id: 507, ad: "Purple Mirage", fiyat: 240 },
-      { id: 508, ad: "Dragon Mango Sunset", fiyat: 240 },
-      { id: 509, ad: "Pitaya Breeze", fiyat: 240 },
-      { id: 510, ad: "Raspberry Velvet", fiyat: 240 },
-      { id: 511, ad: "Golden Sunset", fiyat: 240 },
-      { id: 512, ad: "Kuzukulağı Kokteyl", fiyat: 240 },
-      { id: 1004, ad: "Karışık Gurme Tost", fiyat: 180 },
-      { id: 1005, ad: "Kaşarlı Tost", fiyat: 150 },
-      { id: 1008, ad: "Sucuklu Tost", fiyat: 160 },
-      { id: 701, ad: "Fuse Tea Çeşitleri", fiyat: 100 },
-      { id: 702, ad: "Coca-Cola", fiyat: 100 },
-      { id: 703, ad: "Fanta", fiyat: 100 },
-      { id: 704, ad: "Cappy Meyve Suyu", fiyat: 100 },
-      { id: 705, ad: "Su", fiyat: 25 },
-      { id: 706, ad: "Soda Çeşitleri", fiyat: 70 },
-      { id: 707, ad: "Redbull Çeşitleri", fiyat: 150 },
-      { id: 708, ad: "Limonata", fiyat: 170 },
-      { id: 801, ad: "Frambuazlı Cheesecake", fiyat: 250 },
-      { id: 802, ad: "Limonlu Cheesecake", fiyat: 250 },
-      { id: 803, ad: "Lotuslu Cheesecake", fiyat: 250 },
-      { id: 804, ad: "Orman Meyveli Pasta", fiyat: 250 },
-      { id: 805, ad: "Mozaik Pasta", fiyat: 250 },
-      { id: 806, ad: "Mono Siyah Profiterollü Pasta", fiyat: 250 },
-      { id: 807, ad: "Fıstık Rüyası Pasta", fiyat: 250 },
-      { id: 808, ad: "Sufle", fiyat: 250 },
+      { id: 201, ad: "Nomâd Spesiyal (Soğuk Kahve)", fiyat: 210 }, { id: 202, ad: "Iced Latte", fiyat: 200 },
+      { id: 203, ad: "Iced Mocha", fiyat: 220 }, { id: 204, ad: "Iced Filter Coffee", fiyat: 170 },
+      { id: 205, ad: "Iced Americano", fiyat: 200 }, { id: 206, ad: "Iced Caramel Latte", fiyat: 220 },
+      { id: 207, ad: "Iced Toffee Nut Latte", fiyat: 220 }, { id: 208, ad: "Iced Hazelnut Latte", fiyat: 220 },
+      { id: 209, ad: "Iced Cookie Latte", fiyat: 220 }, { id: 210, ad: "Iced White Chocolate Mocha", fiyat: 220 },
+      { id: 301, ad: "Nomâd Spesiyal (Frozen)", fiyat: 210 }, { id: 302, ad: "Karadut Frozen", fiyat: 210 },
+      { id: 303, ad: "Muz Frozen", fiyat: 210 }, { id: 304, ad: "Çilek Frozen", fiyat: 210 },
+      { id: 305, ad: "Mango Frozen", fiyat: 210 }, { id: 306, ad: "Ananas Frozen", fiyat: 210 },
+      { id: 307, ad: "Mango Ananas Frozen", fiyat: 220 }, { id: 308, ad: "Böğürtlen Frozen", fiyat: 210 },
+      { id: 309, ad: "Orman Meyveli Frozen", fiyat: 210 }, { id: 310, ad: "Çarkıfelek Frozen", fiyat: 210 }, { id: 311, ad: "Limon Frozen", fiyat: 210 },
+      { id: 401, ad: "Nomâd Spesiyal (Milkshake)", fiyat: 220 }, { id: 402, ad: "Çilekli Milkshake", fiyat: 220 },
+      { id: 403, ad: "Muzlu Milkshake", fiyat: 220 }, { id: 404, ad: "Çikolatalı Milkshake", fiyat: 220 },
+      { id: 405, ad: "Karamelli Milkshake", fiyat: 220 }, { id: 406, ad: "Vanilyalı Milkshake", fiyat: 220 },
+      { id: 501, ad: "Nomâd Spesiyal (Kokteyl)", fiyat: 245 }, { id: 502, ad: "Ekşi Redbull Kokteyl", fiyat: 260 },
+      { id: 503, ad: "Tatlı Redbull Kokteyl", fiyat: 260 }, { id: 504, ad: "Cool Lime", fiyat: 240 },
+      { id: 505, ad: "Berry Hibiscus", fiyat: 240 }, { id: 506, ad: "Açai Berry Sunset", fiyat: 240 },
+      { id: 507, ad: "Purple Mirage", fiyat: 240 }, { id: 508, ad: "Dragon Mango Sunset", fiyat: 240 },
+      { id: 509, ad: "Pitaya Breeze", fiyat: 240 }, { id: 510, ad: "Raspberry Velvet", fiyat: 240 },
+      { id: 511, ad: "Golden Sunset", fiyat: 240 }, { id: 512, ad: "Kuzukulağı Kokteyl", fiyat: 240 },
+      { id: 1004, ad: "Karışık Gurme Tost", fiyat: 180 }, { id: 1005, ad: "Kaşarlı Tost", fiyat: 150 },
+      { id: 1008, ad: "Sucuklu Tost", fiyat: 160 }, { id: 1006, ad: "Patates Kızartması", fiyat: 140 },
+      { id: 701, ad: "Fuse Tea Çeşitleri", fiyat: 100 }, { id: 702, ad: "Coca-Cola", fiyat: 100 },
+      { id: 703, ad: "Fanta", fiyat: 100 }, { id: 704, ad: "Cappy Meyve Suyu", fiyat: 100 },
+      { id: 705, ad: "Su", fiyat: 25 }, { id: 706, ad: "Soda Çeşitleri", fiyat: 70 },
+      { id: 707, ad: "Redbull Çeşitleri", fiyat: 150 }, { id: 708, ad: "Limonata", fiyat: 170 },
+      { id: 801, ad: "Frambuazlı Cheesecake", fiyat: 250 }, { id: 802, ad: "Limonlu Cheesecake", fiyat: 250 },
+      { id: 803, ad: "Lotuslu Cheesecake", fiyat: 250 }, { id: 804, ad: "Orman Meyveli Pasta", fiyat: 250 },
+      { id: 805, ad: "Mozaik Pasta", fiyat: 250 }, { id: 806, ad: "Mono Siyah Profiterollü Pasta", fiyat: 250 },
+      { id: 807, ad: "Fıstık Rüyası Pasta", fiyat: 250 }, { id: 808, ad: "Sufle", fiyat: 250 },
       { id: 809, ad: "Waffle", fiyat: 250 }
     ];
 
@@ -1643,6 +651,7 @@
     let kaliciBildirimler = [];
     let bilinenRezSayisi = -1;
     let audioCtx = null;
+    let stokDurumu = {}; // Tükendi verilerini tutar
     let kasaAcik = sessionStorage.getItem('nomad_kasa_yetki') === '1';
 
     if (kasaAcik) {
@@ -1651,10 +660,7 @@
 
     function bugununIsoTarihi() {
       const d = new Date();
-      const yil = d.getFullYear();
-      const ay = String(d.getMonth() + 1).padStart(2, '0');
-      const gun = String(d.getDate()).padStart(2, '0');
-      return `${yil}-${ay}-${gun}`;
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     }
 
     function tarihiDuzGoster(t) {
@@ -1701,12 +707,8 @@
 
     function sesMotorunuUyandir() {
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!audioCtx) {
-        audioCtx = new AudioContextClass();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
+      if (!audioCtx) { audioCtx = new AudioContextClass(); }
+      if (audioCtx.state === 'suspended') { audioCtx.resume(); }
       const buffer = audioCtx.createBuffer(1, 1, 22050);
       const source = audioCtx.createBufferSource();
       source.buffer = buffer;
@@ -1726,17 +728,14 @@
       try {
         sesMotorunuUyandir();
         const now = audioCtx.currentTime;
-
         const osc1 = audioCtx.createOscillator();
         const gain1 = audioCtx.createGain();
         osc1.type = "sine";
         osc1.frequency.setValueAtTime(587.33, now);
         gain1.gain.setValueAtTime(0.65, now);
         gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
-        osc1.connect(gain1);
-        gain1.connect(audioCtx.destination);
-        osc1.start(now);
-        osc1.stop(now + 0.35);
+        osc1.connect(gain1); gain1.connect(audioCtx.destination);
+        osc1.start(now); osc1.stop(now + 0.35);
 
         const osc2 = audioCtx.createOscillator();
         const gain2 = audioCtx.createGain();
@@ -1744,10 +743,8 @@
         osc2.frequency.setValueAtTime(880, now + 0.16);
         gain2.gain.setValueAtTime(0.75, now + 0.16);
         gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
-        osc2.connect(gain2);
-        gain2.connect(audioCtx.destination);
-        osc2.start(now + 0.16);
-        osc2.stop(now + 0.6);
+        osc2.connect(gain2); gain2.connect(audioCtx.destination);
+        osc2.start(now + 0.16); osc2.stop(now + 0.6);
       } catch(e) {}
     }
 
@@ -1755,7 +752,6 @@
       try {
         sesMotorunuUyandir();
         const now = audioCtx.currentTime;
-
         [0, 0.22].forEach((offset) => {
           const osc = audioCtx.createOscillator();
           const gain = audioCtx.createGain();
@@ -1763,10 +759,8 @@
           osc.frequency.setValueAtTime(1567.98, now + offset);
           gain.gain.setValueAtTime(0.75, now + offset);
           gain.gain.exponentialRampToValueAtTime(0.01, now + offset + 0.2);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start(now + offset);
-          osc.stop(now + offset + 0.2);
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.start(now + offset); osc.stop(now + offset + 0.2);
         });
       } catch(e) {}
     }
@@ -1780,9 +774,7 @@
     function kaliciBildirimKapat(id, masaNo) {
       kaliciBildirimler = kaliciBildirimler.filter(b => b.id !== id);
       kaliciBildirimleriCiz();
-      if (masaNo) {
-        masayaTiklandi(Number(masaNo));
-      }
+      if (masaNo) masayaTiklandi(Number(masaNo));
     }
 
     function kaliciBildirimleriCiz() {
@@ -1793,10 +785,7 @@
         card.className = 'sticky-notif-card';
         card.onclick = () => kaliciBildirimKapat(b.id, b.masaNo);
         card.innerHTML = `
-          <div class="sticky-notif-left">
-            <span>🔔</span>
-            <span>${b.mesaj}</span>
-          </div>
+          <div class="sticky-notif-left"><span>🔔</span><span>${b.mesaj}</span></div>
           <span class="sticky-notif-btn">Görüldü / Aç ✓</span>
         `;
         container.appendChild(card);
@@ -1806,6 +795,9 @@
     async function buluttanVeriCek() {
       if (!kasaAcik) return;
       try {
+        const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json`);
+        stokDurumu = (await stokRes.json()) || {};
+
         const masaRes = await fetch(`${FIREBASE_URL}/masalar.json`);
         const yeniMasalar = (await masaRes.json()) || {};
 
@@ -1813,19 +805,14 @@
         for (let mKey in yeniMasalar) {
           const m = yeniMasalar[mKey];
           if (m && m.sonGuncelleme && sonSiparisZamanlari[mKey] !== m.sonGuncelleme) {
-            if (sonSiparisZamanlari[mKey] !== undefined) {
-              yeniSiparisVar = true;
-            }
+            if (sonSiparisZamanlari[mKey] !== undefined) yeniSiparisVar = true;
             sonSiparisZamanlari[mKey] = m.sonGuncelleme;
           }
         }
 
         canliMasalar = yeniMasalar;
         masalariCiz();
-
-        if (yeniSiparisVar) {
-          calSiparisSesi();
-        }
+        if (yeniSiparisVar) calSiparisSesi();
 
         const sipBildirimRes = await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`);
         const sipBildirimler = await sipBildirimRes.json();
@@ -1835,11 +822,7 @@
               islenenSiparisBildirimleri.add(sKey);
               const sb = sipBildirimler[sKey];
               calSiparisSesi();
-              kaliciBildirimEkle(
-                sKey,
-                `Masa ${sb.masaNo} • Yeni Sipariş (${sb.kalemSayisi} Ürün - ${sb.tutar} ₺) • ${sb.saat}`,
-                sb.masaNo
-              );
+              kaliciBildirimEkle(sKey, `Masa ${sb.masaNo} • Yeni Sipariş (${sb.kalemSayisi} Ürün - ${sb.tutar} ₺) • ${sb.saat}`, sb.masaNo);
               fetch(`${FIREBASE_URL}/siparis_bildirimleri/${sKey}.json`, { method: 'DELETE' });
             }
           }
@@ -1847,18 +830,15 @@
 
         const cagriRes = await fetch(`${FIREBASE_URL}/garson_cagrilari.json`);
         const cagrilar = await cagriRes.json();
-
         if (cagrilar) {
           for (let cKey in cagrilar) {
             if (!islenenGarsonCagrilari.has(cKey)) {
               islenenGarsonCagrilari.add(cKey);
               const cagri = cagrilar[cKey];
               calGarsonSesi();
-              
               let cagriMesaj = cagri.tur === "Nargile Şefi" 
                 ? `Masa ${cagri.masaNo} Nargile Şefi (Köz/Destek) istiyor! (${cagri.saat})` 
                 : `Masa ${cagri.masaNo} garson çağırıyor! (${cagri.saat})`;
-
               kaliciBildirimEkle(`garson_${cKey}`, cagriMesaj, cagri.masaNo);
               fetch(`${FIREBASE_URL}/garson_cagrilari/${cKey}.json`, { method: 'DELETE' });
             }
@@ -1871,6 +851,47 @@
       } catch (err) {}
     }
 
+    // YENİ: STOK YÖNETİMİ
+    function stokYonetimModalAc() {
+      document.getElementById('stock-search-input').value = '';
+      stokUrunleriCiz();
+      document.getElementById('modal-stock-management').style.display = 'flex';
+    }
+
+    function stokUrunleriCiz() {
+      const q = document.getElementById('stock-search-input').value.trim().toLowerCase();
+      const container = document.getElementById('stock-products-container');
+      container.innerHTML = "";
+      
+      const filtreli = MENU_URUNLERI.filter(u => u.ad.toLowerCase().includes(q));
+      filtreli.forEach(u => {
+        const tukendiMi = stokDurumu[u.id] === true;
+        const row = document.createElement('div');
+        row.className = 'stock-item-row';
+        row.innerHTML = `
+          <div style="font-size:0.86rem; font-weight:800; color:${tukendiMi ? '#ef4444' : '#fff'};">
+            ${tukendiMi ? '🚫' : '✅'} ${u.ad}
+          </div>
+          <button class="btn-stock-toggle ${tukendiMi ? 'out' : ''}" onclick="stokDurumuDegistir(${u.id}, ${!tukendiMi})">
+            ${tukendiMi ? 'Tükendi (Aç)' : 'Stokta (Kapat)'}
+          </button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    async function stokDurumuDegistir(urunId, yapTukendi) {
+      stokDurumu[urunId] = yapTukendi;
+      stokUrunleriCiz(); // Butonu anında günceller
+      try {
+        await fetch(`${FIREBASE_URL}/stok_durumu.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(stokDurumu)
+        });
+      } catch(e) {}
+    }
+
     function rezervasyonlariCiz(rezObj) {
       const container = document.getElementById('rez-container');
       if (!rezObj) {
@@ -1880,22 +901,14 @@
       }
 
       const keys = Object.keys(rezObj);
-      if (bilinenRezSayisi !== -1 && keys.length > bilinenRezSayisi) {
-        calSiparisSesi();
-      }
+      if (bilinenRezSayisi !== -1 && keys.length > bilinenRezSayisi) calSiparisSesi();
       bilinenRezSayisi = keys.length;
 
       container.innerHTML = "";
       keys.reverse().forEach(k => {
         const r = rezObj[k];
-        let turEtiketi = "🪑 Masa Rezervasyonu";
-        let ekstraSinif = "";
-        if (r.tur === "Ateş Başı") {
-          turEtiketi = "🔥 Ateş Başı";
-        } else if (r.tur === "Canlı Müzik") {
-          turEtiketi = "🎵 Canlı Müzik";
-          ekstraSinif = "muzik-tag";
-        }
+        let turEtiketi = r.tur === "Ateş Başı" ? "🔥 Ateş Başı" : (r.tur === "Canlı Müzik" ? "🎵 Canlı Müzik" : "🪑 Masa Rezervasyonu");
+        let ekstraSinif = r.tur === "Canlı Müzik" ? "muzik-tag" : "";
 
         const card = document.createElement('div');
         card.className = 'rez-card';
@@ -1928,9 +941,7 @@
       try {
         const res = await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`);
         const data = await res.json();
-        if (data && data.metin) {
-          document.getElementById('kasa-genel-not').value = data.metin;
-        }
+        if (data && data.metin) { document.getElementById('kasa-genel-not').value = data.metin; }
       } catch(e) {}
     }
 
@@ -1940,9 +951,7 @@
       btn.innerText = "Kaydediliyor...";
       try {
         await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ metin: metin, zaman: Date.now() })
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ metin: metin, zaman: Date.now() })
         });
         btn.innerText = "Kaydedildi ✓";
         btn.style.background = "linear-gradient(135deg, #10b981 0%, #059669 100%)";
@@ -1952,9 +961,7 @@
           btn.style.background = "linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%)";
           btn.style.color = "#0f172a";
         }, 2500);
-      } catch(e) {
-        btn.innerText = "Hata! Tekrar Dene";
-      }
+      } catch(e) { btn.innerText = "Hata! Tekrar Dene"; }
     }
 
     function masalariCiz() {
@@ -1967,7 +974,11 @@
         const data = canliMasalar[masaKey];
         const isBusy = data && data.urunler && data.urunler.length > 0;
         const isReady = isBusy && data.durum === 'hazir';
-        const hasPendingOrder = isBusy && !isReady;
+        const isPreparing = isBusy && data.durum === 'hazirlaniyor';
+        const isIletildi = isBusy && (data.durum === 'iletildi' || !data.durum); 
+        
+        // Yeni bir sipariş varsa ünlem göster
+        const hasPendingOrder = isBusy && isIletildi;
 
         if (isBusy) doluSayisi++;
 
@@ -1977,7 +988,9 @@
 
         let durumYazi = 'BOŞ';
         if (isBusy) {
-          durumYazi = isReady ? 'DOLU • HAZIR ✓' : 'YENİ SİPARİŞ';
+          if(isReady) durumYazi = 'DOLU • HAZIR ✓';
+          else if(isPreparing) durumYazi = 'HAZIRLANIYOR...';
+          else durumYazi = 'YENİ SİPARİŞ !';
         }
 
         card.innerHTML = `
@@ -1992,9 +1005,7 @@
       document.getElementById('stat-busy').innerText = `${doluSayisi} Dolu`;
       document.getElementById('stat-empty').innerText = `${TOPLAM_MASA - doluSayisi} Boş`;
 
-      if (seciliMasa) {
-        masaDetayiGoster(seciliMasa);
-      }
+      if (seciliMasa) masaDetayiGoster(seciliMasa);
     }
 
     function masayaTiklandi(masaNo) {
@@ -2029,12 +1040,16 @@
       footerEl.style.display = "block";
       document.getElementById('panel-total-price').innerText = `${data.toplamTutar} ₺`;
 
-      if (data.durum === 'hazir') {
-        hazirBtn.classList.add('already-sent');
-        hazirBtn.innerText = `✓ Sipariş Hazırlandı (Masa Dolu)`;
-      } else {
-        hazirBtn.classList.remove('already-sent');
+      // YENİ SİPARİŞ DURUMU YÖNETİMİ
+      if (data.durum === 'iletildi' || !data.durum) {
+        hazirBtn.className = 'btn-order-ready';
+        hazirBtn.innerText = `⏳ Hazırlanıyor Olarak İşaretle`;
+      } else if (data.durum === 'hazirlaniyor') {
+        hazirBtn.className = 'btn-order-ready preparing-state';
         hazirBtn.innerText = `✓ Sipariş Hazır (Müşteriye Bildir)`;
+      } else if (data.durum === 'hazir') {
+        hazirBtn.className = 'btn-order-ready already-sent';
+        hazirBtn.innerText = `✓ Sipariş Hazırlandı (Masa Dolu)`;
       }
 
       listEl.innerHTML = "";
@@ -2063,6 +1078,33 @@
         `;
         listEl.appendChild(row);
       });
+    }
+
+    // YENİ: AŞAMALI SİPARİŞ İLERLETME (İletildi -> Hazırlanıyor -> Hazır)
+    async function siparisDurumunuIleriAl() {
+      if (!seciliMasa) return;
+      const data = canliMasalar[String(seciliMasa)];
+      if (!data || !data.urunler || data.urunler.length === 0) return;
+
+      let yeniDurum = 'hazirlaniyor';
+      if (data.durum === 'hazirlaniyor') {
+        yeniDurum = 'hazir';
+      } else if (data.durum === 'hazir') {
+        return; // Zaten hazır
+      }
+
+      data.durum = yeniDurum;
+      data.okunmamis = false;
+      data.urunler.forEach(u => { u.yeni = false; });
+
+      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
     }
 
     function manuelSiparisModalAc() {
@@ -2121,26 +1163,20 @@
         varOlan.yeni = true;
       } else {
         mevcut.urunler.push({
-          ad: urunAdi,
-          detay: "Garson Girişi",
-          adet: 1,
-          birimFiyat: birimFiyat,
-          tutar: birimFiyat,
-          yeni: true
+          ad: urunAdi, detay: "Garson Girişi", adet: 1,
+          birimFiyat: birimFiyat, tutar: birimFiyat, yeni: true
         });
       }
 
       mevcut.toplamTutar = mevcut.urunler.reduce((acc, c) => acc + c.tutar, 0);
       mevcut.saat = saatStr;
       mevcut.sonGuncelleme = Date.now();
-      mevcut.durum = 'hazirlaniyor';
+      mevcut.durum = 'iletildi';
       mevcut.okunmamis = true;
 
       canliMasalar[masaKey] = mevcut;
       await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(mevcut)
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mevcut)
       });
 
       masalariCiz();
@@ -2165,7 +1201,6 @@
         opt.innerText = hedefDolu ? `Masa ${i} (Dolu: ${hedefData.toplamTutar} ₺ - Birleştir)` : `Masa ${i} (Boş)`;
         selectEl.appendChild(opt);
       }
-
       document.getElementById('modal-transfer-table').style.display = 'flex';
     }
 
@@ -2191,24 +1226,17 @@
           okunmamis: Boolean(kaynakData.okunmamis || hedefData.okunmamis)
         };
       } else {
-        yeniHedefData = {
-          ...kaynakData,
-          sonGuncelleme: Date.now()
-        };
+        yeniHedefData = { ...kaynakData, sonGuncelleme: Date.now() };
       }
 
       await fetch(`${FIREBASE_URL}/masalar/${hedefNo}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(yeniHedefData)
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(yeniHedefData)
       });
 
       delete canliMasalar[String(kaynakNo)];
       await fetch(`${FIREBASE_URL}/masalar/${kaynakNo}.json`, { method: 'DELETE' });
       await fetch(`${FIREBASE_URL}/kapali_oturumlar/${kaynakNo}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Date.now())
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Date.now())
       });
 
       canliMasalar[String(hedefNo)] = yeniHedefData;
@@ -2216,25 +1244,6 @@
       kasaModalKapat('modal-transfer-table');
       masalariCiz();
       masaDetayiGoster(hedefNo);
-    }
-
-    async function siparisHazirBildir() {
-      if (!seciliMasa) return;
-      const data = canliMasalar[String(seciliMasa)];
-      if (!data || !data.urunler || data.urunler.length === 0) return;
-
-      data.durum = 'hazir';
-      data.okunmamis = false;
-      data.urunler.forEach(u => { u.yeni = false; });
-
-      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-
-      masalariCiz();
-      masaDetayiGoster(seciliMasa);
     }
 
     async function adetAzalt(masaNo, index) {
@@ -2256,9 +1265,7 @@
         await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, { method: 'DELETE' });
       } else {
         await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
         });
       }
       masalariCiz();
@@ -2277,9 +1284,7 @@
           await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, { method: 'DELETE' });
         } else {
           await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
           });
         }
         masalariCiz();
@@ -2338,6 +1343,7 @@
           odemeTuru: odemeTuru,
           saat: saatStr,
           tarih: bugunKey,
+          isKismi: true,
           urunler: [{ ad: "Bölüşülen Hesap (Kısmi Ödeme)", adet: 1, tutar: miktar }],
           zamanDamgasi: Date.now()
         })
@@ -2358,17 +1364,13 @@
         delete canliMasalar[String(seciliMasa)];
         await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
         await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(Date.now())
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Date.now())
         });
         kasaModalKapat('modal-payment-method');
         alert("Hesap tamamen ödendi, masa kapatıldı!");
       } else {
         await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(masaData)
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(masaData)
         });
         document.getElementById('pay-modal-amount').innerText = `${masaData.toplamTutar} ₺`;
         kismiOdemeEkraniniKapat();
@@ -2378,7 +1380,7 @@
       masaDetayiGoster(seciliMasa);
     }
 
-    async function odemeyiTamamlaVeMasayiKapat(odemeTuru) {
+    async function odemeyiTamamla(e, odemeTuru) {
       if (!seciliMasa) return;
       const kapananData = canliMasalar[String(seciliMasa)];
       if (!kapananData) return;
@@ -2403,9 +1405,7 @@
       delete canliMasalar[String(seciliMasa)];
       await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
       await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Date.now())
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Date.now())
       });
 
       kasaModalKapat('modal-payment-method');
@@ -2424,13 +1424,9 @@
             await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
             alert("Harika! Yeni gün başlatıldı, tüm masalar 0'landı.");
             location.reload();
-          } catch(e) {
-            alert("Bağlantı hatası oluştu.");
-          }
+          } catch(e) { alert("Bağlantı hatası oluştu."); }
         }
-      } else if (pin !== null) {
-        alert("Hatalı şifre!");
-      }
+      } else if (pin !== null) { alert("Hatalı şifre!"); }
     }
 
     async function tamSifirlamaYap() {
@@ -2447,13 +1443,9 @@
             await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' }); 
             alert("Sistem fabrikaya ayarlarına döndürüldü. Tamamen 0'dan başlıyorsunuz.");
             location.reload();
-          } catch(e) {
-            alert("Bağlantı hatası oluştu.");
-          }
+          } catch(e) { alert("Bağlantı hatası oluştu."); }
         }
-      } else if (pin !== null) {
-        alert("Hatalı şifre girdiniz!");
-      }
+      } else if (pin !== null) { alert("Hatalı şifre girdiniz!"); }
     }
 
     function gunSonuModalAc() {
@@ -2592,15 +1584,10 @@
         const odeme = item.odemeTuru || "Nakit";
 
         toplamCiro += tutar;
-        if (odeme === "Kredi Kartı") {
-          kartCiro += tutar;
-        } else {
-          nakitCiro += tutar;
-        }
+        if (odeme === "Kredi Kartı") kartCiro += tutar;
+        else nakitCiro += tutar;
         
-        if(!item.isKismi) {
-          adisyonSayisi++;
-        }
+        if(!item.isKismi) adisyonSayisi++;
 
         const odemeRozet = odeme === "Kredi Kartı"
           ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
