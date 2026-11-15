@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta name="robots" content="noindex, nofollow">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Nomâd Karavan | Kasa Kontrol Paneli</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Nomâd Karavan Coffee | Tatvan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-green-deep: #13221b;
       --bg-slate-gray: #1f252b;
-      --card-gray-surface: rgba(54, 61, 69, 0.84);
+      --card-gray-surface: rgba(54, 61, 69, 0.82);
+      --card-green-tint: rgba(24, 48, 37, 0.85);
       --card-border: rgba(203, 213, 225, 0.25);
       --silver-gray: #e2e8f0;
       --slate-muted: #cbd5e1;
@@ -20,8 +20,8 @@
       --fire-orange: #ea580c;
       --fire-amber: #f59e0b;
       --fire-glow: rgba(234, 88, 12, 0.45);
-      --occupied-red: #ef4444;
       --text-main: #f8fafc;
+      --shadow-3d: 0 16px 36px rgba(0, 0, 0, 0.5);
     }
 
     * {
@@ -33,251 +33,302 @@
     }
 
     body {
-      background: linear-gradient(165deg, #1b2428 0%, #14261d 50%, #1d2127 100%);
+      background: linear-gradient(165deg, #1b2428 0%, #14261d 48%, #1d2127 100%);
       color: var(--text-main);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
       overflow-x: hidden;
       position: relative;
     }
 
-    #pin-lock-screen {
+    body.loading-lock {
+      overflow: hidden !important;
+      height: 100vh;
+    }
+
+    #intro-splash {
       position: fixed;
-      inset: 0;
-      z-index: 9999;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 99999;
       background: radial-gradient(circle at center, #253336 0%, #121c17 65%, #16181c 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.45s ease, visibility 0.45s ease;
     }
+    #intro-splash.hide { opacity: 0; visibility: hidden; pointer-events: none; }
 
-    .pin-card {
-      background: linear-gradient(145deg, #323942 0%, #192d23 100%);
-      border: 1.5px solid rgba(245, 158, 11, 0.45);
-      border-radius: 26px;
-      padding: 30px 24px;
-      width: 100%;
-      max-width: 340px;
-      text-align: center;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+    .splash-aura {
+      position: absolute; width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(234, 88, 12, 0.35) 0%, rgba(16, 185, 129, 0.15) 50%, transparent 72%);
+      filter: blur(55px); animation: auraPulse 2.8s ease-in-out infinite alternate; z-index: 1;
     }
-
-    .pin-icon {
-      width: 56px;
-      height: 56px;
-      margin: 0 auto 14px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, var(--fire-orange) 0%, var(--forest-green) 100%);
-      border: 1.5px solid var(--fire-amber);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
+    @keyframes auraPulse {
+      from { transform: scale(0.92); opacity: 0.55; }
+      to { transform: scale(1.15); opacity: 0.95; }
     }
+    .splash-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 20px; }
+    .splash-sub-badge { font-size: 0.76rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 800; color: var(--fire-amber); margin-bottom: 6px; }
+    .splash-brand-title { font-size: 2rem; font-weight: 900; letter-spacing: -0.5px; color: #ffffff; line-height: 1.1; margin-bottom: 30px; }
+    .splash-brand-title span { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    .pin-card h2 { font-size: 1.15rem; font-weight: 900; color: #ffffff; margin-bottom: 4px; }
-    .pin-card p { font-size: 0.76rem; color: var(--slate-muted); margin-bottom: 18px; }
+    .orbit-system { position: relative; width: 170px; height: 170px; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
+    .orbit-ring { position: absolute; inset: 6px; border-radius: 50%; border: 2.5px solid transparent; border-top: 2.5px solid var(--fire-orange); border-right: 2.5px solid var(--emerald-bright); border-bottom: 2.5px solid var(--silver-gray); box-shadow: 0 0 22px rgba(234, 88, 12, 0.35); animation: spinEnergy 1.6s cubic-bezier(0.5, 0, 0.5, 1) infinite; }
+    .orbit-ring-pulse { position: absolute; inset: -6px; border-radius: 50%; border: 1px dashed rgba(203, 213, 225, 0.35); animation: spinCounter 6s linear infinite; }
+    @keyframes spinEnergy { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes spinCounter { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 
-    .pin-input {
-      width: 100%; background: rgba(20, 26, 29, 0.95); border: 1.5px solid var(--card-border);
-      border-radius: 14px; padding: 14px; font-size: 1.3rem; font-weight: 900; letter-spacing: 6px;
-      text-align: center; color: var(--fire-amber); outline: none; margin-bottom: 12px;
-    }
-    .pin-input:focus { border-color: var(--fire-amber); }
+    .caravan-core-stage { width: 118px; height: 118px; border-radius: 50%; background: linear-gradient(145deg, #323942 0%, #192d23 100%); border: 2px solid rgba(226, 232, 240, 0.45); display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.65), 0 8px 24px rgba(0,0,0,0.45); z-index: 3; }
+    .caravan-vector { width: 78px; height: 78px; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45)); }
 
-    .btn-pin-submit {
-      width: 100%; background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%);
-      color: #0f172a; border: none; padding: 14px; border-radius: 14px; font-size: 0.92rem; font-weight: 900; cursor: pointer;
-    }
-    .pin-error { color: #f87171; font-size: 0.78rem; font-weight: 800; margin-top: 10px; display: none; }
+    .progress-box { width: 220px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .progress-track { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.12); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); }
+    .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--emerald-bright) 0%, var(--fire-amber) 55%, var(--fire-orange) 100%); border-radius: 20px; transition: width 0.08s linear; }
+    .progress-status-text { font-size: 0.78rem; font-weight: 700; color: #cbd5e1; letter-spacing: 0.5px; }
+    .progress-number { color: var(--fire-amber); font-weight: 900; }
 
-    header {
-      background: linear-gradient(90deg, rgba(35, 41, 48, 0.95) 0%, rgba(22, 40, 31, 0.95) 100%);
-      backdrop-filter: blur(16px); border-bottom: 1.5px solid rgba(234, 88, 12, 0.32);
-      padding: 14px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; position: relative; z-index: 50; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-    }
+    .wave-item { opacity: 0; transform: translateY(-28px) scale(0.97); transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
+    body.wave-start .wave-item { opacity: 1; transform: translateY(0) scale(1); }
+    body.wave-start .wave-1 { transition-delay: 0.05s; }
+    body.wave-start .wave-2 { transition-delay: 0.15s; }
+    body.wave-start .wave-3 { transition-delay: 0.25s; }
+    body.wave-start .wave-4 { transition-delay: 0.35s; }
+    body.wave-start .wave-5 { transition-delay: 0.45s; }
+    body.wave-start .wave-6 { transition-delay: 0.55s; }
+    body.wave-start .wave-7 { transition-delay: 0.65s; }
+
+    .ambient-glow-1 { position: fixed; top: -60px; left: -60px; width: 340px; height: 340px; background: radial-gradient(circle, rgba(234, 88, 12, 0.22) 0%, transparent 70%); filter: blur(55px); z-index: 0; pointer-events: none; }
+    .ambient-glow-2 { position: fixed; bottom: 8%; right: -80px; width: 360px; height: 360px; background: radial-gradient(circle, rgba(27, 77, 54, 0.34) 0%, transparent 70%); filter: blur(60px); z-index: 0; pointer-events: none; }
+
+    header { position: sticky; top: 0; z-index: 100; background: linear-gradient(90deg, rgba(35, 41, 48, 0.94) 0%, rgba(22, 40, 31, 0.94) 100%); backdrop-filter: blur(18px); border-bottom: 1.5px solid rgba(234, 88, 12, 0.32); padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; }
     .brand-wrap { display: flex; align-items: center; gap: 12px; }
-    .brand-logo-emblem {
-      width: 46px; height: 46px; background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%);
-      border-radius: 14px; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(245, 158, 11, 0.55); flex-shrink: 0;
-    }
-    .brand-logo-emblem svg { width: 34px; height: 34px; }
-    .brand-info h1 { font-size: 1rem; font-weight: 900; color: #ffffff; }
-    .brand-info p { font-size: 0.72rem; color: var(--fire-amber); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+    .brand-logo-emblem { width: 48px; height: 48px; background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(245, 158, 11, 0.55); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4); flex-shrink: 0; }
+    .brand-logo-emblem svg { width: 36px; height: 36px; }
+    .brand-info h1 { font-size: 0.96rem; font-weight: 900; color: #ffffff; letter-spacing: -0.2px; }
+    .brand-info p { font-size: 0.72rem; color: var(--fire-amber); font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; }
+    .table-chip { background: rgba(234, 88, 12, 0.22); border: 1.5px solid var(--fire-orange); color: #fed7aa; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .table-chip.online-visitor { background: rgba(16, 185, 129, 0.16); border-color: rgba(16, 185, 129, 0.5); color: #a7f3d0; }
+    .table-dot { width: 8px; height: 8px; background: var(--fire-orange); border-radius: 50%; box-shadow: 0 0 8px var(--fire-orange); }
+    .table-chip.online-visitor .table-dot { background: var(--emerald-bright); box-shadow: 0 0 8px var(--emerald-bright); }
 
-    .header-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .order-tracker-banner { display: none; margin: 14px 16px 0; border-radius: 20px; padding: 18px; position: relative; z-index: 20; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42); transition: all 0.3s ease; background: linear-gradient(145deg, rgba(31, 41, 55, 0.95) 0%, rgba(17, 24, 39, 0.98) 100%); border: 1.5px solid rgba(245, 158, 11, 0.4); }
+    .tracker-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .tracker-title-row h3 { font-size: 0.94rem; font-weight: 900; color: #fff; display: flex; align-items: center; gap: 6px; }
+    .tracker-title-row span { font-size: 0.74rem; background: var(--fire-amber); color: #0f172a; padding: 4px 10px; border-radius: 10px; font-weight: 900; }
 
-    .btn-sound-unlock { background: var(--fire-amber); color: #0f172a; border: none; padding: 9px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4); animation: pulseSound 2s infinite; }
-    .btn-sound-unlock.unlocked { background: rgba(16, 185, 129, 0.22); color: #6ee7b7; border: 1.5px solid #10b981; box-shadow: none; animation: none; }
-    .btn-eod-open { background: rgba(245, 158, 11, 0.18); color: var(--fire-amber); border: 1.5px solid rgba(245, 158, 11, 0.5); padding: 8px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-    .btn-day-start { background: rgba(16, 185, 129, 0.18); color: #10b981; border: 1.5px solid rgba(16, 185, 129, 0.5); }
-    .btn-hard-reset { background: rgba(239, 68, 68, 0.18); color: #ef4444; border: 1.5px solid rgba(239, 68, 68, 0.5); }
-    .btn-stock-mng { background: rgba(59, 130, 246, 0.18); color: #93c5fd; border: 1.5px solid rgba(96, 165, 250, 0.5); }
+    .tracker-stepper { display: flex; justify-content: space-between; position: relative; }
+    .tracker-line-bg { position: absolute; top: 12px; left: 10px; right: 10px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 4px; z-index: 1; }
+    .tracker-line-fill { position: absolute; top: 12px; left: 10px; width: 0%; height: 4px; background: var(--emerald-bright); border-radius: 4px; z-index: 2; transition: width 0.4s ease; box-shadow: 0 0 10px var(--emerald-bright); }
 
-    .btn-lock-now { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; cursor: pointer; }
+    .tracker-step { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .tracker-circle { width: 28px; height: 28px; border-radius: 50%; background: #1e293b; border: 2px solid #475569; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #94a3b8; transition: all 0.3s ease; }
+    .tracker-label { font-size: 0.68rem; font-weight: 800; color: #94a3b8; transition: all 0.3s ease; }
 
-    @keyframes pulseSound { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
+    .tracker-step.iletildi .tracker-circle { background: #3b82f6; border-color: #60a5fa; color: #fff; box-shadow: 0 0 12px rgba(59, 130, 246, 0.5); }
+    .tracker-step.iletildi .tracker-label { color: #93c5fd; }
 
-    .badge-pill { font-size: 0.8rem; font-weight: 800; padding: 7px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
-    .badge-empty { background: rgba(16, 185, 129, 0.22); border: 1.5px solid #10b981; color: #a7f3d0; }
-    .badge-busy { background: rgba(239, 68, 68, 0.22); border: 1.5px solid #ef4444; color: #fecaca; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .tracker-step.hazirlaniyor .tracker-circle { background: var(--fire-orange); border-color: var(--fire-amber); color: #fff; box-shadow: 0 0 12px var(--fire-glow); animation: pulseStep 1.5s infinite; }
+    .tracker-step.hazirlaniyor .tracker-label { color: #fdba74; }
 
-    .persistent-alerts-stack { position: relative; z-index: 45; padding: 12px 20px 0; display: flex; flex-direction: column; gap: 8px; }
-    .persistent-alerts-stack:empty { display: none; }
-    .sticky-notif-card { background: linear-gradient(135deg, rgba(245, 158, 11, 0.96) 0%, rgba(234, 88, 12, 0.96) 100%); color: #0f172a; border: 2px solid #ffffff; border-radius: 16px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; cursor: pointer; box-shadow: 0 10px 26px rgba(245, 158, 11, 0.45); animation: notifBounce 0.3s ease; }
-    @keyframes notifBounce { from { transform: translateY(-10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-    .sticky-notif-left { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 0.9rem; }
-    .sticky-notif-btn { background: #0f172a; color: #f59e0b; padding: 6px 12px; border-radius: 10px; font-size: 0.74rem; font-weight: 900; white-space: nowrap; }
+    .tracker-step.hazir .tracker-circle { background: var(--emerald-bright); border-color: #34d399; color: #064e3b; box-shadow: 0 0 12px rgba(16, 185, 129, 0.5); }
+    .tracker-step.hazir .tracker-label { color: #a7f3d0; }
 
-    .dashboard-layout { flex: 1; display: flex; overflow: hidden; position: relative; z-index: 10; }
-    .tables-section { flex: 1; padding: 20px; overflow-y: auto; }
-    .section-title { font-size: 0.9rem; font-weight: 900; color: var(--fire-amber); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
+    @keyframes pulseStep { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 
-    .table-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap: 10px; margin-bottom: 28px; }
-    .table-card { position: relative; background: linear-gradient(145deg, rgba(56, 63, 72, 0.86) 0%, rgba(27, 48, 38, 0.88) 100%); backdrop-filter: blur(14px); border-radius: 16px; padding: 14px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32); transition: all 0.2s; user-select: none; }
+    .btn-bana-birak { width: 100%; margin-top: 12px; background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); border: 1.5px solid #a78bfa; border-radius: 20px; padding: 15px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: #ffffff; box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4); z-index: 5; transition: transform 0.15s; }
+    .btn-bana-birak:active { transform: scale(0.98); }
 
-    .table-card.empty { border: 1.5px solid rgba(16, 185, 129, 0.65); background: linear-gradient(145deg, rgba(20, 62, 45, 0.85) 0%, rgba(16, 46, 34, 0.9) 100%); box-shadow: 0 6px 18px rgba(16, 185, 129, 0.16); }
-    .table-card.empty .table-status-text { color: #064e3b; background: #10b981; padding: 3px 10px; border-radius: 10px; font-weight: 900; }
+    .btn-adisyon-gecmisi { width: 100%; margin-top: 12px; background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(27, 47, 38, 0.9) 100%); border: 1.5px solid var(--emerald-bright); border-radius: 20px; padding: 15px 18px; display: none; align-items: center; justify-content: space-between; cursor: pointer; color: #ffffff; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2); z-index: 5; }
+    .btn-adisyon-gecmisi:active { transform: scale(0.98); }
 
-    .table-card.busy { border: 2px solid #f97316; background: linear-gradient(145deg, rgba(124, 45, 18, 0.92) 0%, rgba(67, 26, 14, 0.94) 100%); box-shadow: 0 10px 28px rgba(249, 115, 22, 0.45); animation: pulseAlert 2.2s infinite; }
-    .table-card.busy .table-status-text { color: #ffffff; background: #ea580c; padding: 3px 9px; border-radius: 10px; }
+    .product-card.out-of-stock { opacity: 0.6; pointer-events: none; filter: grayscale(100%); position: relative; }
+    .out-of-stock-badge { position: absolute; top: 10px; right: 10px; background: #ef4444; color: #ffffff; font-size: 0.65rem; font-weight: 900; padding: 4px 8px; border-radius: 8px; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.5); letter-spacing: 0.5px; }
 
-    .table-card.busy.is-ready { border: 2px solid #ef4444; background: linear-gradient(145deg, rgba(127, 29, 29, 0.9) 0%, rgba(69, 17, 17, 0.94) 100%); box-shadow: 0 8px 22px rgba(239, 68, 68, 0.35); animation: none; }
-    .table-card.busy.is-ready .table-status-text { background: #ef4444; color: #ffffff; }
-    .table-card.selected-table { outline: 2.5px solid #ffffff; outline-offset: 2px; }
+    .cart-summary-list { max-height: 40vh; overflow-y: auto; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+    .cart-summary-item { background: rgba(22, 28, 32, 0.85); border: 1px solid var(--card-border); padding: 12px; border-radius: 12px; }
+    .cart-summary-item-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .cart-summary-name { font-size: 0.86rem; font-weight: 800; color: #fff; }
+    .cart-summary-price { font-size: 0.9rem; font-weight: 900; color: var(--fire-amber); }
+    .cart-note-input { width: 100%; background: rgba(15, 23, 42, 0.6); border: 1px dashed rgba(245, 158, 11, 0.4); padding: 8px 12px; border-radius: 8px; font-size: 0.78rem; color: #fff; outline: none; margin-top: 4px; }
+    .cart-note-input::placeholder { color: rgba(203, 213, 225, 0.5); }
+    .cart-note-input:focus { border-color: var(--fire-amber); background: rgba(15, 23, 42, 0.9); }
 
-    .unread-exclaim-badge { position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; border-radius: 50%; background: #facc15; color: #0f172a; border: 2px solid #16191e; font-size: 1rem; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(250, 204, 21, 0.8); animation: exclaimPulse 1s infinite; z-index: 5; }
-    @keyframes exclaimPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.18); } }
-    @keyframes pulseAlert { 0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.55); } 70% { box-shadow: 0 0 0 12px rgba(249, 115, 22, 0); } 100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); } }
+    .notif-perm-bar { display: none; margin: 12px 16px 0; background: rgba(54, 61, 69, 0.85); border: 1px solid rgba(245, 158, 11, 0.45); border-radius: 16px; padding: 11px 14px; align-items: center; justify-content: space-between; gap: 10px; position: relative; z-index: 20; }
+    .notif-perm-bar span { font-size: 0.75rem; font-weight: 700; color: #f8fafc; }
+    .btn-enable-notif { background: var(--fire-orange); color: #ffffff; border: none; padding: 7px 12px; border-radius: 10px; font-size: 0.74rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
 
-    .table-number { font-size: 1.1rem; font-weight: 900; color: #ffffff; }
-    .table-status-text { font-size: 0.68rem; font-weight: 800; }
-    .table-amount { font-size: 0.9rem; font-weight: 900; color: var(--fire-amber); margin-top: 2px; }
+    .view-page { display: none; position: relative; z-index: 10; }
+    .view-page.active { display: block; }
 
-    .rez-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-    .rez-card { background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%); border: 1.5px solid rgba(245, 158, 11, 0.42); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
-    .rez-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-    .rez-name { font-size: 0.95rem; font-weight: 900; color: #ffffff; }
-    .rez-badge { background: var(--silver-gray); color: #0f172a; font-size: 0.72rem; font-weight: 900; padding: 3px 10px; border-radius: 10px; white-space: nowrap; }
-    .rez-tur-tag { display: inline-block; background: rgba(234, 88, 12, 0.25); border: 1px solid var(--fire-orange); color: #fdba74; font-size: 0.74rem; font-weight: 900; padding: 4px 10px; border-radius: 8px; align-self: flex-start; }
-    .rez-tur-tag.muzik-tag { background: rgba(168, 85, 247, 0.25); border-color: #c084fc; color: #e9d5ff; }
-    .rez-info { font-size: 0.78rem; color: #e2e8f0; font-weight: 600; }
-    .rez-actions { display: flex; gap: 8px; margin-top: 6px; }
-    .btn-rez-call { flex: 1; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #6ee7b7; text-decoration: none; text-align: center; padding: 7px; border-radius: 10px; font-size: 0.76rem; font-weight: 800; }
-    .btn-rez-del { background: rgba(234, 88, 12, 0.22); border: 1px solid var(--fire-orange); color: #fdba74; padding: 7px 12px; border-radius: 10px; font-size: 0.76rem; font-weight: 800; cursor: pointer; }
+    .hero-card { margin: 16px 16px 20px; aspect-ratio: 16 / 10.6; border-radius: 24px; overflow: hidden; position: relative; box-shadow: var(--shadow-3d); border: 1.5px solid rgba(234, 88, 12, 0.45); background: #232730; }
+    .hero-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .section-wrap { padding: 0 16px; margin-bottom: 20px; }
 
-    .kasa-notes-card { background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%); border: 1.5px solid rgba(245, 158, 11, 0.42); border-radius: 16px; padding: 14px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.35); display: flex; flex-direction: column; gap: 10px; }
-    .kasa-notes-card textarea { width: 100%; background: rgba(20, 26, 29, 0.95); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px; color: #ffffff; font-size: 0.84rem; outline: none; resize: vertical; min-height: 80px; font-family: inherit; }
-    .kasa-notes-card textarea:focus { border-color: var(--fire-amber); }
-    .btn-note-save { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); color: #0f172a; border: none; padding: 10px; border-radius: 10px; font-size: 0.82rem; font-weight: 900; cursor: pointer; transition: all 0.2s; }
+    .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
+    .quick-grid.visitor-mode { grid-template-columns: repeat(2, 1fr); }
+    .service-btn { background: linear-gradient(145deg, rgba(58, 65, 74, 0.88) 0%, rgba(28, 49, 39, 0.88) 100%); backdrop-filter: blur(14px); border: 1.5px solid var(--card-border); border-radius: 20px; padding: 14px 4px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-decoration: none; color: var(--text-main); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.32); cursor: pointer; transition: all 0.2s; }
+    .service-btn:active { transform: scale(0.95); border-color: var(--fire-amber); background: rgba(234, 88, 12, 0.25); }
+    .service-icon { font-size: 1.4rem; display: flex; align-items: center; justify-content: center; }
+    .service-name { font-size: 0.74rem; font-weight: 800; color: #f1f5f9; text-align: center; }
 
-    .detail-section { width: 420px; background: linear-gradient(180deg, rgba(33, 39, 45, 0.96) 0%, rgba(22, 38, 30, 0.96) 100%); backdrop-filter: blur(18px); border-left: 1.5px solid var(--card-border); display: flex; flex-direction: column; box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5); }
-    .detail-header { padding: 16px 20px; border-bottom: 1.5px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-    .detail-header h3 { font-size: 1.12rem; font-weight: 900; color: #ffffff; }
-    .detail-time { font-size: 0.75rem; color: var(--fire-amber); font-weight: 700; }
-    .btn-manual-add-top { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); color: #0f172a; border: none; padding: 8px 12px; border-radius: 11px; font-size: 0.76rem; font-weight: 900; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35); }
-    .detail-content { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-    .order-item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--card-gray-surface); border: 1px solid var(--card-border); border-radius: 14px; gap: 10px; }
-    .order-item-row.is-new-order { border: 1.5px solid #facc15; background: rgba(250, 204, 21, 0.12); }
-    .new-order-pill { display: inline-block; background: #facc15; color: #0f172a; font-size: 0.66rem; font-weight: 900; padding: 2px 8px; border-radius: 6px; letter-spacing: 0.5px; text-transform: uppercase; align-self: flex-start; margin-bottom: 2px; }
-    .item-left { flex: 1; display: flex; flex-direction: column; gap: 3px; }
-    .item-name { font-size: 0.9rem; font-weight: 800; color: #ffffff; }
-    .item-custom-recipe { font-size: 0.74rem; font-weight: 700; color: #fdba74; background: rgba(234, 88, 12, 0.18); border: 1px solid rgba(234, 88, 12, 0.4); padding: 4px 8px; border-radius: 8px; margin-top: 2px; }
-    .item-unit-info { font-size: 0.74rem; color: var(--slate-muted); font-weight: 600; }
-    .item-actions { display: flex; align-items: center; gap: 8px; }
-    .item-price { font-size: 0.98rem; font-weight: 900; color: var(--fire-amber); min-width: 52px; text-align: right; }
-    .btn-qty-minus { background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.25); width: 28px; height: 28px; border-radius: 8px; font-size: 1rem; font-weight: 800; cursor: pointer; }
-    .btn-item-delete { background: rgba(234, 88, 12, 0.22); color: #fdba74; border: 1px solid var(--fire-orange); width: 28px; height: 28px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
+    .btn-giant-menu { width: 100%; background: linear-gradient(135deg, #ea580c 0%, #374151 50%, #1b4d36 100%); color: #ffffff; border: 1.5px solid rgba(245, 158, 11, 0.5); padding: 24px 20px; border-radius: 26px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; box-shadow: 0 14px 36px var(--fire-glow); transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; z-index: 5; }
+    .btn-giant-menu:active { transform: scale(0.97); }
+    .giant-left { display: flex; align-items: center; gap: 16px; text-align: left; }
+    .giant-icon-box { width: 58px; height: 58px; background: rgba(255, 255, 255, 0.16); backdrop-filter: blur(8px); border: 1.5px solid rgba(255, 255, 255, 0.38); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.9rem; flex-shrink: 0; }
+    .giant-text-sub { font-size: 0.74rem; color: #fed7aa; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+    .giant-text-main { font-size: 1.32rem; font-weight: 900; letter-spacing: -0.4px; color: #ffffff; line-height: 1.2; }
+    .giant-arrow-circle { width: 44px; height: 44px; background: #1a2421; border: 1.5px solid rgba(245, 158, 11, 0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #ffffff; font-weight: 900; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4); flex-shrink: 0; }
 
-    .detail-footer { padding: 16px 20px; border-top: 1.5px solid var(--card-border); background: rgba(22, 28, 30, 0.96); display: flex; flex-direction: column; gap: 9px; }
-    .total-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
-    .total-title { font-size: 0.92rem; color: var(--slate-muted); font-weight: 700; }
-    .total-sum { font-size: 1.6rem; font-weight: 900; color: var(--fire-amber); }
+    .btn-craft-banner { width: 100%; margin-top: 12px; background: linear-gradient(145deg, rgba(58, 65, 74, 0.9) 0%, rgba(27, 54, 41, 0.92) 100%); border: 1.5px solid rgba(245, 158, 11, 0.48); border-radius: 20px; padding: 15px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: #ffffff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.38); z-index: 5; }
+    .btn-craft-banner:active { transform: scale(0.98); }
 
-    .btn-order-ready { width: 100%; background: linear-gradient(135deg, #10b981 0%, #1b4d36 100%); color: #ffffff; border: 1px solid rgba(110, 231, 183, 0.4); padding: 13px; border-radius: 14px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3); transition: transform 0.15s; }
-    .btn-order-ready:active { transform: scale(0.98); }
-    .btn-order-ready.preparing-state { background: linear-gradient(135deg, var(--fire-orange) 0%, var(--fire-amber) 100%); border-color: var(--fire-amber); box-shadow: 0 6px 20px var(--fire-glow); color: #0f172a; }
-    .btn-order-ready.already-sent { background: rgba(239, 68, 68, 0.18); border: 1.5px solid #ef4444; color: #fecaca; box-shadow: none; }
+    .social-banner-box { background: linear-gradient(145deg, rgba(56, 63, 72, 0.88) 0%, rgba(26, 48, 38, 0.9) 100%); backdrop-filter: blur(14px); border: 1.5px solid var(--card-border); border-radius: 22px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-3d); text-decoration: none; }
+    .social-left { display: flex; align-items: center; gap: 14px; }
+    .insta-svg { width: 32px; height: 32px; }
+    .social-title { font-size: 0.94rem; font-weight: 800; color: #ffffff; }
+    .social-sub { font-size: 0.74rem; color: var(--fire-amber); font-weight: 700; }
+    .social-arrow { font-size: 1.2rem; color: var(--fire-amber); font-weight: 800; }
 
-    .btn-transfer-table { width: 100%; background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1.5px solid rgba(96, 165, 250, 0.55); padding: 11px; border-radius: 14px; font-size: 0.86rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .btn-close-order { width: 100%; background: linear-gradient(135deg, var(--fire-orange) 0%, #c2410c 100%); color: #fff; border: none; padding: 12px; border-radius: 14px; font-size: 0.88rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px var(--fire-glow); }
-    .empty-state { margin: auto; text-align: center; color: var(--slate-muted); font-size: 0.86rem; font-weight: 600; padding: 30px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .card-panel-box { background: linear-gradient(145deg, rgba(54, 61, 69, 0.88) 0%, rgba(26, 45, 36, 0.92) 100%); backdrop-filter: blur(14px); border: 1.5px solid var(--card-border); border-radius: 24px; padding: 22px; box-shadow: var(--shadow-3d); }
+    .card-panel-box.rez-highlight { border: 1.5px solid rgba(234, 88, 12, 0.5); background: linear-gradient(145deg, rgba(60, 67, 77, 0.92) 0%, rgba(24, 52, 39, 0.95) 100%); }
+    .card-panel-box h3 { font-size: 1.04rem; font-weight: 900; color: #ffffff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .card-panel-box p { font-size: 0.76rem; color: var(--slate-muted); margin-bottom: 14px; line-height: 1.38; }
 
-    .kasa-modal { display: none; position: fixed; inset: 0; background: rgba(12, 16, 18, 0.88); backdrop-filter: blur(10px); z-index: 500; align-items: center; justify-content: center; padding: 14px; }
-    .kasa-modal-box { background: linear-gradient(145deg, #2d343d 0%, #192f24 100%); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 24px; padding: 24px; width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75); }
-    .kasa-modal-box.eod-wide { max-width: 780px; }
-    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border); }
-    .modal-head h3 { font-size: 1.12rem; font-weight: 900; color: #ffffff; }
-    .btn-modal-x { background: rgba(255, 255, 255, 0.1); color: #ffffff; border: none; width: 34px; height: 34px; border-radius: 10px; font-size: 1rem; font-weight: 900; cursor: pointer; }
+    .rez-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 2px; }
+    .rez-type-btn { background: rgba(28, 33, 39, 0.92); border: 1.5px solid var(--card-border); border-radius: 14px; padding: 11px 6px; color: #cbd5e1; font-size: 0.76rem; font-weight: 800; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center; transition: all 0.15s; }
+    .rez-type-btn.selected { background: linear-gradient(135deg, rgba(234, 88, 12, 0.35) 0%, rgba(27, 77, 54, 0.45) 100%); border-color: var(--fire-amber); color: #ffffff; box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35); }
+
+    .form-stack { display: flex; flex-direction: column; gap: 10px; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .form-input, .form-select, .form-textarea { width: 100%; background: rgba(26, 31, 37, 0.94); border: 1px solid var(--card-border); padding: 12px 14px; border-radius: 14px; font-size: 0.85rem; color: #ffffff; outline: none; transition: border-color 0.2s; color-scheme: dark; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--fire-amber); box-shadow: 0 0 12px var(--fire-glow); }
+    .form-input.input-error { border-color: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+    .field-error-text { color: #f87171; font-size: 0.74rem; font-weight: 800; margin-top: -4px; display: none; }
+    .form-textarea { resize: none; height: 74px; }
+    .btn-primary-action { background: linear-gradient(135deg, var(--fire-orange) 0%, #c2410c 100%); color: #ffffff; border: none; padding: 14px; border-radius: 14px; font-size: 0.9rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px var(--fire-glow); transition: transform 0.15s; text-decoration: none; }
+    .btn-primary-action:active { transform: scale(0.98); }
+    .btn-rez-submit { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); color: #0f172a; font-weight: 900; box-shadow: 0 6px 20px var(--fire-glow); }
+
+    footer { text-align: center; padding: 26px 16px 40px; color: var(--slate-muted); font-size: 0.74rem; border-top: 1px solid var(--card-border); background: rgba(22, 27, 30, 0.96); margin-top: 20px; }
+    footer a { color: var(--fire-amber); text-decoration: none; font-weight: 800; }
+
+    .menu-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px; background: rgba(26, 33, 36, 0.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--card-border); position: sticky; top: 73px; z-index: 95; }
+    .btn-back-home { background: rgba(54, 61, 69, 0.9); border: 1px solid var(--card-border); color: var(--fire-amber); padding: 8px 14px; border-radius: 14px; font-size: 0.82rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    .btn-show-cats { background: rgba(245, 158, 11, 0.18); border: 1px solid var(--fire-amber); color: var(--fire-amber); padding: 8px 12px; border-radius: 14px; font-size: 0.78rem; font-weight: 900; cursor: pointer; }
+
+    .category-square-grid { padding: 18px 16px 140px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cat-square-card { position: relative; aspect-ratio: 1 / 1; border-radius: 22px; overflow: hidden; border: 1.5px solid rgba(245, 158, 11, 0.42); background: linear-gradient(145deg, #2d353e 0%, #1a3327 100%); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42); cursor: pointer; transition: transform 0.18s ease; }
+    .cat-square-card:active { transform: scale(0.96); }
+    .cat-square-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cat-square-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 23, 42, 0.12) 0%, rgba(15, 23, 42, 0.55) 55%, rgba(12, 20, 17, 0.94) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 14px; }
+    .cat-square-title { font-size: 0.96rem; font-weight: 900; color: #ffffff; line-height: 1.2; margin-bottom: 3px; }
+    .cat-square-count { font-size: 0.72rem; font-weight: 800; color: var(--fire-amber); }
+
+    .menu-tabs { display: flex; gap: 8px; padding: 12px 16px; overflow-x: auto; scrollbar-width: none; background: rgba(24, 32, 33, 0.92); backdrop-filter: blur(12px); position: sticky; top: 132px; z-index: 90; border-bottom: 1px solid var(--card-border); }
+    .menu-tabs::-webkit-scrollbar { display: none; }
+    .tab-pill { background: rgba(54, 61, 69, 0.88); border: 1px solid var(--card-border); color: var(--slate-muted); padding: 10px 18px; border-radius: 20px; font-size: 0.84rem; font-weight: 700; white-space: nowrap; cursor: pointer; transition: all 0.2s; }
+    .tab-pill.craft-tab { border-color: rgba(245, 158, 11, 0.55); color: var(--fire-amber); }
+    .tab-pill.active { background: linear-gradient(135deg, var(--fire-orange) 0%, var(--forest-green) 100%); border-color: var(--fire-amber); color: #ffffff; font-weight: 900; box-shadow: 0 4px 16px var(--fire-glow); }
+
+    .product-list { padding: 18px 16px; display: flex; flex-direction: column; gap: 14px; padding-bottom: 140px; }
+    .category-divider-heading { font-size: 0.95rem; font-weight: 900; color: var(--fire-amber); text-transform: uppercase; letter-spacing: 0.8px; padding: 10px 6px 4px; border-bottom: 1.5px solid rgba(245, 158, 11, 0.32); margin-top: 6px; }
+
+    .craft-studio { background: linear-gradient(145deg, rgba(54, 61, 69, 0.92) 0%, rgba(25, 48, 37, 0.95) 100%); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 24px; padding: 20px 16px; box-shadow: var(--shadow-3d); display: flex; flex-direction: column; gap: 18px; }
+    .craft-group-title { font-size: 0.8rem; font-weight: 900; color: var(--fire-amber); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+    .craft-options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .craft-chip { background: rgba(26, 31, 37, 0.94); border: 1.5px solid var(--card-border); border-radius: 14px; padding: 12px 10px; color: #e2e8f0; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.15s; }
+    .craft-chip span.c-price { font-size: 0.75rem; color: var(--fire-amber); font-weight: 800; }
+    .craft-chip.selected { background: rgba(234, 88, 12, 0.28); border-color: var(--fire-amber); color: #ffffff; }
+    .craft-summary-box { background: rgba(22, 28, 30, 0.95); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 16px; padding: 14px; }
+
+    .product-card { background: linear-gradient(145deg, rgba(54, 61, 69, 0.86) 0%, rgba(27, 47, 38, 0.9) 100%); backdrop-filter: blur(14px); border: 1.5px solid var(--card-border); border-radius: 22px; padding: 14px; display: flex; gap: 14px; align-items: center; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); min-height: 110px; }
+    .product-card.special-card { border-color: rgba(245, 158, 11, 0.65); background: linear-gradient(145deg, rgba(68, 56, 44, 0.9) 0%, rgba(28, 52, 40, 0.94) 100%); }
+    .product-thumb { width: 95px; height: 95px; border-radius: 16px; object-fit: cover; flex-shrink: 0; box-shadow: 0 6px 16px rgba(0,0,0,0.4); border: 1px solid rgba(226, 232, 240, 0.25); background: #1e262c; }
+    .cat-square-card .product-thumb-fallback { width: 100%; height: 100%; border-radius: 22px; border: none; background: linear-gradient(145deg, #232a32 0%, #14281e 100%); font-size: 3rem; opacity: 0.8; }
+    .product-thumb-fallback { width: 95px; height: 95px; border-radius: 16px; flex-shrink: 0; background: linear-gradient(145deg, #2d3740 0%, #193126 100%); border: 1.5px solid rgba(245, 158, 11, 0.45); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--fire-amber); font-size: 1.7rem; }
+    .product-content { flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 95px; }
+    .prod-title { font-size: 0.98rem; font-weight: 800; color: #ffffff; line-height: 1.25; margin-bottom: 4px; }
+    .prod-desc { font-size: 0.75rem; color: var(--slate-muted); line-height: 1.35; margin-bottom: 6px; }
+    .prod-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+    .prod-price { font-size: 1.1rem; font-weight: 900; color: var(--fire-amber); }
+    .qty-box { display: flex; align-items: center; background: rgba(24, 29, 34, 0.94); border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); }
+    .qty-btn { background: transparent; border: none; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; color: #ffffff; cursor: pointer; font-weight: 700; }
+    .qty-btn.plus { background: var(--fire-orange); color: #ffffff; cursor: pointer; }
+    .qty-num { min-width: 26px; text-align: center; font-size: 0.88rem; font-weight: 800; color: #ffffff; }
+
+    .visitor-qr-note { font-size: 0.72rem; font-weight: 800; color: #a7f3d0; background: rgba(16, 185, 129, 0.16); border: 1px solid rgba(16, 185, 129, 0.35); padding: 5px 10px; border-radius: 10px; }
+    .visitor-bottom-banner { position: fixed; bottom: 16px; left: 14px; right: 14px; background: rgba(32, 39, 43, 0.96); border: 1.5px solid rgba(245, 158, 11, 0.5); border-radius: 18px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; z-index: 150; box-shadow: 0 12px 32px rgba(0,0,0,0.65); }
+
+    .floating-cart-bar { position: fixed; bottom: 20px; left: 14px; right: 14px; background: linear-gradient(135deg, #2b323b 0%, #1b4d36 100%); border: 1.5px solid rgba(245, 158, 11, 0.55); border-radius: 22px; padding: 14px 20px; color: #ffffff; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65); z-index: 160; transform: translateY(180%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    .floating-cart-bar.active { transform: translateY(0); }
+    .cart-summary { display: flex; flex-direction: column; }
+    .cart-total-badge { font-size: 0.74rem; color: #cbd5e1; font-weight: 600; }
+    .cart-price-sum { font-size: 1.25rem; font-weight: 900; color: var(--fire-amber); }
+    .btn-create-order { background: var(--fire-orange); color: #ffffff; border: none; padding: 12px 22px; border-radius: 14px; font-size: 0.92rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 6px 18px var(--fire-glow); }
+
+    .toast-box { position: fixed; top: 84px; left: 50%; transform: translateX(-50%) translateY(-20px); background: var(--fire-orange); color: #ffffff; padding: 10px 22px; border-radius: 20px; font-size: 0.85rem; font-weight: 900; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 24px var(--fire-glow); z-index: 300; opacity: 0; pointer-events: none; transition: all 0.25s ease; }
+    .toast-box.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    .custom-modal { display: none; position: fixed; inset: 0; background: rgba(16, 22, 20, 0.88); backdrop-filter: blur(12px); z-index: 250; align-items: center; justify-content: center; padding: 24px; }
+    .modal-card { background: linear-gradient(145deg, #2d343d 0%, #193126 100%); border-radius: 24px; padding: 28px 22px; text-align: center; max-width: 330px; width: 100%; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7); border: 1.5px solid rgba(245, 158, 11, 0.45); animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .modal-circle-icon { width: 60px; height: 60px; border-radius: 50%; background: rgba(234, 88, 12, 0.22); color: var(--fire-amber); font-size: 1.8rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+
+    .taxi-badge-pill { display: inline-block; background: rgba(245, 158, 11, 0.18); border: 1px solid var(--fire-amber); color: var(--fire-amber); font-size: 0.74rem; font-weight: 900; padding: 5px 12px; border-radius: 20px; margin-bottom: 10px; letter-spacing: 0.4px; }
     .btn-modal-secondary { margin-top: 10px; width: 100%; background: transparent; border: 1px solid rgba(226, 232, 240, 0.25); color: var(--slate-muted); padding: 10px; border-radius: 12px; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
-
-    .pay-choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
-    .btn-pay-cash { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; border: 1.5px solid #6ee7b7; padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35); }
-    .btn-pay-card { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; border: 1.5px solid #93c5fd; padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 8px 22px rgba(59, 130, 246, 0.35); }
-    .btn-pay-split { grid-column: span 2; background: rgba(245, 158, 11, 0.15); color: var(--fire-amber); border: 1.5px dashed rgba(245, 158, 11, 0.5); padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .split-pay-box { display: none; background: rgba(15, 23, 42, 0.5); border: 1.5px solid var(--card-border); border-radius: 16px; padding: 16px; margin-top: 14px; text-align: left; }
-    .split-input { width: 100%; background: rgba(30, 36, 42, 0.95); border: 1.5px solid var(--fire-amber); padding: 12px 14px; border-radius: 12px; color: var(--fire-amber); font-size: 1.2rem; font-weight: 900; outline: none; text-align: center; margin-bottom: 12px; }
-    .split-input::placeholder { color: rgba(245, 158, 11, 0.4); }
-
-    .pay-pill { display: inline-block; font-size: 0.68rem; font-weight: 900; padding: 2px 8px; border-radius: 8px; margin-left: 6px; vertical-align: middle; }
-    .pay-pill.cash { background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #6ee7b7; }
-    .pay-pill.card { background: rgba(59, 130, 246, 0.22); border: 1px solid #60a5fa; color: #93c5fd; }
-
-    .stock-item-row { display: flex; justify-content: space-between; align-items: center; background: rgba(22, 28, 32, 0.85); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 12px; gap: 8px; margin-bottom: 6px; }
-    .btn-stock-toggle { background: var(--emerald-bright); color: #fff; border: none; padding: 6px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 900; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
-    .btn-stock-toggle.out { background: #ef4444; color: #fff; }
-
-    .manual-item-list { display: flex; flex-direction: column; gap: 8px; max-height: 44vh; overflow-y: auto; margin-bottom: 14px; }
-    .manual-prod-row { display: flex; justify-content: space-between; align-items: center; background: rgba(22, 28, 32, 0.85); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 12px; gap: 8px; }
-    .btn-add-one { background: var(--fire-orange); color: #ffffff; border: none; padding: 7px 12px; border-radius: 9px; font-size: 0.78rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
-
-    .custom-manual-box { background: rgba(20, 25, 29, 0.9); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
-    .kasa-input { width: 100%; background: rgba(30, 36, 42, 0.95); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 10px; color: #ffffff; font-size: 0.86rem; outline: none; color-scheme: dark; }
-
-    .eod-calendar-bar { background: rgba(18, 24, 28, 0.92); border: 1.5px solid rgba(245, 158, 11, 0.42); border-radius: 16px; padding: 12px 14px; margin-bottom: 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
-    .eod-date-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .btn-today-jump { background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #6ee7b7; padding: 9px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
-    .eod-stat-grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
-    @media (min-width: 620px) { .eod-stat-grid-4 { grid-template-columns: repeat(4, 1fr); } }
-    .eod-stat-card { background: rgba(20, 26, 30, 0.9); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px 10px; text-align: center; }
-    .eod-stat-label { font-size: 0.7rem; color: var(--slate-muted); font-weight: 800; margin-bottom: 4px; }
-    .eod-stat-val { font-size: 1.35rem; font-weight: 900; color: var(--fire-amber); }
-    .btn-eod-detail-toggle { width: 100%; background: rgba(59, 130, 246, 0.24); border: 1.5px solid rgba(96, 165, 250, 0.65); color: #93c5fd; padding: 12px; border-radius: 14px; font-size: 0.88rem; font-weight: 900; cursor: pointer; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .eod-history-list { max-height: 44vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
-    .eod-history-card { background: rgba(22, 28, 32, 0.94); padding: 12px 14px; border-radius: 14px; border: 1.5px solid rgba(245, 158, 11, 0.35); cursor: pointer; transition: border-color 0.15s; }
-    .eod-history-card:hover { border-color: var(--fire-amber); }
-    .eod-history-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.88rem; }
-    .eod-history-items-inline { font-size: 0.82rem; color: #e2e8f0; line-height: 1.5; }
-    .eod-order-detail-box { background: rgba(16, 21, 25, 0.98); border: 1.5px solid var(--fire-amber); border-radius: 16px; padding: 14px; margin-bottom: 14px; }
-
-    @media (max-width: 900px) {
-      .dashboard-layout { flex-direction: column; }
-      .detail-section { width: 100%; border-left: none; border-top: 1.5px solid var(--card-border); min-height: 45vh; }
-    }
   </style>
 </head>
-<body>
+<body class="loading-lock">
 
-  <div id="pin-lock-screen">
-    <form class="pin-card" onsubmit="sifreKontrol(event)">
-      <div class="pin-icon">🔒</div>
-      <h2>NOMÂD KARAVAN KASA</h2>
-      <p>Yetkili kasa erişimi için şifreyi giriniz</p>
-      <input type="password" id="kasa-pin-input" class="pin-input" inputmode="numeric" maxlength="8" placeholder="••••" required autofocus>
-      <button type="submit" class="btn-pin-submit">Kasayı Aç →</button>
-      <div class="pin-error" id="pin-error-msg">Hatalı şifre, tekrar deneyin.</div>
-    </form>
+  <div id="intro-splash">
+    <div class="splash-aura"></div>
+    <div class="splash-content">
+      <div class="splash-sub-badge">Tatvan</div>
+      <h2 class="splash-brand-title">HOŞ GELDİNİZ<span>.</span></h2>
+      <div class="orbit-system">
+        <div class="orbit-ring"></div>
+        <div class="orbit-ring-pulse"></div>
+        <div class="caravan-core-stage">
+          <svg class="caravan-vector" viewBox="0 0 80 64" fill="none">
+            <defs>
+              <linearGradient id="silverBodySplash" x1="12" y1="18" x2="64" y2="48" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#f8fafc"/>
+                <stop offset="50%" stop-color="#cbd5e1"/>
+                <stop offset="100%" stop-color="#64748b"/>
+              </linearGradient>
+            </defs>
+            <path d="M29 12c1.2-2.2-1.2-3.8 0-6" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+            <path d="M36 11c1.2-2.2-1.2-3.8 0-6" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 46h50c3.3 0 6-2.7 6-6v-6c0-9.9-8.1-18-18-18H28c-9.9 0-18 8.1-18 18v6c0 3.3 2.7 6 2 6z" fill="url(#silverBodySplash)" stroke="#f8fafc" stroke-width="1.5"/>
+            <path d="M11 33h56" stroke="#ea580c" stroke-width="2"/>
+            <path d="M14 25h50" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+            <rect x="19" y="21" width="14" height="9" rx="4" fill="#182e24" stroke="#f8fafc" stroke-width="1.5"/>
+            <path d="M21 23l4 4" stroke="#94a3b8" stroke-width="1.3" stroke-linecap="round"/>
+            <rect x="38" y="21" width="11" height="24" rx="3" fill="#1b4d36" stroke="#cbd5e1" stroke-width="1.3"/>
+            <circle cx="46.5" cy="34" r="1.3" fill="#f59e0b"/>
+            <rect x="53" y="22" width="9" height="8" rx="3.5" fill="#182e24" stroke="#f8fafc" stroke-width="1.4"/>
+            <path d="M68 44h8v2h-8z" fill="#94a3b8"/>
+            <path d="M74 41v5" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="29" cy="46" r="7.5" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+            <circle cx="29" cy="46" r="3.5" fill="#cbd5e1"/>
+            <circle cx="29" cy="46" r="1.4" fill="#0f172a"/>
+          </svg>
+        </div>
+      </div>
+      <div class="progress-box">
+        <div class="progress-track"><div class="progress-fill" id="splash-bar"></div></div>
+        <div class="progress-status-text"><span id="splash-text">Özel Lezzetler Hazırlanıyor</span> <span class="progress-number" id="splash-num">%0</span></div>
+      </div>
+    </div>
   </div>
+
+  <div class="ambient-glow-1"></div>
+  <div class="ambient-glow-2"></div>
 
   <header>
     <div class="brand-wrap">
       <div class="brand-logo-emblem">
         <svg viewBox="0 0 80 64" fill="none">
           <defs>
-            <linearGradient id="silverBodyKasa" x1="12" y1="18" x2="64" y2="48" gradientUnits="userSpaceOnUse">
+            <linearGradient id="silverBodyHeader" x1="12" y1="18" x2="64" y2="48" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stop-color="#ffffff"/>
               <stop offset="55%" stop-color="#cbd5e1"/>
               <stop offset="100%" stop-color="#64748b"/>
@@ -285,7 +336,7 @@
           </defs>
           <path d="M30 12c1.2-2.2-1.2-3.8 0-6" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"/>
           <path d="M37 11c1.2-2.2-1.2-3.8 0-6" stroke="#ea580c" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M12 46h50c3.3 0 6-2.7 6-6v-6c0-9.9-8.1-18-18-18H28c-9.9 0-18 8.1-18 18v6c0 3.3 2.7 6 2 6z" fill="url(#silverBodyKasa)" stroke="#f8fafc" stroke-width="1.6"/>
+          <path d="M12 46h50c3.3 0 6-2.7 6-6v-6c0-9.9-8.1-18-18-18H28c-9.9 0-18 8.1-18 18v6c0 3.3 2.7 6 2 6z" fill="url(#silverBodyHeader)" stroke="#f8fafc" stroke-width="1.6"/>
           <path d="M11 33h56" stroke="#ea580c" stroke-width="2"/>
           <rect x="19" y="21" width="14" height="9" rx="4" fill="#182e24" stroke="#f8fafc" stroke-width="1.5"/>
           <rect x="38" y="21" width="11" height="24" rx="3" fill="#1b4d36" stroke="#cbd5e1" stroke-width="1.4"/>
@@ -297,272 +348,357 @@
         </svg>
       </div>
       <div class="brand-info">
-        <h1>NOMÂD KARAVAN • KASA</h1>
-        <p>Tatvan Canlı Yönetim</p>
+        <h1>NOMÂD KARAVAN COFFEE</h1>
+        <p>Tatvan</p>
       </div>
     </div>
-
-    <div class="header-controls">
-      <button class="btn-sound-unlock" id="btn-sound" onclick="sesTekBasimAktifEt()">
-        <span>🔇</span>
-        <span>Sesi Aktif Et</span>
-      </button>
-
-      <button class="btn-eod-open btn-stock-mng" onclick="stokYonetimModalAc()">
-        <span>📦</span>
-        <span>Stok / Tükendi Yönetimi</span>
-      </button>
-
-      <button class="btn-eod-open btn-day-start" onclick="gunuBaslat()">
-        <span>🌅</span>
-        <span>Günü Başlat</span>
-      </button>
-
-      <button class="btn-eod-open" onclick="gunSonuModalAc()">
-        <span>🌃</span>
-        <span>Günü Bitir / Rapor</span>
-      </button>
-
-      <button class="btn-eod-open btn-hard-reset" onclick="tamSifirlamaYap()">
-        <span>⚠️</span>
-        <span>Sıfırla</span>
-      </button>
-
-      <div class="badge-pill badge-busy">
-        <span class="dot" style="background:#ef4444;"></span>
-        <span id="stat-busy">0 Dolu</span>
-      </div>
-      <div class="badge-pill badge-empty">
-        <span class="dot" style="background:var(--emerald-bright);"></span>
-        <span id="stat-empty">50 Boş</span>
-      </div>
-
-      <button class="btn-lock-now" onclick="kasayiKilitle()">🔒 Kilitle</button>
+    <div class="table-chip" id="header-badge">
+      <span class="table-dot"></span>
+      <span id="masa-text">Masa 12</span>
     </div>
   </header>
 
-  <div class="persistent-alerts-stack" id="sticky-alerts-container"></div>
+  <div class="toast-box" id="toast-notify">
+    <span id="toast-icon">✓</span>
+    <span id="toast-msg">İşlem Başarılı</span>
+  </div>
 
-  <div class="dashboard-layout">
-    <div class="tables-section">
-      <div class="section-title">Masalar (Masa 1 - 50)</div>
-      <div class="table-grid" id="tables-container"></div>
+  <div class="notif-perm-bar" id="notif-perm-bar">
+    <span>🔔 Siparişiniz hazır olduğunda bildirim gelsin mi?</span>
+    <button class="btn-enable-notif" onclick="bildirimIzniIste()">İzin Ver</button>
+  </div>
 
-      <div class="section-title">📅 Gelen Rezervasyonlar</div>
-      <div class="rez-list" id="rez-container">
-        <div style="font-size:0.8rem; color:var(--slate-muted);">Henüz yeni rezervasyon yok.</div>
-      </div>
-
-      <div class="section-title" style="margin-top:24px;">📝 Kasa Notları (Vardiya / Hatırlatma)</div>
-      <div class="kasa-notes-card">
-        <textarea id="kasa-genel-not" placeholder="Biten ürünleri veya personel notlarını buraya yazıp kaydedebilirsiniz..."></textarea>
-        <button class="btn-note-save" onclick="kasaNotuKaydet()">Kaydet ✓</button>
-      </div>
+  <div class="order-tracker-banner" id="order-tracker-banner">
+    <div class="tracker-title-row">
+      <h3>☕ Canlı Sipariş Durumu</h3>
+      <span id="tracker-time">00:00</span>
     </div>
-
-    <div class="detail-section">
-      <div class="detail-header">
-        <div>
-          <h3 id="panel-table-title">Masa Seçiniz</h3>
-          <span class="detail-time" id="panel-order-time">-</span>
-        </div>
-        <button class="btn-manual-add-top" id="btn-open-manual" style="display:none;" onclick="manuelSiparisModalAc()">
-          + Elle Sipariş Ekle
-        </button>
+    <div class="tracker-stepper">
+      <div class="tracker-line-bg"></div>
+      <div class="tracker-line-fill" id="tracker-line"></div>
+      <div class="tracker-step iletildi" id="step-1">
+        <div class="tracker-circle">✓</div>
+        <div class="tracker-label">İletildi</div>
       </div>
-
-      <div class="detail-content" id="panel-orders-list">
-        <div class="empty-state">Detayları görmek veya elle sipariş girmek için listeden bir masaya dokunun.</div>
+      <div class="tracker-step" id="step-2">
+        <div class="tracker-circle">⏳</div>
+        <div class="tracker-label">Hazırlanıyor</div>
       </div>
-
-      <div class="detail-footer" id="panel-footer" style="display:none;">
-        <div class="total-box">
-          <span class="total-title">Genel Kalan Toplam:</span>
-          <span class="total-sum" id="panel-total-price">0 ₺</span>
-        </div>
-
-        <button class="btn-order-ready" id="btn-siparis-hazir" onclick="siparisDurumunuIleriAl()">
-          ⏳ Hazırlanıyor Olarak İşaretle
-        </button>
-
-        <button class="btn-transfer-table" onclick="masaAktarModalAc()">
-          ⇄ Masayı Başka Masaya Aktar
-        </button>
-        <button class="btn-close-order" onclick="hesapKapatModalAc()">
-          ✕ Hesabı Kapat / Ödeme Al
-        </button>
+      <div class="tracker-step" id="step-3">
+        <div class="tracker-circle">🎉</div>
+        <div class="tracker-label">Hazır</div>
       </div>
     </div>
   </div>
 
-  <div class="kasa-modal" id="modal-stock-management" onclick="if(event.target === this) kasaModalKapat('modal-stock-management')">
-    <div class="kasa-modal-box">
-      <div class="modal-head">
-        <h3 id="stock-modal-title">📦 Ürün Stok Yönetimi</h3>
-        <button class="btn-modal-x" onclick="kasaModalKapat('modal-stock-management')">✕</button>
-      </div>
-      <p style="font-size:0.8rem; color:var(--slate-muted); margin-bottom:12px;">
-        Biten ürünleri buradan "Tükendi" olarak işaretleyin. Müşteriler menüde göremez ve sipariş veremez.
-      </p>
-      <input type="text" id="stock-search-input" class="kasa-input" placeholder="Menüde ürün ara..." oninput="stokUrunleriCiz()" style="margin-bottom:10px;">
-      <div class="manual-item-list" id="stock-products-container"></div>
+  <div class="view-page active" id="view-home">
+    <div class="hero-card wave-item wave-1">
+      <img src="karavan-kapak.jpg" alt="Nomâd Karavan Cafe Tatvan">
     </div>
-  </div>
 
-  <div class="kasa-modal" id="modal-payment-method" onclick="if(event.target === this) kasaModalKapat('modal-payment-method')">
-    <div class="kasa-modal-box" style="max-width:380px; text-align:center;">
-      <div class="modal-head">
-        <h3 id="pay-modal-title">Ödeme Al</h3>
-        <button class="btn-modal-x" onclick="kasaModalKapat('modal-payment-method')">✕</button>
-      </div>
-      <p style="font-size:0.84rem; color:var(--slate-muted); margin-bottom:6px;">
-        Kalan Hesap Tutarı:
-      </p>
-      <div id="pay-modal-amount" style="font-size:1.85rem; font-weight:900; color:var(--fire-amber); margin-bottom:10px;">
-        0 ₺
-      </div>
-
-      <div class="pay-choice-grid" id="main-pay-grid">
-        <button class="btn-pay-cash" onclick="odemeyiTamamla(null, 'Nakit')">
-          <span style="font-size:1.6rem;">💵</span>
-          <span>Hepsi Nakit</span>
-        </button>
-        <button class="btn-pay-card" onclick="odemeyiTamamla(null, 'Kredi Kartı')">
-          <span style="font-size:1.6rem;">💳</span>
-          <span>Hepsi Kart</span>
-        </button>
-        <button class="btn-pay-split" onclick="kismiOdemeEkraniniAc()">
-          ✂️ Böl / Kısmi Ödeme Al
-        </button>
-      </div>
-
-      <div class="split-pay-box" id="split-pay-box">
-        <div style="font-size:0.78rem; font-weight:800; color:var(--slate-muted); margin-bottom:8px; text-align:center;">
-          Şimdi Alınan Tutarı Giriniz:
+    <div class="section-wrap wave-item wave-2">
+      <div class="quick-grid" id="quick-actions-grid">
+        <div class="service-btn qr-only" onclick="wifiKopyala()">
+          <span class="service-icon">📶</span>
+          <span class="service-name">Wi-Fi</span>
         </div>
-        <input type="number" id="split-amount-input" class="split-input" placeholder="0" inputmode="numeric">
-        <div style="display:flex; gap:8px;">
-          <button class="btn-pay-cash" style="flex:1; padding:10px; font-size:0.8rem;" onclick="kismiOdemeYap('Nakit')">Nakit Al</button>
-          <button class="btn-pay-card" style="flex:1; padding:10px; font-size:0.8rem;" onclick="kismiOdemeYap('Kredi Kartı')">Kart Al</button>
+        <div class="service-btn qr-only" onclick="garsonCagir()">
+          <span class="service-icon">🔔</span>
+          <span class="service-name">Garson</span>
         </div>
-        <button class="btn-modal-secondary" onclick="kismiOdemeEkraniniKapat()" style="margin-top:8px;">İptal / Geri Dön</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="kasa-modal" id="modal-manual-order" onclick="if(event.target === this) kasaModalKapat('modal-manual-order')">
-    <div class="kasa-modal-box">
-      <div class="modal-head">
-        <h3 id="manual-modal-title">Masa - Elle Sipariş Ekle</h3>
-        <button class="btn-modal-x" onclick="kasaModalKapat('modal-manual-order')">✕</button>
-      </div>
-      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Nargile, Waffle)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
-      <div class="manual-item-list" id="manual-products-container"></div>
-
-      <div class="custom-manual-box">
-        <div style="font-size:0.76rem; font-weight:900; color:var(--fire-amber);">Özel Kalem / Manuel Tutar Ekle</div>
-        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:8px;">
-          <input type="text" id="custom-item-name" class="kasa-input" placeholder="Ürün adı (Örn: Ekstra Köz)">
-          <input type="number" id="custom-item-price" class="kasa-input" placeholder="Fiyat ₺">
+        <div class="service-btn" onclick="haritayiAc()">
+          <span class="service-icon">📍</span>
+          <span class="service-name">Konum</span>
         </div>
-        <button class="btn-add-one" style="width:100%; padding:10px;" onclick="ozelManuelUrunEkle()">+ Özel Kalemi Masaya Ekle</button>
+        <div class="service-btn" onclick="taksiModalAc()">
+          <span class="service-icon">🚕</span>
+          <span class="service-name">Taksi</span>
+        </div>
+      </div>
+
+      <button class="btn-bana-birak wave-item wave-2" onclick="banaBirakSecimiYap()">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:1.8rem;">🎲</span>
+          <div style="text-align:left;">
+            <div style="font-size:0.96rem; font-weight:900;">KARARSIZ MISIN?</div>
+            <div style="font-size:0.75rem; color:#ddd;">Bana Bırak, Senin İçin Seçeyim</div>
+          </div>
+        </div>
+        <span style="font-size:1.4rem;">→</span>
+      </button>
+
+      <button class="btn-adisyon-gecmisi qr-only wave-item wave-2" id="btn-adisyon" onclick="adisyonGecmisiAc()">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size:1.8rem;">🧾</span>
+          <div style="text-align:left;">
+            <div style="font-size:0.96rem; font-weight:900;">MASA HESABIM</div>
+            <div style="font-size:0.75rem; color:var(--emerald-bright);">Geçmiş Siparişler & Toplam Tutar</div>
+          </div>
+        </div>
+        <span style="font-size:1.4rem; color:var(--emerald-bright);">→</span>
+      </button>
+    </div>
+
+    <div class="section-wrap wave-item wave-3" id="rez-section-wrap">
+      <div class="card-panel-box rez-highlight">
+        <h3>📅 Rezervasyon</h3>
+        <p>Ateş başı keyfi, masa rezervasyonu veya canlı müzik geceleri için alanınızı seçip bilgilerinizi doldurun.</p>
+        <form class="form-stack" onsubmit="rezervasyonGonder(event)" novalidate>
+          <div class="rez-type-grid">
+            <div class="rez-type-btn selected" id="rez-opt-ates" onclick="rezTurSec('Ateş Başı')"><span style="font-size:1.15rem;">🔥</span><span>Ateş Başı</span></div>
+            <div class="rez-type-btn" id="rez-opt-masa" onclick="rezTurSec('Masa Rezervasyonu')"><span style="font-size:1.15rem;">🪑</span><span>Masa</span></div>
+            <div class="rez-type-btn" id="rez-opt-muzik" onclick="rezTurSec('Canlı Müzik')"><span style="font-size:1.15rem;">🎵</span><span>Canlı Müzik</span></div>
+          </div>
+          <input type="text" id="rez-ad" class="form-input" placeholder="Adınız Soyadınız">
+          <input type="tel" id="rez-tel" class="form-input" inputmode="tel" maxlength="14" placeholder="Telefon Numaranız (05XX XXX XX XX)" oninput="telefonHataTemizle()" required>
+          <div class="field-error-text" id="rez-tel-error">Geçerli bir telefon numarası giriniz.</div>
+          <div class="form-row-2">
+            <input type="date" id="rez-tarih" class="form-input">
+            <input type="time" id="rez-saat" class="form-input" value="20:00">
+          </div>
+          <select id="rez-kisi" class="form-select">
+            <option value="2 Kişi">2 Kişi</option>
+            <option value="3 Kişi">3 Kişi</option>
+            <option value="4 Kişi" selected>4 Kişi</option>
+            <option value="5-6 Kişi">5 - 6 Kişi</option>
+            <option value="7+ Kişi (Grup)">7+ Kişi (Grup)</option>
+          </select>
+          <textarea id="rez-istek" class="form-textarea" placeholder="Özel İstekleriniz (Doğum günü vb.)"></textarea>
+          <button type="submit" class="btn-primary-action btn-rez-submit"><span>Rezervasyon Oluştur</span><span>✓</span></button>
+        </form>
       </div>
     </div>
-  </div>
 
-  <div class="kasa-modal" id="modal-transfer-table" onclick="if(event.target === this) kasaModalKapat('modal-transfer-table')">
-    <div class="kasa-modal-box" style="max-width:360px;">
-      <div class="modal-head">
-        <h3 id="transfer-modal-title">Masayı Aktar</h3>
-        <button class="btn-modal-x" onclick="kasaModalKapat('modal-transfer-table')">✕</button>
-      </div>
-      <p style="font-size:0.8rem; color:var(--slate-muted); margin-bottom:12px;">
-        Bu masadaki tüm siparişlerin aktarılacağı hedef masayı seçin (Hedef masa doluysa adisyonlar birleştirilir):
-      </p>
-      <select id="transfer-target-select" class="kasa-input" style="margin-bottom:14px; font-weight:800;"></select>
-      <button class="btn-pin-submit" onclick="masayiAktarOnayla()">⇄ Seçili Masaya Aktar</button>
-    </div>
-  </div>
-
-  <div class="kasa-modal" id="modal-eod-report" onclick="if(event.target === this) kasaModalKapat('modal-eod-report')">
-    <div class="kasa-modal-box eod-wide">
-      <div class="modal-head">
-        <h3>📊 Şifreli Gün Sonu & Geçmiş Arşivi</h3>
-        <button class="btn-modal-x" onclick="kasaModalKapat('modal-eod-report')">✕</button>
-      </div>
-
-      <div id="eod-pin-gate">
-        <p style="font-size:0.82rem; color:var(--slate-muted); margin-bottom:12px; text-align:center;">
-          Gün sonu cirosunu ve geçmiş gün/yıl kayıtlarını görmek için kasa şifresini giriniz:
-        </p>
-        <input type="password" id="eod-pin-input" class="pin-input" inputmode="numeric" maxlength="8" placeholder="••••">
-        <button class="btn-pin-submit" onclick="gunSonuSifreDogrula()">Raporu Göster →</button>
-        <div class="pin-error" id="eod-pin-err" style="text-align:center;">Hatalı şifre!</div>
-      </div>
-
-      <div id="eod-content-area" style="display:none;">
-        <div class="eod-calendar-bar">
+    <div class="section-wrap wave-item wave-4" id="menu-cta-wrap">
+      <button class="btn-giant-menu" style="z-index: 5;" onclick="navigasyon('menu', 'kategoriler')">
+        <div class="giant-left">
+          <div class="giant-icon-box">☕</div>
           <div>
-            <div style="font-size:0.74rem; font-weight:800; color:var(--fire-amber);">📅 GÜN / AY / YIL SEÇİNİZ</div>
-            <div id="eod-selected-date-label" style="font-size:0.95rem; font-weight:900; color:#ffffff; margin-top:2px;">-</div>
-          </div>
-          <div class="eod-date-controls">
-            <input type="date" id="eod-date-picker" class="kasa-input" style="width:auto; font-weight:800;" onchange="gunSonuTarihDegisti()">
-            <button class="btn-today-jump" onclick="buguneDonVeYukle()">Bugüne Dön</button>
+            <div class="giant-text-sub" id="menu-cta-sub">Masanızdan Hemen Sipariş Verin</div>
+            <div class="giant-text-main" id="menu-cta-main">MENÜYÜ İNCELE & SİPARİŞ VER</div>
           </div>
         </div>
+        <div class="giant-arrow-circle">→</div>
+      </button>
 
-        <div class="eod-stat-grid-4">
-          <div class="eod-stat-card">
-            <div class="eod-stat-label" id="eod-revenue-title">TOPLAM CİRO</div>
-            <div class="eod-stat-val" id="eod-total-revenue">0 ₺</div>
-          </div>
-          <div class="eod-stat-card" style="border-color:rgba(16, 185, 129, 0.45);">
-            <div class="eod-stat-label">💵 NAKİT CİRO</div>
-            <div class="eod-stat-val" id="eod-cash-revenue" style="color:#10b981;">0 ₺</div>
-          </div>
-          <div class="eod-stat-card" style="border-color:rgba(96, 165, 250, 0.45);">
-            <div class="eod-stat-label">💳 KREDİ KARTI</div>
-            <div class="eod-stat-val" id="eod-card-revenue" style="color:#60a5fa;">0 ₺</div>
-          </div>
-          <div class="eod-stat-card">
-            <div class="eod-stat-label">KAPATILAN ADİSYON</div>
-            <div class="eod-stat-val" id="eod-total-orders" style="color:#e2e8f0;">0</div>
+      <button class="btn-craft-banner" onclick="navigasyon('menu', 'tasarla')">
+        <div style="display:flex; align-items:center; gap:12px; text-align:left;">
+          <span style="font-size:1.5rem;">✨</span>
+          <div>
+            <div style="font-size:0.92rem; font-weight:900; color:var(--fire-amber);">KENDİ KAHVENİ TASARLA</div>
+            <div style="font-size:0.74rem; color:#cbd5e1;" id="craft-banner-sub">Sütünü, şurubunu ve espresso shot sayını seç</div>
           </div>
         </div>
+        <span style="font-size:1.2rem; font-weight:900; color:var(--fire-amber);">→</span>
+      </button>
+    </div>
 
-        <button class="btn-eod-detail-toggle" id="btn-toggle-eod-details" onclick="gunSonuDetayAcKapat()">
-          <span>▲ Detaylı Listeyi Gizle</span>
-        </button>
-
-        <div id="eod-detailed-wrapper" style="display:block;">
-          <div style="font-size:0.78rem; font-weight:800; color:var(--slate-muted); margin-bottom:8px;">
-            Seçili tarihte kapanan masalar, ödeme yöntemleri ve alınan ürünler aşağıdadır. Tam fiş için kayda dokunun:
-          </div>
-          <div id="eod-selected-order-detail" style="display:none;"></div>
-          <div class="eod-history-list" id="eod-history-container"></div>
+    <div class="section-wrap wave-item wave-5">
+      <a class="social-banner-box" href="https://instagram.com/nomadkaravancoffee" target="_blank">
+        <div class="social-left">
+          <svg class="insta-svg" viewBox="0 0 24 24" fill="none">
+            <defs><linearGradient id="igGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></linearGradient></defs>
+            <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#igGrad)" stroke-width="2.2"/>
+            <circle cx="12" cy="12" r="4.2" stroke="url(#igGrad)" stroke-width="2.2"/>
+            <circle cx="17.5" cy="6.5" r="1.3" fill="url(#igGrad)"/>
+          </svg>
+          <div><div class="social-title">@nomadkaravancoffee</div><div class="social-sub">Bizi Instagram'da Keşfedin</div></div>
         </div>
+        <span class="social-arrow">→</span>
+      </a>
+    </div>
 
-        <div style="background:rgba(239, 68, 68, 0.14); border:1px solid #ef4444; border-radius:14px; padding:12px;">
-          <div style="font-size:0.78rem; font-weight:900; color:#fca5a5; margin-bottom:8px;" id="eod-reset-warning-label">
-            🔒 Seçili Günü Kapat & Sıfırla (Şifre Onaylı)
-          </div>
-          <div style="display:flex; gap:8px;">
-            <input type="password" id="eod-reset-pin" class="kasa-input" inputmode="numeric" placeholder="Sıfırlama Şifresi">
-            <button class="btn-close-order" style="width:auto; white-space:nowrap; padding:10px 16px;" onclick="gunuKapatVeSifirla()">
-              Günü Kapat
-            </button>
-          </div>
+    <div class="section-wrap wave-item wave-6">
+      <div class="card-panel-box">
+        <h3>✉️ İstek, Öneri ve Şikayet</h3>
+        <p>Deneyiminizi daha iyi kılmak adına her türlü geri bildiriminizi önemsiyoruz.</p>
+        <form class="form-stack" onsubmit="mailGonder(event)">
+          <input type="text" id="fb-ad" class="form-input" placeholder="Adınız Soyadınız" required>
+          <textarea id="fb-mesaj" class="form-textarea" placeholder="Görüş, öneri veya şikayetinizi yazınız..." required></textarea>
+          <button type="submit" class="btn-primary-action"><span>Geri Bildirimi İlet</span><span>→</span></button>
+        </form>
+      </div>
+    </div>
+
+    <footer class="wave-item wave-7">
+      <p style="font-weight:800; color:#ffffff; margin-bottom:4px;">NOMÂD KARAVAN COFFEE • TATVAN</p>
+      <p>Instagram: <a href="https://instagram.com/nomadkaravancoffee" target="_blank">@nomadkaravancoffee</a></p>
+    </footer>
+  </div>
+
+  <div class="view-page" id="view-menu">
+    <div class="menu-header-bar">
+      <button class="btn-back-home" onclick="navigasyon('home')"><span>←</span><span>Ana Sayfa</span></button>
+      <span style="font-size:0.95rem; font-weight:900; color:#ffffff;">Nomâd Menü</span>
+      <button class="btn-show-cats" id="btn-kategorilere-don" style="display:none;" onclick="kategorileriGoster()">⊞ Kategoriler</button>
+    </div>
+
+    <div class="menu-tabs" id="menu-tabs-bar" style="display:none;">
+      <button class="tab-pill craft-tab" id="tab-tasarla" onclick="tabSec('tasarla')">✨ Kendi Kahveni Tasarla</button>
+      <button class="tab-pill" id="tab-hepsi" onclick="tabSec('hepsi')">Tümü</button>
+      <button class="tab-pill" id="tab-cay" onclick="tabSec('cay')">Çay & Bitki Çayları</button>
+      <button class="tab-pill" id="tab-sicak" onclick="tabSec('sicak')">Sıcak Kahveler</button>
+      <button class="tab-pill" id="tab-soguk" onclick="tabSec('soguk')">Soğuk Kahveler</button>
+      <button class="tab-pill" id="tab-frozen" onclick="tabSec('frozen')">Frozenler</button>
+      <button class="tab-pill" id="tab-milkshake" onclick="tabSec('milkshake')">Milkshake Çeşitleri</button>
+      <button class="tab-pill" id="tab-kokteyl" onclick="tabSec('kokteyl')">Kokteyller & Redbull Kokteyl</button>
+      <button class="tab-pill" id="tab-fastfood" onclick="tabSec('fastfood')">Fast Food</button>
+      <button class="tab-pill" id="tab-mesrubat" onclick="tabSec('mesrubat')">Meşrubatlar</button>
+      <button class="tab-pill" id="tab-tatli" onclick="tabSec('tatli')">Pasta & Tatlı Çeşitleri</button>
+      <button class="tab-pill" id="tab-nargile" onclick="tabSec('nargile')">Nargile</button>
+    </div>
+
+    <div class="category-square-grid" id="category-squares-container"></div>
+    <div class="product-list" id="products-list" style="display:none;"></div>
+
+    <div class="visitor-bottom-banner" id="visitor-menu-banner" style="display:none;">
+      <span style="font-size:0.78rem; font-weight:800; color:#f8fafc;">Sipariş vermek için masanızdaki QR kodu okutunuz.</span>
+      <button class="btn-create-order" style="padding:8px 14px; font-size:0.78rem; white-space:nowrap;" onclick="rezervasyonaGit()">Rezervasyon</button>
+    </div>
+  </div>
+
+  <div class="floating-cart-bar" id="cart-floating-bar">
+    <div class="cart-summary">
+      <span class="cart-total-badge" id="cart-items-count">0 Ürün Seçildi</span>
+      <span class="cart-price-sum" id="cart-total-price">0 ₺</span>
+    </div>
+    <button class="btn-create-order" onclick="sepetOzetiniAc()">
+      <span>Siparişi Ver</span><span>→</span>
+    </button>
+  </div>
+
+  <div class="custom-modal" id="modal-cart-summary" onclick="if(event.target === this) modalKapat('modal-cart-summary')">
+    <div class="modal-card" style="max-width: 400px; text-align:center;">
+      <h3 style="font-size:1.15rem; font-weight:900; color:#fff; margin-bottom:12px;">Sepetiniz & Notlar</h3>
+      <p style="font-size:0.78rem; color:var(--slate-muted); margin-bottom:14px;">Baristamıza veya mutfağa iletmek istediğiniz özel notları ürünlerin altına yazabilirsiniz.</p>
+      <div class="cart-summary-list" id="cart-summary-items"></div>
+      <button class="btn-create-order" style="width:100%; justify-content:center; padding:14px; font-size:0.95rem; margin-top:10px;" onclick="siparisiGonder()">
+        ✓ Siparişi Onayla ve Gönder
+      </button>
+      <button class="btn-modal-secondary" onclick="modalKapat('modal-cart-summary')">Menüye Dön</button>
+    </div>
+  </div>
+
+  <div class="custom-modal" id="modal-adisyon-history" onclick="if(event.target === this) modalKapat('modal-adisyon-history')">
+    <div class="modal-card" style="max-width: 400px; text-align:left;">
+      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid var(--card-border); padding-bottom:10px; margin-bottom:12px;">
+        <h3 style="font-size:1.1rem; font-weight:900; color:#fff; display:flex; align-items:center; gap:8px;">
+          <span>🧾</span> Masa Adisyon Özeti
+        </h3>
+        <button style="background:none; border:none; color:var(--slate-muted); font-size:1.2rem; font-weight:900; cursor:pointer;" onclick="modalKapat('modal-adisyon-history')">✕</button>
+      </div>
+      <div id="adisyon-items-container" style="max-height: 45vh; overflow-y:auto; margin-bottom:14px; display:flex; flex-direction:column; gap:8px;"></div>
+      <div style="border-top:1.5px solid rgba(16, 185, 129, 0.4); padding-top:12px; display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:0.9rem; font-weight:800; color:var(--slate-muted);">Masa Toplamı:</span>
+        <span id="adisyon-total-amount" style="font-size:1.4rem; font-weight:900; color:var(--emerald-bright);">0 ₺</span>
+      </div>
+      <div style="background:rgba(255, 255, 255, 0.05); border:1px dashed var(--card-border); border-radius:12px; padding:12px; margin-top:16px; text-align:center;">
+        <p style="font-size:0.75rem; color:var(--slate-muted); margin-bottom:8px;">Hizmetten memnun kaldınız mı? Kasa ödemesine bahşiş ekleyebilirsiniz.</p>
+        <div style="display:flex; justify-content:center; gap:6px;">
+          <button style="background:rgba(245, 158, 11, 0.15); border:1px solid var(--fire-amber); color:var(--fire-amber); padding:6px 12px; border-radius:8px; font-weight:800; font-size:0.75rem;">%5 Bahşiş</button>
+          <button style="background:rgba(245, 158, 11, 0.15); border:1px solid var(--fire-amber); color:var(--fire-amber); padding:6px 12px; border-radius:8px; font-weight:800; font-size:0.75rem;">%10 Bahşiş</button>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="custom-modal" id="modal-bana-birak" onclick="if(event.target === this) modalKapat('modal-bana-birak')">
+    <div class="modal-card" style="text-align:center;">
+      <div class="modal-circle-icon" style="font-size:2.2rem; background:rgba(139, 92, 246, 0.2); color:#a78bfa;">🎲</div>
+      <h3 style="font-size:1.2rem; font-weight:900; color:#ffffff; margin-bottom:6px;">Senin İçin Seçtiğimiz Lezzet</h3>
+      <p style="font-size:0.8rem; color:var(--slate-muted); margin-bottom:16px;">Bugün bunu denemeye ne dersin?</p>
+      <div id="bana-birak-product" style="background:rgba(15, 23, 42, 0.6); border:1.5px solid #a78bfa; border-radius:16px; padding:16px; margin-bottom:16px;">
+        <div id="bb-ikon" style="font-size:2.5rem; margin-bottom:8px;">☕</div>
+        <div id="bb-isim" style="font-size:1.1rem; font-weight:900; color:#fff; margin-bottom:4px;">-</div>
+        <div id="bb-fiyat" style="font-size:1.2rem; font-weight:900; color:var(--fire-amber);">0 ₺</div>
+      </div>
+      <button class="btn-create-order" style="width:100%; justify-content:center; background:linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); margin-bottom:8px; box-shadow:0 6px 18px rgba(139, 92, 246, 0.3);" onclick="banaBirakSepeteEkle()">
+        Sepete Ekle ✓
+      </button>
+      <button class="btn-modal-secondary" onclick="banaBirakSecimiYap()">🎲 Başka Seç</button>
+    </div>
+  </div>
+
+  <div class="custom-modal" id="modal-success">
+    <div class="modal-card">
+      <div class="modal-circle-icon" id="modal-icon">✓</div>
+      <h3 id="modal-title" style="font-size:1.2rem; font-weight:900; color:#ffffff; margin-bottom:8px;">Siparişiniz İletildi!</h3>
+      <p id="modal-desc" style="font-size:0.82rem; color:var(--slate-muted); line-height:1.45; margin-bottom:20px;">
+        Siparişiniz baristaya ve kasaya anlık olarak düştü. Hemen hazırlanıp masanıza servis edilecek.
+      </p>
+      <button class="btn-create-order" style="width:100%; justify-content:center;" onclick="modalKapat('modal-success')">Tamam</button>
+    </div>
+  </div>
+
+  <div class="custom-modal" id="modal-taxi" onclick="if(event.target === this) modalKapat('modal-taxi')">
+    <div class="modal-card">
+      <div class="modal-circle-icon">🚕</div>
+      <span class="taxi-badge-pill">NOMÂD MİSAFİRLERİNE ÖZEL</span>
+      <h3 style="font-size:1.22rem; font-weight:900; color:#ffffff; margin-bottom:8px;">Müşterimize Özel Fiyat</h3>
+      <p style="font-size:0.82rem; color:var(--slate-muted); line-height:1.45; margin-bottom:18px;">
+        Nomâd Karavan Coffee misafirlerine özel indirimli tarife ile dilediğiniz noktaya hızlı ulaşım.
+      </p>
+      <a class="btn-primary-action btn-rez-submit" href="tel:+905362573445" style="width:100%;">
+        <span>📞 Taksiyi Ara</span>
+      </a>
+      <button class="btn-modal-secondary" onclick="modalKapat('modal-taxi')">Vazgeç</button>
+    </div>
+  </div>
   <script>
-    const KASA_SIFRESI = "2905";
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
 
-    const MENU_URUNLERI = [
+    const urlParams = new URLSearchParams(window.location.search);
+    let rawMasa = urlParams.get('masa');
+    if (!rawMasa && window.location.hash.includes('masa=')) {
+      rawMasa = window.location.hash.split('masa=')[1];
+    }
+
+    let isMasaModu = Boolean(rawMasa && rawMasa.trim() !== "");
+    const masaNo = isMasaModu ? rawMasa.trim() : null;
+    const oturumBaslangic = Date.now();
+    let seciliRezTuru = "Ateş Başı";
+    let sonBilinenDurum = null;
+    let clientAudioCtx = null;
+    const orijinalBaslik = document.title;
+
+    let stokDurumu = {};
+    let rastgeleUrunAdaylari = [];
+    let secilenRastgeleUrun = null;
+
+    const kategoriBasliklari = {
+      cay: "Çay & Bitki Çayları",
+      sicak: "Sıcak Kahveler",
+      soguk: "Soğuk Kahveler",
+      frozen: "Frozenler",
+      milkshake: "Milkshake Çeşitleri",
+      kokteyl: "Kokteyller & Redbull Kokteyl",
+      fastfood: "Fast Food",
+      mesrubat: "Meşrubatlar",
+      tatli: "Pasta & Tatlı Çeşitleri",
+      nargile: "Nargile"
+    };
+
+    const kategoriIkonlari = {
+      cay: "🫖", sicak: "☕", soguk: "🧊", frozen: "🍧",
+      milkshake: "🥤", kokteyl: "🍹", fastfood: "🍔", mesrubat: "🥫", tatli: "🍰", nargile: "💨"
+    };
+
+    const kategoriKartlari = [
+      { id: "tasarla", ad: "✨ Kendi Kahveni Tasarla", resim: "kat-tasarla.jpg", ikon: "✨" },
+      { id: "hepsi", ad: "Tümü", resim: "kat-tumu.jpg", ikon: "📋" },
+      { id: "cay", ad: "Çay & Bitki Çayları", resim: "kat-cay.jpg", ikon: "🫖" },
+      { id: "sicak", ad: "Sıcak Kahveler", resim: "kat-sicak-kahve.jpg", ikon: "☕" },
+      { id: "soguk", ad: "Soğuk Kahveler", resim: "kat-soguk-kahve.jpg", ikon: "🧊" },
+      { id: "frozen", ad: "Frozenler", resim: "kat-frozen.jpg", ikon: "🍧" },
+      { id: "milkshake", ad: "Milkshake Çeşitleri", resim: "kat-milkshake.jpg", ikon: "🥤" },
+      { id: "kokteyl", ad: "Kokteyller & Redbull Kokteyl", resim: "kat-kokteyl.jpg", ikon: "🍹" },
+      { id: "fastfood", ad: "Fast Food", resim: "kat-fastfood.jpg", ikon: "🍔" },
+      { id: "mesrubat", ad: "Meşrubatlar", resim: "kat-mesrubat.jpg", ikon: "🥫" },
+      { id: "tatli", ad: "Pasta & Tatlı Çeşitleri", resim: "kat-tatli.jpg", ikon: "🍰" },
+      { id: "nargile", ad: "Nargile", resim: "kat-nargile.jpg", ikon: "💨" }
+    ];
+
+    const urunler = [
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
       { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
       { id: 603, ad: "Ihlamur", kategori: "cay", aciklama: "French press demlemesi çiçek ve yaprak ıhlamur, fincan servisi", fiyat: 160, resim: "ihlamur.jpg" },
@@ -659,7 +795,7 @@
       { id: 809, ad: "Waffle", kategori: "tatli", aciklama: "Çıtır Belçika waffle hamuru, eritilmiş çikolata, muz, çilek ve fındık parçacıkları", fiyat: 250, resim: "waffle.jpg" },
 
       { id: 901, ad: "Pişmiş Şeftali Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-{ id: 902, ad: "Mango Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 902, ad: "Mango Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 903, ad: "Çilek Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 904, ad: "Damla Sakızı Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 905, ad: "Üzüm Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
@@ -693,1012 +829,724 @@
       { id: 933, ad: "Lüle Değişimi", kategori: "nargile", aciklama: "Nargileniz için taze lüle değişimi", fiyat: 300, resim: "nargile2.jpg" }
     ];
 
-    const TOPLAM_MASA = 50;
-    let seciliMasa = null;
-    let canliMasalar = {};
-    let gunSonuKayitlari = {};
-    let sonSiparisZamanlari = {};
-    let islenenGarsonCagrilari = new Set();
-    let islenenSiparisBildirimleri = new Set();
-    let kaliciBildirimler = [];
-    let bilinenRezSayisi = -1;
-    let audioCtx = null;
-    let stokDurumu = {};
-    let kasaAcik = sessionStorage.getItem('nomad_kasa_yetki') === '1';
+    let ozelKahveSecim = {
+      baz: { ad: "Latte Bazı", fiyat: 200 },
+      sicaklik: { ad: "Sıcak", fiyat: 0 },
+      sut: { ad: "Tam Yağlı Süt", fiyat: 0 },
+      surup: { ad: "Şurupsuz", fiyat: 0 },
+      ekstra: { ad: "Standart Shot", fiyat: 0 }
+    };
 
-    if (kasaAcik) {
-      document.getElementById('pin-lock-screen').style.display = 'none';
+    let sepet = {};
+    let ozelKahveSepeti = [];
+    let aktifKategori = 'kategoriler';
+
+    function bildirimGoster(mesaj, ikon = "✓") {
+      const box = document.getElementById('toast-notify');
+      document.getElementById('toast-icon').innerText = ikon;
+      document.getElementById('toast-msg').innerText = mesaj;
+      box.classList.add('show');
+      setTimeout(() => box.classList.remove('show'), 2200);
     }
 
-    function bugununIsoTarihi() {
-      const d = new Date();
-      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    }
-
-    function tarihiDuzGoster(t) {
-      if (!t) return "-";
-      if (t.includes('-') && t.length === 10) {
-        const p = t.split('-');
-        return `${p[2]}.${p[1]}.${p[0]}`;
+    function bildirimCubuguKontrol() {
+      const bar = document.getElementById('notif-perm-bar');
+      if (!isMasaModu || !('Notification' in window)) {
+        bar.style.display = 'none';
+        return;
       }
-      return t;
+      bar.style.display = Notification.permission === 'default' ? 'flex' : 'none';
     }
 
-    function sifreKontrol(e) {
+    function bildirimIzniIste() {
+      if ('Notification' in window) {
+        Notification.requestPermission().then(() => bildirimCubuguKontrol());
+      }
+    }
+
+    function kilitEkraninaBildirimGonder() {
+      if ('Notification' in window && Notification.permission === 'granted') {
+        try {
+          new Notification("Nomâd Karavan Coffee ☕", {
+            body: `Masa ${masaNo} siparişiniz hazır! Afiyet olsun.`
+          });
+        } catch (e) {}
+      }
+    }
+
+    function wifiKopyala() {
+      navigator.clipboard?.writeText("nomadkaravan").catch(() => {});
+      bildirimGoster("Wi-Fi Şifresi Kopyalandı: nomadkaravan", "📶");
+    }
+
+    function garsonCagir() {
+      if (!isMasaModu) return;
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      fetch(`${FIREBASE_URL}/garson_cagrilari.json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ masaNo: String(masaNo), tur: "Garson", saat: saatStr, zamanDamgasi: Date.now() })
+      }).catch(() => {});
+      bildirimGoster("Garson çağrınız iletildi!", "🔔");
+    }
+
+    function nargileSefiCagir() {
+      if (!isMasaModu) return;
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      fetch(`${FIREBASE_URL}/garson_cagrilari.json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ masaNo: String(masaNo), tur: "Nargile Şefi", saat: saatStr, zamanDamgasi: Date.now() })
+      }).catch(() => {});
+      bildirimGoster("Nargile şefine bildirim gönderildi!", "💨");
+    }
+
+    function haritayiAc() {
+      window.open("https://maps.google.com/?q=Nomad+Karavan+Coffee+Tatvan", "_blank");
+    }
+
+    function taksiModalAc() {
+      document.getElementById('modal-taxi').style.display = 'flex';
+    }
+
+    function rezTurSec(tur) {
+      seciliRezTuru = tur;
+      document.querySelectorAll('.rez-type-btn').forEach(b => b.classList.remove('selected'));
+      if (tur === 'Ateş Başı') document.getElementById('rez-opt-ates')?.classList.add('selected');
+      else if (tur === 'Masa Rezervasyonu') document.getElementById('rez-opt-masa')?.classList.add('selected');
+      else document.getElementById('rez-opt-muzik')?.classList.add('selected');
+    }
+
+    function telefonHataTemizle() {
+      document.getElementById('rez-tel')?.classList.remove('input-error');
+      const err = document.getElementById('rez-tel-error');
+      if (err) err.style.display = 'none';
+    }
+
+    async function rezervasyonGonder(e) {
       e.preventDefault();
-      const girilen = document.getElementById('kasa-pin-input').value.trim();
-      const hataEl = document.getElementById('pin-error-msg');
+      const ad = document.getElementById('rez-ad').value.trim();
+      const tel = document.getElementById('rez-tel').value.trim();
+      const tarih = document.getElementById('rez-tarih').value;
+      const saat = document.getElementById('rez-saat').value;
+      const kisi = document.getElementById('rez-kisi').value;
+      const istek = document.getElementById('rez-istek').value.trim() || "-";
 
-      if (girilen === KASA_SIFRESI) {
-        kasaAcik = true;
-        sessionStorage.setItem('nomad_kasa_yetki', '1');
-        document.getElementById('pin-lock-screen').style.display = 'none';
-        hataEl.style.display = 'none';
-        sesTekBasimAktifEt();
-        buluttanVeriCek();
-        kasaNotuCek();
-      } else {
-        hataEl.style.display = 'block';
-        document.getElementById('kasa-pin-input').value = '';
+      if (!tel || tel.replace(/\D/g, '').length < 10) {
+        document.getElementById('rez-tel').classList.add('input-error');
+        document.getElementById('rez-tel-error').style.display = 'block';
+        return;
       }
-    }
 
-    function kasayiKilitle() {
-      kasaAcik = false;
-      sessionStorage.removeItem('nomad_kasa_yetki');
-      document.getElementById('kasa-pin-input').value = '';
-      document.getElementById('pin-lock-screen').style.display = 'flex';
-    }
-
-    function kasaModalKapat(id) {
-      document.getElementById(id).style.display = 'none';
-      if (id === 'modal-payment-method') {
-        kismiOdemeEkraniniKapat();
-      }
-    }
-
-    function sesMotorunuUyandir() {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!audioCtx) { audioCtx = new AudioContextClass(); }
-      if (audioCtx.state === 'suspended') { audioCtx.resume(); }
-      const buffer = audioCtx.createBuffer(1, 1, 22050);
-      const source = audioCtx.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioCtx.destination);
-      source.start(0);
-    }
-
-    function sesTekBasimAktifEt() {
-      sesMotorunuUyandir();
-      const btn = document.getElementById('btn-sound');
-      btn.classList.add('unlocked');
-      btn.innerHTML = `<span>🔊</span><span>Ses Aktif</span>`;
-      calSiparisSesi();
-    }
-
-    function calSiparisSesi() {
       try {
-        sesMotorunuUyandir();
-        const now = audioCtx.currentTime;
-        const osc1 = audioCtx.createOscillator();
-        const gain1 = audioCtx.createGain();
-        osc1.type = "sine";
-        osc1.frequency.setValueAtTime(587.33, now);
-        gain1.gain.setValueAtTime(0.65, now);
-        gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
-        osc1.connect(gain1); gain1.connect(audioCtx.destination);
-        osc1.start(now); osc1.stop(now + 0.35);
-
-        const osc2 = audioCtx.createOscillator();
-        const gain2 = audioCtx.createGain();
-        osc2.type = "sine";
-        osc2.frequency.setValueAtTime(880, now + 0.16);
-        gain2.gain.setValueAtTime(0.75, now + 0.16);
-        gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
-        osc2.connect(gain2); gain2.connect(audioCtx.destination);
-        osc2.start(now + 0.16); osc2.stop(now + 0.6);
-      } catch (e) {}
-    }
-
-    function calGarsonSesi() {
-      try {
-        sesMotorunuUyandir();
-        const now = audioCtx.currentTime;
-        [0, 0.22].forEach((offset) => {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.type = "triangle";
-          osc.frequency.setValueAtTime(1567.98, now + offset);
-          gain.gain.setValueAtTime(0.75, now + offset);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + offset + 0.2);
-          osc.connect(gain); gain.connect(audioCtx.destination);
-          osc.start(now + offset); osc.stop(now + offset + 0.2);
+        await fetch(`${FIREBASE_URL}/rezervasyonlar.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ad: ad || "Misafir", tel, tur: seciliRezTuru, tarih, saat, kisi, not: istek, zamanDamgasi: Date.now() })
         });
-      } catch (e) {}
+      } catch (err) {}
+
+      document.getElementById('modal-icon').innerText = "📅";
+      document.getElementById('modal-title').innerText = "Rezervasyonunuz Alındı!";
+      document.getElementById('modal-desc').innerText = `${seciliRezTuru} için ${tarih} saat ${saat} kayıt oluşturuldu.`;
+      document.getElementById('modal-success').style.display = 'flex';
+      e.target.reset();
+      const bugun = new Date().toISOString().split('T')[0];
+      document.getElementById('rez-tarih').value = bugun;
     }
 
-    function kaliciBildirimEkle(id, mesaj, masaNo) {
-      if (kaliciBildirimler.some(b => b.id === id)) return;
-      kaliciBildirimler.push({ id, mesaj, masaNo });
-      kaliciBildirimleriCiz();
+    async function mailGonder(e) {
+      e.preventDefault();
+      const ad = document.getElementById('fb-ad').value.trim();
+      const mesaj = document.getElementById('fb-mesaj').value.trim();
+      if (!ad || !mesaj) return;
+      try {
+        await fetch(`${FIREBASE_URL}/geri_bildirimler.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ad, mesaj, zamanDamgasi: Date.now() })
+        });
+      } catch (err) {}
+      document.getElementById('modal-icon').innerText = "✉️";
+      document.getElementById('modal-title').innerText = "Teşekkür Ederiz!";
+      document.getElementById('modal-desc').innerText = "Görüş ve öneriniz ekibimize iletildi.";
+      document.getElementById('modal-success').style.display = 'flex';
+      e.target.reset();
     }
 
-    function kaliciBildirimKapat(id, masaNo) {
-      kaliciBildirimler = kaliciBildirimler.filter(b => b.id !== id);
-      kaliciBildirimleriCiz();
-      if (masaNo) masayaTiklandi(Number(masaNo));
+    function navigasyon(sayfaAdi, kategori = 'kategoriler') {
+      document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
+      if (sayfaAdi === 'menu') {
+        document.getElementById('view-menu').classList.add('active');
+        if (kategori === 'kategoriler') {
+          kategorileriGoster();
+        } else {
+          tabSec(kategori);
+        }
+        try { history.pushState({ page: 'menu' }, '', window.location.pathname + window.location.search); } catch(e) {}
+      } else {
+        document.getElementById('view-home').classList.add('active');
+        try { history.pushState({ page: 'home' }, '', window.location.pathname + window.location.search); } catch(e) {}
+      }
+      window.scrollTo(0, 0);
     }
 
-    function kaliciBildirimleriCiz() {
-      const container = document.getElementById('sticky-alerts-container');
-      container.innerHTML = "";
-      kaliciBildirimler.forEach(b => {
+    window.onpopstate = function() {
+      const viewMenu = document.getElementById('view-menu');
+      if (viewMenu && viewMenu.classList.contains('active')) {
+        navigasyon('home');
+      }
+    };
+
+    function kategorileriGoster() {
+      aktifKategori = 'kategoriler';
+      document.getElementById('category-squares-container').style.display = 'grid';
+      document.getElementById('products-list').style.display = 'none';
+      document.getElementById('menu-tabs-bar').style.display = 'none';
+      document.getElementById('btn-kategorilere-don').style.display = 'none';
+      kareKategorileriCiz();
+      window.scrollTo(0, 0);
+    }
+
+    function kareKategorileriCiz() {
+      const grid = document.getElementById('category-squares-container');
+      grid.innerHTML = "";
+      kategoriKartlari.forEach(kat => {
+        let adetYazi = "";
+        if (kat.id === "hepsi") {
+          adetYazi = `${urunler.length} Çeşit`;
+        } else if (kat.id === "tasarla") {
+          adetYazi = "Kendi Reçeteni Oluştur";
+        } else {
+          const sayi = urunler.filter(u => u.kategori === kat.id).length;
+          adetYazi = `${sayi} Çeşit`;
+        }
+
         const card = document.createElement('div');
-        card.className = 'sticky-notif-card';
-        card.onclick = () => kaliciBildirimKapat(b.id, b.masaNo);
+        card.className = "cat-square-card";
+        card.onclick = () => tabSec(kat.id);
         card.innerHTML = `
-          <div class="sticky-notif-left"><span>🔔</span><span>${b.mesaj}</span></div>
-          <span class="sticky-notif-btn">Görüldü / Aç ✓</span>
+          <img src="${kat.resim}" alt="${kat.ad}" loading="lazy" onerror="resimYuklenemedi(this, '${kat.ikon}')">
+          <div class="cat-square-overlay">
+            <div style="font-size:1.6rem; margin-bottom:4px;">${kat.ikon}</div>
+            <div class="cat-square-title">${kat.ad}</div>
+            <div class="cat-square-count">${adetYazi}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function tabSec(kat) {
+      aktifKategori = kat;
+      document.getElementById('category-squares-container').style.display = 'none';
+      document.getElementById('products-list').style.display = 'flex';
+      document.getElementById('menu-tabs-bar').style.display = 'flex';
+      document.getElementById('btn-kategorilere-don').style.display = 'inline-block';
+
+      document.querySelectorAll('.tab-pill').forEach(b => b.classList.remove('active'));
+      const seciliTab = document.getElementById(`tab-${kat}`);
+      if (seciliTab) {
+        seciliTab.classList.add('active');
+        seciliTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+      menuyuCiz();
+      window.scrollTo(0, 0);
+    }
+
+    function craftSec(grup, ad, fiyat) {
+      ozelKahveSecim[grup] = { ad, fiyat };
+      menuyuCiz();
+    }
+
+    function ozelKahveyiSepeteEkle() {
+      if (!isMasaModu) return;
+      const toplamFiyat = ozelKahveSecim.baz.fiyat + ozelKahveSecim.sicaklik.fiyat + ozelKahveSecim.sut.fiyat + ozelKahveSecim.surup.fiyat + ozelKahveSecim.ekstra.fiyat;
+      const recete = `${ozelKahveSecim.sicaklik.ad} • ${ozelKahveSecim.sut.ad} • ${ozelKahveSecim.surup.ad} • ${ozelKahveSecim.ekstra.ad}`;
+
+      ozelKahveSepeti.push({
+        ad: `Özel Tasarım: ${ozelKahveSecim.baz.ad}`,
+        detay: recete,
+        adet: 1,
+        birimFiyat: toplamFiyat,
+        tutar: toplamFiyat,
+        yeni: true
+      });
+
+      sepetBariniHesapla();
+      bildirimGoster("Özel kahveniz sepete eklendi!", "✨");
+    }
+
+    function resimYuklenemedi(imgEl, ikon) {
+      const fallback = document.createElement('div');
+      fallback.className = 'product-thumb-fallback';
+      fallback.innerHTML = `<div>${ikon}</div>`;
+      imgEl.replaceWith(fallback);
+    }
+
+    function menuyuCiz() {
+      const container = document.getElementById('products-list');
+      container.innerHTML = "";
+
+      if (aktifKategori === 'nargile' && isMasaModu) {
+        const sefBtn = document.createElement('div');
+        sefBtn.innerHTML = `
+          <button class="btn-primary-action" style="width:100%; margin-bottom:14px; background:linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow:0 6px 20px rgba(16, 185, 129, 0.35);" onclick="nargileSefiCagir()">
+            <span style="font-size:1.3rem;">💨</span>
+            <span>Nargile Şefini Çağır (Köz / Destek)</span>
+          </button>
+        `;
+        container.appendChild(sefBtn);
+      }
+
+      if (aktifKategori === 'tasarla') {
+        const toplamFiyat = ozelKahveSecim.baz.fiyat + ozelKahveSecim.sicaklik.fiyat + ozelKahveSecim.sut.fiyat + ozelKahveSecim.surup.fiyat + ozelKahveSecim.ekstra.fiyat;
+        const bazlar = [
+          { ad: "Latte Bazı", fiyat: 200 }, { ad: "Americano Bazı", fiyat: 190 },
+          { ad: "Flat White Bazı", fiyat: 210 }, { ad: "Filtre Kahve Bazı", fiyat: 170 }
+        ];
+        const sicakliklar = [{ ad: "Sıcak", fiyat: 0 }, { ad: "Buzlu (Iced)", fiyat: 0 }];
+        const sutler = [
+          { ad: "Tam Yağlı Süt", fiyat: 0 }, { ad: "Laktozsuz Süt", fiyat: 15 },
+          { ad: "Yulaf Sütü", fiyat: 30 }, { ad: "Badem Sütü", fiyat: 30 }, { ad: "Sütsüz (Sade)", fiyat: 0 }
+        ];
+        const suruplar = [
+          { ad: "Şurupsuz", fiyat: 0 }, { ad: "Karamel Şurubu", fiyat: 25 },
+          { ad: "Toffee Nut Şurubu", fiyat: 25 }, { ad: "Fındık Şurubu", fiyat: 25 },
+          { ad: "Cookie Şurubu", fiyat: 25 }, { ad: "Beyaz Çikolata", fiyat: 25 }
+        ];
+        const ekstralar = [{ ad: "Standart Shot", fiyat: 0 }, { ad: "+1 Ekstra Espresso", fiyat: 20 }];
+
+        const grupHtml = (baslik, grupAdi, liste) => `
+          <div>
+            <div class="craft-group-title">${baslik}</div>
+            <div class="craft-options-grid">
+              ${liste.map(item => `
+                <div class="craft-chip ${ozelKahveSecim[grupAdi].ad === item.ad ? 'selected' : ''}" onclick="craftSec('${grupAdi}', '${item.ad}', ${item.fiyat})">
+                  <span>${item.ad}</span>
+                  <span class="c-price">${item.fiyat > 0 ? '+' + item.fiyat + ' ₺' : ''}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+
+        const aksiyonAlani = isMasaModu
+          ? `<button class="btn-primary-action btn-rez-submit" style="width:100%;" onclick="ozelKahveyiSepeteEkle()"><span>Özel Kahveyi Sepete Ekle — ${toplamFiyat} ₺</span></button>`
+          : `<div style="text-align:center; padding:10px; border-radius:12px; background:rgba(16,185,129,0.16); border:1px solid #10b981; color:#a7f3d0; font-size:0.84rem; font-weight:800;">Tahmini Tutar: ${toplamFiyat} ₺ (Sipariş için masadaki QR kodu okutunuz)</div>`;
+
+        container.innerHTML = `
+          <div class="craft-studio">
+            <div>
+              <h3 style="font-size:1.1rem; font-weight:900; color:#ffffff; margin-bottom:4px;">✨ Kendi Kahveni Tasarla</h3>
+              <p style="font-size:0.76rem; color:var(--slate-muted);">Kendi kahve reçeteni oluştur ve fiyatını anında gör.</p>
+            </div>
+            ${grupHtml("1. Kahve Bazını Seç", "baz", bazlar)}
+            ${grupHtml("2. Servis Sıcaklığı", "sicaklik", sicakliklar)}
+            ${grupHtml("3. Süt Tercihi", "sut", sutler)}
+            ${grupHtml("4. Aroma & Şurup", "surup", suruplar)}
+            ${grupHtml("5. Kahve Yoğunluğu", "ekstra", ekstralar)}
+            <div class="craft-summary-box">
+              <div style="font-size:0.76rem; color:var(--fire-amber); font-weight:800; margin-bottom:4px;">SEÇİLEN REÇETE:</div>
+              <div style="font-size:0.86rem; font-weight:800; color:#ffffff; margin-bottom:12px;">${ozelKahveSecim.baz.ad} (${ozelKahveSecim.sicaklik.ad}) • ${ozelKahveSecim.sut.ad} • ${ozelKahveSecim.surup.ad} • ${ozelKahveSecim.ekstra.ad}</div>
+              ${aksiyonAlani}
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const liste = aktifKategori === 'hepsi' ? urunler : urunler.filter(u => u.kategori === aktifKategori);
+      let sonKategori = "";
+
+      liste.forEach(u => {
+        if (aktifKategori === 'hepsi' && u.kategori !== sonKategori) {
+          sonKategori = u.kategori;
+          const baslikEl = document.createElement('div');
+          baslikEl.className = "category-divider-heading";
+          baslikEl.innerText = kategoriBasliklari[u.kategori] || u.kategori;
+          container.appendChild(baslikEl);
+        }
+
+        const tukendi = stokDurumu[u.id] === true;
+        const adet = sepet[u.id] || 0;
+        const card = document.createElement('div');
+
+        card.className = `product-card ${u.ozel ? 'special-card' : ''} ${tukendi ? 'out-of-stock' : ''}`;
+        const ikon = kategoriIkonlari[u.kategori] || "☕";
+
+        const sagKontrol = isMasaModu
+          ? `<div class="qty-box">
+              ${adet > 0 ? `<button class="qty-btn" onclick="adetGuncelle(${u.id}, -1)">−</button>` : ''}
+              ${adet > 0 ? `<span class="qty-num">${adet}</span>` : ''}
+              <button class="qty-btn plus" onclick="adetGuncelle(${u.id}, 1)">+</button>
+             </div>`
+          : `<span class="visitor-qr-note">Menü Fiyatı</span>`;
+
+        card.innerHTML = `
+          ${tukendi ? `<div class="out-of-stock-badge">TÜKENDİ</div>` : ''}
+          <img class="product-thumb" src="${u.resim}" alt="${u.ad}" loading="lazy" onerror="resimYuklenemedi(this, '${ikon}')">
+          <div class="product-content">
+            <div>
+              <div class="prod-title">${u.ad}</div>
+              ${u.aciklama ? `<div class="prod-desc">${u.aciklama}</div>` : ''}
+            </div>
+            <div class="prod-footer">
+              <span class="prod-price">${u.fiyat} ₺</span>
+              ${!tukendi ? sagKontrol : ''}
+            </div>
+          </div>
         `;
         container.appendChild(card);
       });
     }
 
-    async function buluttanVeriCek() {
-      if (!kasaAcik) return;
+    function adetGuncelle(id, delta) {
+      if (!isMasaModu) return;
+      const yeni = (sepet[id] || 0) + delta;
+      if (yeni <= 0) delete sepet[id];
+      else sepet[id] = yeni;
+      menuyuCiz();
+      sepetBariniHesapla();
+    }
+
+    function sepetBariniHesapla() {
+      if (!isMasaModu) return;
+      let toplamAdet = 0; let toplamTutar = 0;
+      for (let id in sepet) {
+        const u = urunler.find(item => item.id == id);
+        if (u) { toplamAdet += sepet[id]; toplamTutar += sepet[id] * u.fiyat; }
+      }
+      ozelKahveSepeti.forEach(ok => { toplamAdet += ok.adet; toplamTutar += ok.tutar; });
+
+      const bar = document.getElementById('cart-floating-bar');
+      if (toplamAdet > 0) {
+        document.getElementById('cart-items-count').innerText = `${toplamAdet} Kalem Ürün`;
+        document.getElementById('cart-total-price').innerText = `${toplamTutar} ₺`;
+        bar.classList.add('active');
+      } else {
+        bar.classList.remove('active');
+      }
+    }
+
+    function sepetOzetiniAc() {
+      if (!isMasaModu) return;
+      const listContainer = document.getElementById('cart-summary-items');
+      listContainer.innerHTML = "";
+
+      for (let id in sepet) {
+        const u = urunler.find(item => item.id == id);
+        if (u) {
+          listContainer.innerHTML += `
+            <div class="cart-summary-item" data-type="standart" data-id="${id}" data-adet="${sepet[id]}">
+              <div class="cart-summary-item-top">
+                <span class="cart-summary-name">${sepet[id]}× ${u.ad}</span>
+                <span class="cart-summary-price">${u.fiyat * sepet[id]} ₺</span>
+              </div>
+              <input type="text" class="cart-note-input" id="note-standart-${id}" placeholder="${u.ad} için özel istek (Şekersiz vb.)">
+            </div>
+          `;
+        }
+      }
+
+      ozelKahveSepeti.forEach((ok, idx) => {
+        listContainer.innerHTML += `
+          <div class="cart-summary-item" data-type="ozel" data-idx="${idx}">
+            <div class="cart-summary-item-top">
+              <span class="cart-summary-name">${ok.adet}× ${ok.ad}</span>
+              <span class="cart-summary-price">${ok.tutar} ₺</span>
+            </div>
+            <div style="font-size:0.7rem; color:#10b981; margin-bottom:4px;">${ok.detay}</div>
+            <input type="text" class="cart-note-input" id="note-ozel-${idx}" placeholder="Ekstra notunuz...">
+          </div>
+        `;
+      });
+
+      document.getElementById('modal-cart-summary').style.display = 'flex';
+    }
+
+    async function siparisiGonder() {
+      if (!isMasaModu) return;
+      document.getElementById('modal-cart-summary').style.display = 'none';
+
+      if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().then(() => bildirimCubuguKontrol());
+      }
       try {
-        const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json`);
-        stokDurumu = (await stokRes.json()) || {};
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!clientAudioCtx) clientAudioCtx = new AudioContextClass();
+        if (clientAudioCtx.state === 'suspended') clientAudioCtx.resume();
+      } catch (e) {}
 
-        const masaRes = await fetch(`${FIREBASE_URL}/masalar.json`);
-        const yeniMasalar = (await masaRes.json()) || {};
+      const kapandi = await masaDurumunuKontrolEt();
+      if (kapandi) return;
 
-        let yeniSiparisVar = false;
-        for (let mKey in yeniMasalar) {
-          const m = yeniMasalar[mKey];
-          if (m && m.sonGuncelleme && sonSiparisZamanlari[mKey] !== m.sonGuncelleme) {
-            if (sonSiparisZamanlari[mKey] !== undefined) yeniSiparisVar = true;
-            sonSiparisZamanlari[mKey] = m.sonGuncelleme;
-          }
+      const siparisDetay = [];
+      let genelToplam = 0; let toplamKalem = 0;
+
+      for (let id in sepet) {
+        const u = urunler.find(item => item.id == id);
+        if (u) {
+          const noteEl = document.getElementById(`note-standart-${id}`);
+          const musteriNotu = noteEl && noteEl.value.trim() !== "" ? `(Not: ${noteEl.value.trim()})` : "";
+
+          siparisDetay.push({
+            ad: u.ad,
+            detay: musteriNotu,
+            adet: sepet[id],
+            birimFiyat: u.fiyat,
+            tutar: u.fiyat * sepet[id],
+            yeni: true
+          });
+          genelToplam += u.fiyat * sepet[id];
+          toplamKalem += sepet[id];
         }
+      }
 
-        canliMasalar = yeniMasalar;
-        masalariCiz();
-        if (yeniSiparisVar) calSiparisSesi();
+      ozelKahveSepeti.forEach((ok, idx) => {
+        const noteEl = document.getElementById(`note-ozel-${idx}`);
+        const musteriNotu = noteEl && noteEl.value.trim() !== "" ? ` | Not: ${noteEl.value.trim()}` : "";
 
-        const sipBildirimRes = await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`);
-        const sipBildirimler = await sipBildirimRes.json();
-        if (sipBildirimler) {
-          for (let sKey in sipBildirimler) {
-            if (!islenenSiparisBildirimleri.has(sKey)) {
-              islenenSiparisBildirimleri.add(sKey);
-              const sb = sipBildirimler[sKey];
-              calSiparisSesi();
-              kaliciBildirimEkle(sKey, `Masa ${sb.masaNo} • Yeni Sipariş (${sb.kalemSayisi} Ürün - ${sb.tutar} ₺) • ${sb.saat}`, sb.masaNo);
-              fetch(`${FIREBASE_URL}/siparis_bildirimleri/${sKey}.json`, { method: 'DELETE' });
-            }
-          }
+        siparisDetay.push({ ...ok, detay: ok.detay + musteriNotu, yeni: true });
+        genelToplam += ok.tutar;
+        toplamKalem += ok.adet;
+      });
+
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      const simdi = Date.now();
+
+      try {
+        const res = await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`);
+        let mevcutMasa = await res.json();
+        if (!mevcutMasa || !mevcutMasa.urunler) mevcutMasa = { urunler: [], toplamTutar: 0, saat: saatStr };
+
+        mevcutMasa.urunler.push(...siparisDetay);
+        mevcutMasa.toplamTutar += genelToplam;
+        mevcutMasa.saat = saatStr;
+        mevcutMasa.sonGuncelleme = simdi;
+        mevcutMasa.okunmamis = true;
+        mevcutMasa.durum = 'iletildi';
+
+        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mevcutMasa)
+        });
+
+        await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ masaNo: String(masaNo), kalemSayisi: toplamKalem, tutar: genelToplam, saat: saatStr, zamanDamgasi: simdi })
+        });
+      } catch (err) {}
+
+      siparisDurumBannerGuncelle('iletildi');
+      document.getElementById('modal-icon').innerText = "☕";
+      document.getElementById('modal-title').innerText = "Siparişiniz İletildi!";
+      document.getElementById('modal-desc').innerText = "Siparişiniz kasaya düştü. Canlı takip çubuğundan durumunu izleyebilirsiniz.";
+      document.getElementById('modal-success').style.display = 'flex';
+
+      sepet = {}; ozelKahveSepeti = []; sepetBariniHesapla(); navigasyon('home');
+    }
+
+    function banaBirakSecimiYap() {
+      if (rastgeleUrunAdaylari.length === 0) {
+        rastgeleUrunAdaylari = urunler.filter(u => u.kategori === 'kokteyl' || u.kategori === 'frozen' || u.ozel === true);
+      }
+      const randIndex = Math.floor(Math.random() * rastgeleUrunAdaylari.length);
+      secilenRastgeleUrun = rastgeleUrunAdaylari[randIndex];
+
+      document.getElementById('bb-isim').innerText = secilenRastgeleUrun.ad;
+      document.getElementById('bb-fiyat').innerText = `${secilenRastgeleUrun.fiyat} ₺`;
+      document.getElementById('bb-ikon').innerText = kategoriIkonlari[secilenRastgeleUrun.kategori] || "☕";
+
+      document.getElementById('modal-bana-birak').style.display = 'flex';
+    }
+
+    function banaBirakSepeteEkle() {
+      if (!isMasaModu || !secilenRastgeleUrun) {
+        modalKapat('modal-bana-birak');
+        navigasyon('menu', 'hepsi');
+        return;
+      }
+      adetGuncelle(secilenRastgeleUrun.id, 1);
+      modalKapat('modal-bana-birak');
+      bildirimGoster("Seçim sepete eklendi!", "🎲");
+    }
+
+    async function adisyonGecmisiAc() {
+      if (!isMasaModu) return;
+      try {
+        const res = await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`);
+        const masaVerisi = await res.json();
+
+        const container = document.getElementById('adisyon-items-container');
+        if (!masaVerisi || !masaVerisi.urunler || masaVerisi.urunler.length === 0) {
+          container.innerHTML = `<div style="color:var(--slate-muted); text-align:center; padding:20px 0; font-size:0.85rem;">Henüz verilmiş bir siparişiniz bulunmuyor.</div>`;
+          document.getElementById('adisyon-total-amount').innerText = "0 ₺";
+        } else {
+          container.innerHTML = masaVerisi.urunler.map(u => {
+            const indirimMi = u.tutar < 0;
+            return `
+            <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(30,41,59,0.5); padding:10px 12px; border-radius:10px; border:1px solid var(--card-border);">
+              <div>
+                <div style="font-size:0.86rem; font-weight:800; color:${indirimMi ? '#10b981' : '#fff'};">${u.adet}× ${u.ad}</div>
+                ${u.detay ? `<div style="font-size:0.72rem; color:${indirimMi ? '#a7f3d0' : '#fdba74'}; margin-top:2px;">${u.detay}</div>` : ''}
+              </div>
+              <div style="font-size:0.95rem; font-weight:900; color:${indirimMi ? '#10b981' : 'var(--fire-amber)'};">${u.tutar} ₺</div>
+            </div>`;
+          }).join('');
+          document.getElementById('adisyon-total-amount').innerText = `${masaVerisi.toplamTutar} ₺`;
         }
-
-        const cagriRes = await fetch(`${FIREBASE_URL}/garson_cagrilari.json`);
-        const cagrilar = await cagriRes.json();
-        if (cagrilar) {
-          for (let cKey in cagrilar) {
-            if (!islenenGarsonCagrilari.has(cKey)) {
-              islenenGarsonCagrilari.add(cKey);
-              const cagri = cagrilar[cKey];
-              calGarsonSesi();
-              let cagriMesaj = cagri.tur === "Nargile Şefi"
-                ? `Masa ${cagri.masaNo} Nargile Şefi (Köz/Destek) istiyor! (${cagri.saat})`
-                : `Masa ${cagri.masaNo} garson çağırıyor! (${cagri.saat})`;
-              kaliciBildirimEkle(`garson_${cKey}`, cagriMesaj, cagri.masaNo);
-              fetch(`${FIREBASE_URL}/garson_cagrilari/${cKey}.json`, { method: 'DELETE' });
-            }
-          }
-        }
-
-        const rezRes = await fetch(`${FIREBASE_URL}/rezervasyonlar.json`);
-        const rezervasyonlar = await rezRes.json();
-        rezervasyonlariCiz(rezervasyonlar);
+        document.getElementById('modal-adisyon-history').style.display = 'flex';
       } catch (err) {}
     }
 
-    function stokYonetimModalAc() {
-      document.getElementById('stock-search-input').value = '';
-      stokUrunleriCiz();
-      document.getElementById('modal-stock-management').style.display = 'flex';
-    }
-
-    function stokUrunleriCiz() {
-      const q = document.getElementById('stock-search-input').value.trim().toLowerCase();
-      const container = document.getElementById('stock-products-container');
-      container.innerHTML = "";
-
-      const filtreli = MENU_URUNLERI.filter(u => u.ad.toLowerCase().includes(q));
-      filtreli.forEach(u => {
-        const tukendiMi = stokDurumu[u.id] === true;
-        const row = document.createElement('div');
-        row.className = 'stock-item-row';
-        row.innerHTML = `
-          <div style="font-size:0.86rem; font-weight:800; color:${tukendiMi ? '#ef4444' : '#fff'};">
-            ${tukendiMi ? '🚫' : '✅'} ${u.ad}
-          </div>
-          <button class="btn-stock-toggle ${tukendiMi ? 'out' : ''}" onclick="stokDurumuDegistir(${u.id}, ${!tukendiMi})">
-            ${tukendiMi ? 'Tükendi (Aç)' : 'Stokta (Kapat)'}
-          </button>
-        `;
-        container.appendChild(row);
-      });
-    }
-
-    async function stokDurumuDegistir(urunId, yapTukendi) {
-      stokDurumu[urunId] = yapTukendi;
-      stokUrunleriCiz();
-      try {
-        await fetch(`${FIREBASE_URL}/stok_durumu.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(stokDurumu)
-        });
-      } catch (e) {}
-    }
-
-    function rezervasyonlariCiz(rezObj) {
-      const container = document.getElementById('rez-container');
-      if (!rezObj) {
-        bilinenRezSayisi = 0;
-        container.innerHTML = `<div style="font-size:0.8rem; color:var(--slate-muted);">Henüz yeni rezervasyon yok.</div>`;
+    function siparisDurumBannerGuncelle(durum) {
+      const banner = document.getElementById('order-tracker-banner');
+      if (!isMasaModu || !durum) {
+        banner.style.display = 'none';
+        sonBilinenDurum = null;
         return;
       }
 
-      const keys = Object.keys(rezObj);
-      if (bilinenRezSayisi !== -1 && keys.length > bilinenRezSayisi) calSiparisSesi();
-      bilinenRezSayisi = keys.length;
+      banner.style.display = 'block';
+      const fill = document.getElementById('tracker-line');
+      const s1 = document.getElementById('step-1');
+      const s2 = document.getElementById('step-2');
+      const s3 = document.getElementById('step-3');
 
-      container.innerHTML = "";
-      keys.reverse().forEach(k => {
-        const r = rezObj[k];
-        let turEtiketi = r.tur === "Ateş Başı" ? "🔥 Ateş Başı" : (r.tur === "Canlı Müzik" ? "🎵 Canlı Müzik" : "🪑 Masa Rezervasyonu");
-        let ekstraSinif = r.tur === "Canlı Müzik" ? "muzik-tag" : "";
+      s1.classList.remove('iletildi');
+      s2.classList.remove('hazirlaniyor');
+      s3.classList.remove('hazir');
 
-        const card = document.createElement('div');
-        card.className = 'rez-card';
-        card.innerHTML = `
-          <div class="rez-top">
-            <span class="rez-name">${r.ad}</span>
-            <span class="rez-badge">${r.kisi}</span>
-          </div>
-          <span class="rez-tur-tag ${ekstraSinif}">${turEtiketi}</span>
-          <div class="rez-info">📅 ${tarihiDuzGoster(r.tarih)} • ⏰ ${r.saat}</div>
-          <div class="rez-info">📞 ${r.tel}</div>
-          <div class="rez-info" style="color:var(--fire-amber);">📝 Özel İstek: ${r.not}</div>
-          <div class="rez-actions">
-            <a class="btn-rez-call" href="tel:${r.tel}">Ara</a>
-            <button class="btn-rez-del" onclick="rezervasyonSil('${k}')">Tamamlandı / Sil</button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    async function rezervasyonSil(key) {
-      if (confirm("Bu rezervasyon kaydı silinsin mi?")) {
-        await fetch(`${FIREBASE_URL}/rezervasyonlar/${key}.json`, { method: 'DELETE' });
-        buluttanVeriCek();
+      if (durum === 'iletildi') {
+        fill.style.width = '0%';
+        s1.classList.add('iletildi');
+      } else if (durum === 'hazirlaniyor') {
+        fill.style.width = '50%';
+        s1.classList.add('iletildi');
+        s2.classList.add('hazirlaniyor');
+      } else if (durum === 'hazir') {
+        fill.style.width = '100%';
+        s1.classList.add('iletildi');
+        s3.classList.add('hazir');
+        if (sonBilinenDurum !== 'hazir') {
+          kilitEkraninaBildirimGonder();
+        }
       }
+
+      document.getElementById('tracker-time').innerText = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      sonBilinenDurum = durum;
     }
 
-    async function kasaNotuCek() {
+    async function masaDurumunuKontrolEt() {
+      if (!isMasaModu) return false;
       try {
-        const res = await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`);
-        const data = await res.json();
-        if (data && data.metin) { document.getElementById('kasa-genel-not').value = data.metin; }
-      } catch (e) {}
-    }
-
-    async function kasaNotuKaydet() {
-      const metin = document.getElementById('kasa-genel-not').value;
-      const btn = document.querySelector('.btn-note-save');
-      btn.innerText = "Kaydediliyor...";
-      try {
-        await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`, {
-          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ metin: metin, zaman: Date.now() })
-        });
-        btn.innerText = "Kaydedildi ✓";
-        btn.style.background = "linear-gradient(135deg, #10b981 0%, #059669 100%)";
-        btn.style.color = "#ffffff";
-        setTimeout(() => {
-          btn.innerText = "Kaydet ✓";
-          btn.style.background = "linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%)";
-          btn.style.color = "#0f172a";
-        }, 2500);
-      } catch (e) { btn.innerText = "Hata! Tekrar Dene"; }
-    }
-
-    function masalariCiz() {
-      const container = document.getElementById('tables-container');
-      container.innerHTML = "";
-      let doluSayisi = 0;
-
-      for (let i = 1; i <= TOPLAM_MASA; i++) {
-        const masaKey = String(i);
-        const data = canliMasalar[masaKey];
-        const isBusy = data && data.urunler && data.urunler.length > 0;
-        const isReady = isBusy && data.durum === 'hazir';
-        const isPreparing = isBusy && data.durum === 'hazirlaniyor';
-        const isIletildi = isBusy && (data.durum === 'iletildi' || !data.durum);
-
-        const hasPendingOrder = isBusy && isIletildi;
-
-        if (isBusy) doluSayisi++;
-
-        const card = document.createElement('div');
-        card.className = `table-card ${isBusy ? 'busy' : 'empty'} ${isReady ? 'is-ready' : ''} ${seciliMasa === i ? 'selected-table' : ''}`;
-        card.onclick = () => masayaTiklandi(i);
-
-        let durumYazi = 'BOŞ';
-        if (isBusy) {
-          if (isReady) durumYazi = 'DOLU • HAZIR ✓';
-          else if (isPreparing) durumYazi = 'HAZIRLANIYOR...';
-          else durumYazi = 'YENİ SİPARİŞ !';
+        const closeRes = await fetch(`${FIREBASE_URL}/kapali_oturumlar/${masaNo}.json`);
+        const kapanisZamani = await closeRes.json();
+        if (kapanisZamani && kapanisZamani > oturumBaslangic) {
+          oturumuZiyaretciModunaDusur();
+          return true;
         }
 
-        card.innerHTML = `
-          ${hasPendingOrder ? `<div class="unread-exclaim-badge">!</div>` : ''}
-          <div class="table-number">Masa ${i}</div>
-          <div class="table-status-text">${durumYazi}</div>
-          ${isBusy ? `<div class="table-amount">${data.toplamTutar} ₺</div>` : ''}
-        `;
-        container.appendChild(card);
-      }
+        const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json`);
+        stokDurumu = (await stokRes.json()) || {};
 
-      document.getElementById('stat-busy').innerText = `${doluSayisi} Dolu`;
-      document.getElementById('stat-empty').innerText = `${TOPLAM_MASA - doluSayisi} Boş`;
-
-      if (seciliMasa) masaDetayiGoster(seciliMasa);
-    }
-
-    function masayaTiklandi(masaNo) {
-      seciliMasa = masaNo;
-      masalariCiz();
-      masaDetayiGoster(masaNo);
-    }
-
-    function masaDetayiGoster(masaNo) {
-      seciliMasa = masaNo;
-      const data = canliMasalar[String(masaNo)];
-
-      document.getElementById('panel-table-title').innerText = `Masa ${masaNo} Adisyonu`;
-      document.getElementById('btn-open-manual').style.display = 'inline-block';
-      const listEl = document.getElementById('panel-orders-list');
-      const footerEl = document.getElementById('panel-footer');
-      const hazirBtn = document.getElementById('btn-siparis-hazir');
-
-      if (!data || !data.urunler || data.urunler.length === 0) {
-        document.getElementById('panel-order-time').innerText = "Henüz sipariş yok";
-        listEl.innerHTML = `
-          <div class="empty-state">
-            <span>Bu masa şu anda boş.</span>
-            <button class="btn-manual-add-top" onclick="manuelSiparisModalAc()">+ Garson / Elle Sipariş Gir</button>
-          </div>
-        `;
-        footerEl.style.display = "none";
-        return;
-      }
-
-      document.getElementById('panel-order-time').innerText = `Son Sipariş: ${data.saat || '-'}`;
-      footerEl.style.display = "block";
-      document.getElementById('panel-total-price').innerText = `${data.toplamTutar} ₺`;
-
-      if (data.durum === 'iletildi' || !data.durum) {
-        hazirBtn.className = 'btn-order-ready';
-        hazirBtn.innerText = `⏳ Hazırlanıyor Olarak İşaretle`;
-      } else if (data.durum === 'hazirlaniyor') {
-        hazirBtn.className = 'btn-order-ready preparing-state';
-        hazirBtn.innerText = `✓ Sipariş Hazır (Müşteriye Bildir)`;
-      } else if (data.durum === 'hazir') {
-        hazirBtn.className = 'btn-order-ready already-sent';
-        hazirBtn.innerText = `✓ Sipariş Hazırlandı (Masa Dolu)`;
-      }
-
-      listEl.innerHTML = "";
-      data.urunler.forEach((item, index) => {
-        const isKismiOdemeKalemi = item.ad && item.ad.includes('Kısmi Ödeme');
-        const row = document.createElement('div');
-        row.className = `order-item-row ${item.yeni ? 'is-new-order' : ''}`;
-
-        if (isKismiOdemeKalemi) {
-          row.style.background = 'rgba(16, 185, 129, 0.1)';
-          row.style.borderColor = '#10b981';
-        }
-
-        row.innerHTML = `
-          <div class="item-left">
-            ${item.yeni ? `<span class="new-order-pill">YENİ SİPARİŞ</span>` : ''}
-            <span class="item-name" style="${isKismiOdemeKalemi ? 'color:#10b981; font-weight:900;' : ''}">${item.ad}</span>
-            ${item.detay ? `<span class="item-custom-recipe" style="${isKismiOdemeKalemi ? 'background:rgba(16,185,129,0.2); border-color:#10b981; color:#a7f3d0;' : ''}">${isKismiOdemeKalemi ? '✓' : '✨'} ${item.detay}</span>` : ''}
-            <span class="item-unit-info">${item.adet} adet ${isKismiOdemeKalemi ? '' : `× ${item.birimFiyat} ₺`}</span>
-          </div>
-          <div class="item-actions">
-            <span class="item-price" style="${isKismiOdemeKalemi ? 'color:#10b981;' : ''}">${item.tutar} ₺</span>
-            ${!isKismiOdemeKalemi ? `<button class="btn-qty-minus" onclick="adetAzalt(${masaNo}, ${index})">−</button>` : ''}
-            <button class="btn-item-delete" onclick="urunuSil(${masaNo}, ${index})">✕</button>
-          </div>
-        `;
-        listEl.appendChild(row);
-      });
-    }
-
-    async function siparisDurumunuIleriAl() {
-      if (!seciliMasa) return;
-      const data = canliMasalar[String(seciliMasa)];
-      if (!data || !data.urunler || data.urunler.length === 0) return;
-
-      let yeniDurum = 'hazirlaniyor';
-      if (data.durum === 'hazirlaniyor') {
-        yeniDurum = 'hazir';
-      } else if (data.durum === 'hazir') {
-        return;
-      }
-
-      data.durum = yeniDurum;
-      data.okunmamis = false;
-      data.urunler.forEach(u => { u.yeni = false; });
-
-      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      });
-
-      masalariCiz();
-      masaDetayiGoster(seciliMasa);
-    }
-
-    function manuelSiparisModalAc() {
-      if (!seciliMasa) return;
-      document.getElementById('manual-modal-title').innerText = `Masa ${seciliMasa} • Elle Sipariş Ekle`;
-      document.getElementById('manual-search-input').value = '';
-      manuelUrunleriCiz();
-      document.getElementById('modal-manual-order').style.display = 'flex';
-    }
-
-    function manuelUrunleriCiz() {
-      const q = document.getElementById('manual-search-input').value.trim().toLowerCase();
-      const container = document.getElementById('manual-products-container');
-      container.innerHTML = "";
-      const filtreli = MENU_URUNLERI.filter(u => u.ad.toLowerCase().includes(q));
-      filtreli.forEach(u => {
-        const row = document.createElement('div');
-        row.className = 'manual-prod-row';
-        row.innerHTML = `
-          <div>
-            <div style="font-size:0.86rem; font-weight:800; color:#fff;">${u.ad}</div>
-            <div style="font-size:0.76rem; color:var(--fire-amber); font-weight:800;">${u.fiyat} ₺</div>
-          </div>
-          <button class="btn-add-one" onclick="masayaManuelKalemKaydet('${u.ad.replace(/'/g, "\\'")}', ${u.fiyat})">+ Ekle</button>
-        `;
-        container.appendChild(row);
-      });
-    }
-
-    async function ozelManuelUrunEkle() {
-      const ad = document.getElementById('custom-item-name').value.trim();
-      const fiyat = Number(document.getElementById('custom-item-price').value);
-      if (!ad || !fiyat || fiyat <= 0) {
-        alert("Geçerli bir ürün adı ve fiyat giriniz.");
-        return;
-      }
-      await masayaManuelKalemKaydet(ad, fiyat);
-      document.getElementById('custom-item-name').value = '';
-      document.getElementById('custom-item-price').value = '';
-    }
-
-    async function masayaManuelKalemKaydet(urunAdi, birimFiyat) {
-      if (!seciliMasa) return;
-      const masaKey = String(seciliMasa);
-      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-      let mevcut = canliMasalar[masaKey];
-
-      if (!mevcut || !mevcut.urunler) {
-        mevcut = { urunler: [], toplamTutar: 0, saat: saatStr };
-      }
-
-      const varOlan = mevcut.urunler.find(u => u.ad === urunAdi && !u.detay);
-      if (varOlan) {
-        varOlan.adet += 1;
-        varOlan.tutar = varOlan.adet * varOlan.birimFiyat;
-        varOlan.yeni = true;
-      } else {
-        mevcut.urunler.push({
-          ad: urunAdi, detay: "Garson Girişi", adet: 1,
-          birimFiyat: birimFiyat, tutar: birimFiyat, yeni: true
-        });
-      }
-
-      mevcut.toplamTutar = mevcut.urunler.reduce((acc, c) => acc + c.tutar, 0);
-      mevcut.saat = saatStr;
-      mevcut.sonGuncelleme = Date.now();
-      mevcut.durum = 'iletildi';
-      mevcut.okunmamis = true;
-
-      canliMasalar[masaKey] = mevcut;
-      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mevcut)
-      });
-
-      masalariCiz();
-      masaDetayiGoster(seciliMasa);
-    }
-
-    function masaAktarModalAc() {
-      if (!seciliMasa) return;
-      const data = canliMasalar[String(seciliMasa)];
-      if (!data || !data.urunler || data.urunler.length === 0) return;
-
-      document.getElementById('transfer-modal-title').innerText = `Masa ${seciliMasa} → Başka Masaya Aktar`;
-      const selectEl = document.getElementById('transfer-target-select');
-      selectEl.innerHTML = "";
-
-      for (let i = 1; i <= TOPLAM_MASA; i++) {
-        if (i === seciliMasa) continue;
-        const hedefData = canliMasalar[String(i)];
-        const hedefDolu = hedefData && hedefData.urunler && hedefData.urunler.length > 0;
-        const opt = document.createElement('option');
-        opt.value = i;
-        opt.innerText = hedefDolu ? `Masa ${i} (Dolu: ${hedefData.toplamTutar} ₺ - Birleştir)` : `Masa ${i} (Boş)`;
-        selectEl.appendChild(opt);
-      }
-      document.getElementById('modal-transfer-table').style.display = 'flex';
-    }
-
-    async function masayiAktarOnayla() {
-      if (!seciliMasa) return;
-      const kaynakNo = seciliMasa;
-      const hedefNo = Number(document.getElementById('transfer-target-select').value);
-      if (!hedefNo || kaynakNo === hedefNo) return;
-
-      const kaynakData = canliMasalar[String(kaynakNo)];
-      if (!kaynakData || !kaynakData.urunler) return;
-
-      const hedefData = canliMasalar[String(hedefNo)];
-      let yeniHedefData;
-
-      if (hedefData && hedefData.urunler && hedefData.urunler.length > 0) {
-        yeniHedefData = {
-          urunler: [...hedefData.urunler, ...kaynakData.urunler],
-          toplamTutar: hedefData.toplamTutar + kaynakData.toplamTutar,
-          saat: kaynakData.saat || hedefData.saat,
-          sonGuncelleme: Date.now(),
-          durum: (kaynakData.durum === 'hazirlaniyor' || hedefData.durum === 'hazirlaniyor') ? 'hazirlaniyor' : 'hazir',
-          okunmamis: Boolean(kaynakData.okunmamis || hedefData.okunmamis)
-        };
-      } else {
-        yeniHedefData = { ...kaynakData, sonGuncelleme: Date.now() };
-      }
-
-      await fetch(`${FIREBASE_URL}/masalar/${hedefNo}.json`, {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(yeniHedefData)
-      });
-
-      delete canliMasalar[String(kaynakNo)];
-      await fetch(`${FIREBASE_URL}/masalar/${kaynakNo}.json`, { method: 'DELETE' });
-      await fetch(`${FIREBASE_URL}/kapali_oturumlar/${kaynakNo}.json`, {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Date.now())
-      });
-
-      canliMasalar[String(hedefNo)] = yeniHedefData;
-      seciliMasa = hedefNo;
-      kasaModalKapat('modal-transfer-table');
-      masalariCiz();
-      masaDetayiGoster(hedefNo);
-    }
-
-    async function adetAzalt(masaNo, index) {
-      const data = canliMasalar[String(masaNo)];
-      if (!data || !data.urunler[index]) return;
-
-      const urun = data.urunler[index];
-      if (urun.adet > 1) {
-        urun.adet -= 1;
-        urun.tutar = urun.adet * urun.birimFiyat;
-      } else {
-        data.urunler.splice(index, 1);
-      }
-
-      data.toplamTutar = data.urunler.reduce((acc, curr) => acc + curr.tutar, 0);
-
-      if (data.urunler.length === 0) {
-        delete canliMasalar[String(masaNo)];
-        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, { method: 'DELETE' });
-      } else {
-        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
-          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
-        });
-      }
-      masalariCiz();
-    }
-
-    async function urunuSil(masaNo, index) {
-      const data = canliMasalar[String(masaNo)];
-      if (!data || !data.urunler[index]) return;
-
-      if (confirm(`Bu kalemi adisyondan çıkarmak istediğinize emin misiniz?`)) {
-        data.urunler.splice(index, 1);
-        data.toplamTutar = data.urunler.reduce((acc, curr) => acc + curr.tutar, 0);
-
-        if (data.urunler.length === 0) {
-          delete canliMasalar[String(masaNo)];
-          await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, { method: 'DELETE' });
+        const masaRes = await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`);
+        const masaVerisi = await masaRes.json();
+        if (masaVerisi && masaVerisi.urunler && masaVerisi.urunler.length > 0) {
+          siparisDurumBannerGuncelle(masaVerisi.durum || 'hazirlaniyor');
         } else {
-          await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
-            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
-          });
+          siparisDurumBannerGuncelle(null);
         }
-        masalariCiz();
-      }
-    }
 
-    function hesapKapatModalAc() {
-      if (!seciliMasa) return;
-      const kapananData = canliMasalar[String(seciliMasa)];
-      if (!kapananData) return;
-
-      document.getElementById('pay-modal-amount').innerText = `${kapananData.toplamTutar || 0} ₺`;
-      kismiOdemeEkraniniKapat();
-      document.getElementById('modal-payment-method').style.display = 'flex';
-    }
-
-    function kismiOdemeEkraniniAc() {
-      document.getElementById('main-pay-grid').style.display = 'none';
-      document.getElementById('split-pay-box').style.display = 'block';
-      document.getElementById('split-amount-input').value = '';
-      document.getElementById('split-amount-input').focus();
-    }
-
-    function kismiOdemeEkraniniKapat() {
-      document.getElementById('main-pay-grid').style.display = 'grid';
-      document.getElementById('split-pay-box').style.display = 'none';
-    }
-
-    async function kismiOdemeYap(odemeTuru) {
-      if (!seciliMasa) return;
-      const masaData = canliMasalar[String(seciliMasa)];
-      if (!masaData) return;
-
-      const miktarStr = document.getElementById('split-amount-input').value;
-      const miktar = Number(miktarStr);
-
-      if (isNaN(miktar) || miktar <= 0) {
-        alert("Geçerli bir tutar giriniz.");
-        return;
-      }
-
-      if (miktar > masaData.toplamTutar) {
-        alert(`Girilen tutar (${miktar} ₺) masanın toplam borcundan (${masaData.toplamTutar} ₺) büyük olamaz!`);
-        return;
-      }
-
-      const bugunKey = bugununIsoTarihi();
-      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-
-      await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${bugunKey}.json`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          masaNo: seciliMasa,
-          tutar: miktar,
-          odemeTuru: odemeTuru,
-          saat: saatStr,
-          tarih: bugunKey,
-          isKismi: true,
-          urunler: [{ ad: "Bölüşülen Hesap (Kısmi Ödeme)", adet: 1, tutar: miktar }],
-          zamanDamgasi: Date.now()
-        })
-      });
-
-      masaData.urunler.push({
-        ad: `Kısmi Ödeme Tahsilatı`,
-        adet: 1,
-        birimFiyat: -miktar,
-        tutar: -miktar,
-        yeni: false,
-        detay: `${odemeTuru} ile alındı`
-      });
-      masaData.toplamTutar -= miktar;
-      masaData.sonGuncelleme = Date.now();
-
-      if (masaData.toplamTutar <= 0) {
-        delete canliMasalar[String(seciliMasa)];
-        await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
-        await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
-          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Date.now())
-        });
-        kasaModalKapat('modal-payment-method');
-        alert("Hesap tamamen ödendi, masa kapatıldı!");
-      } else {
-        await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
-          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(masaData)
-        });
-        document.getElementById('pay-modal-amount').innerText = `${masaData.toplamTutar} ₺`;
-        kismiOdemeEkraniniKapat();
-      }
-
-      masalariCiz();
-      masaDetayiGoster(seciliMasa);
-    }
-
-    async function odemeyiTamamla(e, odemeTuru) {
-      if (!seciliMasa) return;
-      const kapananData = canliMasalar[String(seciliMasa)];
-      if (!kapananData) return;
-
-      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-      const bugunKey = bugununIsoTarihi();
-
-      await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${bugunKey}.json`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          masaNo: seciliMasa,
-          tutar: kapananData.toplamTutar || 0,
-          odemeTuru: odemeTuru,
-          saat: saatStr,
-          tarih: bugunKey,
-          urunler: kapananData.urunler || [],
-          zamanDamgasi: Date.now()
-        })
-      });
-
-      delete canliMasalar[String(seciliMasa)];
-      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
-      await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Date.now())
-      });
-
-      kasaModalKapat('modal-payment-method');
-      masalariCiz();
-      masaDetayiGoster(seciliMasa);
-    }
-
-    async function gunuBaslat() {
-      const pin = prompt("🌅 Yeni güne başlamak için kasa şifrenizi girin. (Açık kalmış eski masalar ve bildirimler temizlenecektir):");
-      if (pin === KASA_SIFRESI) {
-        if (confirm("Tüm açık masalar temizlenip yeni gün başlatılacak. Onaylıyor musunuz?")) {
-          try {
-            await fetch(`${FIREBASE_URL}/masalar.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/kapali_oturumlar.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
-            alert("Harika! Yeni gün başlatıldı, tüm masalar 0'landı.");
-            location.reload();
-          } catch (e) { alert("Bağlantı hatası oluştu."); }
+        if (document.getElementById('view-menu').classList.contains('active')) {
+          menuyuCiz();
         }
-      } else if (pin !== null) { alert("Hatalı şifre!"); }
+      } catch (err) {}
+      return false;
     }
 
-    async function tamSifirlamaYap() {
-      const pin = prompt("DİKKAT! Tüm geçmiş veriler, bugünün cirosu, rezervasyonlar ve masalar tamamen SİLİNECEK. Fabrika ayarlarına dönmek için kasa şifresini girin:");
-      if (pin === KASA_SIFRESI) {
-        if (confirm("SON UYARI: Her şey sıfırlanacak ve bu işlem asla geri alınamaz! Gerçekten onaylıyor musunuz?")) {
-          try {
-            await fetch(`${FIREBASE_URL}/masalar.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/gun_sonu.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/kapali_oturumlar.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/rezervasyonlar.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' });
-            alert("Sistem fabrikaya ayarlarına döndürüldü. Tamamen 0'dan başlıyorsunuz.");
-            location.reload();
-          } catch (e) { alert("Bağlantı hatası oluştu."); }
+    function oturumuZiyaretciModunaDusur() {
+      isMasaModu = false;
+      sepet = {}; ozelKahveSepeti = [];
+      siparisDurumBannerGuncelle(null);
+      bildirimCubuguKontrol();
+      document.getElementById('cart-floating-bar').classList.remove('active');
+      document.getElementById('header-badge').classList.add('online-visitor');
+      document.getElementById('masa-text').innerText = "Oturum Kapandı";
+      document.querySelectorAll('.qr-only').forEach(el => el.style.display = 'none');
+      document.getElementById('quick-actions-grid').classList.add('visitor-mode');
+      document.getElementById('visitor-menu-banner').style.display = 'flex';
+      menuyuCiz();
+      document.getElementById('modal-icon').innerText = "🔒";
+      document.getElementById('modal-title').innerText = "Masa Hesabınız Kapatıldı";
+      document.getElementById('modal-desc').innerText = "Hesabınız kapandığı için bu oturum sonlandırıldı. Yeniden sipariş vermek için masadaki QR kodu tekrar okutunuz.";
+      document.getElementById('modal-success').style.display = 'flex';
+    }
+
+    function moduUygula() {
+      const headerBadge = document.getElementById('header-badge');
+      const masaText = document.getElementById('masa-text');
+      const quickGrid = document.getElementById('quick-actions-grid');
+
+      if (isMasaModu) {
+        masaText.innerText = "Masa " + masaNo;
+        document.getElementById('view-home').insertBefore(document.getElementById('menu-cta-wrap'), document.getElementById('rez-section-wrap'));
+        bildirimCubuguKontrol();
+        document.getElementById('btn-adisyon').style.display = 'flex';
+      } else {
+        headerBadge.classList.add('online-visitor');
+        masaText.innerText = "Online Ziyaretçi";
+        document.querySelectorAll('.qr-only').forEach(el => el.style.display = 'none');
+        quickGrid.classList.add('visitor-mode');
+        document.getElementById('menu-cta-sub').innerText = "Fiyatları & Lezzetleri Keşfedin";
+        document.getElementById('menu-cta-main').innerText = "DİJİTAL MENÜYÜ İNCELE";
+        document.getElementById('craft-banner-sub').innerText = "Kendi özel kahve reçeteni & fiyatını hesapla";
+        document.getElementById('visitor-menu-banner').style.display = 'flex';
+      }
+
+      const saat = new Date().getHours();
+      if (saat >= 7 && saat < 18) {
+        document.body.style.background = "linear-gradient(165deg, #2d3748 0%, #1f2937 48%, #111827 100%)";
+        const aura = document.querySelector('.splash-aura');
+        if (aura) aura.style.background = "radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(59, 130, 246, 0.15) 50%, transparent 72%)";
+      }
+    }
+
+    try { moduUygula(); } catch(e) {}
+
+    setInterval(masaDurumunuKontrolEt, 2500);
+    if (isMasaModu) masaDurumunuKontrolEt();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.title = orijinalBaslik;
+      const tarihInput = document.getElementById('rez-tarih');
+      if (tarihInput) {
+        const bugun = new Date().toISOString().split('T')[0];
+        tarihInput.value = bugun; tarihInput.min = bugun;
+      }
+      const splash = document.getElementById('intro-splash');
+      const bar = document.getElementById('splash-bar');
+      const num = document.getElementById('splash-num');
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 12) + 8;
+        if (progress > 100) progress = 100;
+        bar.style.width = progress + '%';
+        num.innerText = `%${progress}`;
+        if (progress === 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            splash.classList.add('hide');
+            document.body.classList.remove('loading-lock');
+            requestAnimationFrame(() => document.body.classList.add('wave-start'));
+          }, 250);
         }
-      } else if (pin !== null) { alert("Hatalı şifre girdiniz!"); }
-    }
+      }, 60);
+    });
 
-    function gunSonuModalAc() {
-      const bugun = bugununIsoTarihi();
-      document.getElementById('eod-date-picker').value = bugun;
-      document.getElementById('eod-pin-input').value = '';
-      document.getElementById('eod-reset-pin').value = '';
-      document.getElementById('eod-pin-err').style.display = 'none';
-      document.getElementById('eod-pin-gate').style.display = 'block';
-      document.getElementById('eod-content-area').style.display = 'none';
-      document.getElementById('eod-detailed-wrapper').style.display = 'block';
-      document.getElementById('eod-selected-order-detail').style.display = 'none';
-      document.getElementById('btn-toggle-eod-details').innerHTML = `<span>▲ Detaylı Listeyi Gizle</span>`;
-      document.getElementById('modal-eod-report').style.display = 'flex';
-    }
-
-    async function gunSonuSifreDogrula() {
-      const pin = document.getElementById('eod-pin-input').value.trim();
-      if (pin !== KASA_SIFRESI) {
-        document.getElementById('eod-pin-err').style.display = 'block';
-        return;
-      }
-      document.getElementById('eod-pin-err').style.display = 'none';
-      document.getElementById('eod-pin-gate').style.display = 'none';
-      document.getElementById('eod-content-area').style.display = 'block';
-      document.getElementById('eod-detailed-wrapper').style.display = 'block';
-      document.getElementById('btn-toggle-eod-details').innerHTML = `<span>▲ Detaylı Listeyi Gizle</span>`;
-      const seciliTarih = document.getElementById('eod-date-picker').value || bugununIsoTarihi();
-      await gunSonuVerileriniYukle(seciliTarih);
-    }
-
-    async function gunSonuTarihDegisti() {
-      const seciliTarih = document.getElementById('eod-date-picker').value || bugununIsoTarihi();
-      document.getElementById('eod-selected-order-detail').style.display = 'none';
-      await gunSonuVerileriniYukle(seciliTarih);
-    }
-
-    async function buguneDonVeYukle() {
-      const bugun = bugununIsoTarihi();
-      document.getElementById('eod-date-picker').value = bugun;
-      document.getElementById('eod-selected-order-detail').style.display = 'none';
-      await gunSonuVerileriniYukle(bugun);
-    }
-
-    function gunSonuDetayAcKapat() {
-      const wrap = document.getElementById('eod-detailed-wrapper');
-      const btn = document.getElementById('btn-toggle-eod-details');
-      const acik = wrap.style.display === 'block';
-      if (acik) {
-        wrap.style.display = 'none';
-        btn.innerHTML = `<span>📋 Detaylı Bak (Seçili Günde Alınan Ürünleri & Ödeme Türlerini Gör)</span>`;
-      } else {
-        wrap.style.display = 'block';
-        btn.innerHTML = `<span>▲ Detaylı Listeyi Gizle</span>`;
-      }
-    }
-
-    function gecmisAdisyonDetayGoster(key) {
-      const kayit = gunSonuKayitlari[key];
-      const box = document.getElementById('eod-selected-order-detail');
-      if (!kayit) return;
-
-      const odeme = kayit.odemeTuru || "Nakit";
-      const odemeRozet = odeme === "Kredi Kartı"
-        ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
-        : `<span class="pay-pill cash">💵 Nakit</span>`;
-
-      const urunListesi = kayit.urunler || [];
-      let icerikHtml = "";
-      if (urunListesi.length === 0) {
-        icerikHtml = `<div style="font-size:0.78rem; color:var(--slate-muted);">Bu adisyon için ürün kalemi detayı bulunmuyor.</div>`;
-      } else {
-        icerikHtml = urunListesi.map(u => {
-          const eksiMi = (u.tutar < 0 || u.birimFiyat < 0);
-          return `
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.84rem; gap:8px;">
-            <div>
-              <div style="font-weight:800; color:${eksiMi ? '#10b981' : '#ffffff'};">${u.adet}× ${u.ad}</div>
-              ${u.detay ? `<div style="font-size:0.74rem; color:${eksiMi ? '#a7f3d0' : '#fdba74'};">${eksiMi ? '✓' : '✨'} ${u.detay}</div>` : ''}
-            </div>
-            <div style="font-weight:900; color:${eksiMi ? '#10b981' : 'var(--fire-amber)'}; white-space:nowrap;">${u.tutar} ₺</div>
-          </div>
-          `;
-        }).join('');
-      }
-
-      box.style.display = 'block';
-      box.innerHTML = `
-        <div class="eod-order-detail-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid rgba(245,158,11,0.35);">
-            <span style="font-size:0.92rem; font-weight:900; color:var(--fire-amber);">
-              🧾 Masa ${kayit.masaNo} (${tarihiDuzGoster(kayit.tarih)} • ${kayit.saat || '-'}) ${odemeRozet}
-            </span>
-            <button onclick="document.getElementById('eod-selected-order-detail').style.display='none'" style="background:none; border:none; color:#cbd5e1; font-weight:900; cursor:pointer; font-size:1rem;">✕</button>
-          </div>
-          ${icerikHtml}
-          <div style="display:flex; justify-content:space-between; margin-top:10px; font-size:0.92rem; font-weight:900; color:#10b981;">
-            <span>Ödenen Toplam (${odeme}):</span>
-            <span>${kayit.tutar} ₺</span>
-          </div>
-        </div>
-      `;
-    }
-
-    async function gunSonuVerileriniYukle(tarihKey) {
-      const duzTarihYazi = tarihiDuzGoster(tarihKey);
-      const bugunMu = tarihKey === bugununIsoTarihi();
-      document.getElementById('eod-selected-date-label').innerText = bugunMu ? `${duzTarihYazi} (Bugün)` : `${duzTarihYazi} (Geçmiş Kayıt)`;
-      document.getElementById('eod-revenue-title').innerText = `TOPLAM CİRO`;
-      document.getElementById('eod-reset-warning-label').innerText = `🔒 ${duzTarihYazi} Tarihini Kapat & Sıfırla (Şifre Onaylı)`;
-
-      const res = await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${tarihKey}.json`);
-      const veriler = await res.json();
-      gunSonuKayitlari = veriler || {};
-      const historyEl = document.getElementById('eod-history-container');
-      historyEl.innerHTML = "";
-
-      if (!veriler) {
-        document.getElementById('eod-total-revenue').innerText = "0 ₺";
-        document.getElementById('eod-cash-revenue').innerText = "0 ₺";
-        document.getElementById('eod-card-revenue').innerText = "0 ₺";
-        document.getElementById('eod-total-orders').innerText = "0";
-        historyEl.innerHTML = `<div style="font-size:0.82rem; color:var(--slate-muted); text-align:center; padding:16px;">${duzTarihYazi} tarihinde kapatılmış adisyon kaydı bulunmuyor.</div>`;
-        return;
-      }
-
-      let toplamCiro = 0;
-      let nakitCiro = 0;
-      let kartCiro = 0;
-      let adisyonSayisi = 0;
-
-      const keys = Object.keys(veriler);
-      keys.reverse().forEach(k => {
-        const item = veriler[k];
-        const tutar = Number(item.tutar || 0);
-        const odeme = item.odemeTuru || "Nakit";
-
-        toplamCiro += tutar;
-        if (odeme === "Kredi Kartı") kartCiro += tutar;
-        else nakitCiro += tutar;
-
-        if (!item.isKismi) adisyonSayisi++;
-
-        const odemeRozet = odeme === "Kredi Kartı"
-          ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
-          : `<span class="pay-pill cash">💵 Nakit</span>`;
-
-        const isKismi = item.isKismi ? `<span style="background:#f59e0b; color:#0f172a; padding:2px 6px; border-radius:4px; font-size:0.65rem; font-weight:900; margin-left:6px;">KISMİ ÖDEME</span>` : '';
-
-        const urunList = item.urunler || [];
-        const urunOzet = urunList.length > 0
-          ? urunList.map(u => `${u.adet}× ${u.ad} (${u.tutar} ₺)`).join(' • ')
-          : "Ürün detayı kaydedilmemiş";
-
-        const card = document.createElement('div');
-        card.className = 'eod-history-card';
-        card.onclick = () => gecmisAdisyonDetayGoster(k);
-        card.innerHTML = `
-          <div class="eod-history-top">
-            <div>
-              <strong style="color:#fff;">Masa ${item.masaNo}</strong>
-              <span style="color:var(--slate-muted); font-size:0.78rem; margin-left:6px;">⏰ ${item.saat || '-'}</span>
-              ${odemeRozet}
-              ${isKismi}
-            </div>
-            <span style="color:var(--fire-amber); font-weight:900; font-size:0.96rem;">${tutar} ₺</span>
-          </div>
-          <div class="eod-history-items-inline">
-            <strong style="color:#93c5fd;">Alınanlar:</strong> ${urunOzet}
-          </div>
-        `;
-        historyEl.appendChild(card);
-      });
-
-      document.getElementById('eod-total-revenue').innerText = `${toplamCiro} ₺`;
-      document.getElementById('eod-cash-revenue').innerText = `${nakitCiro} ₺`;
-      document.getElementById('eod-card-revenue').innerText = `${kartCiro} ₺`;
-      document.getElementById('eod-total-orders').innerText = `${adisyonSayisi} Adisyon`;
-    }
-
-    async function gunuKapatVeSifirla() {
-      const seciliTarih = document.getElementById('eod-date-picker').value || bugununIsoTarihi();
-      const duzTarihYazi = tarihiDuzGoster(seciliTarih);
-      const resetPin = document.getElementById('eod-reset-pin').value.trim();
-
-      if (resetPin !== KASA_SIFRESI) {
-        alert("Sıfırlama şifresi hatalı! Günü kapatmak için doğru kasa şifresini giriniz.");
-        return;
-      }
-      if (confirm(`${duzTarihYazi} tarihine ait gün sonu cirosu sıfırlanacak (diğer günler ve geçmiş yıllar korunacak). Emin misiniz?`)) {
-        await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${seciliTarih}.json`, { method: 'DELETE' });
-        document.getElementById('eod-reset-pin').value = '';
-        document.getElementById('eod-selected-order-detail').style.display = 'none';
-        await gunSonuVerileriniYukle(seciliTarih);
-        alert(`${duzTarihYazi} tarihi kapatıldı ve ciro sıfırlandı.`);
-      }
-    }
-
-    masalariCiz();
-    setInterval(buluttanVeriCek, 2000);
-
-    if (kasaAcik) {
-      buluttanVeriCek();
-      kasaNotuCek();
-    }
+    function modalKapat(id) { document.getElementById(id).style.display = 'none'; }
+    function rezervasyonaGit() { navigasyon('home'); setTimeout(() => document.getElementById('rez-section-wrap').scrollIntoView({ behavior: 'smooth' }), 100); }
+    kareKategorileriCiz();
   </script>
 </body>
 </html>
