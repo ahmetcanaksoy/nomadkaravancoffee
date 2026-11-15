@@ -705,9 +705,7 @@
     // ZAR AT (BANA BIRAK) ÜRÜNLERİ (Sadece Spesiyaller, Kokteyller, Frozenlar)
     let rastgeleUrunAdaylari = [];
     let secilenRastgeleUrun = null;
-
-    const kategoriBasliklari = {
-      nargile: "Nargile",
+const kategoriBasliklari = {
       cay: "Çay & Bitki Çayları",
       sicak: "Sıcak Kahveler",
       soguk: "Soğuk Kahveler",
@@ -716,18 +714,18 @@
       kokteyl: "Kokteyller & Redbull Kokteyl",
       fastfood: "Fast Food",
       mesrubat: "Meşrubatlar",
-      tatli: "Pasta & Tatlı Çeşitleri"
+      tatli: "Pasta & Tatlı Çeşitleri",
+      nargile: "Nargile"
     };
 
     const kategoriIkonlari = {
-      nargile: "💨", cay: "🫖", sicak: "☕", soguk: "🧊", frozen: "🍧",
-      milkshake: "🥤", kokteyl: "🍹", fastfood: "🍔", mesrubat: "🥫", tatli: "🍰"
+      cay: "🫖", sicak: "☕", soguk: "🧊", frozen: "🍧",
+      milkshake: "🥤", kokteyl: "🍹", fastfood: "🍔", mesrubat: "🥫", tatli: "🍰", nargile: "💨"
     };
 
     const kategoriKartlari = [
       { id: "tasarla", ad: "✨ Kendi Kahveni Tasarla", resim: "kat-tasarla.jpg", ikon: "✨" },
       { id: "hepsi", ad: "Tümü", resim: "kat-tumu.jpg", ikon: "📋" },
-      { id: "nargile", ad: "Nargile", resim: "kat-nargile.jpg", ikon: "💨" },
       { id: "cay", ad: "Çay & Bitki Çayları", resim: "kat-cay.jpg", ikon: "🫖" },
       { id: "sicak", ad: "Sıcak Kahveler", resim: "kat-sicak-kahve.jpg", ikon: "☕" },
       { id: "soguk", ad: "Soğuk Kahveler", resim: "kat-soguk-kahve.jpg", ikon: "🧊" },
@@ -736,45 +734,13 @@
       { id: "kokteyl", ad: "Kokteyller & Redbull Kokteyl", resim: "kat-kokteyl.jpg", ikon: "🍹" },
       { id: "fastfood", ad: "Fast Food", resim: "kat-fastfood.jpg", ikon: "🍔" },
       { id: "mesrubat", ad: "Meşrubatlar", resim: "kat-mesrubat.jpg", ikon: "🥫" },
-      { id: "tatli", ad: "Pasta & Tatlı Çeşitleri", resim: "kat-tatli.jpg", ikon: "🍰" }
+      { id: "tatli", ad: "Pasta & Tatlı Çeşitleri", resim: "kat-tatli.jpg", ikon: "🍰" },
+      { id: "nargile", ad: "Nargile", resim: "kat-nargile.jpg", ikon: "💨" }
     ];
 
-const urunler = [
-      { id: 901, ad: "Pişmiş Şeftali Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 902, ad: "Mango Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 903, ad: "Çilek Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 904, ad: "Damla Sakızı Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 905, ad: "Üzüm Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 906, ad: "Vivident (Mentollü Sakız) Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 907, ad: "İzmir Romantik Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 908, ad: "Karpuz Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 909, ad: "Love 66 Nargile", kategori: "nargile", aciklama: "Karpuz, Kavun, Çilek, Maracuja, Mentol", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 910, ad: "Ananas Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 911, ad: "Dejavu Nargile", kategori: "nargile", aciklama: "Kavun, Karpuz, Vanilya, Mentol", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 912, ad: "Cappuccino Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 913, ad: "Nane Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 914, ad: "Portakal Krema Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 915, ad: "Moscow Nargile", kategori: "nargile", aciklama: "Muz, Orman Meyvesi, Mentol", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 916, ad: "Latte Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 917, ad: "Lady Killer Nargile", kategori: "nargile", aciklama: "Mango, Kavun, Çilek, Mentol", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 918, ad: "Kavun Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 919, ad: "Polombir Nargile", kategori: "nargile", aciklama: "Vanilyalı Dondurma Aroması", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 920, ad: "Anason Nargile", kategori: "nargile", aciklama: "", fiyat: 550, resim: "nargile2.jpg" },
-      { id: 921, ad: "Limon Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 922, ad: "Cola (Ice Kola) Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 923, ad: "Tiramisu Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 924, ad: "Marilyn Monroe Nargile", kategori: "nargile", aciklama: "Buz, Gül, Misket Limonu", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 925, ad: "Elma Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 926, ad: "Muz Kivi Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 927, ad: "Böğürtlen Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 928, ad: "Nar Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 929, ad: "Yaban Mersini Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 930, ad: "Nane Limon Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 931, ad: "Mandalina Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 932, ad: "Çarkıfelek Meyvesi Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 933, ad: "Lüle Değişimi", kategori: "nargile", aciklama: "Nargileniz için taze lüle değişimi", fiyat: 300, resim: "nargile2.jpg" },
-
+    const urunler = [
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
+      { id: 610, ad: "Nomâd Spesiyal (Sıcak Çay)", kategori: "cay", ozel: true, aciklama: "Karavanımıza özel bitki harmanı", fiyat: 180, resim: "nomad-spesiyal-cay.jpg" },
       { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
       { id: 603, ad: "Ihlamur", kategori: "cay", aciklama: "French press demlemesi çiçek ve yaprak ıhlamur, fincan servisi", fiyat: 160, resim: "ihlamur.jpg" },
       { id: 604, ad: "Yeşil Çay", kategori: "cay", aciklama: "French press ile demlenmiş yumuşak içimli doğal yeşil çay", fiyat: 160, resim: "yesil-cay.jpg" },
@@ -867,8 +833,43 @@ const urunler = [
       { id: 806, ad: "Mono Siyah Profiterollü Pasta", kategori: "tatli", aciklama: "Bitter çikolata ganaj kaplı, içi krema dolgulu profiterol toplarıyla", fiyat: 250, resim: "mono-siyah-profiterollu-pasta.jpg" },
       { id: 807, ad: "Fıstık Rüyası Pasta", kategori: "tatli", aciklama: "Kavrulmuş Antep fıstığı kreması ve yumuşak yeşil fıstıklı kek katmanları", fiyat: 250, resim: "fistik-ruyasi-pasta.jpg" },
       { id: 808, ad: "Sufle", kategori: "tatli", aciklama: "Sıcak fırından çıkan akışkan Belçika çikolatalı sufle", fiyat: 250, resim: "sufle.jpg" },
-      { id: 809, ad: "Waffle", kategori: "tatli", aciklama: "Çıtır Belçika waffle hamuru, eritilmiş çikolata, muz, çilek ve fındık parçacıkları", fiyat: 250, resim: "waffle.jpg" }
+      { id: 809, ad: "Waffle", kategori: "tatli", aciklama: "Çıtır Belçika waffle hamuru, eritilmiş çikolata, muz, çilek ve fındık parçacıkları", fiyat: 250, resim: "waffle.jpg" },
+
+      { id: 901, ad: "Pişmiş Şeftali Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 902, ad: "Mango Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 903, ad: "Çilek Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 904, ad: "Damla Sakızı Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 905, ad: "Üzüm Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 906, ad: "Vivident (Mentollü Sakız) Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 907, ad: "İzmir Romantik Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 908, ad: "Karpuz Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 909, ad: "Love 66 Nargile", kategori: "nargile", aciklama: "Karpuz, Kavun, Çilek, Maracuja, Mentol", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 910, ad: "Ananas Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 911, ad: "Dejavu Nargile", kategori: "nargile", aciklama: "Kavun, Karpuz, Vanilya, Mentol", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 912, ad: "Cappuccino Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 913, ad: "Nane Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 914, ad: "Portakal Krema Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 915, ad: "Moscow Nargile", kategori: "nargile", aciklama: "Muz, Orman Meyvesi, Mentol", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 916, ad: "Latte Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 917, ad: "Lady Killer Nargile", kategori: "nargile", aciklama: "Mango, Kavun, Çilek, Mentol", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 918, ad: "Kavun Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 919, ad: "Polombir Nargile", kategori: "nargile", aciklama: "Vanilyalı Dondurma Aroması", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 920, ad: "Anason Nargile", kategori: "nargile", aciklama: "", fiyat: 550, resim: "nargile2.jpg" },
+      { id: 921, ad: "Limon Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 922, ad: "Cola (Ice Kola) Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 923, ad: "Tiramisu Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 924, ad: "Marilyn Monroe Nargile", kategori: "nargile", aciklama: "Buz, Gül, Misket Limonu", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 925, ad: "Elma Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 926, ad: "Muz Kivi Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 927, ad: "Böğürtlen Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 928, ad: "Nar Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 929, ad: "Yaban Mersini Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 930, ad: "Nane Limon Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 931, ad: "Mandalina Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 932, ad: "Çarkıfelek Meyvesi Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
+      { id: 933, ad: "Lüle Değişimi", kategori: "nargile", aciklama: "Nargileniz için taze lüle değişimi", fiyat: 300, resim: "nargile2.jpg" }
     ];
+  
 
     let ozelKahveSecim = {
       baz: { ad: "Latte Bazı", fiyat: 200 },
