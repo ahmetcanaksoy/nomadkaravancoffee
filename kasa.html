@@ -108,16 +108,16 @@
     .brand-info p { font-size: 0.72rem; color: var(--fire-amber); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
 
     .header-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    
+
     .btn-sound-unlock { background: var(--fire-amber); color: #0f172a; border: none; padding: 9px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4); animation: pulseSound 2s infinite; }
     .btn-sound-unlock.unlocked { background: rgba(16, 185, 129, 0.22); color: #6ee7b7; border: 1.5px solid #10b981; box-shadow: none; animation: none; }
     .btn-eod-open { background: rgba(245, 158, 11, 0.18); color: var(--fire-amber); border: 1.5px solid rgba(245, 158, 11, 0.5); padding: 8px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 6px; }
     .btn-day-start { background: rgba(16, 185, 129, 0.18); color: #10b981; border: 1.5px solid rgba(16, 185, 129, 0.5); }
     .btn-hard-reset { background: rgba(239, 68, 68, 0.18); color: #ef4444; border: 1.5px solid rgba(239, 68, 68, 0.5); }
-    .btn-stock-mng { background: rgba(59, 130, 246, 0.18); color: #93c5fd; border: 1.5px solid rgba(96, 165, 250, 0.5); } /* YENİ STOK BUTONU CSS */
-    
+    .btn-stock-mng { background: rgba(59, 130, 246, 0.18); color: #93c5fd; border: 1.5px solid rgba(96, 165, 250, 0.5); }
+
     .btn-lock-now { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; cursor: pointer; }
-    
+
     @keyframes pulseSound { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
 
     .badge-pill { font-size: 0.8rem; font-weight: 800; padding: 7px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px; }
@@ -138,13 +138,13 @@
 
     .table-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)); gap: 10px; margin-bottom: 28px; }
     .table-card { position: relative; background: linear-gradient(145deg, rgba(56, 63, 72, 0.86) 0%, rgba(27, 48, 38, 0.88) 100%); backdrop-filter: blur(14px); border-radius: 16px; padding: 14px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32); transition: all 0.2s; user-select: none; }
-    
+
     .table-card.empty { border: 1.5px solid rgba(16, 185, 129, 0.65); background: linear-gradient(145deg, rgba(20, 62, 45, 0.85) 0%, rgba(16, 46, 34, 0.9) 100%); box-shadow: 0 6px 18px rgba(16, 185, 129, 0.16); }
     .table-card.empty .table-status-text { color: #064e3b; background: #10b981; padding: 3px 10px; border-radius: 10px; font-weight: 900; }
-    
+
     .table-card.busy { border: 2px solid #f97316; background: linear-gradient(145deg, rgba(124, 45, 18, 0.92) 0%, rgba(67, 26, 14, 0.94) 100%); box-shadow: 0 10px 28px rgba(249, 115, 22, 0.45); animation: pulseAlert 2.2s infinite; }
     .table-card.busy .table-status-text { color: #ffffff; background: #ea580c; padding: 3px 9px; border-radius: 10px; }
-    
+
     .table-card.busy.is-ready { border: 2px solid #ef4444; background: linear-gradient(145deg, rgba(127, 29, 29, 0.9) 0%, rgba(69, 17, 17, 0.94) 100%); box-shadow: 0 8px 22px rgba(239, 68, 68, 0.35); animation: none; }
     .table-card.busy.is-ready .table-status-text { background: #ef4444; color: #ffffff; }
     .table-card.selected-table { outline: 2.5px solid #ffffff; outline-offset: 2px; }
@@ -174,7 +174,6 @@
     .kasa-notes-card textarea:focus { border-color: var(--fire-amber); }
     .btn-note-save { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); color: #0f172a; border: none; padding: 10px; border-radius: 10px; font-size: 0.82rem; font-weight: 900; cursor: pointer; transition: all 0.2s; }
 
-    /* --- ADİSYON DETAYLARI (SAĞ PANEL) --- */
     .detail-section { width: 420px; background: linear-gradient(180deg, rgba(33, 39, 45, 0.96) 0%, rgba(22, 38, 30, 0.96) 100%); backdrop-filter: blur(18px); border-left: 1.5px solid var(--card-border); display: flex; flex-direction: column; box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5); }
     .detail-header { padding: 16px 20px; border-bottom: 1.5px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
     .detail-header h3 { font-size: 1.12rem; font-weight: 900; color: #ffffff; }
@@ -192,13 +191,12 @@
     .item-price { font-size: 0.98rem; font-weight: 900; color: var(--fire-amber); min-width: 52px; text-align: right; }
     .btn-qty-minus { background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.25); width: 28px; height: 28px; border-radius: 8px; font-size: 1rem; font-weight: 800; cursor: pointer; }
     .btn-item-delete { background: rgba(234, 88, 12, 0.22); color: #fdba74; border: 1px solid var(--fire-orange); width: 28px; height: 28px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
-    
+
     .detail-footer { padding: 16px 20px; border-top: 1.5px solid var(--card-border); background: rgba(22, 28, 30, 0.96); display: flex; flex-direction: column; gap: 9px; }
     .total-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
     .total-title { font-size: 0.92rem; color: var(--slate-muted); font-weight: 700; }
     .total-sum { font-size: 1.6rem; font-weight: 900; color: var(--fire-amber); }
-    
-    /* GÜNCELLENDİ: SİPARİŞ DURUM BUTONU (HAZIRLANIYOR / HAZIR) */
+
     .btn-order-ready { width: 100%; background: linear-gradient(135deg, #10b981 0%, #1b4d36 100%); color: #ffffff; border: 1px solid rgba(110, 231, 183, 0.4); padding: 13px; border-radius: 14px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3); transition: transform 0.15s; }
     .btn-order-ready:active { transform: scale(0.98); }
     .btn-order-ready.preparing-state { background: linear-gradient(135deg, var(--fire-orange) 0%, var(--fire-amber) 100%); border-color: var(--fire-amber); box-shadow: 0 6px 20px var(--fire-glow); color: #0f172a; }
@@ -208,15 +206,14 @@
     .btn-close-order { width: 100%; background: linear-gradient(135deg, var(--fire-orange) 0%, #c2410c 100%); color: #fff; border: none; padding: 12px; border-radius: 14px; font-size: 0.88rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px var(--fire-glow); }
     .empty-state { margin: auto; text-align: center; color: var(--slate-muted); font-size: 0.86rem; font-weight: 600; padding: 30px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 
-    /* --- MODALLAR --- */
     .kasa-modal { display: none; position: fixed; inset: 0; background: rgba(12, 16, 18, 0.88); backdrop-filter: blur(10px); z-index: 500; align-items: center; justify-content: center; padding: 14px; }
     .kasa-modal-box { background: linear-gradient(145deg, #2d343d 0%, #192f24 100%); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 24px; padding: 24px; width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75); }
     .kasa-modal-box.eod-wide { max-width: 780px; }
     .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border); }
     .modal-head h3 { font-size: 1.12rem; font-weight: 900; color: #ffffff; }
     .btn-modal-x { background: rgba(255, 255, 255, 0.1); color: #ffffff; border: none; width: 34px; height: 34px; border-radius: 10px; font-size: 1rem; font-weight: 900; cursor: pointer; }
+    .btn-modal-secondary { margin-top: 10px; width: 100%; background: transparent; border: 1px solid rgba(226, 232, 240, 0.25); color: var(--slate-muted); padding: 10px; border-radius: 12px; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
 
-    /* BÖL BÖLÜŞTÜR - KISMİ ÖDEME STİLLERİ */
     .pay-choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
     .btn-pay-cash { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; border: 1.5px solid #6ee7b7; padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35); }
     .btn-pay-card { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; border: 1.5px solid #93c5fd; padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 8px 22px rgba(59, 130, 246, 0.35); }
@@ -229,7 +226,6 @@
     .pay-pill.cash { background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #6ee7b7; }
     .pay-pill.card { background: rgba(59, 130, 246, 0.22); border: 1px solid #60a5fa; color: #93c5fd; }
 
-    /* YENİ STOK YÖNETİMİ LİSTE STİLLERİ */
     .stock-item-row { display: flex; justify-content: space-between; align-items: center; background: rgba(22, 28, 32, 0.85); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 12px; gap: 8px; margin-bottom: 6px; }
     .btn-stock-toggle { background: var(--emerald-bright); color: #fff; border: none; padding: 6px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 900; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
     .btn-stock-toggle.out { background: #ef4444; color: #fff; }
@@ -241,7 +237,6 @@
     .custom-manual-box { background: rgba(20, 25, 29, 0.9); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
     .kasa-input { width: 100%; background: rgba(30, 36, 42, 0.95); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 10px; color: #ffffff; font-size: 0.86rem; outline: none; color-scheme: dark; }
 
-    /* GÜN SONU CSS (Aynı) */
     .eod-calendar-bar { background: rgba(18, 24, 28, 0.92); border: 1.5px solid rgba(245, 158, 11, 0.42); border-radius: 16px; padding: 12px 14px; margin-bottom: 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
     .eod-date-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .btn-today-jump { background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #6ee7b7; padding: 9px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
@@ -264,7 +259,7 @@
     }
   </style>
 </head>
-<body class="loading-lock">
+<body>
 
   <div id="pin-lock-screen">
     <form class="pin-card" onsubmit="sifreKontrol(event)">
@@ -313,7 +308,6 @@
         <span>Sesi Aktif Et</span>
       </button>
 
-      <!-- YENİ STOK YÖNETİMİ BUTONU -->
       <button class="btn-eod-open btn-stock-mng" onclick="stokYonetimModalAc()">
         <span>📦</span>
         <span>Stok / Tükendi Yönetimi</span>
@@ -359,7 +353,6 @@
         <div style="font-size:0.8rem; color:var(--slate-muted);">Henüz yeni rezervasyon yok.</div>
       </div>
 
-      <!-- KASA NOTLARI BÖLÜMÜ -->
       <div class="section-title" style="margin-top:24px;">📝 Kasa Notları (Vardiya / Hatırlatma)</div>
       <div class="kasa-notes-card">
         <textarea id="kasa-genel-not" placeholder="Biten ürünleri veya personel notlarını buraya yazıp kaydedebilirsiniz..."></textarea>
@@ -387,12 +380,11 @@
           <span class="total-title">Genel Kalan Toplam:</span>
           <span class="total-sum" id="panel-total-price">0 ₺</span>
         </div>
-        
-        <!-- YENİ: AŞAMALI SİPARİŞ DURUMU (DOMİNOS TAKİP) -->
+
         <button class="btn-order-ready" id="btn-siparis-hazir" onclick="siparisDurumunuIleriAl()">
           ⏳ Hazırlanıyor Olarak İşaretle
         </button>
-        
+
         <button class="btn-transfer-table" onclick="masaAktarModalAc()">
           ⇄ Masayı Başka Masaya Aktar
         </button>
@@ -403,7 +395,6 @@
     </div>
   </div>
 
-  <!-- YENİ: STOK (TÜKENDİ) YÖNETİM MODALI -->
   <div class="kasa-modal" id="modal-stock-management" onclick="if(event.target === this) kasaModalKapat('modal-stock-management')">
     <div class="kasa-modal-box">
       <div class="modal-head">
@@ -418,7 +409,6 @@
     </div>
   </div>
 
-  <!-- ÖDEME YÖNTEMİ VE KISMİ ÖDEME (BÖL) MODALI -->
   <div class="kasa-modal" id="modal-payment-method" onclick="if(event.target === this) kasaModalKapat('modal-payment-method')">
     <div class="kasa-modal-box" style="max-width:380px; text-align:center;">
       <div class="modal-head">
@@ -431,8 +421,7 @@
       <div id="pay-modal-amount" style="font-size:1.85rem; font-weight:900; color:var(--fire-amber); margin-bottom:10px;">
         0 ₺
       </div>
-      
-      <!-- Ana Seçenekler -->
+
       <div class="pay-choice-grid" id="main-pay-grid">
         <button class="btn-pay-cash" onclick="odemeyiTamamla(null, 'Nakit')">
           <span style="font-size:1.6rem;">💵</span>
@@ -447,7 +436,6 @@
         </button>
       </div>
 
-      <!-- Kısmi Ödeme Giriş Ekranı (Gizli Başlar) -->
       <div class="split-pay-box" id="split-pay-box">
         <div style="font-size:0.78rem; font-weight:800; color:var(--slate-muted); margin-bottom:8px; text-align:center;">
           Şimdi Alınan Tutarı Giriniz:
@@ -462,7 +450,6 @@
     </div>
   </div>
 
-  <!-- ELLE SİPARİŞ EKLEME MODALI -->
   <div class="kasa-modal" id="modal-manual-order" onclick="if(event.target === this) kasaModalKapat('modal-manual-order')">
     <div class="kasa-modal-box">
       <div class="modal-head">
@@ -483,7 +470,6 @@
     </div>
   </div>
 
-  <!-- MASA AKTARMA MODALI -->
   <div class="kasa-modal" id="modal-transfer-table" onclick="if(event.target === this) kasaModalKapat('modal-transfer-table')">
     <div class="kasa-modal-box" style="max-width:360px;">
       <div class="modal-head">
@@ -498,7 +484,6 @@
     </div>
   </div>
 
-  <!-- GÜN SONU RAPORU & TAKVİMLİ GEÇMİŞ YIL/GÜN ARŞİVİ -->
   <div class="kasa-modal" id="modal-eod-report" onclick="if(event.target === this) kasaModalKapat('modal-eod-report')">
     <div class="kasa-modal-box eod-wide">
       <div class="modal-head">
@@ -516,7 +501,6 @@
       </div>
 
       <div id="eod-content-area" style="display:none;">
-        <!-- TAKVİM & TARİH / YIL SEÇİCİ -->
         <div class="eod-calendar-bar">
           <div>
             <div style="font-size:0.74rem; font-weight:800; color:var(--fire-amber);">📅 GÜN / AY / YIL SEÇİNİZ</div>
@@ -528,7 +512,6 @@
           </div>
         </div>
 
-        <!-- 4'LÜ ÖZET: TOPLAM CİRO + NAKİT + KREDİ KARTI + ADİSYON -->
         <div class="eod-stat-grid-4">
           <div class="eod-stat-card">
             <div class="eod-stat-label" id="eod-revenue-title">TOPLAM CİRO</div>
@@ -574,11 +557,11 @@
       </div>
     </div>
   </div>
- <script>
+
+  <script>
     const KASA_SIFRESI = "2905";
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
 
-    // MÜŞTERİ EKRANIYLA BİREBİR AYNI LİSTE (Nargile Sonda)
     const MENU_URUNLERI = [
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
       { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
@@ -589,7 +572,7 @@
       { id: 607, ad: "Hibiscus Çayı", kategori: "cay", aciklama: "French press demlemesi yakut kırmızısı hibiscus çiçeği çayı", fiyat: 160, resim: "hibiscus-cayi.jpg" },
       { id: 608, ad: "Elma Çayı", kategori: "cay", aciklama: "French press ile demlenmiş elma dilimleri ve tarçın dokunuşu", fiyat: 160, resim: "elma-cayi.jpg" },
       { id: 609, ad: "Kış Çayı", kategori: "cay", aciklama: "French press demlemesi ıhlamur, zencefil, tarçın ve karanfil harmanı", fiyat: 160, resim: "kis-cayi.jpg" },
-      
+
       { id: 101, ad: "Nomâd Spesiyal (Sıcak Kahve)", kategori: "sicak", ozel: true, aciklama: "", fiyat: 205, resim: "nomad-spesiyal-sicak.jpg" },
       { id: 102, ad: "Caffè Latte", kategori: "sicak", aciklama: "Taze çekilmiş espresso ve buharda ısıtılmış kadifemsi süt", fiyat: 200, resim: "caffe-latte.jpg" },
       { id: 103, ad: "Caffè Mocha", kategori: "sicak", aciklama: "Sıcak espresso, eritilmiş gerçek çikolata ve kadifemsi süt kreması", fiyat: 225, resim: "caffe-mocha.jpg" },
@@ -607,7 +590,7 @@
       { id: 115, ad: "Cookie Latte", kategori: "sicak", aciklama: "Taze kurabiye aroması, sıcak süt ve kadifemsi espresso", fiyat: 225, resim: "cookie-latte.jpg" },
       { id: 116, ad: "White Chocolate Mocha", kategori: "sicak", aciklama: "Beyaz çikolata kreması, espresso ve buharda ısıtılmış süt", fiyat: 225, resim: "white-chocolate-mocha.jpg" },
       { id: 117, ad: "Caramel Macchiato", kategori: "sicak", aciklama: "Vanilya aromalı sıcak süt, espresso ve üzeri karamel sos çizgileri", fiyat: 225, resim: "caramel-macchiato.jpg" },
-      
+
       { id: 201, ad: "Nomâd Spesiyal (Soğuk Kahve)", kategori: "soguk", ozel: true, aciklama: "", fiyat: 210, resim: "nomad-spesiyal-soguk.jpg" },
       { id: 202, ad: "Iced Latte", kategori: "soguk", aciklama: "Kristal buz parçaları, soğuk taze süt ve çift shot espresso", fiyat: 200, resim: "iced-latte.jpg" },
       { id: 203, ad: "Iced Mocha", kategori: "soguk", aciklama: "Buzlu süt, yoğun çikolata sosu ve taze espresso birleşimi", fiyat: 220, resim: "iced-mocha.jpg" },
@@ -618,7 +601,7 @@
       { id: 208, ad: "Iced Hazelnut Latte", kategori: "soguk", aciklama: "Fındık şurubu, soğuk taze süt, buz ve taze espresso", fiyat: 220, resim: "iced-hazelnut-latte.jpg" },
       { id: 209, ad: "Iced Cookie Latte", kategori: "soguk", aciklama: "Kurabiye aroması, buzlu süt ve espresso katmanı", fiyat: 220, resim: "iced-cookie-latte.jpg" },
       { id: 210, ad: "Iced White Chocolate Mocha", kategori: "soguk", aciklama: "Beyaz çikolata sosu, soğuk süt, buz ve espresso", fiyat: 220, resim: "iced-white-chocolate-mocha.jpg" },
-      
+
       { id: 301, ad: "Nomâd Spesiyal (Frozen)", kategori: "frozen", ozel: true, aciklama: "", fiyat: 210, resim: "nomad-spesiyal-frozen.jpg" },
       { id: 302, ad: "Karadut Frozen", kategori: "frozen", aciklama: "Gerçek karadut özü ve ince kırılmış buz ile ferah kıvam", fiyat: 210, resim: "karadut-frozen.jpg" },
       { id: 303, ad: "Muz Frozen", kategori: "frozen", aciklama: "Taze muz aroması ve kar buz kıvamında soğuk içecek", fiyat: 210, resim: "muz-frozen.jpg" },
@@ -630,14 +613,14 @@
       { id: 309, ad: "Orman Meyveli Frozen", kategori: "frozen", aciklama: "Çilek, ahududu, böğürtlen ve yaban mersini harmanı", fiyat: 210, resim: "orman-meyveli-frozen.jpg" },
       { id: 310, ad: "Çarkıfelek Frozen", kategori: "frozen", aciklama: "Egzotik passion fruit aroması ve ferah buz dokusu", fiyat: 210, resim: "carkifelek-frozen.jpg" },
       { id: 311, ad: "Limon Frozen", kategori: "frozen", aciklama: "Taze sıkılmış limon ferahlığı ve kar buz serinliği", fiyat: 210, resim: "limon-frozen.jpg" },
-      
+
       { id: 401, ad: "Nomâd Spesiyal (Milkshake)", kategori: "milkshake", ozel: true, aciklama: "", fiyat: 220, resim: "nomad-spesiyal-milkshake.jpg" },
       { id: 402, ad: "Çilekli Milkshake", kategori: "milkshake", aciklama: "Soğuk süt, vanilyalı dondurma ve yoğun çilek püresi", fiyat: 220, resim: "cilekli-milkshake.jpg" },
       { id: 403, ad: "Muzlu Milkshake", kategori: "milkshake", aciklama: "Taze muz, soğuk süt ve kremamsı dondurma kıvamı", fiyat: 220, resim: "muzlu-milkshake.jpg" },
       { id: 404, ad: "Çikolatalı Milkshake", kategori: "milkshake", aciklama: "Belçika çikolatası sosu, soğuk süt ve yoğun dondurma", fiyat: 220, resim: "cikolatali-milkshake.jpg" },
       { id: 405, ad: "Karamelli Milkshake", kategori: "milkshake", aciklama: "Altın karamel sosu, soğuk süt ve kadifemsi dondurma", fiyat: 220, resim: "karamelli-milkshake.jpg" },
       { id: 406, ad: "Vanilyalı Milkshake", kategori: "milkshake", aciklama: "Madagaskar vanilyası, soğuk süt ve krema dokusu", fiyat: 220, resim: "vanilyali-milkshake.jpg" },
-      
+
       { id: 501, ad: "Nomâd Spesiyal (Kokteyl)", kategori: "kokteyl", ozel: true, aciklama: "", fiyat: 245, resim: "nomad-spesiyal-kokteyl.jpg" },
       { id: 502, ad: "Ekşi Redbull Kokteyl", kategori: "kokteyl", aciklama: "Soğuk Redbull, taze narenciye ekşisi ve kristal buz", fiyat: 260, resim: "eksi-redbull-kokteyl.jpg" },
       { id: 503, ad: "Tatlı Redbull Kokteyl", kategori: "kokteyl", aciklama: "Soğuk Redbull, kırmızı orman meyveleri ve tropikal şurup", fiyat: 260, resim: "tatli-redbull-kokteyl.jpg" },
@@ -650,12 +633,12 @@
       { id: 510, ad: "Raspberry Velvet", kategori: "kokteyl", aciklama: "Taze ahududu ve açai meyvesinin kadifemsi buluşması", fiyat: 240, resim: "raspberry-velvet.jpg" },
       { id: 511, ad: "Golden Sunset", kategori: "kokteyl", aciklama: "Taze portakal ve tropikal mango aromalı ferahlatıcı kokteyl", fiyat: 240, resim: "golden-sunset.jpg" },
       { id: 512, ad: "Kuzukulağı Kokteyl", kategori: "kokteyl", aciklama: "Taze yeşil kuzukulağı yaprakları, limon ferahlığı ve soğuk servis", fiyat: 240, resim: "kuzukulagi-kokteyl.jpg" },
-      
+
       { id: 1004, ad: "Karışık Gurme Tost", kategori: "fastfood", aciklama: "Sucuk, kavurma, eriyen kaşar peyniri ve tereyağlı kızarmış tost ekmeği", fiyat: 180, resim: "karisik-gurme-tost.jpg" },
       { id: 1005, ad: "Kaşarlı Tost", kategori: "fastfood", aciklama: "Bol eritilmiş taze kaşar peyniri ve tereyağlı tost ekmeği", fiyat: 150, resim: "kasarli-tost.jpg" },
       { id: 1008, ad: "Sucuklu Tost", kategori: "fastfood", aciklama: "Bol sucuklu ve tereyağlı çıtır sıcak tost", fiyat: 160, resim: "sucuklu-tost.jpg" },
       { id: 1006, ad: "Patates Kızartması", kategori: "fastfood", aciklama: "Altın sarısı çıtır parmak patates, ketçap ve mayonez eşliğinde", fiyat: 140, resim: "patates-kizartmasi.jpg" },
-      
+
       { id: 701, ad: "Fuse Tea Çeşitleri", kategori: "mesrubat", aciklama: "Şeftali, limon veya mango aromalı soğuk çay (330 ml)", fiyat: 100, resim: "fuse-tea.jpg" },
       { id: 702, ad: "Coca-Cola", kategori: "mesrubat", aciklama: "Soğuk kutu / cam şişe servis (330 ml)", fiyat: 100, resim: "coca-cola.jpg" },
       { id: 703, ad: "Fanta", kategori: "mesrubat", aciklama: "Portakal aromalı soğuk gazlı içecek (330 ml)", fiyat: 100, resim: "fanta.jpg" },
@@ -664,7 +647,7 @@
       { id: 706, ad: "Soda Çeşitleri", kategori: "mesrubat", aciklama: "Sade veya meyve aromalı doğal maden suyu", fiyat: 70, resim: "soda.jpg" },
       { id: 707, ad: "Redbull Çeşitleri", kategori: "mesrubat", aciklama: "Klasik veya aromalı soğuk Redbull enerji içeceği", fiyat: 150, resim: "redbull.jpg" },
       { id: 708, ad: "Limonata", kategori: "mesrubat", aciklama: "Taze sıkılmış limon, nane yaprakları ve buz ile günlük hazırlanır", fiyat: 170, resim: "limonata.jpg" },
-      
+
       { id: 801, ad: "Frambuazlı Cheesecake", kategori: "tatli", aciklama: "Kremamsı peynir dolgusu, bisküvi tabanı ve taze frambuaz sosu", fiyat: 250, resim: "frambuazli-cheesecake.jpg" },
       { id: 802, ad: "Limonlu Cheesecake", kategori: "tatli", aciklama: "Ferah limon kreması soslu fırınlanmış klasik cheesecake", fiyat: 250, resim: "limonlu-cheesecake.jpg" },
       { id: 803, ad: "Lotuslu Cheesecake", kategori: "tatli", aciklama: "Karamelize Lotus Biscoff kreması ve çıtır bisküvi parçacıklarıyla", fiyat: 250, resim: "lotuslu-cheesecake.jpg" },
@@ -675,16 +658,15 @@
       { id: 808, ad: "Sufle", kategori: "tatli", aciklama: "Sıcak fırından çıkan akışkan Belçika çikolatalı sufle", fiyat: 250, resim: "sufle.jpg" },
       { id: 809, ad: "Waffle", kategori: "tatli", aciklama: "Çıtır Belçika waffle hamuru, eritilmiş çikolata, muz, çilek ve fındık parçacıkları", fiyat: 250, resim: "waffle.jpg" },
 
-      // NARGİLELER EN SONA ALINDI
       { id: 901, ad: "Pişmiş Şeftali Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 902, ad: "Mango Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
+{ id: 902, ad: "Mango Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 903, ad: "Çilek Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 904, ad: "Damla Sakızı Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 905, ad: "Üzüm Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 906, ad: "Vivident (Mentollü Sakız) Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 907, ad: "İzmir Romantik Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 908, ad: "Karpuz Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 909, ad: "Love 66 Nargile", kategori: "nargile", aciklama: "Karpuz, Kavun, Çilek, Maracuja, Mentol", fiyat: 450, resim: "nomad-spesiyal-nargile.jpg" },
+      { id: 909, ad: "Love 66 Nargile", kategori: "nargile", aciklama: "Karpuz, Kavun, Çilek, Maracuja, Mentol", fiyat: 450, resim: "nargile2.jpg" },
       { id: 910, ad: "Ananas Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 911, ad: "Dejavu Nargile", kategori: "nargile", aciklama: "Kavun, Karpuz, Vanilya, Mentol", fiyat: 450, resim: "nargile2.jpg" },
       { id: 912, ad: "Cappuccino Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
@@ -692,7 +674,7 @@
       { id: 914, ad: "Portakal Krema Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 915, ad: "Moscow Nargile", kategori: "nargile", aciklama: "Muz, Orman Meyvesi, Mentol", fiyat: 450, resim: "nargile2.jpg" },
       { id: 916, ad: "Latte Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
-      { id: 917, ad: "Lady Killer Nargile", kategori: "nargile", aciklama: "Mango, Kavun, Çilek, Mentol", fiyat: 450, resim: "nomad-spesiyal-nargile.jpg" },
+      { id: 917, ad: "Lady Killer Nargile", kategori: "nargile", aciklama: "Mango, Kavun, Çilek, Mentol", fiyat: 450, resim: "nargile2.jpg" },
       { id: 918, ad: "Kavun Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 919, ad: "Polombir Nargile", kategori: "nargile", aciklama: "Vanilyalı Dondurma Aroması", fiyat: 450, resim: "nargile2.jpg" },
       { id: 920, ad: "Anason Nargile", kategori: "nargile", aciklama: "", fiyat: 550, resim: "nargile2.jpg" },
@@ -721,7 +703,7 @@
     let kaliciBildirimler = [];
     let bilinenRezSayisi = -1;
     let audioCtx = null;
-    let stokDurumu = {}; // Tükendi verilerini tutar
+    let stokDurumu = {};
     let kasaAcik = sessionStorage.getItem('nomad_kasa_yetki') === '1';
 
     if (kasaAcik) {
@@ -754,7 +736,7 @@
         hataEl.style.display = 'none';
         sesTekBasimAktifEt();
         buluttanVeriCek();
-        kasaNotuCek(); 
+        kasaNotuCek();
       } else {
         hataEl.style.display = 'block';
         document.getElementById('kasa-pin-input').value = '';
@@ -770,7 +752,7 @@
 
     function kasaModalKapat(id) {
       document.getElementById(id).style.display = 'none';
-      if(id === 'modal-payment-method') {
+      if (id === 'modal-payment-method') {
         kismiOdemeEkraniniKapat();
       }
     }
@@ -815,7 +797,7 @@
         gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
         osc2.connect(gain2); gain2.connect(audioCtx.destination);
         osc2.start(now + 0.16); osc2.stop(now + 0.6);
-      } catch(e) {}
+      } catch (e) {}
     }
 
     function calGarsonSesi() {
@@ -832,7 +814,7 @@
           osc.connect(gain); gain.connect(audioCtx.destination);
           osc.start(now + offset); osc.stop(now + offset + 0.2);
         });
-      } catch(e) {}
+      } catch (e) {}
     }
 
     function kaliciBildirimEkle(id, mesaj, masaNo) {
@@ -906,8 +888,8 @@
               islenenGarsonCagrilari.add(cKey);
               const cagri = cagrilar[cKey];
               calGarsonSesi();
-              let cagriMesaj = cagri.tur === "Nargile Şefi" 
-                ? `Masa ${cagri.masaNo} Nargile Şefi (Köz/Destek) istiyor! (${cagri.saat})` 
+              let cagriMesaj = cagri.tur === "Nargile Şefi"
+                ? `Masa ${cagri.masaNo} Nargile Şefi (Köz/Destek) istiyor! (${cagri.saat})`
                 : `Masa ${cagri.masaNo} garson çağırıyor! (${cagri.saat})`;
               kaliciBildirimEkle(`garson_${cKey}`, cagriMesaj, cagri.masaNo);
               fetch(`${FIREBASE_URL}/garson_cagrilari/${cKey}.json`, { method: 'DELETE' });
@@ -921,7 +903,6 @@
       } catch (err) {}
     }
 
-    // YENİ: STOK YÖNETİMİ
     function stokYonetimModalAc() {
       document.getElementById('stock-search-input').value = '';
       stokUrunleriCiz();
@@ -932,7 +913,7 @@
       const q = document.getElementById('stock-search-input').value.trim().toLowerCase();
       const container = document.getElementById('stock-products-container');
       container.innerHTML = "";
-      
+
       const filtreli = MENU_URUNLERI.filter(u => u.ad.toLowerCase().includes(q));
       filtreli.forEach(u => {
         const tukendiMi = stokDurumu[u.id] === true;
@@ -952,14 +933,14 @@
 
     async function stokDurumuDegistir(urunId, yapTukendi) {
       stokDurumu[urunId] = yapTukendi;
-      stokUrunleriCiz(); // Butonu anında günceller
+      stokUrunleriCiz();
       try {
         await fetch(`${FIREBASE_URL}/stok_durumu.json`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(stokDurumu)
         });
-      } catch(e) {}
+      } catch (e) {}
     }
 
     function rezervasyonlariCiz(rezObj) {
@@ -1012,7 +993,7 @@
         const res = await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`);
         const data = await res.json();
         if (data && data.metin) { document.getElementById('kasa-genel-not').value = data.metin; }
-      } catch(e) {}
+      } catch (e) {}
     }
 
     async function kasaNotuKaydet() {
@@ -1031,7 +1012,7 @@
           btn.style.background = "linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%)";
           btn.style.color = "#0f172a";
         }, 2500);
-      } catch(e) { btn.innerText = "Hata! Tekrar Dene"; }
+      } catch (e) { btn.innerText = "Hata! Tekrar Dene"; }
     }
 
     function masalariCiz() {
@@ -1045,9 +1026,8 @@
         const isBusy = data && data.urunler && data.urunler.length > 0;
         const isReady = isBusy && data.durum === 'hazir';
         const isPreparing = isBusy && data.durum === 'hazirlaniyor';
-        const isIletildi = isBusy && (data.durum === 'iletildi' || !data.durum); 
-        
-        // Yeni bir sipariş varsa ünlem göster
+        const isIletildi = isBusy && (data.durum === 'iletildi' || !data.durum);
+
         const hasPendingOrder = isBusy && isIletildi;
 
         if (isBusy) doluSayisi++;
@@ -1058,8 +1038,8 @@
 
         let durumYazi = 'BOŞ';
         if (isBusy) {
-          if(isReady) durumYazi = 'DOLU • HAZIR ✓';
-          else if(isPreparing) durumYazi = 'HAZIRLANIYOR...';
+          if (isReady) durumYazi = 'DOLU • HAZIR ✓';
+          else if (isPreparing) durumYazi = 'HAZIRLANIYOR...';
           else durumYazi = 'YENİ SİPARİŞ !';
         }
 
@@ -1110,7 +1090,6 @@
       footerEl.style.display = "block";
       document.getElementById('panel-total-price').innerText = `${data.toplamTutar} ₺`;
 
-      // YENİ SİPARİŞ DURUMU YÖNETİMİ
       if (data.durum === 'iletildi' || !data.durum) {
         hazirBtn.className = 'btn-order-ready';
         hazirBtn.innerText = `⏳ Hazırlanıyor Olarak İşaretle`;
@@ -1127,12 +1106,12 @@
         const isKismiOdemeKalemi = item.ad && item.ad.includes('Kısmi Ödeme');
         const row = document.createElement('div');
         row.className = `order-item-row ${item.yeni ? 'is-new-order' : ''}`;
-        
+
         if (isKismiOdemeKalemi) {
           row.style.background = 'rgba(16, 185, 129, 0.1)';
           row.style.borderColor = '#10b981';
         }
-        
+
         row.innerHTML = `
           <div class="item-left">
             ${item.yeni ? `<span class="new-order-pill">YENİ SİPARİŞ</span>` : ''}
@@ -1150,7 +1129,6 @@
       });
     }
 
-    // YENİ: AŞAMALI SİPARİŞ İLERLETME (İletildi -> Hazırlanıyor -> Hazır)
     async function siparisDurumunuIleriAl() {
       if (!seciliMasa) return;
       const data = canliMasalar[String(seciliMasa)];
@@ -1160,7 +1138,7 @@
       if (data.durum === 'hazirlaniyor') {
         yeniDurum = 'hazir';
       } else if (data.durum === 'hazir') {
-        return; // Zaten hazır
+        return;
       }
 
       data.durum = yeniDurum;
@@ -1367,7 +1345,7 @@
       if (!kapananData) return;
 
       document.getElementById('pay-modal-amount').innerText = `${kapananData.toplamTutar || 0} ₺`;
-      kismiOdemeEkraniniKapat(); 
+      kismiOdemeEkraniniKapat();
       document.getElementById('modal-payment-method').style.display = 'flex';
     }
 
@@ -1395,7 +1373,7 @@
         alert("Geçerli bir tutar giriniz.");
         return;
       }
-      
+
       if (miktar > masaData.toplamTutar) {
         alert(`Girilen tutar (${miktar} ₺) masanın toplam borcundan (${masaData.toplamTutar} ₺) büyük olamaz!`);
         return;
@@ -1486,7 +1464,7 @@
     async function gunuBaslat() {
       const pin = prompt("🌅 Yeni güne başlamak için kasa şifrenizi girin. (Açık kalmış eski masalar ve bildirimler temizlenecektir):");
       if (pin === KASA_SIFRESI) {
-        if(confirm("Tüm açık masalar temizlenip yeni gün başlatılacak. Onaylıyor musunuz?")) {
+        if (confirm("Tüm açık masalar temizlenip yeni gün başlatılacak. Onaylıyor musunuz?")) {
           try {
             await fetch(`${FIREBASE_URL}/masalar.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/kapali_oturumlar.json`, { method: 'DELETE' });
@@ -1494,7 +1472,7 @@
             await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
             alert("Harika! Yeni gün başlatıldı, tüm masalar 0'landı.");
             location.reload();
-          } catch(e) { alert("Bağlantı hatası oluştu."); }
+          } catch (e) { alert("Bağlantı hatası oluştu."); }
         }
       } else if (pin !== null) { alert("Hatalı şifre!"); }
     }
@@ -1510,10 +1488,10 @@
             await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/rezervasyonlar.json`, { method: 'DELETE' });
-            await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' }); 
+            await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' });
             alert("Sistem fabrikaya ayarlarına döndürüldü. Tamamen 0'dan başlıyorsunuz.");
             location.reload();
-          } catch(e) { alert("Bağlantı hatası oluştu."); }
+          } catch (e) { alert("Bağlantı hatası oluştu."); }
         }
       } else if (pin !== null) { alert("Hatalı şifre girdiniz!"); }
     }
@@ -1656,8 +1634,8 @@
         toplamCiro += tutar;
         if (odeme === "Kredi Kartı") kartCiro += tutar;
         else nakitCiro += tutar;
-        
-        if(!item.isKismi) adisyonSayisi++;
+
+        if (!item.isKismi) adisyonSayisi++;
 
         const odemeRozet = odeme === "Kredi Kartı"
           ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
@@ -1716,7 +1694,7 @@
 
     masalariCiz();
     setInterval(buluttanVeriCek, 2000);
-    
+
     if (kasaAcik) {
       buluttanVeriCek();
       kasaNotuCek();
