@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nomâd Karavan | 50 Masa QR Kodları</title>
+  <link rel="icon" type="image/jpeg" href="nomadlogo.jpg">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800;900&display=swap" rel="stylesheet">
   <style>
     * {
@@ -78,10 +79,19 @@
       break-inside: avoid;
     }
 
+    .qr-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 6px;
+      display: block;
+    }
+
     .qr-brand {
       font-size: 0.85rem;
       font-weight: 900;
-      color: #0f1c15;
+      color: #0f172a;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       margin-bottom: 2px;
@@ -96,7 +106,7 @@
       margin-bottom: 12px;
     }
 
-    .qr-card img {
+    .qr-card img.qr-code-img {
       width: 160px;
       height: 160px;
       margin: 0 auto 12px;
@@ -152,9 +162,10 @@
       const card = document.createElement('div');
       card.className = 'qr-card';
       card.innerHTML = `
+        <img class="qr-logo" src="nomadlogo.jpg" alt="Nomâd Karavan Coffee">
         <div class="qr-brand">NOMÂD</div>
         <div class="qr-sub-brand">KARAVAN COFFEE</div>
-        <img src="${qrApi}" alt="Masa ${i} QR" loading="lazy">
+        <img class="qr-code-img" src="${qrApi}" alt="Masa ${i} QR" loading="lazy">
         <div class="qr-masa-badge">MASA ${i}</div>
         <div class="qr-hint">Sipariş & Garson için okutun</div>
       `;
