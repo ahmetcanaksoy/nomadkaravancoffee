@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Nomâd Karavan Coffee | Tatvan</title>
   <link rel="icon" type="image/jpeg" href="nomadlogo.jpg">
+  <link rel="shortcut icon" type="image/jpeg" href="nomadlogo.jpg">
   <link rel="apple-touch-icon" href="nomadlogo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -102,8 +103,8 @@
 
     header { position: sticky; top: 0; z-index: 100; background: linear-gradient(90deg, rgba(35, 41, 48, 0.94) 0%, rgba(22, 40, 31, 0.94) 100%); backdrop-filter: blur(18px); border-bottom: 1.5px solid rgba(234, 88, 12, 0.32); padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; }
     .brand-wrap { display: flex; align-items: center; gap: 12px; }
-    .brand-logo-emblem { width: 48px; height: 48px; background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(245, 158, 11, 0.55); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4); flex-shrink: 0; overflow: hidden; }
-    .brand-logo-emblem img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .brand-logo-emblem { width: 48px; height: 48px; background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(245, 158, 11, 0.55); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4); flex-shrink: 0; overflow: hidden; }
+    .brand-logo-emblem img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
     .brand-info h1 { font-size: 0.96rem; font-weight: 900; color: #ffffff; letter-spacing: -0.2px; }
     .brand-info p { font-size: 0.72rem; color: var(--fire-amber); font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; }
     .table-chip { background: rgba(234, 88, 12, 0.22); border: 1.5px solid var(--fire-orange); color: #fed7aa; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; gap: 6px; }
@@ -1210,7 +1211,7 @@
     }
 
     function urunKartiEkle(container, u) {
-      const tukendi = stokDurumu[u.id] === true;
+      const tukendi = stokDurumu[String(u.id)] === true || stokDurumu[u.id] === true;
       const adet = sepet[u.id] || 0;
       const card = document.createElement('div');
 
@@ -1391,10 +1392,10 @@
       if (!isMasaModu) return;
       let adaylar = urunler.filter(u =>
         (u.kategori === 'kokteyl' || u.kategori === 'frozen' || u.ozel === true) &&
-        stokDurumu[u.id] !== true
+        stokDurumu[String(u.id)] !== true && stokDurumu[u.id] !== true
       );
       if (adaylar.length === 0) {
-        adaylar = urunler.filter(u => stokDurumu[u.id] !== true);
+        adaylar = urunler.filter(u => stokDurumu[String(u.id)] !== true && stokDurumu[u.id] !== true);
       }
       if (adaylar.length === 0) {
         bildirimGoster("Şu an stokta ürün bulunmuyor.", "⚠️");
@@ -1486,6 +1487,20 @@
       sonBilinenDurum = durum;
     }
 
+    async function stokDurumuCek() {
+      try {
+        const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json`);
+        const rawStok = (await stokRes.json()) || {};
+        stokDurumu = {};
+        for (let k in rawStok) {
+          if (rawStok[k] === true) stokDurumu[String(k)] = true;
+        }
+        if (document.getElementById('view-menu').classList.contains('active')) {
+          menuyuCiz(document.getElementById('menu-search-input')?.value.trim().toLowerCase() || '');
+        }
+      } catch (err) {}
+    }
+
     async function masaDurumunuKontrolEt() {
       if (!isMasaModu) return false;
       try {
@@ -1496,19 +1511,12 @@
           return true;
         }
 
-        const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json`);
-        stokDurumu = (await stokRes.json()) || {};
-
         const masaRes = await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`);
         const masaVerisi = await masaRes.json();
         if (masaVerisi && masaVerisi.urunler && masaVerisi.urunler.length > 0) {
           siparisDurumBannerGuncelle(masaVerisi.durum || 'hazirlaniyor');
         } else {
           siparisDurumBannerGuncelle(null);
-        }
-
-        if (document.getElementById('view-menu').classList.contains('active')) {
-          menuyuCiz();
         }
       } catch (err) {}
       return false;
@@ -1564,7 +1572,11 @@
 
     try { moduUygula(); } catch(e) {}
 
-    setInterval(masaDurumunuKontrolEt, 2500);
+    setInterval(() => {
+      stokDurumuCek();
+      if (isMasaModu) masaDurumunuKontrolEt();
+    }, 2500);
+    stokDurumuCek();
     if (isMasaModu) masaDurumunuKontrolEt();
 
     window.addEventListener('DOMContentLoaded', () => {
