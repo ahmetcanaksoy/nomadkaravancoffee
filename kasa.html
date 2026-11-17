@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Nomâd Karavan | Kasa Kontrol Paneli</title>
   <link rel="icon" type="image/jpeg" href="nomadlogo.jpg">
+  <link rel="shortcut icon" type="image/jpeg" href="nomadlogo.jpg">
+  <link rel="apple-touch-icon" href="nomadlogo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -102,9 +104,9 @@
     .brand-wrap { display: flex; align-items: center; gap: 12px; }
     .brand-logo-emblem {
       width: 46px; height: 46px; background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%);
-      border-radius: 14px; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(245, 158, 11, 0.55); flex-shrink: 0; overflow: hidden;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(245, 158, 11, 0.55); flex-shrink: 0; overflow: hidden;
     }
-    .brand-logo-emblem img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .brand-logo-emblem img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
     .brand-info h1 { font-size: 1rem; font-weight: 900; color: #ffffff; }
     .brand-info p { font-size: 0.72rem; color: var(--fire-amber); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
 
@@ -833,7 +835,14 @@
       if (!kasaAcik) return;
       try {
         const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json`);
-        stokDurumu = (await stokRes.json()) || {};
+        const rawStok = (await stokRes.json()) || {};
+        stokDurumu = {};
+        for (let k in rawStok) {
+          if (rawStok[k] === true) stokDurumu[String(k)] = true;
+        }
+        if (document.getElementById('modal-stock-management').style.display === 'flex') {
+          stokUrunleriCiz();
+        }
 
         const masaRes = await fetch(`${FIREBASE_URL}/masalar.json`);
         const yeniMasalar = (await masaRes.json()) || {};
@@ -942,7 +951,7 @@
 
       const filtreli = MENU_URUNLERI.filter(u => u.ad.toLowerCase().includes(q));
       filtreli.forEach(u => {
-        const tukendiMi = stokDurumu[u.id] === true;
+        const tukendiMi = stokDurumu[String(u.id)] === true || stokDurumu[u.id] === true;
         const row = document.createElement('div');
         row.className = 'stock-item-row';
         row.innerHTML = `
@@ -958,7 +967,13 @@
     }
 
     async function stokDurumuDegistir(urunId, yapTukendi) {
-      stokDurumu[urunId] = yapTukendi;
+      const key = String(urunId);
+      if (yapTukendi) {
+        stokDurumu[key] = true;
+      } else {
+        delete stokDurumu[key];
+        delete stokDurumu[urunId];
+      }
       stokUrunleriCiz();
       try {
         await fetch(`${FIREBASE_URL}/stok_durumu.json`, {
