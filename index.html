@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Nomâd Karavan Coffee | Tatvan</title>
+  <link rel="icon" type="image/jpeg" href="nomadlogo.jpg">
+  <link rel="apple-touch-icon" href="nomadlogo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -76,8 +78,8 @@
     @keyframes spinEnergy { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     @keyframes spinCounter { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 
-    .caravan-core-stage { width: 118px; height: 118px; border-radius: 50%; background: linear-gradient(145deg, #323942 0%, #192d23 100%); border: 2px solid rgba(226, 232, 240, 0.45); display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.65), 0 8px 24px rgba(0,0,0,0.45); z-index: 3; }
-    .caravan-vector { width: 78px; height: 78px; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45)); }
+    .caravan-core-stage { width: 118px; height: 118px; border-radius: 50%; background: linear-gradient(145deg, #323942 0%, #192d23 100%); border: 2px solid rgba(226, 232, 240, 0.45); display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.65), 0 8px 24px rgba(0,0,0,0.45); z-index: 3; overflow: hidden; }
+    .caravan-logo-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
 
     .progress-box { width: 220px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .progress-track { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.12); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); }
@@ -100,8 +102,8 @@
 
     header { position: sticky; top: 0; z-index: 100; background: linear-gradient(90deg, rgba(35, 41, 48, 0.94) 0%, rgba(22, 40, 31, 0.94) 100%); backdrop-filter: blur(18px); border-bottom: 1.5px solid rgba(234, 88, 12, 0.32); padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; }
     .brand-wrap { display: flex; align-items: center; gap: 12px; }
-    .brand-logo-emblem { width: 48px; height: 48px; background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(245, 158, 11, 0.55); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4); flex-shrink: 0; }
-    .brand-logo-emblem svg { width: 36px; height: 36px; }
+    .brand-logo-emblem { width: 48px; height: 48px; background: linear-gradient(145deg, #3c444f 0%, #1c382b 100%); border-radius: 15px; display: flex; align-items: center; justify-content: center; border: 1.5px solid rgba(245, 158, 11, 0.55); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4); flex-shrink: 0; overflow: hidden; }
+    .brand-logo-emblem img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .brand-info h1 { font-size: 0.96rem; font-weight: 900; color: #ffffff; letter-spacing: -0.2px; }
     .brand-info p { font-size: 0.72rem; color: var(--fire-amber); font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; }
     .table-chip { background: rgba(234, 88, 12, 0.22); border: 1.5px solid var(--fire-orange); color: #fed7aa; padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; gap: 6px; }
@@ -133,7 +135,7 @@
 
     @keyframes pulseStep { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 
-    .btn-bana-birak { width: 100%; margin-top: 12px; background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); border: 1.5px solid #a78bfa; border-radius: 20px; padding: 15px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: #ffffff; box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4); z-index: 5; transition: transform 0.15s; }
+    .btn-bana-birak { width: 100%; margin-top: 12px; background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); border: 1.5px solid #a78bfa; border-radius: 20px; padding: 15px 18px; display: none; align-items: center; justify-content: space-between; cursor: pointer; color: #ffffff; box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4); z-index: 5; transition: transform 0.15s; }
     .btn-bana-birak:active { transform: scale(0.98); }
 
     .btn-adisyon-gecmisi { width: 100%; margin-top: 12px; background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(27, 47, 38, 0.9) 100%); border: 1.5px solid var(--emerald-bright); border-radius: 20px; padding: 15px 18px; display: none; align-items: center; justify-content: space-between; cursor: pointer; color: #ffffff; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2); z-index: 5; }
@@ -190,7 +192,11 @@
     .card-panel-box { background: linear-gradient(145deg, rgba(54, 61, 69, 0.88) 0%, rgba(26, 45, 36, 0.92) 100%); backdrop-filter: blur(14px); border: 1.5px solid var(--card-border); border-radius: 24px; padding: 22px; box-shadow: var(--shadow-3d); }
     .card-panel-box.rez-highlight { border: 1.5px solid rgba(234, 88, 12, 0.5); background: linear-gradient(145deg, rgba(60, 67, 77, 0.92) 0%, rgba(24, 52, 39, 0.95) 100%); }
     .card-panel-box h3 { font-size: 1.04rem; font-weight: 900; color: #ffffff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-    .card-panel-box p { font-size: 0.76rem; color: var(--slate-muted); margin-bottom: 14px; line-height: 1.38; }
+    .card-panel-box p { font-size: 0.76rem; color: var(--slate-muted); margin-bottom: 10px; line-height: 1.38; }
+
+    .rez-quick-row { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+    .rez-quick-chip { background: rgba(245, 158, 11, 0.16); border: 1px solid rgba(245, 158, 11, 0.5); color: var(--fire-amber); padding: 6px 11px; border-radius: 10px; font-size: 0.74rem; font-weight: 800; cursor: pointer; }
+    .rez-quick-chip:active { transform: scale(0.96); }
 
     .rez-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 2px; }
     .rez-type-btn { background: rgba(28, 33, 39, 0.92); border: 1.5px solid var(--card-border); border-radius: 14px; padding: 11px 6px; color: #cbd5e1; font-size: 0.76rem; font-weight: 800; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center; transition: all 0.15s; }
@@ -213,6 +219,8 @@
     .menu-header-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px; background: rgba(26, 33, 36, 0.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--card-border); position: sticky; top: 73px; z-index: 95; }
     .btn-back-home { background: rgba(54, 61, 69, 0.9); border: 1px solid var(--card-border); color: var(--fire-amber); padding: 8px 14px; border-radius: 14px; font-size: 0.82rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 6px; }
     .btn-show-cats { background: rgba(245, 158, 11, 0.18); border: 1px solid var(--fire-amber); color: var(--fire-amber); padding: 8px 12px; border-radius: 14px; font-size: 0.78rem; font-weight: 900; cursor: pointer; }
+
+    .menu-search-wrap { padding: 10px 16px; background: rgba(22, 29, 30, 0.95); border-bottom: 1px solid var(--card-border); }
 
     .category-square-grid { padding: 18px 16px 140px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .cat-square-card { position: relative; aspect-ratio: 1 / 1; border-radius: 22px; overflow: hidden; border: 1.5px solid rgba(245, 158, 11, 0.42); background: linear-gradient(145deg, #2d353e 0%, #1a3327 100%); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42); cursor: pointer; transition: transform 0.18s ease; }
@@ -287,30 +295,7 @@
         <div class="orbit-ring"></div>
         <div class="orbit-ring-pulse"></div>
         <div class="caravan-core-stage">
-          <svg class="caravan-vector" viewBox="0 0 80 64" fill="none">
-            <defs>
-              <linearGradient id="silverBodySplash" x1="12" y1="18" x2="64" y2="48" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#f8fafc"/>
-                <stop offset="50%" stop-color="#cbd5e1"/>
-                <stop offset="100%" stop-color="#64748b"/>
-              </linearGradient>
-            </defs>
-            <path d="M29 12c1.2-2.2-1.2-3.8 0-6" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
-            <path d="M36 11c1.2-2.2-1.2-3.8 0-6" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
-            <path d="M12 46h50c3.3 0 6-2.7 6-6v-6c0-9.9-8.1-18-18-18H28c-9.9 0-18 8.1-18 18v6c0 3.3 2.7 6 2 6z" fill="url(#silverBodySplash)" stroke="#f8fafc" stroke-width="1.5"/>
-            <path d="M11 33h56" stroke="#ea580c" stroke-width="2"/>
-            <path d="M14 25h50" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
-            <rect x="19" y="21" width="14" height="9" rx="4" fill="#182e24" stroke="#f8fafc" stroke-width="1.5"/>
-            <path d="M21 23l4 4" stroke="#94a3b8" stroke-width="1.3" stroke-linecap="round"/>
-            <rect x="38" y="21" width="11" height="24" rx="3" fill="#1b4d36" stroke="#cbd5e1" stroke-width="1.3"/>
-            <circle cx="46.5" cy="34" r="1.3" fill="#f59e0b"/>
-            <rect x="53" y="22" width="9" height="8" rx="3.5" fill="#182e24" stroke="#f8fafc" stroke-width="1.4"/>
-            <path d="M68 44h8v2h-8z" fill="#94a3b8"/>
-            <path d="M74 41v5" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="29" cy="46" r="7.5" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
-            <circle cx="29" cy="46" r="3.5" fill="#cbd5e1"/>
-            <circle cx="29" cy="46" r="1.4" fill="#0f172a"/>
-          </svg>
+          <img class="caravan-logo-img" src="nomadlogo.jpg" alt="Nomâd Karavan Coffee Logo">
         </div>
       </div>
       <div class="progress-box">
@@ -326,26 +311,7 @@
   <header>
     <div class="brand-wrap">
       <div class="brand-logo-emblem">
-        <svg viewBox="0 0 80 64" fill="none">
-          <defs>
-            <linearGradient id="silverBodyHeader" x1="12" y1="18" x2="64" y2="48" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="55%" stop-color="#cbd5e1"/>
-              <stop offset="100%" stop-color="#64748b"/>
-            </linearGradient>
-          </defs>
-          <path d="M30 12c1.2-2.2-1.2-3.8 0-6" stroke="#f59e0b" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M37 11c1.2-2.2-1.2-3.8 0-6" stroke="#ea580c" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M12 46h50c3.3 0 6-2.7 6-6v-6c0-9.9-8.1-18-18-18H28c-9.9 0-18 8.1-18 18v6c0 3.3 2.7 6 2 6z" fill="url(#silverBodyHeader)" stroke="#f8fafc" stroke-width="1.6"/>
-          <path d="M11 33h56" stroke="#ea580c" stroke-width="2"/>
-          <rect x="19" y="21" width="14" height="9" rx="4" fill="#182e24" stroke="#f8fafc" stroke-width="1.5"/>
-          <rect x="38" y="21" width="11" height="24" rx="3" fill="#1b4d36" stroke="#cbd5e1" stroke-width="1.4"/>
-          <circle cx="46.5" cy="34" r="1.4" fill="#f59e0b"/>
-          <rect x="53" y="22" width="9" height="8" rx="3.5" fill="#182e24" stroke="#f8fafc" stroke-width="1.4"/>
-          <path d="M68 44h8v2h-8z" fill="#cbd5e1"/>
-          <circle cx="29" cy="46" r="7.5" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
-          <circle cx="29" cy="46" r="3.2" fill="#cbd5e1"/>
-        </svg>
+        <img src="nomadlogo.jpg" alt="Nomâd Karavan Coffee">
       </div>
       <div class="brand-info">
         <h1>NOMÂD KARAVAN COFFEE</h1>
@@ -416,7 +382,7 @@
         </div>
       </div>
 
-      <button class="btn-bana-birak wave-item wave-2" onclick="banaBirakSecimiYap()">
+      <button class="btn-bana-birak qr-only wave-item wave-2" id="btn-bana-birak" onclick="banaBirakSecimiYap()">
         <div style="display:flex; align-items:center; gap:12px;">
           <span style="font-size:1.8rem;">🎲</span>
           <div style="text-align:left;">
@@ -443,6 +409,11 @@
       <div class="card-panel-box rez-highlight">
         <h3>📅 Rezervasyon</h3>
         <p>Ateş başı keyfi, masa rezervasyonu veya canlı müzik geceleri için alanınızı seçip bilgilerinizi doldurun.</p>
+        <div class="rez-quick-row">
+          <button type="button" class="rez-quick-chip" onclick="rezHizliSec('bugun')">Bugün</button>
+          <button type="button" class="rez-quick-chip" onclick="rezHizliSec('yarin')">Yarın</button>
+          <button type="button" class="rez-quick-chip" onclick="rezHizliSec('buaksam')">Bu Akşam (20:30)</button>
+        </div>
         <form class="form-stack" onsubmit="rezervasyonGonder(event)" novalidate>
           <div class="rez-type-grid">
             <div class="rez-type-btn selected" id="rez-opt-ates" onclick="rezTurSec('Ateş Başı')"><span style="font-size:1.15rem;">🔥</span><span>Ateş Başı</span></div>
@@ -542,10 +513,14 @@
       <button class="tab-pill" id="tab-frozen" onclick="tabSec('frozen')">Frozenler</button>
       <button class="tab-pill" id="tab-milkshake" onclick="tabSec('milkshake')">Milkshake Çeşitleri</button>
       <button class="tab-pill" id="tab-kokteyl" onclick="tabSec('kokteyl')">Kokteyller & Redbull Kokteyl</button>
-      <button class="tab-pill" id="tab-fastfood" onclick="tabSec('fastfood')">Fast Food</button>
+      <button class="tab-pill" id="tab-fastfood" onclick="tabSec('fastfood')">Tostlar</button>
       <button class="tab-pill" id="tab-mesrubat" onclick="tabSec('mesrubat')">Meşrubatlar</button>
       <button class="tab-pill" id="tab-tatli" onclick="tabSec('tatli')">Pasta & Tatlı Çeşitleri</button>
       <button class="tab-pill" id="tab-nargile" onclick="tabSec('nargile')">Nargile</button>
+    </div>
+
+    <div class="menu-search-wrap" id="menu-search-wrap">
+      <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Menüde ürün ara (Latte, Limon, Tost, Nargile...)" oninput="menuAraDegisti()">
     </div>
 
     <div class="category-square-grid" id="category-squares-container"></div>
@@ -612,6 +587,20 @@
     </div>
   </div>
 
+  <div class="custom-modal" id="modal-nargile-sef" onclick="if(event.target === this) modalKapat('modal-nargile-sef')">
+    <div class="modal-card" style="text-align:center;">
+      <div class="modal-circle-icon">💨</div>
+      <h3 style="font-size:1.15rem; font-weight:900; color:#ffffff; margin-bottom:6px;">Nargile Şefini Çağır</h3>
+      <p style="font-size:0.78rem; color:var(--slate-muted); margin-bottom:16px;">Masaya ne getirilmesini istersiniz?</p>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <button class="btn-primary-action" onclick="nargileSefiCagir('Köz İsteği')">🔥 Köz İsteği</button>
+        <button class="btn-primary-action" onclick="nargileSefiCagir('Lüle Değişimi')">🔄 Lüle Değişimi</button>
+        <button class="btn-primary-action" onclick="nargileSefiCagir('Genel Destek')">💨 Genel Destek</button>
+      </div>
+      <button class="btn-modal-secondary" onclick="modalKapat('modal-nargile-sef')">Vazgeç</button>
+    </div>
+  </div>
+
   <div class="custom-modal" id="modal-success">
     <div class="modal-card">
       <div class="modal-circle-icon" id="modal-icon">✓</div>
@@ -665,7 +654,7 @@
       frozen: "Frozenler",
       milkshake: "Milkshake Çeşitleri",
       kokteyl: "Kokteyller & Redbull Kokteyl",
-      fastfood: "Fast Food",
+      fastfood: "Tostlar",
       mesrubat: "Meşrubatlar",
       tatli: "Pasta & Tatlı Çeşitleri",
       nargile: "Nargile"
@@ -673,7 +662,7 @@
 
     const kategoriIkonlari = {
       cay: "🫖", sicak: "☕", soguk: "🧊", frozen: "🍧",
-      milkshake: "🥤", kokteyl: "🍹", fastfood: "🍔", mesrubat: "🥫", tatli: "🍰", nargile: "💨"
+      milkshake: "🥤", kokteyl: "🍹", fastfood: "🥪", mesrubat: "🥫", tatli: "🍰", nargile: "💨"
     };
 
     const kategoriKartlari = [
@@ -685,7 +674,7 @@
       { id: "frozen", ad: "Frozenler", resim: "kat-frozen.jpg", ikon: "🍧" },
       { id: "milkshake", ad: "Milkshake Çeşitleri", resim: "kat-milkshake.jpg", ikon: "🥤" },
       { id: "kokteyl", ad: "Kokteyller & Redbull Kokteyl", resim: "kat-kokteyl.jpg", ikon: "🍹" },
-      { id: "fastfood", ad: "Fast Food", resim: "kat-fastfood.jpg", ikon: "🍔" },
+      { id: "fastfood", ad: "Tostlar", resim: "kat-fastfood.jpg", ikon: "🥪" },
       { id: "mesrubat", ad: "Meşrubatlar", resim: "kat-mesrubat.jpg", ikon: "🥫" },
       { id: "tatli", ad: "Pasta & Tatlı Çeşitleri", resim: "kat-tatli.jpg", ikon: "🍰" },
       { id: "nargile", ad: "Nargile", resim: "kat-nargile.jpg", ikon: "💨" }
@@ -883,15 +872,21 @@
       bildirimGoster("Garson çağrınız iletildi!", "🔔");
     }
 
-    function nargileSefiCagir() {
+    function nargileSefiModalAc() {
       if (!isMasaModu) return;
+      document.getElementById('modal-nargile-sef').style.display = 'flex';
+    }
+
+    function nargileSefiCagir(secenek) {
+      if (!isMasaModu) return;
+      modalKapat('modal-nargile-sef');
       const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
       fetch(`${FIREBASE_URL}/garson_cagrilari.json`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ masaNo: String(masaNo), tur: "Nargile Şefi", saat: saatStr, zamanDamgasi: Date.now() })
+        body: JSON.stringify({ masaNo: String(masaNo), tur: "Nargile Şefi", detay: secenek, saat: saatStr, zamanDamgasi: Date.now() })
       }).catch(() => {});
-      bildirimGoster("Nargile şefine bildirim gönderildi!", "💨");
+      bildirimGoster(`Nargile şefine iletildi: ${secenek}`, "💨");
     }
 
     function haritayiAc() {
@@ -900,6 +895,23 @@
 
     function taksiModalAc() {
       document.getElementById('modal-taxi').style.display = 'flex';
+    }
+
+    function rezHizliSec(tip) {
+      const tarihEl = document.getElementById('rez-tarih');
+      const saatEl = document.getElementById('rez-saat');
+      const bugun = new Date();
+      const isoBugun = `${bugun.getFullYear()}-${String(bugun.getMonth() + 1).padStart(2, '0')}-${String(bugun.getDate()).padStart(2, '0')}`;
+
+      if (tip === 'bugun') {
+        tarihEl.value = isoBugun;
+      } else if (tip === 'yarin') {
+        const yarin = new Date(bugun.getTime() + 86400000);
+        tarihEl.value = `${yarin.getFullYear()}-${String(yarin.getMonth() + 1).padStart(2, '0')}-${String(yarin.getDate()).padStart(2, '0')}`;
+      } else if (tip === 'buaksam') {
+        tarihEl.value = isoBugun;
+        saatEl.value = "20:30";
+      }
     }
 
     function rezTurSec(tur) {
@@ -944,8 +956,7 @@
       document.getElementById('modal-desc').innerText = `${seciliRezTuru} için ${tarih} saat ${saat} kayıt oluşturuldu.`;
       document.getElementById('modal-success').style.display = 'flex';
       e.target.reset();
-      const bugun = new Date().toISOString().split('T')[0];
-      document.getElementById('rez-tarih').value = bugun;
+      rezHizliSec('bugun');
     }
 
     async function mailGonder(e) {
@@ -993,6 +1004,8 @@
 
     function kategorileriGoster() {
       aktifKategori = 'kategoriler';
+      const aramaInput = document.getElementById('menu-search-input');
+      if (aramaInput) aramaInput.value = '';
       document.getElementById('category-squares-container').style.display = 'grid';
       document.getElementById('products-list').style.display = 'none';
       document.getElementById('menu-tabs-bar').style.display = 'none';
@@ -1032,6 +1045,8 @@
 
     function tabSec(kat) {
       aktifKategori = kat;
+      const aramaInput = document.getElementById('menu-search-input');
+      if (aramaInput) aramaInput.value = '';
       document.getElementById('category-squares-container').style.display = 'none';
       document.getElementById('products-list').style.display = 'flex';
       document.getElementById('menu-tabs-bar').style.display = 'flex';
@@ -1045,6 +1060,23 @@
       }
       menuyuCiz();
       window.scrollTo(0, 0);
+    }
+
+    function menuAraDegisti() {
+      const q = (document.getElementById('menu-search-input')?.value || '').trim().toLowerCase();
+      if (!q) {
+        if (aktifKategori === 'kategoriler') {
+          kategorileriGoster();
+        } else {
+          menuyuCiz();
+        }
+        return;
+      }
+      document.getElementById('category-squares-container').style.display = 'none';
+      document.getElementById('products-list').style.display = 'flex';
+      document.getElementById('menu-tabs-bar').style.display = 'flex';
+      document.getElementById('btn-kategorilere-don').style.display = 'inline-block';
+      menuyuCiz(q);
     }
 
     function craftSec(grup, ad, fiyat) {
@@ -1077,14 +1109,27 @@
       imgEl.replaceWith(fallback);
     }
 
-    function menuyuCiz() {
+    function menuyuCiz(aramaMetni = '') {
       const container = document.getElementById('products-list');
       container.innerHTML = "";
+
+      if (aramaMetni) {
+        const eslesenler = urunler.filter(u =>
+          u.ad.toLowerCase().includes(aramaMetni) ||
+          (u.aciklama && u.aciklama.toLowerCase().includes(aramaMetni))
+        );
+        if (eslesenler.length === 0) {
+          container.innerHTML = `<div style="text-align:center; color:var(--slate-muted); padding:24px; font-size:0.86rem;">Aramanızla eşleşen ürün bulunamadı.</div>`;
+          return;
+        }
+        eslesenler.forEach(u => urunKartiEkle(container, u));
+        return;
+      }
 
       if (aktifKategori === 'nargile' && isMasaModu) {
         const sefBtn = document.createElement('div');
         sefBtn.innerHTML = `
-          <button class="btn-primary-action" style="width:100%; margin-bottom:14px; background:linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow:0 6px 20px rgba(16, 185, 129, 0.35);" onclick="nargileSefiCagir()">
+          <button class="btn-primary-action" style="width:100%; margin-bottom:14px; background:linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow:0 6px 20px rgba(16, 185, 129, 0.35);" onclick="nargileSefiModalAc()">
             <span style="font-size:1.3rem;">💨</span>
             <span>Nargile Şefini Çağır (Köz / Destek)</span>
           </button>
@@ -1160,38 +1205,41 @@
           baslikEl.innerText = kategoriBasliklari[u.kategori] || u.kategori;
           container.appendChild(baslikEl);
         }
-
-        const tukendi = stokDurumu[u.id] === true;
-        const adet = sepet[u.id] || 0;
-        const card = document.createElement('div');
-
-        card.className = `product-card ${u.ozel ? 'special-card' : ''} ${tukendi ? 'out-of-stock' : ''}`;
-        const ikon = kategoriIkonlari[u.kategori] || "☕";
-
-        const sagKontrol = isMasaModu
-          ? `<div class="qty-box">
-              ${adet > 0 ? `<button class="qty-btn" onclick="adetGuncelle(${u.id}, -1)">−</button>` : ''}
-              ${adet > 0 ? `<span class="qty-num">${adet}</span>` : ''}
-              <button class="qty-btn plus" onclick="adetGuncelle(${u.id}, 1)">+</button>
-             </div>`
-          : `<span class="visitor-qr-note">Menü Fiyatı</span>`;
-
-        card.innerHTML = `
-          ${tukendi ? `<div class="out-of-stock-badge">TÜKENDİ</div>` : ''}
-          <img class="product-thumb" src="${u.resim}" alt="${u.ad}" loading="lazy" onerror="resimYuklenemedi(this, '${ikon}')">
-          <div class="product-content">
-            <div>
-              <div class="prod-title">${u.ad}</div>
-              ${u.aciklama ? `<div class="prod-desc">${u.aciklama}</div>` : ''}
-            </div>
-            <div class="prod-footer">
-              <span class="prod-price">${u.fiyat} ₺</span>
-              ${!tukendi ? sagKontrol : ''}
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
+        urunKartiEkle(container, u);
       });
+    }
+
+    function urunKartiEkle(container, u) {
+      const tukendi = stokDurumu[u.id] === true;
+      const adet = sepet[u.id] || 0;
+      const card = document.createElement('div');
+
+      card.className = `product-card ${u.ozel ? 'special-card' : ''} ${tukendi ? 'out-of-stock' : ''}`;
+      const ikon = kategoriIkonlari[u.kategori] || "☕";
+
+      const sagKontrol = isMasaModu
+        ? `<div class="qty-box">
+            ${adet > 0 ? `<button class="qty-btn" onclick="adetGuncelle(${u.id}, -1)">−</button>` : ''}
+            ${adet > 0 ? `<span class="qty-num">${adet}</span>` : ''}
+            <button class="qty-btn plus" onclick="adetGuncelle(${u.id}, 1)">+</button>
+           </div>`
+        : `<span class="visitor-qr-note">Menü Fiyatı</span>`;
+
+      card.innerHTML = `
+        ${tukendi ? `<div class="out-of-stock-badge">TÜKENDİ</div>` : ''}
+        <img class="product-thumb" src="${u.resim}" alt="${u.ad}" loading="lazy" onerror="resimYuklenemedi(this, '${ikon}')">
+        <div class="product-content">
+          <div>
+            <div class="prod-title">${u.ad}</div>
+            ${u.aciklama ? `<div class="prod-desc">${u.aciklama}</div>` : ''}
+          </div>
+          <div class="prod-footer">
+            <span class="prod-price">${u.fiyat} ₺</span>
+            ${!tukendi ? sagKontrol : ''}
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
     }
 
     function adetGuncelle(id, delta) {
@@ -1340,11 +1388,20 @@
     }
 
     function banaBirakSecimiYap() {
-      if (rastgeleUrunAdaylari.length === 0) {
-        rastgeleUrunAdaylari = urunler.filter(u => u.kategori === 'kokteyl' || u.kategori === 'frozen' || u.ozel === true);
+      if (!isMasaModu) return;
+      let adaylar = urunler.filter(u =>
+        (u.kategori === 'kokteyl' || u.kategori === 'frozen' || u.ozel === true) &&
+        stokDurumu[u.id] !== true
+      );
+      if (adaylar.length === 0) {
+        adaylar = urunler.filter(u => stokDurumu[u.id] !== true);
       }
-      const randIndex = Math.floor(Math.random() * rastgeleUrunAdaylari.length);
-      secilenRastgeleUrun = rastgeleUrunAdaylari[randIndex];
+      if (adaylar.length === 0) {
+        bildirimGoster("Şu an stokta ürün bulunmuyor.", "⚠️");
+        return;
+      }
+      const randIndex = Math.floor(Math.random() * adaylar.length);
+      secilenRastgeleUrun = adaylar[randIndex];
 
       document.getElementById('bb-isim').innerText = secilenRastgeleUrun.ad;
       document.getElementById('bb-fiyat').innerText = `${secilenRastgeleUrun.fiyat} ₺`;
@@ -1356,7 +1413,6 @@
     function banaBirakSepeteEkle() {
       if (!isMasaModu || !secilenRastgeleUrun) {
         modalKapat('modal-bana-birak');
-        navigasyon('menu', 'hepsi');
         return;
       }
       adetGuncelle(secilenRastgeleUrun.id, 1);
@@ -1485,6 +1541,7 @@
         masaText.innerText = "Masa " + masaNo;
         document.getElementById('view-home').insertBefore(document.getElementById('menu-cta-wrap'), document.getElementById('rez-section-wrap'));
         bildirimCubuguKontrol();
+        document.getElementById('btn-bana-birak').style.display = 'flex';
         document.getElementById('btn-adisyon').style.display = 'flex';
       } else {
         headerBadge.classList.add('online-visitor');
