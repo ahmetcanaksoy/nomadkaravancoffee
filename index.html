@@ -1220,7 +1220,7 @@
     }
 
     function urunKartiEkle(container, u) {
-      const tukendi = stokDurumu[String(u.id)] === true || stokDurumu[u.id] === true;
+      const tukendi = stokDurumu[String(u.id)] === true;
       const adet = sepet[u.id] || 0;
       const card = document.createElement('div');
 
@@ -1401,10 +1401,10 @@
       if (!isMasaModu) return;
       let adaylar = urunler.filter(u =>
         (u.kategori === 'kokteyl' || u.kategori === 'frozen' || u.ozel === true) &&
-        stokDurumu[String(u.id)] !== true && stokDurumu[u.id] !== true
+        stokDurumu[String(u.id)] !== true
       );
       if (adaylar.length === 0) {
-        adaylar = urunler.filter(u => stokDurumu[String(u.id)] !== true && stokDurumu[u.id] !== true);
+        adaylar = urunler.filter(u => stokDurumu[String(u.id)] !== true);
       }
       if (adaylar.length === 0) {
         bildirimGoster("Şu an stokta ürün bulunmuyor.", "⚠️");
@@ -1498,12 +1498,23 @@
 
     async function stokDurumuCek() {
       try {
-        const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json`);
-        const rawStok = (await stokRes.json()) || {};
+        const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json?t=${Date.now()}`);
+        const rawStok = await stokRes.json();
         stokDurumu = {};
-        for (let k in rawStok) {
-          if (rawStok[k] === true) stokDurumu[String(k)] = true;
+        
+        if (Array.isArray(rawStok)) {
+          rawStok.forEach((val, idx) => {
+            if (val === true) stokDurumu[String(idx)] = true;
+          });
+        } else if (rawStok && typeof rawStok === 'object') {
+          for (let k in rawStok) {
+            if (rawStok[k] === true) {
+              const temizId = String(k).replace(/^u_/, '');
+              stokDurumu[temizId] = true;
+            }
+          }
         }
+        
         if (document.getElementById('view-menu').classList.contains('active')) {
           menuyuCiz(document.getElementById('menu-search-input')?.value.trim().toLowerCase() || '');
         }
