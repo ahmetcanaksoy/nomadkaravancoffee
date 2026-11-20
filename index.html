@@ -492,7 +492,6 @@
       <p>Instagram: <a href="https://instagram.com/nomadkaravancoffee" target="_blank">@nomadkaravancoffee</a></p>
     </footer>
   </div>
-
   <div class="view-page" id="view-menu">
     <div class="menu-header-bar">
       <button class="btn-back-home" onclick="navigasyon('home')"><span>←</span><span>Ana Sayfa</span></button>
@@ -512,11 +511,13 @@
       <button class="tab-pill" id="tab-fastfood" onclick="tabSec('fastfood')">Tostlar</button>
       <button class="tab-pill" id="tab-mesrubat" onclick="tabSec('mesrubat')">Meşrubatlar</button>
       <button class="tab-pill" id="tab-tatli" onclick="tabSec('tatli')">Pasta & Tatlı Çeşitleri</button>
+      <button class="tab-pill" id="tab-kuruyemis" onclick="tabSec('kuruyemis')">Kuruyemiş & Meyve</button>
+      <button class="tab-pill" id="tab-kestane" onclick="tabSec('kestane')">Kestane & Patates</button>
       <button class="tab-pill" id="tab-nargile" onclick="tabSec('nargile')">Nargile</button>
     </div>
 
     <div class="menu-search-wrap" id="menu-search-wrap">
-      <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Menüde ürün ara (Latte, Limon, Tost, Nargile...)" oninput="menuAraDegisti()">
+      <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Menüde ürün ara (Latte, Limon, Tost, Çekirdek, Kestane...)" oninput="menuAraDegisti()">
     </div>
 
     <div class="category-square-grid" id="category-squares-container"></div>
@@ -622,6 +623,7 @@
       <button class="btn-modal-secondary" onclick="modalKapat('modal-taxi')">Vazgeç</button>
     </div>
   </div>
+
   <script>
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
 
@@ -653,12 +655,15 @@
       fastfood: "Tostlar",
       mesrubat: "Meşrubatlar",
       tatli: "Pasta & Tatlı Çeşitleri",
+      kuruyemis: "Kuruyemiş & Meyve",
+      kestane: "Kestane & Patates",
       nargile: "Nargile"
     };
 
     const kategoriIkonlari = {
       cay: "🫖", sicak: "☕", soguk: "🧊", frozen: "🍧",
-      milkshake: "🥤", kokteyl: "🍹", fastfood: "🥪", mesrubat: "🥫", tatli: "🍰", nargile: "💨"
+      milkshake: "🥤", kokteyl: "🍹", fastfood: "🥪", mesrubat: "🥫",
+      tatli: "🍰", kuruyemis: "🥜", kestane: "🌰", nargile: "💨"
     };
 
     const kategoriKartlari = [
@@ -673,6 +678,8 @@
       { id: "fastfood", ad: "Tostlar", resim: "kat-fastfood.jpg", ikon: "🥪" },
       { id: "mesrubat", ad: "Meşrubatlar", resim: "kat-mesrubat.jpg", ikon: "🥫" },
       { id: "tatli", ad: "Pasta & Tatlı Çeşitleri", resim: "kat-tatli.jpg", ikon: "🍰" },
+      { id: "kuruyemis", ad: "Kuruyemiş & Meyve", resim: "kat-kuruyemis-meyve.jpg", ikon: "🥜" },
+      { id: "kestane", ad: "Kestane & Patates", resim: "kat-kestane-patates.jpg", ikon: "🌰" },
       { id: "nargile", ad: "Nargile", resim: "kat-nargile.jpg", ikon: "💨" }
     ];
 
@@ -771,6 +778,13 @@
       { id: 807, ad: "Fıstık Rüyası Pasta", kategori: "tatli", aciklama: "Kavrulmuş Antep fıstığı kreması ve yumuşak yeşil fıstıklı kek katmanları", fiyat: 250, resim: "fistik-ruyasi-pasta.jpg" },
       { id: 808, ad: "Sufle", kategori: "tatli", aciklama: "Sıcak fırından çıkan akışkan Belçika çikolatalı sufle", fiyat: 250, resim: "sufle.jpg" },
       { id: 809, ad: "Waffle", kategori: "tatli", aciklama: "Çıtır Belçika waffle hamuru, eritilmiş çikolata, muz, çilek ve fındık parçacıkları", fiyat: 250, resim: "waffle.jpg" },
+
+      { id: 1101, ad: "Çekirdek", kategori: "kuruyemis", aciklama: "", fiyat: 150, resim: "cekirdek.jpg" },
+      { id: 1102, ad: "Karışık Çerez Tabağı", kategori: "kuruyemis", aciklama: "", fiyat: 350, resim: "karisik-cerez-tabagi.jpg" },
+      { id: 1103, ad: "Meyve Tabağı", kategori: "kuruyemis", aciklama: "", fiyat: 250, resim: "meyve-tabagi.jpg" },
+
+      { id: 1201, ad: "Kestane 100 gr", kategori: "kestane", aciklama: "", fiyat: 200, resim: "kestane-100gr.jpg" },
+      { id: 1202, ad: "Patates", kategori: "kestane", aciklama: "", fiyat: 150, resim: "patates.jpg" },
 
       { id: 901, ad: "Pişmiş Şeftali Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 902, ad: "Mango Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
