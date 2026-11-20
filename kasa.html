@@ -215,53 +215,6 @@
     .btn-close-order { width: 100%; background: linear-gradient(135deg, var(--fire-orange) 0%, #c2410c 100%); color: #fff; border: none; padding: 12px; border-radius: 14px; font-size: 0.88rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 20px var(--fire-glow); }
     .empty-state { margin: auto; text-align: center; color: var(--slate-muted); font-size: 0.86rem; font-weight: 600; padding: 30px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 
-    .kasa-modal { display: none; position: fixed; inset: 0; background: rgba(12, 16, 18, 0.88); backdrop-filter: blur(10px); z-index: 500; align-items: center; justify-content: center; padding: 14px; }
-    .kasa-modal-box { background: linear-gradient(145deg, #2d343d 0%, #192f24 100%); border: 1.5px solid rgba(245, 158, 11, 0.45); border-radius: 24px; padding: 24px; width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75); }
-    .kasa-modal-box.eod-wide { max-width: 780px; }
-    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--card-border); }
-    .modal-head h3 { font-size: 1.12rem; font-weight: 900; color: #ffffff; }
-    .btn-modal-x { background: rgba(255, 255, 255, 0.1); color: #ffffff; border: none; width: 34px; height: 34px; border-radius: 10px; font-size: 1rem; font-weight: 900; cursor: pointer; }
-    .btn-modal-secondary { margin-top: 10px; width: 100%; background: transparent; border: 1px solid rgba(226, 232, 240, 0.25); color: var(--slate-muted); padding: 10px; border-radius: 12px; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
-
-    .pay-choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
-    .btn-pay-cash { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; border: 1.5px solid #6ee7b7; padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35); }
-    .btn-pay-card { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; border: 1.5px solid #93c5fd; padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 8px 22px rgba(59, 130, 246, 0.35); }
-    .btn-pay-split { grid-column: span 2; background: rgba(245, 158, 11, 0.15); color: var(--fire-amber); border: 1.5px dashed rgba(245, 158, 11, 0.5); padding: 14px 12px; border-radius: 16px; font-size: 0.9rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .split-pay-box { display: none; background: rgba(15, 23, 42, 0.5); border: 1.5px solid var(--card-border); border-radius: 16px; padding: 16px; margin-top: 14px; text-align: left; }
-    .split-input { width: 100%; background: rgba(30, 36, 42, 0.95); border: 1.5px solid var(--fire-amber); padding: 12px 14px; border-radius: 12px; color: var(--fire-amber); font-size: 1.2rem; font-weight: 900; outline: none; text-align: center; margin-bottom: 12px; }
-    .split-input::placeholder { color: rgba(245, 158, 11, 0.4); }
-
-    .pay-pill { display: inline-block; font-size: 0.68rem; font-weight: 900; padding: 2px 8px; border-radius: 8px; margin-left: 6px; vertical-align: middle; }
-    .pay-pill.cash { background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #6ee7b7; }
-    .pay-pill.card { background: rgba(59, 130, 246, 0.22); border: 1px solid #60a5fa; color: #93c5fd; }
-
-    .stock-item-row { display: flex; justify-content: space-between; align-items: center; background: rgba(22, 28, 32, 0.85); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 12px; gap: 8px; margin-bottom: 6px; }
-    .btn-stock-toggle { background: var(--emerald-bright); color: #fff; border: none; padding: 6px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 900; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
-    .btn-stock-toggle.out { background: #ef4444; color: #fff; }
-
-    .manual-item-list { display: flex; flex-direction: column; gap: 8px; max-height: 44vh; overflow-y: auto; margin-bottom: 14px; }
-    .manual-prod-row { display: flex; justify-content: space-between; align-items: center; background: rgba(22, 28, 32, 0.85); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 12px; gap: 8px; }
-    .btn-add-one { background: var(--fire-orange); color: #ffffff; border: none; padding: 7px 12px; border-radius: 9px; font-size: 0.78rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
-
-    .custom-manual-box { background: rgba(20, 25, 29, 0.9); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
-    .kasa-input { width: 100%; background: rgba(30, 36, 42, 0.95); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 10px; color: #ffffff; font-size: 0.86rem; outline: none; color-scheme: dark; }
-
-    .eod-calendar-bar { background: rgba(18, 24, 28, 0.92); border: 1.5px solid rgba(245, 158, 11, 0.42); border-radius: 16px; padding: 12px 14px; margin-bottom: 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
-    .eod-date-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .btn-today-jump { background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #6ee7b7; padding: 9px 12px; border-radius: 10px; font-size: 0.78rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
-    .eod-stat-grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
-    @media (min-width: 620px) { .eod-stat-grid-4 { grid-template-columns: repeat(4, 1fr); } }
-    .eod-stat-card { background: rgba(20, 26, 30, 0.9); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px 10px; text-align: center; }
-    .eod-stat-label { font-size: 0.7rem; color: var(--slate-muted); font-weight: 800; margin-bottom: 4px; }
-    .eod-stat-val { font-size: 1.35rem; font-weight: 900; color: var(--fire-amber); }
-    .btn-eod-detail-toggle { width: 100%; background: rgba(59, 130, 246, 0.24); border: 1.5px solid rgba(96, 165, 250, 0.65); color: #93c5fd; padding: 12px; border-radius: 14px; font-size: 0.88rem; font-weight: 900; cursor: pointer; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .eod-history-list { max-height: 44vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
-    .eod-history-card { background: rgba(22, 28, 32, 0.94); padding: 12px 14px; border-radius: 14px; border: 1.5px solid rgba(245, 158, 11, 0.35); cursor: pointer; transition: border-color 0.15s; }
-    .eod-history-card:hover { border-color: var(--fire-amber); }
-    .eod-history-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 0.88rem; }
-    .eod-history-items-inline { font-size: 0.82rem; color: #e2e8f0; line-height: 1.5; }
-    .eod-order-detail-box { background: rgba(16, 21, 25, 0.98); border: 1.5px solid var(--fire-amber); border-radius: 16px; padding: 14px; margin-bottom: 14px; }
-
     @media (max-width: 900px) {
       .dashboard-layout { flex-direction: column; }
       .detail-section { width: 100%; border-left: none; border-top: 1.5px solid var(--card-border); min-height: 45vh; }
@@ -403,8 +356,7 @@
         </button>
       </div>
     </div>
-  </div>
-  <div class="kasa-modal" id="modal-stock-management" onclick="if(event.target === this) kasaModalKapat('modal-stock-management')">
+    <div class="kasa-modal" id="modal-stock-management" onclick="if(event.target === this) kasaModalKapat('modal-stock-management')">
     <div class="kasa-modal-box">
       <div class="modal-head">
         <h3 id="stock-modal-title">📦 Ürün Stok Yönetimi</h3>
@@ -779,6 +731,7 @@
     let audioCtx = null;
     let stokDurumu = {};
     let kasaAcik = sessionStorage.getItem('nomad_kasa_yetki') === '1';
+    let stokKayitKilitli = false;
 
     if (kasaAcik) {
       document.getElementById('pin-lock-screen').style.display = 'none';
@@ -931,14 +884,25 @@
     async function buluttanVeriCek() {
       if (!kasaAcik) return;
       try {
-        const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json`);
-        const rawStok = (await stokRes.json()) || {};
-        stokDurumu = {};
-        for (let k in rawStok) {
-          if (rawStok[k] === true) stokDurumu[String(k)] = true;
-        }
-        if (document.getElementById('modal-stock-management').style.display === 'flex') {
-          stokUrunleriCiz();
+        if (!stokKayitKilitli) {
+          const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json?t=${Date.now()}`);
+          const rawStok = await stokRes.json();
+          stokDurumu = {};
+          if (Array.isArray(rawStok)) {
+            rawStok.forEach((val, idx) => {
+              if (val === true) stokDurumu[String(idx)] = true;
+            });
+          } else if (rawStok && typeof rawStok === 'object') {
+            for (let k in rawStok) {
+              if (rawStok[k] === true) {
+                const temizId = String(k).replace(/^u_/, '');
+                stokDurumu[temizId] = true;
+              }
+            }
+          }
+          if (document.getElementById('modal-stock-management').style.display === 'flex') {
+            stokUrunleriCiz();
+          }
         }
 
         const masaRes = await fetch(`${FIREBASE_URL}/masalar.json`);
@@ -994,7 +958,7 @@
 
         const yorumRes = await fetch(`${FIREBASE_URL}/geri_bildirimler.json`);
         const yorumlar = await yorumRes.json();
-        musteriYorumlariniCiz(yorumlari);
+        musteriYorumlariniCiz(yorumlar);
       } catch (err) {}
     }
 
@@ -1048,14 +1012,14 @@
 
       const filtreli = MENU_URUNLERI.filter(u => u.ad.toLowerCase().includes(q));
       filtreli.forEach(u => {
-        const tukendiMi = stokDurumu[String(u.id)] === true || stokDurumu[u.id] === true;
+        const tukendiMi = stokDurumu[String(u.id)] === true;
         const row = document.createElement('div');
         row.className = 'stock-item-row';
         row.innerHTML = `
           <div style="font-size:0.86rem; font-weight:800; color:${tukendiMi ? '#ef4444' : '#fff'};">
             ${tukendiMi ? '🚫' : '✅'} ${u.ad}
           </div>
-          <button class="btn-stock-toggle ${tukendiMi ? 'out' : ''}" onclick="stokDurumuDegistir(${u.id}, ${!tukendiMi})">
+          <button type="button" class="btn-stock-toggle ${tukendiMi ? 'out' : ''}" onclick="stokDurumuDegistir(${u.id}, ${!tukendiMi})">
             ${tukendiMi ? 'Tükendi (Aç)' : 'Stokta (Kapat)'}
           </button>
         `;
@@ -1064,20 +1028,50 @@
     }
 
     async function stokDurumuDegistir(urunId, yapTukendi) {
-      const key = String(urunId);
+      const idStr = String(urunId);
+      const fbKey = `u_${idStr}`;
+      stokKayitKilitli = true;
+
       if (yapTukendi) {
-        stokDurumu[key] = true;
+        stokDurumu[idStr] = true;
       } else {
-        delete stokDurumu[key];
-        delete stokDurumu[urunId];
+        delete stokDurumu[idStr];
       }
       stokUrunleriCiz();
+
       try {
-        await fetch(`${FIREBASE_URL}/stok_durumu.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(stokDurumu)
-        });
+        if (yapTukendi) {
+          await fetch(`${FIREBASE_URL}/stok_durumu/${fbKey}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(true)
+          });
+        } else {
+          await fetch(`${FIREBASE_URL}/stok_durumu/${fbKey}.json`, { method: 'DELETE' });
+          await fetch(`${FIREBASE_URL}/stok_durumu/${idStr}.json`, { method: 'DELETE' });
+        }
+      } catch (e) {
+        alert("Stok durumu kaydedilemedi, internet bağlantısını kontrol edin.");
+      } finally {
+        setTimeout(() => { stokKayitKilitli = false; }, 1200);
+      }
+    }
+
+    function yerelGiderAnahtari(tarihKey) {
+      return `nomad_gider_yedek_${tarihKey}`;
+    }
+
+    function yerelGiderleriOku(tarihKey) {
+      try {
+        return JSON.parse(localStorage.getItem(yerelGiderAnahtari(tarihKey)) || '{}');
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function yerelGiderleriYaz(tarihKey, obj) {
+      try {
+        localStorage.setItem(yerelGiderAnahtari(tarihKey), JSON.stringify(obj));
       } catch (e) {}
     }
 
@@ -1096,12 +1090,15 @@
       const tarihEl = document.getElementById('gider-tarih-input');
       if (!tarihEl.value) tarihEl.value = bugununIsoTarihi();
       const tarihKey = tarihEl.value;
+      const yerelVeri = yerelGiderleriOku(tarihKey);
 
       try {
-        const res = await fetch(`${FIREBASE_URL}/giderler/${tarihKey}.json`);
-        gunlukGiderler = (await res.json()) || {};
+        const res = await fetch(`${FIREBASE_URL}/giderler/${tarihKey}.json?t=${Date.now()}`);
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const bulutVeri = (await res.json()) || {};
+        gunlukGiderler = { ...yerelVeri, ...bulutVeri };
       } catch (e) {
-        gunlukGiderler = {};
+        gunlukGiderler = yerelVeri;
       }
 
       const container = document.getElementById('gider-liste-container');
@@ -1152,8 +1149,6 @@
 
       btn.disabled = true;
       btn.innerText = "...";
-      durumEl.style.color = "#fbbf24";
-      durumEl.innerText = "Kaydediliyor...";
 
       const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
       const yeniId = "g_" + Date.now();
@@ -1164,7 +1159,9 @@
         zamanDamgasi: Date.now()
       };
 
-      gunlukGiderler[yeniId] = kayitObj;
+      const yerelVeri = yerelGiderleriOku(tarihKey);
+      yerelVeri[yeniId] = kayitObj;
+      yerelGiderleriYaz(tarihKey, yerelVeri);
       tutarInput.value = '';
 
       try {
@@ -1173,14 +1170,14 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(kayitObj)
         });
-        if (!res.ok) throw new Error("Firebase yazma hatası");
+        if (!res.ok) throw new Error("HTTP " + res.status);
         durumEl.style.color = "#10b981";
         durumEl.innerText = `${tutar} ₺ gider kaydedildi (${tarihiDuzGoster(tarihKey)}).`;
-        await giderleriYukle();
       } catch (e) {
-        durumEl.style.color = "#f87171";
-        durumEl.innerText = "Kayıt sırasında bağlantı hatası oluştu.";
+        durumEl.style.color = "#fbbf24";
+        durumEl.innerText = `${tutar} ₺ cihazda kaydedildi (Bulut bağlantısı bekleniyor).`;
       } finally {
+        await giderleriYukle();
         btn.disabled = false;
         btn.innerText = "+ Ekle";
       }
@@ -1189,7 +1186,14 @@
     async function giderSil(key) {
       const tarihKey = document.getElementById('gider-tarih-input').value || bugununIsoTarihi();
       if (confirm("Bu gider kaydı silinsin mi?")) {
-        await fetch(`${FIREBASE_URL}/giderler/${tarihKey}/${key}.json`, { method: 'DELETE' });
+        try {
+            await fetch(`${FIREBASE_URL}/giderler/${tarihKey}/${key}.json`, { method: 'DELETE' });
+            const yerelVeri = yerelGiderleriOku(tarihKey);
+            if (yerelVeri[key]) {
+                delete yerelVeri[key];
+                yerelGiderleriYaz(tarihKey, yerelVeri);
+            }
+        } catch(e){}
         await giderleriYukle();
       }
     }
@@ -1967,6 +1971,7 @@
         document.getElementById('eod-total-revenue').innerText = "0 ₺";
         document.getElementById('eod-cash-revenue').innerText = "0 ₺";
         document.getElementById('eod-card-revenue').innerText = "0 ₺";
+        document.getElementById('eod-total-orders').innerText = "0";
         historyEl.innerHTML = `<div style="font-size:0.82rem; color:var(--slate-muted); text-align:center; padding:16px;">${duzTarihYazi} tarihinde kapatılmış adisyon kaydı bulunmuyor.</div>`;
         return;
       }
@@ -1974,6 +1979,7 @@
       let toplamCiro = 0;
       let nakitCiro = 0;
       let kartCiro = 0;
+      let adisyonSayisi = 0;
 
       const keys = Object.keys(veriler);
       keys.reverse().forEach(k => {
@@ -1984,6 +1990,8 @@
         toplamCiro += tutar;
         if (odeme === "Kredi Kartı") kartCiro += tutar;
         else nakitCiro += tutar;
+
+        if (!item.isKismi) adisyonSayisi++;
 
         const odemeRozet = odeme === "Kredi Kartı"
           ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
@@ -2019,6 +2027,7 @@
       document.getElementById('eod-total-revenue').innerText = `${toplamCiro} ₺`;
       document.getElementById('eod-cash-revenue').innerText = `${nakitCiro} ₺`;
       document.getElementById('eod-card-revenue').innerText = `${kartCiro} ₺`;
+      document.getElementById('eod-total-orders').innerText = `${adisyonSayisi} Adisyon`;
     }
 
     async function gunuKapatVeSifirla() {
@@ -2218,3 +2227,4 @@
   </script>
 </body>
 </html>
+  </div>
