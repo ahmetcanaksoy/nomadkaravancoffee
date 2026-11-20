@@ -118,6 +118,8 @@
     .btn-day-start { background: rgba(16, 185, 129, 0.18); color: #10b981; border: 1.5px solid rgba(16, 185, 129, 0.5); }
     .btn-hard-reset { background: rgba(239, 68, 68, 0.18); color: #ef4444; border: 1.5px solid rgba(239, 68, 68, 0.5); }
     .btn-stock-mng { background: rgba(59, 130, 246, 0.18); color: #93c5fd; border: 1.5px solid rgba(96, 165, 250, 0.5); }
+    .btn-gider-mng { background: rgba(168, 85, 247, 0.2); color: #e9d5ff; border: 1.5px solid rgba(192, 132, 252, 0.55); }
+    .btn-pdf-ind { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; border: 1.5px solid #6ee7b7; }
 
     .btn-lock-now { background: rgba(255, 255, 255, 0.08); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 800; cursor: pointer; }
 
@@ -178,20 +180,24 @@
     .btn-note-save { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); color: #0f172a; border: none; padding: 10px; border-radius: 10px; font-size: 0.82rem; font-weight: 900; cursor: pointer; transition: all 0.2s; }
 
     .detail-section { width: 420px; background: linear-gradient(180deg, rgba(33, 39, 45, 0.96) 0%, rgba(22, 38, 30, 0.96) 100%); backdrop-filter: blur(18px); border-left: 1.5px solid var(--card-border); display: flex; flex-direction: column; box-shadow: -10px 0 35px rgba(0, 0, 0, 0.5); }
-    .detail-header { padding: 16px 20px; border-bottom: 1.5px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .detail-header { padding: 16px 20px; border-bottom: 1.5px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
     .detail-header h3 { font-size: 1.12rem; font-weight: 900; color: #ffffff; }
     .detail-time { font-size: 0.75rem; color: var(--fire-amber); font-weight: 700; }
-    .btn-manual-add-top { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); color: #0f172a; border: none; padding: 8px 12px; border-radius: 11px; font-size: 0.76rem; font-weight: 900; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35); }
+    .header-action-pair { display: flex; gap: 6px; flex-wrap: wrap; }
+    .btn-manual-add-top { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); color: #0f172a; border: none; padding: 8px 11px; border-radius: 11px; font-size: 0.74rem; font-weight: 900; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35); }
+    .btn-live-music-top { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #ffffff; border: 1px solid #d8b4fe; padding: 8px 11px; border-radius: 11px; font-size: 0.74rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
+
     .detail-content { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-    .order-item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--card-gray-surface); border: 1px solid var(--card-border); border-radius: 14px; gap: 10px; }
+    .order-item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--card-gray-surface); border: 1px solid var(--card-border); border-radius: 14px; gap: 8px; }
     .order-item-row.is-new-order { border: 1.5px solid #facc15; background: rgba(250, 204, 21, 0.12); }
     .new-order-pill { display: inline-block; background: #facc15; color: #0f172a; font-size: 0.66rem; font-weight: 900; padding: 2px 8px; border-radius: 6px; letter-spacing: 0.5px; text-transform: uppercase; align-self: flex-start; margin-bottom: 2px; }
     .item-left { flex: 1; display: flex; flex-direction: column; gap: 3px; }
     .item-name { font-size: 0.9rem; font-weight: 800; color: #ffffff; }
     .item-custom-recipe { font-size: 0.74rem; font-weight: 700; color: #fdba74; background: rgba(234, 88, 12, 0.18); border: 1px solid rgba(234, 88, 12, 0.4); padding: 4px 8px; border-radius: 8px; margin-top: 2px; }
     .item-unit-info { font-size: 0.74rem; color: var(--slate-muted); font-weight: 600; }
-    .item-actions { display: flex; align-items: center; gap: 8px; }
-    .item-price { font-size: 0.98rem; font-weight: 900; color: var(--fire-amber); min-width: 52px; text-align: right; }
+    .item-actions { display: flex; align-items: center; gap: 5px; }
+    .item-price { font-size: 0.95rem; font-weight: 900; color: var(--fire-amber); min-width: 50px; text-align: right; margin-right: 2px; }
+    .btn-qty-plus { background: rgba(16, 185, 129, 0.22); color: #6ee7b7; border: 1px solid #10b981; width: 28px; height: 28px; border-radius: 8px; font-size: 1rem; font-weight: 900; cursor: pointer; }
     .btn-qty-minus { background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.25); width: 28px; height: 28px; border-radius: 8px; font-size: 1rem; font-weight: 800; cursor: pointer; }
     .btn-item-delete { background: rgba(234, 88, 12, 0.22); color: #fdba74; border: 1px solid var(--fire-orange); width: 28px; height: 28px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
 
@@ -294,7 +300,17 @@
 
       <button class="btn-eod-open btn-stock-mng" onclick="stokYonetimModalAc()">
         <span>📦</span>
-        <span>Stok / Tükendi Yönetimi</span>
+        <span>Stok</span>
+      </button>
+
+      <button class="btn-eod-open btn-gider-mng" onclick="giderModalAc()">
+        <span>💸</span>
+        <span>Giderler</span>
+      </button>
+
+      <button class="btn-eod-open btn-pdf-ind" onclick="aySonuPdfIndir()">
+        <span>📄</span>
+        <span>PDF İndir</span>
       </button>
 
       <button class="btn-eod-open btn-day-start" onclick="gunuBaslat()">
@@ -355,9 +371,14 @@
           <h3 id="panel-table-title">Masa Seçiniz</h3>
           <span class="detail-time" id="panel-order-time">-</span>
         </div>
-        <button class="btn-manual-add-top" id="btn-open-manual" style="display:none;" onclick="manuelSiparisModalAc()">
-          + Elle Sipariş Ekle
-        </button>
+        <div class="header-action-pair">
+          <button class="btn-live-music-top" id="btn-open-music" style="display:none;" onclick="canliMuzikModalAc()">
+            🎵 Canlı Müzik
+          </button>
+          <button class="btn-manual-add-top" id="btn-open-manual" style="display:none;" onclick="manuelSiparisModalAc()">
+            + Sipariş Ekle
+          </button>
+        </div>
       </div>
 
       <div class="detail-content" id="panel-orders-list">
@@ -382,7 +403,8 @@
         </button>
       </div>
     </div>
-    <div class="kasa-modal" id="modal-stock-management" onclick="if(event.target === this) kasaModalKapat('modal-stock-management')">
+  </div>
+  <div class="kasa-modal" id="modal-stock-management" onclick="if(event.target === this) kasaModalKapat('modal-stock-management')">
     <div class="kasa-modal-box">
       <div class="modal-head">
         <h3 id="stock-modal-title">📦 Ürün Stok Yönetimi</h3>
@@ -393,6 +415,53 @@
       </p>
       <input type="text" id="stock-search-input" class="kasa-input" placeholder="Menüde ürün ara..." oninput="stokUrunleriCiz()" style="margin-bottom:10px;">
       <div class="manual-item-list" id="stock-products-container"></div>
+    </div>
+  </div>
+
+  <div class="kasa-modal" id="modal-giderler" onclick="if(event.target === this) kasaModalKapat('modal-giderler')">
+    <div class="kasa-modal-box">
+      <div class="modal-head">
+        <h3>💸 Giderler</h3>
+        <button class="btn-modal-x" onclick="kasaModalKapat('modal-giderler')">✕</button>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center; margin-bottom:12px; flex-wrap:wrap;">
+        <input type="date" id="gider-tarih-input" class="kasa-input" style="width:auto; font-weight:800;" onchange="giderleriYukle()">
+        <span style="font-size:0.76rem; color:var(--slate-muted); font-weight:700;">Seçili günün giderleri (Sadece fiyat)</span>
+      </div>
+      <div class="custom-manual-box" style="margin-bottom:14px;">
+        <div style="font-size:0.78rem; font-weight:900; color:var(--fire-amber);">Gider Tutarı Gir (₺)</div>
+        <div style="display:flex; gap:8px;">
+          <input type="number" id="gider-tutar-input" class="kasa-input" inputmode="numeric" min="1" placeholder="Tutar ₺">
+          <button class="btn-add-one" style="padding:10px 16px;" onclick="giderEkle()">+ Ekle</button>
+        </div>
+      </div>
+      <div class="manual-item-list" id="gider-liste-container"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid var(--card-border);">
+        <span style="font-size:0.85rem; font-weight:800; color:var(--slate-muted);">Seçili Gün Gider Toplamı:</span>
+        <span id="gider-gun-toplam" style="font-size:1.25rem; font-weight:900; color:#f87171;">0 ₺</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="kasa-modal" id="modal-canli-muzik" onclick="if(event.target === this) kasaModalKapat('modal-canli-muzik')">
+    <div class="kasa-modal-box" style="max-width:360px; text-align:center;">
+      <div class="modal-head">
+        <h3 id="muzik-modal-title">🎵 Canlı Müzik Ücreti</h3>
+        <button class="btn-modal-x" onclick="kasaModalKapat('modal-canli-muzik')">✕</button>
+      </div>
+      <p style="font-size:0.8rem; color:var(--slate-muted); margin-bottom:12px;">
+        Kişi başı ücret: <strong style="color:var(--fire-amber);">150 ₺</strong>
+      </p>
+      <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-bottom:12px;">
+        <button class="btn-add-one" onclick="canliMuzikEkle(1)">1 Kişi (150₺)</button>
+        <button class="btn-add-one" onclick="canliMuzikEkle(2)">2 Kişi (300₺)</button>
+        <button class="btn-add-one" onclick="canliMuzikEkle(3)">3 Kişi (450₺)</button>
+        <button class="btn-add-one" onclick="canliMuzikEkle(4)">4 Kişi (600₺)</button>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <input type="number" id="muzik-kisi-input" class="kasa-input" inputmode="numeric" min="1" placeholder="Kişi sayısı gir">
+        <button class="btn-add-one" onclick="canliMuzikOzelEkle()">+ Ekle</button>
+      </div>
     </div>
   </div>
 
@@ -443,7 +512,7 @@
         <h3 id="manual-modal-title">Masa - Elle Sipariş Ekle</h3>
         <button class="btn-modal-x" onclick="kasaModalKapat('modal-manual-order')">✕</button>
       </div>
-      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Nargile, Waffle)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
+      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Nargile, Çekirdek, Kestane)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
       <div class="manual-item-list" id="manual-products-container"></div>
 
       <div class="custom-manual-box">
@@ -496,6 +565,7 @@
           <div class="eod-date-controls">
             <input type="date" id="eod-date-picker" class="kasa-input" style="width:auto; font-weight:800;" onchange="gunSonuTarihDegisti()">
             <button class="btn-today-jump" onclick="buguneDonVeYukle()">Bugüne Dön</button>
+            <button class="btn-today-jump" onclick="aySonuPdfIndir()">📄 Ay PDF İndir</button>
           </div>
         </div>
 
@@ -548,6 +618,7 @@
   <script>
     const KASA_SIFRESI = "2905";
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
+    const CANLI_MUZIK_KISI_BASI = 150;
 
     const MENU_URUNLERI = [
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
@@ -645,6 +716,13 @@
       { id: 808, ad: "Sufle", kategori: "tatli", aciklama: "Sıcak fırından çıkan akışkan Belçika çikolatalı sufle", fiyat: 250, resim: "sufle.jpg" },
       { id: 809, ad: "Waffle", kategori: "tatli", aciklama: "Çıtır Belçika waffle hamuru, eritilmiş çikolata, muz, çilek ve fındık parçacıkları", fiyat: 250, resim: "waffle.jpg" },
 
+      { id: 1101, ad: "Çekirdek", kategori: "kuruyemis", aciklama: "", fiyat: 150, resim: "cekirdek.jpg" },
+      { id: 1102, ad: "Karışık Çerez Tabağı", kategori: "kuruyemis", aciklama: "", fiyat: 350, resim: "karisik-cerez-tabagi.jpg" },
+      { id: 1103, ad: "Meyve Tabağı", kategori: "kuruyemis", aciklama: "", fiyat: 250, resim: "meyve-tabagi.jpg" },
+
+      { id: 1201, ad: "Kestane 100 gr", kategori: "kestane", aciklama: "", fiyat: 200, resim: "kestane-100gr.jpg" },
+      { id: 1202, ad: "Patates", kategori: "kestane", aciklama: "", fiyat: 150, resim: "patates.jpg" },
+
       { id: 901, ad: "Pişmiş Şeftali Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 902, ad: "Mango Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
       { id: 903, ad: "Çilek Nargile", kategori: "nargile", aciklama: "", fiyat: 450, resim: "nargile2.jpg" },
@@ -684,6 +762,7 @@
     let seciliMasa = null;
     let canliMasalar = {};
     let gunSonuKayitlari = {};
+    let gunlukGiderler = {};
     let sonSiparisZamanlari = {};
     let islenenGarsonCagrilari = new Set();
     let islenenSiparisBildirimleri = new Set();
@@ -709,6 +788,16 @@
         return `${p[2]}.${p[1]}.${p[0]}`;
       }
       return t;
+    }
+
+    function ayAdiGetir(ayStr) {
+      const aylar = {
+        "01": "OCAK", "02": "ŞUBAT", "03": "MART", "04": "NİSAN",
+        "05": "MAYIS", "06": "HAZİRAN", "07": "TEMMUZ", "08": "AĞUSTOS",
+        "09": "EYLÜL", "10": "EKİM", "11": "KASIM", "12": "ARALIK"
+      };
+      const [yil, ay] = ayStr.split('-');
+      return `${aylar[ay] || ay} ${yil}`;
     }
 
     function sifreKontrol(e) {
@@ -984,6 +1073,138 @@
       } catch (e) {}
     }
 
+    function giderModalAc() {
+      document.getElementById('gider-tarih-input').value = bugununIsoTarihi();
+      document.getElementById('gider-tutar-input').value = '';
+      giderleriYukle();
+      document.getElementById('modal-giderler').style.display = 'flex';
+    }
+
+    async function giderleriYukle() {
+      const tarihKey = document.getElementById('gider-tarih-input').value || bugununIsoTarihi();
+      try {
+        const res = await fetch(`${FIREBASE_URL}/giderler/${tarihKey}.json`);
+        gunlukGiderler = (await res.json()) || {};
+      } catch (e) {
+        gunlukGiderler = {};
+      }
+
+      const container = document.getElementById('gider-liste-container');
+      container.innerHTML = "";
+      let toplam = 0;
+      const keys = Object.keys(gunlukGiderler);
+
+      if (keys.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:var(--slate-muted); padding:16px; font-size:0.82rem;">Seçili güne ait gider girişi yok.</div>`;
+        document.getElementById('gider-gun-toplam').innerText = "0 ₺";
+        return;
+      }
+
+      keys.reverse().forEach(k => {
+        const g = gunlukGiderler[k];
+        const tutar = Number(g.tutar || 0);
+        toplam += tutar;
+        const row = document.createElement('div');
+        row.className = 'stock-item-row';
+        row.innerHTML = `
+          <div>
+            <div style="font-size:0.96rem; font-weight:900; color:#f87171;">${tutar} ₺</div>
+            <div style="font-size:0.72rem; color:var(--slate-muted);">${g.saat || '-'}</div>
+          </div>
+          <button class="btn-item-delete" onclick="giderSil('${k}')">✕</button>
+        `;
+        container.appendChild(row);
+      });
+
+      document.getElementById('gider-gun-toplam').innerText = `${toplam} ₺`;
+    }
+
+    async function giderEkle() {
+      const tarihKey = document.getElementById('gider-tarih-input').value || bugununIsoTarihi();
+      const tutar = Number(document.getElementById('gider-tutar-input').value);
+      if (!tutar || tutar <= 0) {
+        alert("Geçerli bir gider tutarı giriniz.");
+        return;
+      }
+
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      await fetch(`${FIREBASE_URL}/giderler/${tarihKey}.json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tutar: tutar,
+          tarih: tarihKey,
+          saat: saatStr,
+          zamanDamgasi: Date.now()
+        })
+      });
+
+      document.getElementById('gider-tutar-input').value = '';
+      await giderleriYukle();
+    }
+
+    async function giderSil(key) {
+      const tarihKey = document.getElementById('gider-tarih-input').value || bugununIsoTarihi();
+      if (confirm("Bu gider kaydı silinsin mi?")) {
+        await fetch(`${FIREBASE_URL}/giderler/${tarihKey}/${key}.json`, { method: 'DELETE' });
+        await giderleriYukle();
+      }
+    }
+
+    function canliMuzikModalAc() {
+      if (!seciliMasa) return;
+      document.getElementById('muzik-modal-title').innerText = `Masa ${seciliMasa} • Canlı Müzik (150₺/Kişi)`;
+      document.getElementById('muzik-kisi-input').value = '';
+      document.getElementById('modal-canli-muzik').style.display = 'flex';
+    }
+
+    async function canliMuzikOzelEkle() {
+      const kisi = Number(document.getElementById('muzik-kisi-input').value);
+      if (!kisi || kisi <= 0) {
+        alert("Geçerli bir kişi sayısı giriniz.");
+        return;
+      }
+      await canliMuzikEkle(kisi);
+    }
+
+    async function canliMuzikEkle(kisiSayisi) {
+      if (!seciliMasa) return;
+      const tutar = kisiSayisi * CANLI_MUZIK_KISI_BASI;
+      const masaKey = String(seciliMasa);
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      let mevcut = canliMasalar[masaKey];
+
+      if (!mevcut || !mevcut.urunler) {
+        mevcut = { urunler: [], toplamTutar: 0, saat: saatStr };
+      }
+
+      mevcut.urunler.push({
+        ad: `Canlı Müzik Ücreti (${kisiSayisi} Kişi)`,
+        detay: `Kişi başı ${CANLI_MUZIK_KISI_BASI} ₺`,
+        adet: kisiSayisi,
+        birimFiyat: CANLI_MUZIK_KISI_BASI,
+        tutar: tutar,
+        yeni: true
+      });
+
+      mevcut.toplamTutar = mevcut.urunler.reduce((acc, c) => acc + c.tutar, 0);
+      mevcut.saat = saatStr;
+      mevcut.sonGuncelleme = Date.now();
+      mevcut.durum = mevcut.durum || 'iletildi';
+      mevcut.okunmamis = true;
+
+      canliMasalar[masaKey] = mevcut;
+      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(mevcut)
+      });
+
+      kasaModalKapat('modal-canli-muzik');
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
+    }
+
     function rezervasyonlariCiz(rezObj) {
       const container = document.getElementById('rez-container');
       if (!rezObj) {
@@ -1111,6 +1332,7 @@
 
       document.getElementById('panel-table-title').innerText = `Masa ${masaNo} Adisyonu`;
       document.getElementById('btn-open-manual').style.display = 'inline-block';
+      document.getElementById('btn-open-music').style.display = 'inline-block';
       const listEl = document.getElementById('panel-orders-list');
       const footerEl = document.getElementById('panel-footer');
       const hazirBtn = document.getElementById('btn-siparis-hazir');
@@ -1162,6 +1384,7 @@
           </div>
           <div class="item-actions">
             <span class="item-price" style="${isKismiOdemeKalemi ? 'color:#10b981;' : ''}">${item.tutar} ₺</span>
+            ${!isKismiOdemeKalemi ? `<button class="btn-qty-plus" onclick="adetArtir(${masaNo}, ${index})">+</button>` : ''}
             ${!isKismiOdemeKalemi ? `<button class="btn-qty-minus" onclick="adetAzalt(${masaNo}, ${index})">−</button>` : ''}
             <button class="btn-item-delete" onclick="urunuSil(${masaNo}, ${index})">✕</button>
           </div>
@@ -1335,19 +1558,37 @@
       masaDetayiGoster(hedefNo);
     }
 
+    async function adetArtir(masaNo, index) {
+      const data = canliMasalar[String(masaNo)];
+      if (!data || !data.urunler[index]) return;
+
+      const urun = data.urunler[index];
+      const birim = Number(urun.birimFiyat) || (urun.adet > 0 ? Number(urun.tutar) / Number(urun.adet) : 0);
+      urun.adet = Number(urun.adet || 0) + 1;
+      urun.birimFiyat = birim;
+      urun.tutar = urun.adet * birim;
+      data.toplamTutar = data.urunler.reduce((acc, curr) => acc + Number(curr.tutar || 0), 0);
+
+      await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+      });
+      masalariCiz();
+    }
+
     async function adetAzalt(masaNo, index) {
       const data = canliMasalar[String(masaNo)];
       if (!data || !data.urunler[index]) return;
 
       const urun = data.urunler[index];
+      const birim = Number(urun.birimFiyat) || (urun.adet > 0 ? Number(urun.tutar) / Number(urun.adet) : 0);
       if (urun.adet > 1) {
         urun.adet -= 1;
-        urun.tutar = urun.adet * urun.birimFiyat;
+        urun.tutar = urun.adet * birim;
       } else {
         data.urunler.splice(index, 1);
       }
 
-      data.toplamTutar = data.urunler.reduce((acc, curr) => acc + curr.tutar, 0);
+      data.toplamTutar = data.urunler.reduce((acc, curr) => acc + Number(curr.tutar || 0), 0);
 
       if (data.urunler.length === 0) {
         delete canliMasalar[String(masaNo)];
@@ -1366,7 +1607,7 @@
 
       if (confirm(`Bu kalemi adisyondan çıkarmak istediğinize emin misiniz?`)) {
         data.urunler.splice(index, 1);
-        data.toplamTutar = data.urunler.reduce((acc, curr) => acc + curr.tutar, 0);
+        data.toplamTutar = data.urunler.reduce((acc, curr) => acc + Number(curr.tutar || 0), 0);
 
         if (data.urunler.length === 0) {
           delete canliMasalar[String(masaNo)];
@@ -1519,18 +1760,19 @@
     }
 
     async function tamSifirlamaYap() {
-      const pin = prompt("DİKKAT! Tüm geçmiş veriler, bugünün cirosu, rezervasyonlar ve masalar tamamen SİLİNECEK. Fabrika ayarlarına dönmek için kasa şifresini girin:");
+      const pin = prompt("DİKKAT! Tüm geçmiş veriler, bugünün cirosu, giderler, rezervasyonlar ve masalar tamamen SİLİNECEK. Fabrika ayarlarına dönmek için kasa şifresini girin:");
       if (pin === KASA_SIFRESI) {
         if (confirm("SON UYARI: Her şey sıfırlanacak ve bu işlem asla geri alınamaz! Gerçekten onaylıyor musunuz?")) {
           try {
             await fetch(`${FIREBASE_URL}/masalar.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/gun_sonu.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/giderler.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/kapali_oturumlar.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/rezervasyonlar.json`, { method: 'DELETE' });
             await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' });
-            alert("Sistem fabrikaya ayarlarına döndürüldü. Tamamen 0'dan başlıyorsunuz.");
+            alert("Sistem fabrika ayarlarına döndürüldü. Tamamen 0'dan başlıyorsunuz.");
             location.reload();
           } catch (e) { alert("Bağlantı hatası oluştu."); }
         }
@@ -1644,10 +1886,19 @@
       const bugunMu = tarihKey === bugununIsoTarihi();
       document.getElementById('eod-selected-date-label').innerText = bugunMu ? `${duzTarihYazi} (Bugün)` : `${duzTarihYazi} (Geçmiş Kayıt)`;
       document.getElementById('eod-revenue-title').innerText = `TOPLAM CİRO`;
-      document.getElementById('eod-reset-warning-label').innerText = `🔒 ${duzTarihYazi} Tarihini Kapat & Sıfırla (Şifre Onaylı)`;
+      document.getElementById('eod-reset-warning-label').innerText = `🔒 ${duzTarihYazi} Tarihini Kapat & Kaydet (Şifre Onaylı)`;
 
       const res = await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${tarihKey}.json`);
-      const veriler = await res.json();
+      let veriler = await res.json();
+
+      if (!veriler) {
+        const kapananRes = await fetch(`${FIREBASE_URL}/gun_sonu/kapanan_gunler/${tarihKey}.json`);
+        const kapananObj = await kapananRes.json();
+        if (kapananObj && kapananObj.kayitlar) {
+          veriler = kapananObj.kayitlar;
+        }
+      }
+
       gunSonuKayitlari = veriler || {};
       const historyEl = document.getElementById('eod-history-container');
       historyEl.innerHTML = "";
@@ -1724,12 +1975,172 @@
         alert("Sıfırlama şifresi hatalı! Günü kapatmak için doğru kasa şifresini giriniz.");
         return;
       }
-      if (confirm(`${duzTarihYazi} tarihine ait gün sonu cirosu sıfırlanacak (diğer günler ve geçmiş yıllar korunacak). Emin misiniz?`)) {
-        await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${seciliTarih}.json`, { method: 'DELETE' });
+
+      if (confirm(`${duzTarihYazi} günü kapatılıp kalıcı arşive kaydedilecek. Emin misiniz?`)) {
+        const mevcutKayitlar = gunSonuKayitlari || {};
+        const satirlar = Object.values(mevcutKayitlar);
+
+        let toplamCiro = 0;
+        let nakitCiro = 0;
+        let kartCiro = 0;
+        let adisyonSayisi = 0;
+
+        satirlar.forEach(item => {
+          const tutar = Number(item.tutar || 0);
+          const odeme = item.odemeTuru || "Nakit";
+          toplamCiro += tutar;
+          if (odeme === "Kredi Kartı") kartCiro += tutar;
+          else nakitCiro += tutar;
+          if (!item.isKismi) adisyonSayisi++;
+        });
+
+        await fetch(`${FIREBASE_URL}/gun_sonu/kapanan_gunler/${seciliTarih}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tarih: seciliTarih,
+            kapatilmaZamani: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+            toplamCiro,
+            nakitCiro,
+            kartCiro,
+            adisyonSayisi,
+            kayitlar: mevcutKayitlar,
+            zamanDamgasi: Date.now()
+          })
+        });
+
         document.getElementById('eod-reset-pin').value = '';
         document.getElementById('eod-selected-order-detail').style.display = 'none';
         await gunSonuVerileriniYukle(seciliTarih);
-        alert(`${duzTarihYazi} tarihi kapatıldı ve ciro sıfırlandı.`);
+        alert(`${duzTarihYazi} günü arşive kaydedildi ve tüm kayıtlar korundu.`);
+      }
+    }
+
+    async function aySonuPdfIndir() {
+      const seciliTarih = document.getElementById('eod-date-picker')?.value || bugununIsoTarihi();
+      const ayPrefix = seciliTarih.slice(0, 7);
+      const ayBaslik = ayAdiGetir(ayPrefix);
+
+      try {
+        const [arsivRes, kapananRes, giderRes] = await Promise.all([
+          fetch(`${FIREBASE_URL}/gun_sonu/arsiv.json`),
+          fetch(`${FIREBASE_URL}/gun_sonu/kapanan_gunler.json`),
+          fetch(`${FIREBASE_URL}/giderler.json`)
+        ]);
+
+        const arsivAll = (await arsivRes.json()) || {};
+        const kapananAll = (await kapananRes.json()) || {};
+        const giderAll = (await giderRes.json()) || {};
+
+        const gunSet = new Set([
+          ...Object.keys(arsivAll).filter(d => d.startsWith(ayPrefix)),
+          ...Object.keys(kapananAll).filter(d => d.startsWith(ayPrefix)),
+          ...Object.keys(giderAll).filter(d => d.startsWith(ayPrefix))
+        ]);
+
+        const gunler = Array.from(gunSet).sort();
+
+        let ayNakit = 0;
+        let ayKart = 0;
+        let ayGider = 0;
+        let satirlarHtml = "";
+
+        gunler.forEach(gun => {
+          let gunNakit = 0;
+          let gunKart = 0;
+          let gunGider = 0;
+
+          const gunKayitKaynak = arsivAll[gun] || (kapananAll[gun] && kapananAll[gun].kayitlar) || {};
+          Object.values(gunKayitKaynak).forEach(rec => {
+            const t = Number(rec.tutar || 0);
+            if ((rec.odemeTuru || "Nakit") === "Kredi Kartı") gunKart += t;
+            else gunNakit += t;
+          });
+
+          const gunGiderKaynak = giderAll[gun] || {};
+          Object.values(gunGiderKaynak).forEach(g => {
+            gunGider += Number(g.tutar || 0);
+          });
+
+          const gunGelir = gunNakit + gunKart;
+          const gunNet = gunGelir - gunGider;
+
+          ayNakit += gunNakit;
+          ayKart += gunKart;
+          ayGider += gunGider;
+
+          satirlarHtml += `
+            <tr>
+              <td>${tarihiDuzGoster(gun)}</td>
+              <td>${gunNakit} TL</td>
+              <td>${gunKart} TL</td>
+              <td>${gunGelir} TL</td>
+              <td>${gunGider} TL</td>
+              <td><strong>${gunNet} TL</strong></td>
+            </tr>
+          `;
+        });
+
+        const ayToplamGelir = ayNakit + ayKart;
+        const ayNet = ayToplamGelir - ayGider;
+
+        const printWin = window.open("", "_blank", "width=850,height=650");
+        printWin.document.write(`
+          <!DOCTYPE html>
+          <html lang="tr">
+          <head>
+            <meta charset="UTF-8">
+            <title>${ayBaslik} - Nomad Karavan Rapor</title>
+            <style>
+              body { font-family: Arial, sans-serif; padding: 24px; color: #111827; }
+              h1 { margin-bottom: 4px; font-size: 22px; }
+              .sub { color: #4b5563; font-size: 13px; margin-bottom: 18px; }
+              .ozet { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+              .kutu { border: 1px solid #d1d5db; border-radius: 8px; padding: 10px 14px; min-width: 150px; }
+              .kutu small { display: block; color: #6b7280; font-size: 11px; }
+              .kutu strong { font-size: 16px; }
+              table { width: 100%; border-collapse: collapse; font-size: 13px; }
+              th, td { border: 1px solid #d1d5db; padding: 8px 10px; text-align: left; }
+              th { background: #f3f4f6; }
+              @media print { .no-print { display: none; } }
+            </style>
+          </head>
+          <body>
+            <div class="no-print" style="margin-bottom:14px;">
+              <button onclick="window.print()" style="padding:8px 14px; font-weight:bold; cursor:pointer;">PDF Olarak Kaydet / Yazdir</button>
+            </div>
+            <h1>${ayBaslik}</h1>
+            <div class="sub">NOMAD KARAVAN COFFEE - GUNLUK GELIR / GIDER RAPORU</div>
+            <div class="ozet">
+              <div class="kutu"><small>NAKİT GELİR</small><strong>${ayNakit} TL</strong></div>
+              <div class="kutu"><small>KREDİ KARTI GELİR</small><strong>${ayKart} TL</strong></div>
+              <div class="kutu"><small>TOPLAM GELİR</small><strong>${ayToplamGelir} TL</strong></div>
+              <div class="kutu"><small>TOPLAM GİDER</small><strong>${ayGider} TL</strong></div>
+              <div class="kutu"><small>NET DURUM</small><strong>${ayNet} TL</strong></div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tarih</th>
+                  <th>Nakit</th>
+                  <th>Kredi Karti</th>
+                  <th>Gunluk Gelir</th>
+                  <th>Gider</th>
+                  <th>Gunluk Net</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${satirlarHtml || `<tr><td colspan="6">Bu aya ait kayit bulunamadi.</td></tr>`}
+              </tbody>
+            </table>
+          </body>
+          </html>
+        `);
+        printWin.document.close();
+        printWin.focus();
+        setTimeout(() => printWin.print(), 300);
+      } catch (e) {
+        alert("PDF raporu hazırlanırken bir hata oluştu.");
       }
     }
 
@@ -1743,4 +2154,3 @@
   </script>
 </body>
 </html>
-  </div>
