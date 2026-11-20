@@ -431,9 +431,10 @@
       <div class="custom-manual-box" style="margin-bottom:14px;">
         <div style="font-size:0.78rem; font-weight:900; color:var(--fire-amber);">Gider Tutarı Gir (₺)</div>
         <div style="display:flex; gap:8px;">
-          <input type="number" id="gider-tutar-input" class="kasa-input" inputmode="numeric" min="1" placeholder="Tutar ₺">
-          <button class="btn-add-one" style="padding:10px 16px;" onclick="giderEkle()">+ Ekle</button>
+          <input type="number" id="gider-tutar-input" class="kasa-input" inputmode="numeric" min="1" placeholder="Tutar ₺" onkeydown="if(event.key==='Enter'){event.preventDefault();giderEkle();}">
+          <button type="button" id="btn-gider-ekle" class="btn-add-one" style="padding:10px 16px;" onclick="giderEkle()">+ Ekle</button>
         </div>
+        <div id="gider-durum-mesaj" style="font-size:0.76rem; font-weight:800; color:#10b981; min-height:16px;"></div>
       </div>
       <div class="manual-item-list" id="gider-liste-container"></div>
       <div style="display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid var(--card-border);">
@@ -582,9 +583,16 @@
             <div class="eod-stat-label">💳 KREDİ KARTI</div>
             <div class="eod-stat-val" id="eod-card-revenue" style="color:#60a5fa;">0 ₺</div>
           </div>
-          <div class="eod-stat-card">
-            <div class="eod-stat-label">KAPATILAN ADİSYON</div>
-            <div class="eod-stat-val" id="eod-total-orders" style="color:#e2e8f0;">0</div>
+          <div class="eod-stat-card" style="border-color:rgba(248, 113, 113, 0.45);">
+            <div class="eod-stat-label">💸 GÜN GİDERİ</div>
+            <div class="eod-stat-val" id="eod-day-expense" style="color:#f87171;">0 ₺</div>
+          </div>
+        </div>
+
+        <div id="eod-expenses-summary-box" style="background:rgba(22, 28, 32, 0.92); border:1px solid rgba(248, 113, 113, 0.35); border-radius:14px; padding:12px 14px; margin-bottom:14px;">
+          <div style="font-size:0.78rem; font-weight:900; color:#fca5a5; margin-bottom:6px;">💸 Seçili Gün Gider Kayıtları</div>
+          <div id="eod-expenses-list" style="display:flex; flex-wrap:wrap; gap:8px; font-size:0.82rem; color:#e2e8f0;">
+            <span style="color:var(--slate-muted);">Gider kaydı yok.</span>
           </div>
         </div>
 
@@ -602,7 +610,7 @@
 
         <div style="background:rgba(239, 68, 68, 0.14); border:1px solid #ef4444; border-radius:14px; padding:12px;">
           <div style="font-size:0.78rem; font-weight:900; color:#fca5a5; margin-bottom:8px;" id="eod-reset-warning-label">
-            🔒 Seçili Günü Kapat & Sıfırla (Şifre Onaylı)
+            🔒 Seçili Günü Kapat & Kaydet (Şifre Onaylı)
           </div>
           <div style="display:flex; gap:8px;">
             <input type="password" id="eod-reset-pin" class="kasa-input" inputmode="numeric" placeholder="Sıfırlama Şifresi">
@@ -1074,14 +1082,21 @@
     }
 
     function giderModalAc() {
-      document.getElementById('gider-tarih-input').value = bugununIsoTarihi();
+      const tarihEl = document.getElementById('gider-tarih-input');
+      if (!tarihEl.value) {
+        tarihEl.value = bugununIsoTarihi();
+      }
       document.getElementById('gider-tutar-input').value = '';
-      giderleriYukle();
+      document.getElementById('gider-durum-mesaj').innerText = '';
       document.getElementById('modal-giderler').style.display = 'flex';
+      giderleriYukle();
     }
 
     async function giderleriYukle() {
-      const tarihKey = document.getElementById('gider-tarih-input').value || bugununIsoTarihi();
+      const tarihEl = document.getElementById('gider-tarih-input');
+      if (!tarihEl.value) tarihEl.value = bugununIsoTarihi();
+      const tarihKey = tarihEl.value;
+
       try {
         const res = await fetch(`${FIREBASE_URL}/giderler/${tarihKey}.json`);
         gunlukGiderler = (await res.json()) || {};
@@ -1108,10 +1123,10 @@
         row.className = 'stock-item-row';
         row.innerHTML = `
           <div>
-            <div style="font-size:0.96rem; font-weight:900; color:#f87171;">${tutar} ₺</div>
-            <div style="font-size:0.72rem; color:var(--slate-muted);">${g.saat || '-'}</div>
+            <div style="font-size:0.98rem; font-weight:900; color:#f87171;">${tutar} ₺</div>
+            <div style="font-size:0.72rem; color:var(--slate-muted);">${tarihiDuzGoster(g.tarih || tarihKey)} • ${g.saat || '-'}</div>
           </div>
-          <button class="btn-item-delete" onclick="giderSil('${k}')">✕</button>
+          <button type="button" class="btn-item-delete" onclick="giderSil('${k}')">✕</button>
         `;
         container.appendChild(row);
       });
@@ -1120,27 +1135,55 @@
     }
 
     async function giderEkle() {
-      const tarihKey = document.getElementById('gider-tarih-input').value || bugununIsoTarihi();
-      const tutar = Number(document.getElementById('gider-tutar-input').value);
-      if (!tutar || tutar <= 0) {
-        alert("Geçerli bir gider tutarı giriniz.");
+      const tarihEl = document.getElementById('gider-tarih-input');
+      if (!tarihEl.value) tarihEl.value = bugununIsoTarihi();
+      const tarihKey = tarihEl.value;
+
+      const tutarInput = document.getElementById('gider-tutar-input');
+      const durumEl = document.getElementById('gider-durum-mesaj');
+      const btn = document.getElementById('btn-gider-ekle');
+      const tutar = Number(String(tutarInput.value).replace(',', '.').trim());
+
+      if (!tutar || isNaN(tutar) || tutar <= 0) {
+        durumEl.style.color = "#f87171";
+        durumEl.innerText = "Lütfen 0'dan büyük bir tutar girin.";
         return;
       }
 
-      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-      await fetch(`${FIREBASE_URL}/giderler/${tarihKey}.json`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tutar: tutar,
-          tarih: tarihKey,
-          saat: saatStr,
-          zamanDamgasi: Date.now()
-        })
-      });
+      btn.disabled = true;
+      btn.innerText = "...";
+      durumEl.style.color = "#fbbf24";
+      durumEl.innerText = "Kaydediliyor...";
 
-      document.getElementById('gider-tutar-input').value = '';
-      await giderleriYukle();
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      const yeniId = "g_" + Date.now();
+      const kayitObj = {
+        tutar: tutar,
+        tarih: tarihKey,
+        saat: saatStr,
+        zamanDamgasi: Date.now()
+      };
+
+      gunlukGiderler[yeniId] = kayitObj;
+      tutarInput.value = '';
+
+      try {
+        const res = await fetch(`${FIREBASE_URL}/giderler/${tarihKey}/${yeniId}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(kayitObj)
+        });
+        if (!res.ok) throw new Error("Firebase yazma hatası");
+        durumEl.style.color = "#10b981";
+        durumEl.innerText = `${tutar} ₺ gider kaydedildi (${tarihiDuzGoster(tarihKey)}).`;
+        await giderleriYukle();
+      } catch (e) {
+        durumEl.style.color = "#f87171";
+        durumEl.innerText = "Kayıt sırasında bağlantı hatası oluştu.";
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "+ Ekle";
+      }
     }
 
     async function giderSil(key) {
@@ -1888,16 +1931,33 @@
       document.getElementById('eod-revenue-title').innerText = `TOPLAM CİRO`;
       document.getElementById('eod-reset-warning-label').innerText = `🔒 ${duzTarihYazi} Tarihini Kapat & Kaydet (Şifre Onaylı)`;
 
-      const res = await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${tarihKey}.json`);
-      let veriler = await res.json();
+      const [res, kapananRes, giderRes] = await Promise.all([
+        fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${tarihKey}.json`),
+        fetch(`${FIREBASE_URL}/gun_sonu/kapanan_gunler/${tarihKey}.json`),
+        fetch(`${FIREBASE_URL}/giderler/${tarihKey}.json`)
+      ]);
 
-      if (!veriler) {
-        const kapananRes = await fetch(`${FIREBASE_URL}/gun_sonu/kapanan_gunler/${tarihKey}.json`);
-        const kapananObj = await kapananRes.json();
-        if (kapananObj && kapananObj.kayitlar) {
-          veriler = kapananObj.kayitlar;
-        }
+      let veriler = await res.json();
+      const kapananObj = await kapananRes.json();
+      if (!veriler && kapananObj && kapananObj.kayitlar) {
+        veriler = kapananObj.kayitlar;
       }
+
+      const giderVeri = (await giderRes.json()) || {};
+      let gunGiderToplam = 0;
+      const giderListEl = document.getElementById('eod-expenses-list');
+      const giderKeys = Object.keys(giderVeri);
+
+      if (giderKeys.length === 0) {
+        giderListEl.innerHTML = `<span style="color:var(--slate-muted);">Seçili gün için gider kaydı yok.</span>`;
+      } else {
+        giderListEl.innerHTML = giderKeys.map(gk => {
+          const gt = Number(giderVeri[gk].tutar || 0);
+          gunGiderToplam += gt;
+          return `<span style="background:rgba(239,68,68,0.18); border:1px solid #f87171; color:#fca5a5; padding:4px 10px; border-radius:8px; font-weight:800;">${gt} ₺</span>`;
+        }).join('');
+      }
+      document.getElementById('eod-day-expense').innerText = `${gunGiderToplam} ₺`;
 
       gunSonuKayitlari = veriler || {};
       const historyEl = document.getElementById('eod-history-container');
@@ -1907,7 +1967,6 @@
         document.getElementById('eod-total-revenue').innerText = "0 ₺";
         document.getElementById('eod-cash-revenue').innerText = "0 ₺";
         document.getElementById('eod-card-revenue').innerText = "0 ₺";
-        document.getElementById('eod-total-orders').innerText = "0";
         historyEl.innerHTML = `<div style="font-size:0.82rem; color:var(--slate-muted); text-align:center; padding:16px;">${duzTarihYazi} tarihinde kapatılmış adisyon kaydı bulunmuyor.</div>`;
         return;
       }
@@ -1915,7 +1974,6 @@
       let toplamCiro = 0;
       let nakitCiro = 0;
       let kartCiro = 0;
-      let adisyonSayisi = 0;
 
       const keys = Object.keys(veriler);
       keys.reverse().forEach(k => {
@@ -1926,8 +1984,6 @@
         toplamCiro += tutar;
         if (odeme === "Kredi Kartı") kartCiro += tutar;
         else nakitCiro += tutar;
-
-        if (!item.isKismi) adisyonSayisi++;
 
         const odemeRozet = odeme === "Kredi Kartı"
           ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
@@ -1963,7 +2019,6 @@
       document.getElementById('eod-total-revenue').innerText = `${toplamCiro} ₺`;
       document.getElementById('eod-cash-revenue').innerText = `${nakitCiro} ₺`;
       document.getElementById('eod-card-revenue').innerText = `${kartCiro} ₺`;
-      document.getElementById('eod-total-orders').innerText = `${adisyonSayisi} Adisyon`;
     }
 
     async function gunuKapatVeSifirla() {
@@ -2050,7 +2105,12 @@
           let gunKart = 0;
           let gunGider = 0;
 
-          const gunKayitKaynak = arsivAll[gun] || (kapananAll[gun] && kapananAll[gun].kayitlar) || {};
+          const arsivKayit = arsivAll[gun];
+          const kapananKayit = kapananAll[gun] && kapananAll[gun].kayitlar;
+          const gunKayitKaynak = (arsivKayit && Object.keys(arsivKayit).length > 0)
+            ? arsivKayit
+            : (kapananKayit || {});
+
           Object.values(gunKayitKaynak).forEach(rec => {
             const t = Number(rec.tutar || 0);
             if ((rec.odemeTuru || "Nakit") === "Kredi Kartı") gunKart += t;
@@ -2085,6 +2145,10 @@
         const ayNet = ayToplamGelir - ayGider;
 
         const printWin = window.open("", "_blank", "width=850,height=650");
+        if (!printWin) {
+          alert("Tarayıcı pencere açmayı engelledi. Açılır pencere (pop-up) iznine basın.");
+          return;
+        }
         printWin.document.write(`
           <!DOCTYPE html>
           <html lang="tr">
