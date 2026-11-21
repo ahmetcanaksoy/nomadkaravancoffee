@@ -629,7 +629,7 @@
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
     const CANLI_MUZIK_KISI_BASI = 150;
 
-     const MENU_URUNLERI = [
+    const MENU_URUNLERI = [
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
       { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
       { id: 603, ad: "Ihlamur", kategori: "cay", aciklama: "French press demlemesi çiçek ve yaprak ıhlamur, fincan servisi", fiyat: 160, resim: "ihlamur.jpg" },
@@ -701,11 +701,11 @@
       { id: 511, ad: "Golden Sunset", kategori: "kokteyl", aciklama: "Taze portakal ve tropikal mango aromalı ferahlatıcı kokteyl", fiyat: 240, resim: "golden-sunset.jpg" },
       { id: 512, ad: "Kuzukulağı Kokteyl", kategori: "kokteyl", aciklama: "Taze yeşil kuzukulağı yaprakları, limon ferahlığı ve soğuk servis", fiyat: 240, resim: "kuzukulagi-kokteyl.jpg" },
 
-      { id: 1001, ad: "Karavan Tost", kategori: "fastfood", aciklama: "Dana kavurma, dana sucuk, kaşar peyniri ve tereyağlı kızarmış ekmek", fiyat: 350, resim: "karavan-tost.jpg" },
-      { id: 1002, ad: "Karışık Tost", kategori: "fastfood", aciklama: "Dana sucuk, kaşar peyniri ve tereyağlı kızarmış ekmek", fiyat: 250, resim: "karisik-gurme-tost.jpg" },
-      { id: 1003, ad: "Sucuklu Tost", kategori: "fastfood", aciklama: "Dana sucuk ve tereyağlı kızarmış ekmek", fiyat: 200, resim: "sucuklu-tost.jpg" },
-      { id: 1004, ad: "Kaşarlı Tost", kategori: "fastfood", aciklama: "Kaşar peyniri ve tereyağlı kızarmış ekmek", fiyat: 200, resim: "kasarli-tost.jpg" },
-      { id: 1005, ad: "Kavurmalı Tost", kategori: "fastfood", aciklama: "Dana kavurma, kaşar peyniri ve tereyağlı kızarmış ekmek", fiyat: 300, resim: "kavurmali-tost.jpg" },
+      { id: 1001, ad: "Karavan Tost", kategori: "fastfood", aciklama: "Dana kavurma, dana sucuk, kaşar peyniri, tereyağlı kızarmış ekmek", fiyat: 350, resim: "karavan-tost.jpg" },
+      { id: 1002, ad: "Kavurmalı Tost", kategori: "fastfood", aciklama: "Dana kavurma, kaşar peyniri, tereyağlı kızarmış ekmek", fiyat: 300, resim: "kavurmali-tost.jpg" },
+      { id: 1003, ad: "Karışık Tost", kategori: "fastfood", aciklama: "Dana sucuk, kaşar peyniri, tereyağlı kızarmış ekmek", fiyat: 250, resim: "karisik-gurme-tost.jpg" },
+      { id: 1004, ad: "Sucuklu Tost", kategori: "fastfood", aciklama: "Dana sucuk, tereyağlı kızarmış ekmek", fiyat: 200, resim: "sucuklu-tost.jpg" },
+      { id: 1005, ad: "Kaşarlı Tost", kategori: "fastfood", aciklama: "Kaşar peyniri, tereyağlı kızarmış ekmek", fiyat: 200, resim: "kasarli-tost.jpg" },
       { id: 1006, ad: "Patates Kızartması", kategori: "fastfood", aciklama: "Altın sarısı çıtır parmak patates, ketçap ve mayonez eşliğinde", fiyat: 140, resim: "patates-kizartmasi.jpg" },
 
       { id: 701, ad: "Fuse Tea Çeşitleri", kategori: "mesrubat", aciklama: "Şeftali, limon veya mango aromalı soğuk çay (330 ml)", fiyat: 100, resim: "fuse-tea.jpg" },
@@ -769,6 +769,7 @@
       { id: 933, ad: "Lüle Değişimi", kategori: "nargile", aciklama: "Nargileniz için taze lüle değişimi", fiyat: 300, resim: "nargile2.jpg" }
     ];
 
+    const TOPLAM_MASA = 50;
     let seciliMasa = null;
     let canliMasalar = {};
     let gunSonuKayitlari = {};
@@ -1515,7 +1516,8 @@
       masalariCiz();
       masaDetayiGoster(seciliMasa);
     }
-function manuelSiparisModalAc() {
+
+    function manuelSiparisModalAc() {
       if (!seciliMasa) return;
       document.getElementById('manual-modal-title').innerText = `Masa ${seciliMasa} • Elle Sipariş Ekle`;
       document.getElementById('manual-search-input').value = '';
@@ -2275,4 +2277,4 @@ function manuelSiparisModalAc() {
     }
   </script>
 </body>
-</html> 
+</html>
