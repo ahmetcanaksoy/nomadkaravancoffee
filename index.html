@@ -256,15 +256,16 @@
     .product-content { flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 95px; }
     .prod-title { font-size: 0.98rem; font-weight: 800; color: #ffffff; line-height: 1.25; margin-bottom: 4px; }
     .prod-desc { font-size: 0.75rem; color: var(--slate-muted); line-height: 1.35; margin-bottom: 6px; }
-    .sugar-options-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
-    .sugar-chip { background: rgba(24, 29, 34, 0.85); border: 1px solid var(--card-border); color: #cbd5e1; font-size: 0.68rem; font-weight: 800; padding: 4px 8px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
-    .sugar-chip.selected { background: rgba(245, 158, 11, 0.24); border-color: var(--fire-amber); color: var(--fire-amber); }
     .prod-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
     .prod-price { font-size: 1.1rem; font-weight: 900; color: var(--fire-amber); }
     .qty-box { display: flex; align-items: center; background: rgba(24, 29, 34, 0.94); border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); }
     .qty-btn { background: transparent; border: none; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; color: #ffffff; cursor: pointer; font-weight: 700; }
     .qty-btn.plus { background: var(--fire-orange); color: #ffffff; cursor: pointer; }
     .qty-num { min-width: 26px; text-align: center; font-size: 0.88rem; font-weight: 800; color: #ffffff; }
+
+    .sugar-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .sugar-modal-btn { background: rgba(24, 29, 34, 0.92); border: 1.5px solid var(--card-border); color: #ffffff; padding: 12px 10px; border-radius: 12px; font-size: 0.84rem; font-weight: 800; cursor: pointer; transition: all 0.15s; }
+    .sugar-modal-btn.selected { background: rgba(234, 88, 12, 0.28); border-color: var(--fire-amber); color: var(--fire-amber); }
 
     .visitor-qr-note { font-size: 0.72rem; font-weight: 800; color: #a7f3d0; background: rgba(16, 185, 129, 0.16); border: 1px solid rgba(16, 185, 129, 0.35); padding: 5px 10px; border-radius: 10px; }
     .visitor-bottom-banner { position: fixed; bottom: 16px; left: 14px; right: 14px; background: rgba(32, 39, 43, 0.96); border: 1.5px solid rgba(245, 158, 11, 0.5); border-radius: 18px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; z-index: 150; box-shadow: 0 12px 32px rgba(0,0,0,0.65); }
@@ -542,6 +543,24 @@
     <button class="btn-create-order" onclick="sepetOzetiniAc()">
       <span>Siparişi Ver</span><span>→</span>
     </button>
+  </div>
+
+  <div class="custom-modal" id="modal-sugar-select" onclick="if(event.target === this) sugarModalKapat()">
+    <div class="modal-card" style="max-width: 350px; text-align:center;">
+      <h3 id="sugar-modal-title" style="font-size:1.1rem; font-weight:900; color:#fff; margin-bottom:6px;">Şeker Seçiniz</h3>
+      <p style="font-size:0.78rem; color:var(--slate-muted); margin-bottom:14px;">Sepete eklemek için şeker tercihini seçiniz.</p>
+      <div class="sugar-modal-grid">
+        <button type="button" class="sugar-modal-btn" id="sugar-opt-0" onclick="sugarSecenekIsaretle('Sade')">Sade</button>
+        <button type="button" class="sugar-modal-btn" id="sugar-opt-1" onclick="sugarSecenekIsaretle('Az Şekerli')">Az Şekerli</button>
+        <button type="button" class="sugar-modal-btn" id="sugar-opt-2" onclick="sugarSecenekIsaretle('Orta Şekerli')">Orta Şekerli</button>
+        <button type="button" class="sugar-modal-btn" id="sugar-opt-3" onclick="sugarSecenekIsaretle('Çok Şekerli')">Çok Şekerli</button>
+      </div>
+      <div id="sugar-err-msg" style="color:#f87171; font-size:0.75rem; font-weight:800; margin-bottom:10px; display:none;">Lütfen önce şeker seçeneğini seçin.</div>
+      <button type="button" class="btn-create-order" style="width:100%; justify-content:center;" onclick="sugarOnaylaVeSepeteEkle()">
+        ✓ Sepete Ekle
+      </button>
+      <button type="button" class="btn-modal-secondary" onclick="sugarModalKapat()">Vazgeç</button>
+    </div>
   </div>
 
   <div class="custom-modal" id="modal-cart-summary" onclick="if(event.target === this) modalKapat('modal-cart-summary')">
@@ -847,7 +866,8 @@
     ];
 
     const SEKER_SECENEKLERI = ["Sade", "Az Şekerli", "Orta Şekerli", "Çok Şekerli"];
-    let seciliKahveSekerleri = {};
+    let bekleyenKahveId = null;
+    let secilenModalSeker = null;
 
     let ozelKahveSecim = {
       baz: { ad: "Latte Bazı", fiyat: 200 },
@@ -865,9 +885,44 @@
       return u && (u.kategori === 'sicak' || u.kategori === 'soguk' || u.kategori === 'osmanli_kahve');
     }
 
-    function sekerSec(urunId, seker) {
-      seciliKahveSekerleri[String(urunId)] = seker;
-      menuyuCiz(document.getElementById('menu-search-input')?.value.trim().toLowerCase() || '');
+    function sugarModalAc(urunId) {
+      const u = urunler.find(item => item.id === urunId);
+      if (!u) return;
+      bekleyenKahveId = urunId;
+      secilenModalSeker = null;
+      document.getElementById('sugar-modal-title').innerText = `${u.ad} • Şeker Seç`;
+      document.getElementById('sugar-err-msg').style.display = 'none';
+      SEKER_SECENEKLERI.forEach((_, idx) => {
+        document.getElementById(`sugar-opt-${idx}`)?.classList.remove('selected');
+      });
+      document.getElementById('modal-sugar-select').style.display = 'flex';
+    }
+
+    function sugarModalKapat() {
+      bekleyenKahveId = null;
+      secilenModalSeker = null;
+      document.getElementById('sugar-err-msg').style.display = 'none';
+      document.getElementById('modal-sugar-select').style.display = 'none';
+    }
+
+    function sugarSecenekIsaretle(seker) {
+      secilenModalSeker = seker;
+      document.getElementById('sugar-err-msg').style.display = 'none';
+      SEKER_SECENEKLERI.forEach((sk, idx) => {
+        const btn = document.getElementById(`sugar-opt-${idx}`);
+        if (btn) btn.classList.toggle('selected', sk === seker);
+      });
+    }
+
+    function sugarOnaylaVeSepeteEkle() {
+      if (!bekleyenKahveId) return;
+      if (!secilenModalSeker) {
+        document.getElementById('sugar-err-msg').style.display = 'block';
+        return;
+      }
+      const key = `${bekleyenKahveId}__${secilenModalSeker}`;
+      sugarModalKapat();
+      adetGuncelle(key, 1);
     }
 
     function bildirimGoster(mesaj, ikon = "✓") {
@@ -1259,27 +1314,23 @@
     function urunKartiEkle(container, u) {
       const tukendi = stokDurumu[String(u.id)] === true;
       const isKahve = kahveMi(u);
-      const aktifSeker = seciliKahveSekerleri[String(u.id)] || "Orta Şekerli";
-      const sepetAnahtari = isKahve ? `${u.id}__${aktifSeker}` : String(u.id);
-      const adet = sepet[sepetAnahtari] || 0;
+      const urunSepetAdeti = Object.keys(sepet).reduce((acc, k) => {
+        if (k === String(u.id) || k.startsWith(`${u.id}__`)) return acc + (sepet[k] || 0);
+        return acc;
+      }, 0);
       const card = document.createElement('div');
 
       card.className = `product-card ${u.ozel ? 'special-card' : ''} ${tukendi ? 'out-of-stock' : ''}`;
       const ikon = kategoriIkonlari[u.kategori] || "☕";
 
-      const sekerHtml = isKahve
-        ? `<div class="sugar-options-row">
-            ${SEKER_SECENEKLERI.map(sk => `
-              <span class="sugar-chip ${aktifSeker === sk ? 'selected' : ''}" onclick="event.stopPropagation(); sekerSec(${u.id}, '${sk}')">${sk}</span>
-            `).join('')}
-           </div>`
-        : '';
+      const artiTiklama = isKahve ? `sugarModalAc(${u.id})` : `adetGuncelle('${u.id}', 1)`;
+      const eksiTiklama = isKahve ? `kahveSonSepetAzalt(${u.id})` : `adetGuncelle('${u.id}', -1)`;
 
       const sagKontrol = isMasaModu
         ? `<div class="qty-box">
-            ${adet > 0 ? `<button class="qty-btn" onclick="adetGuncelle('${sepetAnahtari}', -1)">−</button>` : ''}
-            ${adet > 0 ? `<span class="qty-num">${adet}</span>` : ''}
-            <button class="qty-btn plus" onclick="adetGuncelle('${sepetAnahtari}', 1)">+</button>
+            ${urunSepetAdeti > 0 ? `<button class="qty-btn" onclick="${eksiTiklama}">−</button>` : ''}
+            ${urunSepetAdeti > 0 ? `<span class="qty-num">${urunSepetAdeti}</span>` : ''}
+            <button class="qty-btn plus" onclick="${artiTiklama}">+</button>
            </div>`
         : `<span class="visitor-qr-note">Menü Fiyatı</span>`;
 
@@ -1290,7 +1341,6 @@
           <div>
             <div class="prod-title">${u.ad}</div>
             ${u.aciklama ? `<div class="prod-desc">${u.aciklama}</div>` : ''}
-            ${sekerHtml}
           </div>
           <div class="prod-footer">
             <span class="prod-price">${u.fiyat} ₺</span>
@@ -1299,6 +1349,13 @@
         </div>
       `;
       container.appendChild(card);
+    }
+
+    function kahveSonSepetAzalt(urunId) {
+      const eslesenAnahtarlar = Object.keys(sepet).filter(k => k.startsWith(`${urunId}__`));
+      if (eslesenAnahtarlar.length === 0) return;
+      const sonAnahtar = eslesenAnahtarlar[eslesenAnahtarlar.length - 1];
+      adetGuncelle(sonAnahtar, -1);
     }
 
     function adetGuncelle(anahtar, delta) {
@@ -1318,7 +1375,7 @@
       if (!u) return null;
       return {
         urun: u,
-        seker: parcalar[1] || (kahveMi(u) ? (seciliKahveSekerleri[String(u.id)] || "Orta Şekerli") : "")
+        seker: parcalar[1] || ""
       };
     }
 
@@ -1494,12 +1551,14 @@
         modalKapat('modal-bana-birak');
         return;
       }
-      const key = kahveMi(secilenRastgeleUrun)
-        ? `${secilenRastgeleUrun.id}__${seciliKahveSekerleri[String(secilenRastgeleUrun.id)] || "Orta Şekerli"}`
-        : String(secilenRastgeleUrun.id);
-      adetGuncelle(key, 1);
+      const urunId = secilenRastgeleUrun.id;
       modalKapat('modal-bana-birak');
-      bildirimGoster("Seçim sepete eklendi!", "🎲");
+      if (kahveMi(secilenRastgeleUrun)) {
+        sugarModalAc(urunId);
+      } else {
+        adetGuncelle(String(urunId), 1);
+        bildirimGoster("Seçim sepete eklendi!", "🎲");
+      }
     }
 
     async function adisyonGecmisiAc() {
