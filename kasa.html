@@ -270,6 +270,10 @@
 </head>
 <body>
 
+  <div id="offline-banner" style="display:none; background:#ef4444; color:white; text-align:center; padding:10px; font-size:0.85rem; font-weight:900; z-index:10000; position:sticky; top:0; width:100%; box-shadow:0 4px 15px rgba(0,0,0,0.5);">
+    ⚠️ İNTERNET BAĞLANTISI KOPTU - Ekranda son kaydedilen veriler gösteriliyor. İnternet gelene kadar işlem yapmayınız!
+  </div>
+
   <div id="pin-lock-screen">
     <form class="pin-card" onsubmit="sifreKontrol(event)">
       <div class="pin-icon">🔒</div>
@@ -934,9 +938,17 @@
 
     async function buluttanVeriCek() {
       if (!kasaAcik) return;
+      
+      // İnternet yoksa direkt yerelden oku ve devam etme
+      if (!navigator.onLine) {
+        verileriYereldenYukle();
+        return;
+      }
+
       try {
         if (!stokKayitKilitli) {
           const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json?t=${Date.now()}`);
+          if (!stokRes.ok) throw new Error("Stok çekilemedi");
           const rawStok = await stokRes.json();
           stokDurumu = {};
           if (Array.isArray(rawStok)) {
@@ -957,6 +969,7 @@
         }
 
         const masaRes = await fetch(`${FIREBASE_URL}/masalar.json`);
+        if (!masaRes.ok) throw new Error("Masa fetch hatası");
         const yeniMasalar = (await masaRes.json()) || {};
 
         let yeniSiparisVar = false;
@@ -969,6 +982,10 @@
         }
 
         canliMasalar = yeniMasalar;
+        
+        // İNTERNET GİTTİĞİNDE SİLİNMESİN DİYE TARAYICI HAFIZASINA YEDEKLE
+        localStorage.setItem('nomad_kasa_yedek_masalar', JSON.stringify(canliMasalar));
+        
         masalariCiz();
         if (yeniSiparisVar) calSiparisSesi();
 
@@ -1010,7 +1027,11 @@
         const yorumRes = await fetch(`${FIREBASE_URL}/geri_bildirimler.json`);
         const yorumlar = await yorumRes.json();
         musteriYorumlariniCiz(yorumlar);
-      } catch (err) {}
+
+      } catch (err) {
+        // Anlık bir Firebase hatası veya internet kopmasında ekran boşalmasın diye yerelden yükle
+        verileriYereldenYukle();
+      }
     }
 
     function musteriYorumlariniCiz(yorumObj) {
@@ -2266,6 +2287,26 @@
       } catch (e) {
         alert("PDF raporu hazırlanırken bir hata oluştu.");
       }
+    }
+
+    // İNTERNET KOPMA VE GELME DURUMU TAKİBİ
+    window.addEventListener('offline', () => {
+      document.getElementById('offline-banner').style.display = 'block';
+      verileriYereldenYukle();
+    });
+    window.addEventListener('online', () => {
+      document.getElementById('offline-banner').style.display = 'none';
+      buluttanVeriCek();
+    });
+
+    function verileriYereldenYukle() {
+      try {
+        const yedek = localStorage.getItem('nomad_kasa_yedek_masalar');
+        if (yedek) {
+          canliMasalar = JSON.parse(yedek);
+          masalariCiz();
+        }
+      } catch(e) {}
     }
 
     masalariCiz();
