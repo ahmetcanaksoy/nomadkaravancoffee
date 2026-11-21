@@ -404,6 +404,7 @@
       </div>
     </div>
   </div>
+
   <div class="kasa-modal" id="modal-stock-management" onclick="if(event.target === this) kasaModalKapat('modal-stock-management')">
     <div class="kasa-modal-box">
       <div class="modal-head">
@@ -628,7 +629,7 @@
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
     const CANLI_MUZIK_KISI_BASI = 150;
 
-    const MENU_URUNLERI = [
+     const MENU_URUNLERI = [
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
       { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
       { id: 603, ad: "Ihlamur", kategori: "cay", aciklama: "French press demlemesi çiçek ve yaprak ıhlamur, fincan servisi", fiyat: 160, resim: "ihlamur.jpg" },
@@ -1514,8 +1515,7 @@
       masalariCiz();
       masaDetayiGoster(seciliMasa);
     }
-
-    function manuelSiparisModalAc() {
+function manuelSiparisModalAc() {
       if (!seciliMasa) return;
       document.getElementById('manual-modal-title').innerText = `Masa ${seciliMasa} • Elle Sipariş Ekle`;
       document.getElementById('manual-search-input').value = '';
