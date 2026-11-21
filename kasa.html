@@ -518,7 +518,7 @@
         <h3 id="manual-modal-title">Masa - Elle Sipariş Ekle</h3>
         <button class="btn-modal-x" onclick="kasaModalKapat('modal-manual-order')">✕</button>
       </div>
-      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Latte, Nargile, Çekirdek, Kestane)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
+      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Salep, Sıcak Çikolata, Latte, Nargile)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
       <div class="manual-item-list" id="manual-products-container"></div>
 
       <div class="custom-manual-box">
@@ -643,6 +643,11 @@
       { id: 607, ad: "Hibiscus Çayı", kategori: "cay", aciklama: "French press demlemesi yakut kırmızısı hibiscus çiçeği çayı", fiyat: 160, resim: "hibiscus-cayi.jpg" },
       { id: 608, ad: "Elma Çayı", kategori: "cay", aciklama: "French press ile demlenmiş elma dilimleri ve tarçın dokunuşu", fiyat: 160, resim: "elma-cayi.jpg" },
       { id: 609, ad: "Kış Çayı", kategori: "cay", aciklama: "French press demlemesi ıhlamur, zencefil, tarçın ve karanfil harmanı", fiyat: 160, resim: "kis-cayi.jpg" },
+
+      { id: 1301, ad: "Salep", kategori: "sicak_icecek", aciklama: "Sıcak süt ile hazırlanan geleneksel kıvamlı salep, üzeri tarçınlı", fiyat: 180, resim: "salep.jpg" },
+      { id: 1302, ad: "Sıcak Çikolata", kategori: "sicak_icecek", aciklama: "Yoğun kıvamlı gerçek çikolata ve sıcak süt ile hazırlanır", fiyat: 180, resim: "sicak-cikolata.jpg" },
+      { id: 1303, ad: "Muzlu Sıcak Çikolata", kategori: "sicak_icecek", aciklama: "Sıcak çikolata lezzetinin taze muz aromasıyla buluşması", fiyat: 190, resim: "muzlu-sicak-cikolata.jpg" },
+      { id: 1304, ad: "Çilekli Sıcak Çikolata", kategori: "sicak_icecek", aciklama: "Sıcak çikolata lezzetinin çilek aromasıyla özel uyumu", fiyat: 190, resim: "cilekli-sicak-cikolata.jpg" },
 
       { id: 101, ad: "Nomâd Spesiyal (Sıcak Kahve)", kategori: "sicak", ozel: true, aciklama: "", fiyat: 205, resim: "nomad-spesiyal-sicak.jpg" },
       { id: 102, ad: "Caffè Latte", kategori: "sicak", aciklama: "Taze çekilmiş espresso ve buharda ısıtılmış kadifemsi süt", fiyat: 200, resim: "caffe-latte.jpg" },
@@ -938,8 +943,7 @@
 
     async function buluttanVeriCek() {
       if (!kasaAcik) return;
-      
-      // İnternet yoksa direkt yerelden oku ve devam etme
+
       if (!navigator.onLine) {
         verileriYereldenYukle();
         return;
@@ -982,10 +986,9 @@
         }
 
         canliMasalar = yeniMasalar;
-        
-        // İNTERNET GİTTİĞİNDE SİLİNMESİN DİYE TARAYICI HAFIZASINA YEDEKLE
+
         localStorage.setItem('nomad_kasa_yedek_masalar', JSON.stringify(canliMasalar));
-        
+
         masalariCiz();
         if (yeniSiparisVar) calSiparisSesi();
 
@@ -1029,7 +1032,6 @@
         musteriYorumlariniCiz(yorumlar);
 
       } catch (err) {
-        // Anlık bir Firebase hatası veya internet kopmasında ekran boşalmasın diye yerelden yükle
         verileriYereldenYukle();
       }
     }
@@ -1259,13 +1261,13 @@
       const tarihKey = document.getElementById('gider-tarih-input').value || bugununIsoTarihi();
       if (confirm("Bu gider kaydı silinsin mi?")) {
         try {
-            await fetch(`${FIREBASE_URL}/giderler/${tarihKey}/${key}.json`, { method: 'DELETE' });
-            const yerelVeri = yerelGiderleriOku(tarihKey);
-            if (yerelVeri[key]) {
-                delete yerelVeri[key];
-                yerelGiderleriYaz(tarihKey, yerelVeri);
-            }
-        } catch(e){}
+          await fetch(`${FIREBASE_URL}/giderler/${tarihKey}/${key}.json`, { method: 'DELETE' });
+          const yerelVeri = yerelGiderleriOku(tarihKey);
+          if (yerelVeri[key]) {
+            delete yerelVeri[key];
+            yerelGiderleriYaz(tarihKey, yerelVeri);
+          }
+        } catch (e) {}
         await giderleriYukle();
       }
     }
@@ -2043,7 +2045,6 @@
         document.getElementById('eod-total-revenue').innerText = "0 ₺";
         document.getElementById('eod-cash-revenue').innerText = "0 ₺";
         document.getElementById('eod-card-revenue').innerText = "0 ₺";
-        document.getElementById('eod-total-orders').innerText = "0";
         historyEl.innerHTML = `<div style="font-size:0.82rem; color:var(--slate-muted); text-align:center; padding:16px;">${duzTarihYazi} tarihinde kapatılmış adisyon kaydı bulunmuyor.</div>`;
         return;
       }
@@ -2099,7 +2100,6 @@
       document.getElementById('eod-total-revenue').innerText = `${toplamCiro} ₺`;
       document.getElementById('eod-cash-revenue').innerText = `${nakitCiro} ₺`;
       document.getElementById('eod-card-revenue').innerText = `${kartCiro} ₺`;
-      document.getElementById('eod-total-orders').innerText = `${adisyonSayisi} Adisyon`;
     }
 
     async function gunuKapatVeSifirla() {
@@ -2289,7 +2289,6 @@
       }
     }
 
-    // İNTERNET KOPMA VE GELME DURUMU TAKİBİ
     window.addEventListener('offline', () => {
       document.getElementById('offline-banner').style.display = 'block';
       verileriYereldenYukle();
