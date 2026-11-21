@@ -164,15 +164,18 @@
 
     .rez-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 24px; }
     .rez-card { background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%); border: 1.5px solid rgba(245, 158, 11, 0.42); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+    .rez-card.seated-card { border-color: rgba(16, 185, 129, 0.7); background: linear-gradient(145deg, rgba(24, 58, 44, 0.92) 0%, rgba(18, 42, 33, 0.95) 100%); }
     .rez-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
     .rez-name { font-size: 0.95rem; font-weight: 900; color: #ffffff; }
     .rez-badge { background: var(--silver-gray); color: #0f172a; font-size: 0.72rem; font-weight: 900; padding: 3px 10px; border-radius: 10px; white-space: nowrap; }
     .rez-tur-tag { display: inline-block; background: rgba(234, 88, 12, 0.25); border: 1px solid var(--fire-orange); color: #fdba74; font-size: 0.74rem; font-weight: 900; padding: 4px 10px; border-radius: 8px; align-self: flex-start; }
     .rez-tur-tag.muzik-tag { background: rgba(168, 85, 247, 0.25); border-color: #c084fc; color: #e9d5ff; }
+    .rez-seated-tag { display: inline-block; background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #6ee7b7; font-size: 0.72rem; font-weight: 900; padding: 3px 9px; border-radius: 8px; align-self: flex-start; }
     .rez-info { font-size: 0.78rem; color: #e2e8f0; font-weight: 600; }
-    .rez-actions { display: flex; gap: 8px; margin-top: 6px; }
-    .btn-rez-call { flex: 1; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #6ee7b7; text-decoration: none; text-align: center; padding: 7px; border-radius: 10px; font-size: 0.76rem; font-weight: 800; }
-    .btn-rez-del { background: rgba(234, 88, 12, 0.22); border: 1px solid var(--fire-orange); color: #fdba74; padding: 7px 12px; border-radius: 10px; font-size: 0.76rem; font-weight: 800; cursor: pointer; }
+    .rez-actions { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+    .btn-rez-seat { flex: 1; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border: 1px solid #6ee7b7; color: #ffffff; padding: 7px 10px; border-radius: 10px; font-size: 0.74rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
+    .btn-rez-call { background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #6ee7b7; text-decoration: none; text-align: center; padding: 7px 10px; border-radius: 10px; font-size: 0.76rem; font-weight: 800; }
+    .btn-rez-del { background: rgba(234, 88, 12, 0.22); border: 1px solid var(--fire-orange); color: #fdba74; padding: 7px 10px; border-radius: 10px; font-size: 0.76rem; font-weight: 800; cursor: pointer; }
 
     .kasa-notes-card { background: linear-gradient(145deg, rgba(54, 61, 69, 0.9) 0%, rgba(25, 48, 37, 0.92) 100%); border: 1.5px solid rgba(245, 158, 11, 0.42); border-radius: 16px; padding: 14px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.35); display: flex; flex-direction: column; gap: 10px; }
     .kasa-notes-card textarea { width: 100%; background: rgba(20, 26, 29, 0.95); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px; color: #ffffff; font-size: 0.84rem; outline: none; resize: vertical; min-height: 80px; font-family: inherit; }
@@ -234,6 +237,11 @@
     .pay-pill { display: inline-block; font-size: 0.68rem; font-weight: 900; padding: 2px 8px; border-radius: 8px; margin-left: 6px; vertical-align: middle; }
     .pay-pill.cash { background: rgba(16, 185, 129, 0.22); border: 1px solid #10b981; color: #6ee7b7; }
     .pay-pill.card { background: rgba(59, 130, 246, 0.22); border: 1px solid #60a5fa; color: #93c5fd; }
+
+    .stock-filter-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 6px; margin-bottom: 8px; }
+    .stock-filter-tabs::-webkit-scrollbar { display: none; }
+    .stock-cat-chip { background: rgba(22, 28, 32, 0.9); border: 1px solid var(--card-border); color: var(--slate-muted); padding: 6px 12px; border-radius: 12px; font-size: 0.74rem; font-weight: 800; white-space: nowrap; cursor: pointer; }
+    .stock-cat-chip.active { background: var(--fire-orange); border-color: var(--fire-amber); color: #ffffff; }
 
     .stock-item-row { display: flex; justify-content: space-between; align-items: center; background: rgba(22, 28, 32, 0.85); border: 1px solid var(--card-border); padding: 10px 12px; border-radius: 12px; gap: 8px; margin-bottom: 6px; }
     .btn-stock-toggle { background: var(--emerald-bright); color: #fff; border: none; padding: 6px 12px; border-radius: 8px; font-size: 0.78rem; font-weight: 900; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
@@ -415,9 +423,10 @@
         <h3 id="stock-modal-title">📦 Ürün Stok Yönetimi</h3>
         <button class="btn-modal-x" onclick="kasaModalKapat('modal-stock-management')">✕</button>
       </div>
-      <p style="font-size:0.8rem; color:var(--slate-muted); margin-bottom:12px;">
+      <p style="font-size:0.8rem; color:var(--slate-muted); margin-bottom:10px;">
         Biten ürünleri buradan "Tükendi" olarak işaretleyin. Müşteriler menüde göremez ve sipariş veremez.
       </p>
+      <div class="stock-filter-tabs" id="stock-category-filters"></div>
       <input type="text" id="stock-search-input" class="kasa-input" placeholder="Menüde ürün ara..." oninput="stokUrunleriCiz()" style="margin-bottom:10px;">
       <div class="manual-item-list" id="stock-products-container"></div>
     </div>
@@ -611,6 +620,24 @@
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
     const CANLI_MUZIK_FIYATI = 250;
 
+    const STOK_KATEGORILERI = [
+      { id: "hepsi", ad: "Tümü" },
+      { id: "cay", ad: "Çay" },
+      { id: "sicak_icecek", ad: "Sıcak İçecek" },
+      { id: "sicak", ad: "Sıcak Kahve" },
+      { id: "soguk", ad: "Soğuk Kahve" },
+      { id: "osmanli_kahve", ad: "Osmanlı Kahve" },
+      { id: "frozen", ad: "Frozen" },
+      { id: "milkshake", ad: "Milkshake" },
+      { id: "kokteyl", ad: "Kokteyl" },
+      { id: "fastfood", ad: "Tost" },
+      { id: "mesrubat", ad: "Meşrubat" },
+      { id: "tatli", ad: "Tatlı" },
+      { id: "kuruyemis", ad: "Çerez & Meyve" },
+      { id: "kestane", ad: "Kestane & Patates" },
+      { id: "nargile", ad: "Nargile" }
+    ];
+
     const MENU_URUNLERI = [
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
       { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
@@ -778,6 +805,7 @@
     let bilinenRezSayisi = -1;
     let audioCtx = null;
     let stokDurumu = {};
+    let seciliStokKategori = "hepsi";
     let kasaAcik = sessionStorage.getItem('nomad_kasa_yetki') === '1';
     let stokKayitKilitli = false;
 
@@ -1062,9 +1090,28 @@
     }
 
     function stokYonetimModalAc() {
+      seciliStokKategori = "hepsi";
       document.getElementById('stock-search-input').value = '';
+      stokKategoriFiltreleriniCiz();
       stokUrunleriCiz();
       document.getElementById('modal-stock-management').style.display = 'flex';
+    }
+
+    function stokKategoriFiltreleriniCiz() {
+      const bar = document.getElementById('stock-category-filters');
+      bar.innerHTML = "";
+      STOK_KATEGORILERI.forEach(kat => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `stock-cat-chip ${seciliStokKategori === kat.id ? 'active' : ''}`;
+        btn.innerText = kat.ad;
+        btn.onclick = () => {
+          seciliStokKategori = kat.id;
+          stokKategoriFiltreleriniCiz();
+          stokUrunleriCiz();
+        };
+        bar.appendChild(btn);
+      });
     }
 
     function stokUrunleriCiz() {
@@ -1072,7 +1119,11 @@
       const container = document.getElementById('stock-products-container');
       container.innerHTML = "";
 
-      const filtreli = MENU_URUNLERI.filter(u => u.ad.toLowerCase().includes(q));
+      const filtreli = MENU_URUNLERI.filter(u => {
+        const katUygun = seciliStokKategori === "hepsi" || u.kategori === seciliStokKategori;
+        const aramaUygun = !q || u.ad.toLowerCase().includes(q);
+        return katUygun && aramaUygun;
+      });
       filtreli.forEach(u => {
         const tukendiMi = stokDurumu[String(u.id)] === true;
         const row = document.createElement('div');
@@ -1314,25 +1365,56 @@
         const r = rezObj[k];
         let turEtiketi = r.tur === "Ateş Başı" ? "🔥 Ateş Başı" : (r.tur === "Canlı Müzik" ? "🎵 Canlı Müzik" : "🪑 Masa Rezervasyonu");
         let ekstraSinif = r.tur === "Canlı Müzik" ? "muzik-tag" : "";
+        const masayaAlindi = Boolean(r.masayaAlindi);
 
         const card = document.createElement('div');
-        card.className = 'rez-card';
+        card.className = `rez-card ${masayaAlindi ? 'seated-card' : ''}`;
         card.innerHTML = `
           <div class="rez-top">
             <span class="rez-name">${r.ad}</span>
             <span class="rez-badge">${r.kisi}</span>
           </div>
           <span class="rez-tur-tag ${ekstraSinif}">${turEtiketi}</span>
+          ${masayaAlindi ? `<span class="rez-seated-tag">✓ Masaya Alındı${r.alindigiSaat ? ' • ' + r.alindigiSaat : ''}</span>` : ''}
           <div class="rez-info">📅 ${tarihiDuzGoster(r.tarih)} • ⏰ ${r.saat}</div>
           <div class="rez-info">📞 ${r.tel}</div>
           <div class="rez-info" style="color:var(--fire-amber);">📝 Özel İstek: ${r.not}</div>
           <div class="rez-actions">
+            ${!masayaAlindi ? `<button type="button" class="btn-rez-seat" onclick="rezervasyonMasayaAlindi('${k}')">✓ Masaya Alındı</button>` : ''}
             <a class="btn-rez-call" href="tel:${r.tel}">Ara</a>
-            <button class="btn-rez-del" onclick="rezervasyonSil('${k}')">Tamamlandı / Sil</button>
+            <button type="button" class="btn-rez-del" onclick="rezervasyonSil('${k}')">Tamamlandı / Sil</button>
           </div>
         `;
         container.appendChild(card);
       });
+    }
+
+    async function rezervasyonMasayaAlindi(key) {
+      try {
+        const res = await fetch(`${FIREBASE_URL}/rezervasyonlar/${key}.json`);
+        const r = await res.json();
+        if (!r) return;
+        const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+        await fetch(`${FIREBASE_URL}/rezervasyonlar/${key}.json`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ masayaAlindi: true, alindigiSaat: saatStr })
+        });
+
+        const noteArea = document.getElementById('kasa-genel-not');
+        const satir = `[${saatStr}] Rezervasyon Masaya Alındı: ${r.ad || 'Misafir'} (${r.tur} • ${r.kisi})`;
+        const guncelNot = noteArea.value.trim() ? `${noteArea.value.trim()}\n${satir}` : satir;
+        noteArea.value = guncelNot;
+        await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ metin: guncelNot, zaman: Date.now() })
+        });
+
+        buluttanVeriCek();
+      } catch (e) {
+        alert("Rezervasyon durumu güncellenemedi.");
+      }
     }
 
     async function rezervasyonSil(key) {
@@ -1459,26 +1541,30 @@
       listEl.innerHTML = "";
       data.urunler.forEach((item, index) => {
         const isKismiOdemeKalemi = item.ad && item.ad.includes('Kısmi Ödeme');
+        const isIptalKalemi = item.iptalKaydi === true;
         const row = document.createElement('div');
         row.className = `order-item-row ${item.yeni ? 'is-new-order' : ''}`;
 
         if (isKismiOdemeKalemi) {
           row.style.background = 'rgba(16, 185, 129, 0.1)';
           row.style.borderColor = '#10b981';
+        } else if (isIptalKalemi) {
+          row.style.background = 'rgba(239, 68, 68, 0.08)';
+          row.style.borderColor = 'rgba(248, 113, 113, 0.45)';
         }
 
         row.innerHTML = `
           <div class="item-left">
             ${item.yeni ? `<span class="new-order-pill">YENİ SİPARİŞ</span>` : ''}
-            <span class="item-name" style="${isKismiOdemeKalemi ? 'color:#10b981; font-weight:900;' : ''}">${item.ad}</span>
-            ${item.detay ? `<span class="item-custom-recipe" style="${isKismiOdemeKalemi ? 'background:rgba(16,185,129,0.2); border-color:#10b981; color:#a7f3d0;' : ''}">${isKismiOdemeKalemi ? '✓' : '✨'} ${item.detay}</span>` : ''}
+            <span class="item-name" style="${isKismiOdemeKalemi ? 'color:#10b981; font-weight:900;' : (isIptalKalemi ? 'color:#fca5a5;' : '')}">${item.ad}</span>
+            ${item.detay ? `<span class="item-custom-recipe" style="${isKismiOdemeKalemi ? 'background:rgba(16,185,129,0.2); border-color:#10b981; color:#a7f3d0;' : (isIptalKalemi ? 'background:rgba(239,68,68,0.16); border-color:#f87171; color:#fca5a5;' : '')}">${isKismiOdemeKalemi ? '✓' : (isIptalKalemi ? '↩' : '✨')} ${item.detay}</span>` : ''}
             <span class="item-unit-info">${item.adet} adet ${isKismiOdemeKalemi ? '' : `× ${item.birimFiyat} ₺`}</span>
           </div>
           <div class="item-actions">
-            <span class="item-price" style="${isKismiOdemeKalemi ? 'color:#10b981;' : ''}">${item.tutar} ₺</span>
-            ${!isKismiOdemeKalemi ? `<button class="btn-qty-plus" onclick="adetArtir(${masaNo}, ${index})">+</button>` : ''}
-            ${!isKismiOdemeKalemi ? `<button class="btn-qty-minus" onclick="adetAzalt(${masaNo}, ${index})">−</button>` : ''}
-            <button class="btn-item-delete" onclick="urunuSil(${masaNo}, ${index})">✕</button>
+            <span class="item-price" style="${isKismiOdemeKalemi ? 'color:#10b981;' : (isIptalKalemi ? 'color:#fca5a5;' : '')}">${item.tutar} ₺</span>
+            ${!isKismiOdemeKalemi && !isIptalKalemi ? `<button class="btn-qty-plus" onclick="adetArtir(${masaNo}, ${index})">+</button>` : ''}
+            ${!isKismiOdemeKalemi && !isIptalKalemi ? `<button class="btn-qty-minus" onclick="adetAzalt(${masaNo}, ${index})">−</button>` : ''}
+            ${!isIptalKalemi ? `<button class="btn-item-delete" onclick="urunuSil(${masaNo}, ${index})">✕</button>` : ''}
           </div>
         `;
         listEl.appendChild(row);
@@ -1697,20 +1783,38 @@
       const data = canliMasalar[String(masaNo)];
       if (!data || !data.urunler[index]) return;
 
-      if (confirm(`Bu kalemi adisyondan çıkarmak istediğinize emin misiniz?`)) {
-        data.urunler.splice(index, 1);
-        data.toplamTutar = data.urunler.reduce((acc, curr) => acc + Number(curr.tutar || 0), 0);
+      const silinenUrun = data.urunler[index];
+      const iptalNotu = prompt(`"${silinenUrun.ad}" kalemi için iptal / iade notu (opsiyonel):`);
+      if (iptalNotu === null) return;
 
-        if (data.urunler.length === 0) {
-          delete canliMasalar[String(masaNo)];
-          await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, { method: 'DELETE' });
-        } else {
-          await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
-            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
-          });
-        }
-        masalariCiz();
+      const temizNot = iptalNotu.trim();
+      const tutarDegeri = Number(silinenUrun.tutar || 0);
+      data.urunler.splice(index, 1);
+
+      if (temizNot && tutarDegeri > 0) {
+        data.urunler.push({
+          ad: `İptal / İade: ${silinenUrun.ad}`,
+          detay: `Not: ${temizNot}`,
+          adet: 1,
+          birimFiyat: -tutarDegeri,
+          tutar: -tutarDegeri,
+          yeni: false,
+          iptalKaydi: true
+        });
       }
+
+      data.toplamTutar = data.urunler.reduce((acc, curr) => acc + Number(curr.tutar || 0), 0);
+
+      const aktifKalemVarMi = data.urunler.some(u => !u.iptalKaydi);
+      if (data.urunler.length === 0 || !aktifKalemVarMi) {
+        delete canliMasalar[String(masaNo)];
+        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, { method: 'DELETE' });
+      } else {
+        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+        });
+      }
+      masalariCiz();
     }
 
     function hesapKapatModalAc() {
