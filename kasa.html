@@ -376,8 +376,8 @@
           <span class="detail-time" id="panel-order-time">-</span>
         </div>
         <div class="header-action-pair">
-          <button class="btn-live-music-top" id="btn-open-music" style="display:none;" onclick="canliMuzikModalAc()">
-            🎵 Canlı Müzik
+          <button class="btn-live-music-top" id="btn-open-music" style="display:none;" onclick="canliMuzikEkle(250)">
+            🎵 Canlı Müzik (250₺)
           </button>
           <button class="btn-manual-add-top" id="btn-open-manual" style="display:none;" onclick="manuelSiparisModalAc()">
             + Sipariş Ekle
@@ -449,28 +449,6 @@
     </div>
   </div>
 
-  <div class="kasa-modal" id="modal-canli-muzik" onclick="if(event.target === this) kasaModalKapat('modal-canli-muzik')">
-    <div class="kasa-modal-box" style="max-width:360px; text-align:center;">
-      <div class="modal-head">
-        <h3 id="muzik-modal-title">🎵 Canlı Müzik Ücreti</h3>
-        <button class="btn-modal-x" onclick="kasaModalKapat('modal-canli-muzik')">✕</button>
-      </div>
-      <p style="font-size:0.8rem; color:var(--slate-muted); margin-bottom:12px;">
-        Kişi başı ücret: <strong style="color:var(--fire-amber);">150 ₺</strong>
-      </p>
-      <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-bottom:12px;">
-        <button class="btn-add-one" onclick="canliMuzikEkle(1)">1 Kişi (150₺)</button>
-        <button class="btn-add-one" onclick="canliMuzikEkle(2)">2 Kişi (300₺)</button>
-        <button class="btn-add-one" onclick="canliMuzikEkle(3)">3 Kişi (450₺)</button>
-        <button class="btn-add-one" onclick="canliMuzikEkle(4)">4 Kişi (600₺)</button>
-      </div>
-      <div style="display:flex; gap:8px;">
-        <input type="number" id="muzik-kisi-input" class="kasa-input" inputmode="numeric" min="1" placeholder="Kişi sayısı gir">
-        <button class="btn-add-one" onclick="canliMuzikOzelEkle()">+ Ekle</button>
-      </div>
-    </div>
-  </div>
-
   <div class="kasa-modal" id="modal-payment-method" onclick="if(event.target === this) kasaModalKapat('modal-payment-method')">
     <div class="kasa-modal-box" style="max-width:380px; text-align:center;">
       <div class="modal-head">
@@ -518,7 +496,7 @@
         <h3 id="manual-modal-title">Masa - Elle Sipariş Ekle</h3>
         <button class="btn-modal-x" onclick="kasaModalKapat('modal-manual-order')">✕</button>
       </div>
-      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Salep, Sıcak Çikolata, Latte, Nargile)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
+      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Salep, Dibek, Menengiç, Nargile)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
       <div class="manual-item-list" id="manual-products-container"></div>
 
       <div class="custom-manual-box">
@@ -631,7 +609,7 @@
   <script>
     const KASA_SIFRESI = "2905";
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
-    const CANLI_MUZIK_KISI_BASI = 150;
+    const CANLI_MUZIK_FIYATI = 250;
 
     const MENU_URUNLERI = [
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
@@ -677,6 +655,15 @@
       { id: 208, ad: "Iced Hazelnut Latte", kategori: "soguk", aciklama: "Fındık şurubu, soğuk taze süt, buz ve taze espresso", fiyat: 220, resim: "iced-hazelnut-latte.jpg" },
       { id: 209, ad: "Iced Cookie Latte", kategori: "soguk", aciklama: "Kurabiye aroması, buzlu süt ve espresso katmanı", fiyat: 220, resim: "iced-cookie-latte.jpg" },
       { id: 210, ad: "Iced White Chocolate Mocha", kategori: "soguk", aciklama: "Beyaz çikolata sosu, soğuk süt, buz ve espresso", fiyat: 220, resim: "iced-white-chocolate-mocha.jpg" },
+
+      { id: 1401, ad: "Türk Kahvesi", kategori: "osmanli_kahve", aciklama: "Geleneksel yöntemle özenle pişirilmiş köpüklü Türk kahvesi", fiyat: 130, resim: "turk-kahvesi.jpg" },
+      { id: 1402, ad: "Sütlü Türk Kahvesi", kategori: "osmanli_kahve", aciklama: "Süt ve taze Türk kahvesi ile yumuşak içimli özel lezzet", fiyat: 130, resim: "sutlu-turk-kahvesi.jpg" },
+      { id: 1403, ad: "Dibek Kahvesi", kategori: "osmanli_kahve", aciklama: "Taş dibekte dövülmüş yumuşak içimli aromatik dibek kahvesi", fiyat: 130, resim: "dibek-kahvesi.jpg" },
+      { id: 1404, ad: "Menengiç Kahvesi", kategori: "osmanli_kahve", aciklama: "Doğal menengiç meyvesinden hazırlanan sütlü, kadifemsi kahve", fiyat: 130, resim: "menengic-kahvesi.jpg" },
+      { id: 1405, ad: "Double Türk Kahvesi", kategori: "osmanli_kahve", aciklama: "Çift ölçü taze kahveyle hazırlanan yoğun kıvamlı Türk kahvesi", fiyat: 180, resim: "double-turk-kahvesi.jpg" },
+      { id: 1406, ad: "Double Dibek Kahvesi", kategori: "osmanli_kahve", aciklama: "Çift ölçü aromatik dibek kahvesi ile yoğun lezzet", fiyat: 180, resim: "double-dibek-kahvesi.jpg" },
+      { id: 1407, ad: "Double Menengiç Kahvesi", kategori: "osmanli_kahve", aciklama: "Çift ölçü menengiç ile hazırlanan yoğun sütlü kahve", fiyat: 180, resim: "double-menengic-kahvesi.jpg" },
+      { id: 1408, ad: "Double Sütlü Türk Kahvesi", kategori: "osmanli_kahve", aciklama: "Çift ölçü Türk kahvesi ve süt ile hazırlanan özel lezzet", fiyat: 200, resim: "double-sutlu-turk-kahvesi.jpg" },
 
       { id: 301, ad: "Nomâd Spesiyal (Frozen)", kategori: "frozen", ozel: true, aciklama: "", fiyat: 210, resim: "nomad-spesiyal-frozen.jpg" },
       { id: 302, ad: "Karadut Frozen", kategori: "frozen", aciklama: "Gerçek karadut özü ve ince kırılmış buz ile ferah kıvam", fiyat: 210, resim: "karadut-frozen.jpg" },
@@ -739,6 +726,7 @@
       { id: 1101, ad: "Çekirdek", kategori: "kuruyemis", aciklama: "", fiyat: 150, resim: "cekirdek.jpg" },
       { id: 1102, ad: "Karışık Çerez Tabağı", kategori: "kuruyemis", aciklama: "", fiyat: 350, resim: "karisik-cerez-tabagi.jpg" },
       { id: 1103, ad: "Meyve Tabağı", kategori: "kuruyemis", aciklama: "", fiyat: 250, resim: "meyve-tabagi.jpg" },
+      { id: 1104, ad: "Patlamış Mısır", kategori: "kuruyemis", aciklama: "", fiyat: 100, resim: "patlamis-misir.jpg" },
 
       { id: 1201, ad: "Kestane 100 gr", kategori: "kestane", aciklama: "", fiyat: 200, resim: "kestane-100gr.jpg" },
       { id: 1202, ad: "Patates", kategori: "kestane", aciklama: "", fiyat: 150, resim: "patates.jpg" },
@@ -1272,25 +1260,9 @@
       }
     }
 
-    function canliMuzikModalAc() {
+    async function canliMuzikEkle(tutar = CANLI_MUZIK_FIYATI) {
       if (!seciliMasa) return;
-      document.getElementById('muzik-modal-title').innerText = `Masa ${seciliMasa} • Canlı Müzik (150₺/Kişi)`;
-      document.getElementById('muzik-kisi-input').value = '';
-      document.getElementById('modal-canli-muzik').style.display = 'flex';
-    }
-
-    async function canliMuzikOzelEkle() {
-      const kisi = Number(document.getElementById('muzik-kisi-input').value);
-      if (!kisi || kisi <= 0) {
-        alert("Geçerli bir kişi sayısı giriniz.");
-        return;
-      }
-      await canliMuzikEkle(kisi);
-    }
-
-    async function canliMuzikEkle(kisiSayisi) {
-      if (!seciliMasa) return;
-      const tutar = kisiSayisi * CANLI_MUZIK_KISI_BASI;
+      const ucret = Number(tutar) || CANLI_MUZIK_FIYATI;
       const masaKey = String(seciliMasa);
       const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
       let mevcut = canliMasalar[masaKey];
@@ -1300,11 +1272,11 @@
       }
 
       mevcut.urunler.push({
-        ad: `Canlı Müzik Ücreti (${kisiSayisi} Kişi)`,
-        detay: `Kişi başı ${CANLI_MUZIK_KISI_BASI} ₺`,
-        adet: kisiSayisi,
-        birimFiyat: CANLI_MUZIK_KISI_BASI,
-        tutar: tutar,
+        ad: "Canlı Müzik Ücreti",
+        detay: "Kasa Girişi",
+        adet: 1,
+        birimFiyat: ucret,
+        tutar: ucret,
         yeni: true
       });
 
@@ -1321,7 +1293,6 @@
         body: JSON.stringify(mevcut)
       });
 
-      kasaModalKapat('modal-canli-muzik');
       masalariCiz();
       masaDetayiGoster(seciliMasa);
     }
