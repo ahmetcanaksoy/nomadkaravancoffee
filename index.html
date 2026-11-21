@@ -256,6 +256,9 @@
     .product-content { flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-height: 95px; }
     .prod-title { font-size: 0.98rem; font-weight: 800; color: #ffffff; line-height: 1.25; margin-bottom: 4px; }
     .prod-desc { font-size: 0.75rem; color: var(--slate-muted); line-height: 1.35; margin-bottom: 6px; }
+    .sugar-options-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+    .sugar-chip { background: rgba(24, 29, 34, 0.85); border: 1px solid var(--card-border); color: #cbd5e1; font-size: 0.68rem; font-weight: 800; padding: 4px 8px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .sugar-chip.selected { background: rgba(245, 158, 11, 0.24); border-color: var(--fire-amber); color: var(--fire-amber); }
     .prod-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
     .prod-price { font-size: 1.1rem; font-weight: 900; color: var(--fire-amber); }
     .qty-box { display: flex; align-items: center; background: rgba(24, 29, 34, 0.94); border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); }
@@ -506,6 +509,7 @@
       <button class="tab-pill" id="tab-sicak_icecek" onclick="tabSec('sicak_icecek')">Sıcak İçecekler</button>
       <button class="tab-pill" id="tab-sicak" onclick="tabSec('sicak')">Sıcak Kahveler</button>
       <button class="tab-pill" id="tab-soguk" onclick="tabSec('soguk')">Soğuk Kahveler</button>
+      <button class="tab-pill" id="tab-osmanli_kahve" onclick="tabSec('osmanli_kahve')">Osmanlı Kahveleri</button>
       <button class="tab-pill" id="tab-frozen" onclick="tabSec('frozen')">Frozenler</button>
       <button class="tab-pill" id="tab-milkshake" onclick="tabSec('milkshake')">Milkshake Çeşitleri</button>
       <button class="tab-pill" id="tab-kokteyl" onclick="tabSec('kokteyl')">Kokteyller & Redbull Kokteyl</button>
@@ -518,7 +522,7 @@
     </div>
 
     <div class="menu-search-wrap" id="menu-search-wrap">
-      <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Menüde ürün ara (Salep, Sıcak Çikolata, Latte, Tost...)" oninput="menuAraDegisti()">
+      <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Menüde ürün ara (Dibek, Menengiç, Patlamış Mısır, Latte...)" oninput="menuAraDegisti()">
     </div>
 
     <div class="category-square-grid" id="category-squares-container"></div>
@@ -651,6 +655,7 @@
       sicak_icecek: "Sıcak İçecekler",
       sicak: "Sıcak Kahveler",
       soguk: "Soğuk Kahveler",
+      osmanli_kahve: "Osmanlı Kahveleri",
       frozen: "Frozenler",
       milkshake: "Milkshake Çeşitleri",
       kokteyl: "Kokteyller & Redbull Kokteyl",
@@ -663,7 +668,7 @@
     };
 
     const kategoriIkonlari = {
-      cay: "🫖", sicak_icecek: "🍫", sicak: "☕", soguk: "🧊", frozen: "🍧",
+      cay: "🫖", sicak_icecek: "🍫", sicak: "☕", soguk: "🧊", osmanli_kahve: "🏺", frozen: "🍧",
       milkshake: "🥤", kokteyl: "🍹", fastfood: "🥪", mesrubat: "🥫",
       tatli: "🍰", kuruyemis: "🥜", kestane: "🌰", nargile: "💨"
     };
@@ -675,6 +680,7 @@
       { id: "sicak_icecek", ad: "Sıcak İçecekler", resim: "kat-sicak-icecek.jpg", ikon: "🍫" },
       { id: "sicak", ad: "Sıcak Kahveler", resim: "kat-sicak-kahve.jpg", ikon: "☕" },
       { id: "soguk", ad: "Soğuk Kahveler", resim: "kat-soguk-kahve.jpg", ikon: "🧊" },
+      { id: "osmanli_kahve", ad: "Osmanlı Kahveleri", resim: "kat-osmanli-kahve.jpg", ikon: "🏺" },
       { id: "frozen", ad: "Frozenler", resim: "kat-frozen.jpg", ikon: "🍧" },
       { id: "milkshake", ad: "Milkshake Çeşitleri", resim: "kat-milkshake.jpg", ikon: "🥤" },
       { id: "kokteyl", ad: "Kokteyller & Redbull Kokteyl", resim: "kat-kokteyl.jpg", ikon: "🍹" },
@@ -730,6 +736,15 @@
       { id: 208, ad: "Iced Hazelnut Latte", kategori: "soguk", aciklama: "Fındık şurubu, soğuk taze süt, buz ve taze espresso", fiyat: 220, resim: "iced-hazelnut-latte.jpg" },
       { id: 209, ad: "Iced Cookie Latte", kategori: "soguk", aciklama: "Kurabiye aroması, buzlu süt ve espresso katmanı", fiyat: 220, resim: "iced-cookie-latte.jpg" },
       { id: 210, ad: "Iced White Chocolate Mocha", kategori: "soguk", aciklama: "Beyaz çikolata sosu, soğuk süt, buz ve espresso", fiyat: 220, resim: "iced-white-chocolate-mocha.jpg" },
+
+      { id: 1401, ad: "Türk Kahvesi", kategori: "osmanli_kahve", aciklama: "Geleneksel yöntemle özenle pişirilmiş köpüklü Türk kahvesi", fiyat: 130, resim: "turk-kahvesi.jpg" },
+      { id: 1402, ad: "Sütlü Türk Kahvesi", kategori: "osmanli_kahve", aciklama: "Süt ve taze Türk kahvesi ile yumuşak içimli özel lezzet", fiyat: 130, resim: "sutlu-turk-kahvesi.jpg" },
+      { id: 1403, ad: "Dibek Kahvesi", kategori: "osmanli_kahve", aciklama: "Taş dibekte dövülmüş yumuşak içimli aromatik dibek kahvesi", fiyat: 130, resim: "dibek-kahvesi.jpg" },
+      { id: 1404, ad: "Menengiç Kahvesi", kategori: "osmanli_kahve", aciklama: "Doğal menengiç meyvesinden hazırlanan sütlü, kadifemsi kahve", fiyat: 130, resim: "menengic-kahvesi.jpg" },
+      { id: 1405, ad: "Double Türk Kahvesi", kategori: "osmanli_kahve", aciklama: "Çift ölçü taze kahveyle hazırlanan yoğun kıvamlı Türk kahvesi", fiyat: 180, resim: "double-turk-kahvesi.jpg" },
+      { id: 1406, ad: "Double Dibek Kahvesi", kategori: "osmanli_kahve", aciklama: "Çift ölçü aromatik dibek kahvesi ile yoğun lezzet", fiyat: 180, resim: "double-dibek-kahvesi.jpg" },
+      { id: 1407, ad: "Double Menengiç Kahvesi", kategori: "osmanli_kahve", aciklama: "Çift ölçü menengiç ile hazırlanan yoğun sütlü kahve", fiyat: 180, resim: "double-menengic-kahvesi.jpg" },
+      { id: 1408, ad: "Double Sütlü Türk Kahvesi", kategori: "osmanli_kahve", aciklama: "Çift ölçü Türk kahvesi ve süt ile hazırlanan özel lezzet", fiyat: 200, resim: "double-sutlu-turk-kahvesi.jpg" },
 
       { id: 301, ad: "Nomâd Spesiyal (Frozen)", kategori: "frozen", ozel: true, aciklama: "", fiyat: 210, resim: "nomad-spesiyal-frozen.jpg" },
       { id: 302, ad: "Karadut Frozen", kategori: "frozen", aciklama: "Gerçek karadut özü ve ince kırılmış buz ile ferah kıvam", fiyat: 210, resim: "karadut-frozen.jpg" },
@@ -791,6 +806,7 @@
       { id: 1101, ad: "Çekirdek", kategori: "kuruyemis", aciklama: "", fiyat: 150, resim: "cekirdek.jpg" },
       { id: 1102, ad: "Karışık Çerez Tabağı", kategori: "kuruyemis", aciklama: "", fiyat: 350, resim: "karisik-cerez-tabagi.jpg" },
       { id: 1103, ad: "Meyve Tabağı", kategori: "kuruyemis", aciklama: "", fiyat: 250, resim: "meyve-tabagi.jpg" },
+      { id: 1104, ad: "Patlamış Mısır", kategori: "kuruyemis", aciklama: "", fiyat: 100, resim: "patlamis-misir.jpg" },
 
       { id: 1201, ad: "Kestane 100 gr", kategori: "kestane", aciklama: "", fiyat: 200, resim: "kestane-100gr.jpg" },
       { id: 1202, ad: "Patates", kategori: "kestane", aciklama: "", fiyat: 150, resim: "patates.jpg" },
@@ -830,6 +846,9 @@
       { id: 933, ad: "Lüle Değişimi", kategori: "nargile", aciklama: "Nargileniz için taze lüle değişimi", fiyat: 300, resim: "nargile2.jpg" }
     ];
 
+    const SEKER_SECENEKLERI = ["Sade", "Az Şekerli", "Orta Şekerli", "Çok Şekerli"];
+    let seciliKahveSekerleri = {};
+
     let ozelKahveSecim = {
       baz: { ad: "Latte Bazı", fiyat: 200 },
       sicaklik: { ad: "Sıcak", fiyat: 0 },
@@ -841,6 +860,15 @@
     let sepet = {};
     let ozelKahveSepeti = [];
     let aktifKategori = 'kategoriler';
+
+    function kahveMi(u) {
+      return u && (u.kategori === 'sicak' || u.kategori === 'soguk' || u.kategori === 'osmanli_kahve');
+    }
+
+    function sekerSec(urunId, seker) {
+      seciliKahveSekerleri[String(urunId)] = seker;
+      menuyuCiz(document.getElementById('menu-search-input')?.value.trim().toLowerCase() || '');
+    }
 
     function bildirimGoster(mesaj, ikon = "✓") {
       const box = document.getElementById('toast-notify');
@@ -1230,17 +1258,28 @@
 
     function urunKartiEkle(container, u) {
       const tukendi = stokDurumu[String(u.id)] === true;
-      const adet = sepet[u.id] || 0;
+      const isKahve = kahveMi(u);
+      const aktifSeker = seciliKahveSekerleri[String(u.id)] || "Orta Şekerli";
+      const sepetAnahtari = isKahve ? `${u.id}__${aktifSeker}` : String(u.id);
+      const adet = sepet[sepetAnahtari] || 0;
       const card = document.createElement('div');
 
       card.className = `product-card ${u.ozel ? 'special-card' : ''} ${tukendi ? 'out-of-stock' : ''}`;
       const ikon = kategoriIkonlari[u.kategori] || "☕";
 
+      const sekerHtml = isKahve
+        ? `<div class="sugar-options-row">
+            ${SEKER_SECENEKLERI.map(sk => `
+              <span class="sugar-chip ${aktifSeker === sk ? 'selected' : ''}" onclick="event.stopPropagation(); sekerSec(${u.id}, '${sk}')">${sk}</span>
+            `).join('')}
+           </div>`
+        : '';
+
       const sagKontrol = isMasaModu
         ? `<div class="qty-box">
-            ${adet > 0 ? `<button class="qty-btn" onclick="adetGuncelle(${u.id}, -1)">−</button>` : ''}
+            ${adet > 0 ? `<button class="qty-btn" onclick="adetGuncelle('${sepetAnahtari}', -1)">−</button>` : ''}
             ${adet > 0 ? `<span class="qty-num">${adet}</span>` : ''}
-            <button class="qty-btn plus" onclick="adetGuncelle(${u.id}, 1)">+</button>
+            <button class="qty-btn plus" onclick="adetGuncelle('${sepetAnahtari}', 1)">+</button>
            </div>`
         : `<span class="visitor-qr-note">Menü Fiyatı</span>`;
 
@@ -1251,6 +1290,7 @@
           <div>
             <div class="prod-title">${u.ad}</div>
             ${u.aciklama ? `<div class="prod-desc">${u.aciklama}</div>` : ''}
+            ${sekerHtml}
           </div>
           <div class="prod-footer">
             <span class="prod-price">${u.fiyat} ₺</span>
@@ -1261,21 +1301,33 @@
       container.appendChild(card);
     }
 
-    function adetGuncelle(id, delta) {
+    function adetGuncelle(anahtar, delta) {
       if (!isMasaModu) return;
-      const yeni = (sepet[id] || 0) + delta;
-      if (yeni <= 0) delete sepet[id];
-      else sepet[id] = yeni;
-      menuyuCiz();
+      const keyStr = String(anahtar);
+      const yeni = (sepet[keyStr] || 0) + delta;
+      if (yeni <= 0) delete sepet[keyStr];
+      else sepet[keyStr] = yeni;
+      menuyuCiz(document.getElementById('menu-search-input')?.value.trim().toLowerCase() || '');
       sepetBariniHesapla();
+    }
+
+    function sepetKaleminiCoz(anahtar) {
+      const str = String(anahtar);
+      const parcalar = str.split('__');
+      const u = urunler.find(item => String(item.id) === parcalar[0]);
+      if (!u) return null;
+      return {
+        urun: u,
+        seker: parcalar[1] || (kahveMi(u) ? (seciliKahveSekerleri[String(u.id)] || "Orta Şekerli") : "")
+      };
     }
 
     function sepetBariniHesapla() {
       if (!isMasaModu) return;
       let toplamAdet = 0; let toplamTutar = 0;
-      for (let id in sepet) {
-        const u = urunler.find(item => item.id == id);
-        if (u) { toplamAdet += sepet[id]; toplamTutar += sepet[id] * u.fiyat; }
+      for (let anahtar in sepet) {
+        const cozum = sepetKaleminiCoz(anahtar);
+        if (cozum) { toplamAdet += sepet[anahtar]; toplamTutar += sepet[anahtar] * cozum.urun.fiyat; }
       }
       ozelKahveSepeti.forEach(ok => { toplamAdet += ok.adet; toplamTutar += ok.tutar; });
 
@@ -1294,16 +1346,19 @@
       const listContainer = document.getElementById('cart-summary-items');
       listContainer.innerHTML = "";
 
-      for (let id in sepet) {
-        const u = urunler.find(item => item.id == id);
-        if (u) {
+      for (let anahtar in sepet) {
+        const cozum = sepetKaleminiCoz(anahtar);
+        if (cozum) {
+          const u = cozum.urun;
+          const safeId = encodeURIComponent(anahtar);
           listContainer.innerHTML += `
-            <div class="cart-summary-item" data-type="standart" data-id="${id}" data-adet="${sepet[id]}">
+            <div class="cart-summary-item" data-type="standart" data-key="${anahtar}" data-adet="${sepet[anahtar]}">
               <div class="cart-summary-item-top">
-                <span class="cart-summary-name">${sepet[id]}× ${u.ad}</span>
-                <span class="cart-summary-price">${u.fiyat * sepet[id]} ₺</span>
+                <span class="cart-summary-name">${sepet[anahtar]}× ${u.ad}</span>
+                <span class="cart-summary-price">${u.fiyat * sepet[anahtar]} ₺</span>
               </div>
-              <input type="text" class="cart-note-input" id="note-standart-${id}" placeholder="${u.ad} için özel istek (Şekersiz vb.)">
+              ${cozum.seker ? `<div style="font-size:0.72rem; color:var(--fire-amber); font-weight:800; margin-bottom:4px;">Şeker: ${cozum.seker}</div>` : ''}
+              <input type="text" class="cart-note-input" id="note-standart-${safeId}" placeholder="${u.ad} için özel istek...">
             </div>
           `;
         }
@@ -1344,22 +1399,27 @@
       const siparisDetay = [];
       let genelToplam = 0; let toplamKalem = 0;
 
-      for (let id in sepet) {
-        const u = urunler.find(item => item.id == id);
-        if (u) {
-          const noteEl = document.getElementById(`note-standart-${id}`);
-          const musteriNotu = noteEl && noteEl.value.trim() !== "" ? `(Not: ${noteEl.value.trim()})` : "";
+      for (let anahtar in sepet) {
+        const cozum = sepetKaleminiCoz(anahtar);
+        if (cozum) {
+          const u = cozum.urun;
+          const noteEl = document.getElementById(`note-standart-${encodeURIComponent(anahtar)}`);
+          const musteriNotu = noteEl && noteEl.value.trim() !== "" ? `Not: ${noteEl.value.trim()}` : "";
+          const detaySatirlari = [];
+          if (cozum.seker) detaySatirlari.push(`Şeker: ${cozum.seker}`);
+          if (musteriNotu) detaySatirlari.push(musteriNotu);
+          const birlesikDetay = detaySatirlari.join(" | ");
 
           siparisDetay.push({
             ad: u.ad,
-            detay: musteriNotu,
-            adet: sepet[id],
+            detay: birlesikDetay,
+            adet: sepet[anahtar],
             birimFiyat: u.fiyat,
-            tutar: u.fiyat * sepet[id],
+            tutar: u.fiyat * sepet[anahtar],
             yeni: true
           });
-          genelToplam += u.fiyat * sepet[id];
-          toplamKalem += sepet[id];
+          genelToplam += u.fiyat * sepet[anahtar];
+          toplamKalem += sepet[anahtar];
         }
       }
 
@@ -1434,7 +1494,10 @@
         modalKapat('modal-bana-birak');
         return;
       }
-      adetGuncelle(secilenRastgeleUrun.id, 1);
+      const key = kahveMi(secilenRastgeleUrun)
+        ? `${secilenRastgeleUrun.id}__${seciliKahveSekerleri[String(secilenRastgeleUrun.id)] || "Orta Şekerli"}`
+        : String(secilenRastgeleUrun.id);
+      adetGuncelle(key, 1);
       modalKapat('modal-bana-birak');
       bildirimGoster("Seçim sepete eklendi!", "🎲");
     }
