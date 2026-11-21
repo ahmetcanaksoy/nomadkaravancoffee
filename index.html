@@ -503,6 +503,7 @@
       <button class="tab-pill craft-tab" id="tab-tasarla" onclick="tabSec('tasarla')">✨ Kendi Kahveni Tasarla</button>
       <button class="tab-pill" id="tab-hepsi" onclick="tabSec('hepsi')">Tümü</button>
       <button class="tab-pill" id="tab-cay" onclick="tabSec('cay')">Çay & Bitki Çayları</button>
+      <button class="tab-pill" id="tab-sicak_icecek" onclick="tabSec('sicak_icecek')">Sıcak İçecekler</button>
       <button class="tab-pill" id="tab-sicak" onclick="tabSec('sicak')">Sıcak Kahveler</button>
       <button class="tab-pill" id="tab-soguk" onclick="tabSec('soguk')">Soğuk Kahveler</button>
       <button class="tab-pill" id="tab-frozen" onclick="tabSec('frozen')">Frozenler</button>
@@ -517,7 +518,7 @@
     </div>
 
     <div class="menu-search-wrap" id="menu-search-wrap">
-      <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Menüde ürün ara (Latte, Limon, Tost, Çekirdek, Kestane...)" oninput="menuAraDegisti()">
+      <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Menüde ürün ara (Salep, Sıcak Çikolata, Latte, Tost...)" oninput="menuAraDegisti()">
     </div>
 
     <div class="category-square-grid" id="category-squares-container"></div>
@@ -647,6 +648,7 @@
 
     const kategoriBasliklari = {
       cay: "Çay & Bitki Çayları",
+      sicak_icecek: "Sıcak İçecekler",
       sicak: "Sıcak Kahveler",
       soguk: "Soğuk Kahveler",
       frozen: "Frozenler",
@@ -661,7 +663,7 @@
     };
 
     const kategoriIkonlari = {
-      cay: "🫖", sicak: "☕", soguk: "🧊", frozen: "🍧",
+      cay: "🫖", sicak_icecek: "🍫", sicak: "☕", soguk: "🧊", frozen: "🍧",
       milkshake: "🥤", kokteyl: "🍹", fastfood: "🥪", mesrubat: "🥫",
       tatli: "🍰", kuruyemis: "🥜", kestane: "🌰", nargile: "💨"
     };
@@ -670,6 +672,7 @@
       { id: "tasarla", ad: "✨ Kendi Kahveni Tasarla", resim: "kat-tasarla.jpg", ikon: "✨" },
       { id: "hepsi", ad: "Tümü", resim: "kat-tumu.jpg", ikon: "📋" },
       { id: "cay", ad: "Çay & Bitki Çayları", resim: "kat-cay.jpg", ikon: "🫖" },
+      { id: "sicak_icecek", ad: "Sıcak İçecekler", resim: "kat-sicak-icecek.jpg", ikon: "🍫" },
       { id: "sicak", ad: "Sıcak Kahveler", resim: "kat-sicak-kahve.jpg", ikon: "☕" },
       { id: "soguk", ad: "Soğuk Kahveler", resim: "kat-soguk-kahve.jpg", ikon: "🧊" },
       { id: "frozen", ad: "Frozenler", resim: "kat-frozen.jpg", ikon: "🍧" },
@@ -693,6 +696,11 @@
       { id: 607, ad: "Hibiscus Çayı", kategori: "cay", aciklama: "French press demlemesi yakut kırmızısı hibiscus çiçeği çayı", fiyat: 160, resim: "hibiscus-cayi.jpg" },
       { id: 608, ad: "Elma Çayı", kategori: "cay", aciklama: "French press ile demlenmiş elma dilimleri ve tarçın dokunuşu", fiyat: 160, resim: "elma-cayi.jpg" },
       { id: 609, ad: "Kış Çayı", kategori: "cay", aciklama: "French press demlemesi ıhlamur, zencefil, tarçın ve karanfil harmanı", fiyat: 160, resim: "kis-cayi.jpg" },
+
+      { id: 1301, ad: "Salep", kategori: "sicak_icecek", aciklama: "Sıcak süt ile hazırlanan geleneksel kıvamlı salep, üzeri tarçınlı", fiyat: 180, resim: "salep.jpg" },
+      { id: 1302, ad: "Sıcak Çikolata", kategori: "sicak_icecek", aciklama: "Yoğun kıvamlı gerçek çikolata ve sıcak süt ile hazırlanır", fiyat: 180, resim: "sicak-cikolata.jpg" },
+      { id: 1303, ad: "Muzlu Sıcak Çikolata", kategori: "sicak_icecek", aciklama: "Sıcak çikolata lezzetinin taze muz aromasıyla buluşması", fiyat: 190, resim: "muzlu-sicak-cikolata.jpg" },
+      { id: 1304, ad: "Çilekli Sıcak Çikolata", kategori: "sicak_icecek", aciklama: "Sıcak çikolata lezzetinin çilek aromasıyla özel uyumu", fiyat: 190, resim: "cilekli-sicak-cikolata.jpg" },
 
       { id: 101, ad: "Nomâd Spesiyal (Sıcak Kahve)", kategori: "sicak", ozel: true, aciklama: "", fiyat: 205, resim: "nomad-spesiyal-sicak.jpg" },
       { id: 102, ad: "Caffè Latte", kategori: "sicak", aciklama: "Taze çekilmiş espresso ve buharda ısıtılmış kadifemsi süt", fiyat: 200, resim: "caffe-latte.jpg" },
