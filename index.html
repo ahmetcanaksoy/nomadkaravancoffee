@@ -145,11 +145,18 @@
     .product-card.out-of-stock { opacity: 0.6; pointer-events: none; filter: grayscale(100%); position: relative; }
     .out-of-stock-badge { position: absolute; top: 10px; right: 10px; background: #ef4444; color: #ffffff; font-size: 0.65rem; font-weight: 900; padding: 4px 8px; border-radius: 8px; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.5); letter-spacing: 0.5px; }
 
-    .cart-summary-list { max-height: 40vh; overflow-y: auto; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+    .cart-summary-list { max-height: 40vh; overflow-y: auto; margin-bottom: 12px; display: flex; flex-direction: column; gap: 10px; text-align: left; }
     .cart-summary-item { background: rgba(22, 28, 32, 0.85); border: 1px solid var(--card-border); padding: 12px; border-radius: 12px; }
-    .cart-summary-item-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .cart-summary-item-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
     .cart-summary-name { font-size: 0.86rem; font-weight: 800; color: #fff; }
-    .cart-summary-price { font-size: 0.9rem; font-weight: 900; color: var(--fire-amber); }
+    .cart-summary-right { display: flex; align-items: center; gap: 8px; }
+    .cart-summary-price { font-size: 0.9rem; font-weight: 900; color: var(--fire-amber); white-space: nowrap; }
+    .cart-mini-qty { display: flex; align-items: center; background: rgba(15, 23, 42, 0.75); border: 1px solid var(--card-border); border-radius: 8px; overflow: hidden; }
+    .cart-mini-btn { background: transparent; border: none; color: #fff; width: 24px; height: 24px; font-size: 0.9rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .cart-mini-btn.plus { background: var(--fire-orange); color: #fff; }
+    .cart-mini-num { min-width: 20px; text-align: center; font-size: 0.78rem; font-weight: 800; color: #fff; }
+    .cart-mini-del { background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.55); color: #fca5a5; width: 24px; height: 24px; border-radius: 8px; font-size: 0.75rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .btn-clear-cart { width: 100%; background: rgba(239, 68, 68, 0.14); border: 1px solid rgba(239, 68, 68, 0.5); color: #fca5a5; padding: 9px; border-radius: 12px; font-size: 0.78rem; font-weight: 800; cursor: pointer; margin-bottom: 6px; }
     .cart-note-input { width: 100%; background: rgba(15, 23, 42, 0.6); border: 1px dashed rgba(245, 158, 11, 0.4); padding: 8px 12px; border-radius: 8px; font-size: 0.78rem; color: #fff; outline: none; margin-top: 4px; }
     .cart-note-input::placeholder { color: rgba(203, 213, 225, 0.5); }
     .cart-note-input:focus { border-color: var(--fire-amber); background: rgba(15, 23, 42, 0.9); }
@@ -568,7 +575,8 @@
       <h3 style="font-size:1.15rem; font-weight:900; color:#fff; margin-bottom:12px;">Sepetiniz & Notlar</h3>
       <p style="font-size:0.78rem; color:var(--slate-muted); margin-bottom:14px;">Baristamıza veya mutfağa iletmek istediğiniz özel notları ürünlerin altına yazabilirsiniz.</p>
       <div class="cart-summary-list" id="cart-summary-items"></div>
-      <button class="btn-create-order" style="width:100%; justify-content:center; padding:14px; font-size:0.95rem; margin-top:10px;" onclick="siparisiGonder()">
+      <button type="button" class="btn-clear-cart" id="btn-clear-cart" onclick="sepetiTamamenTemizle()">🗑 Tümünü Temizle</button>
+      <button class="btn-create-order" style="width:100%; justify-content:center; padding:14px; font-size:0.95rem; margin-top:6px;" onclick="siparisiGonder()">
         ✓ Siparişi Onayla ve Gönder
       </button>
       <button class="btn-modal-secondary" onclick="modalKapat('modal-cart-summary')">Menüye Dön</button>
@@ -1398,8 +1406,63 @@
       }
     }
 
+    function sepetKalemSil(anahtar) {
+      if (!isMasaModu) return;
+      delete sepet[String(anahtar)];
+      menuyuCiz(document.getElementById('menu-search-input')?.value.trim().toLowerCase() || '');
+      sepetBariniHesapla();
+      sepetOzetiYenileVeyaKapat();
+    }
+
+    function ozelSepetAdetDegistir(idx, delta) {
+      if (!isMasaModu || !ozelKahveSepeti[idx]) return;
+      const yeniAdet = ozelKahveSepeti[idx].adet + delta;
+      if (yeniAdet <= 0) {
+        ozelKahveSepeti.splice(idx, 1);
+      } else {
+        ozelKahveSepeti[idx].adet = yeniAdet;
+        ozelKahveSepeti[idx].tutar = yeniAdet * ozelKahveSepeti[idx].birimFiyat;
+      }
+      sepetBariniHesapla();
+      sepetOzetiYenileVeyaKapat();
+    }
+
+    function ozelSepetKalemSil(idx) {
+      if (!isMasaModu || !ozelKahveSepeti[idx]) return;
+      ozelKahveSepeti.splice(idx, 1);
+      sepetBariniHesapla();
+      sepetOzetiYenileVeyaKapat();
+    }
+
+    function sepetiTamamenTemizle() {
+      if (!isMasaModu) return;
+      sepet = {};
+      ozelKahveSepeti = [];
+      menuyuCiz(document.getElementById('menu-search-input')?.value.trim().toLowerCase() || '');
+      sepetBariniHesapla();
+      modalKapat('modal-cart-summary');
+      bildirimGoster("Sepet temizlendi", "🗑");
+    }
+
+    function sepetOzetiYenileVeyaKapat() {
+      let kalan = ozelKahveSepeti.length;
+      for (let k in sepet) {
+        if ((sepet[k] || 0) > 0) kalan++;
+      }
+      if (kalan === 0) {
+        modalKapat('modal-cart-summary');
+      } else {
+        sepetOzetiniAc();
+      }
+    }
+
     function sepetOzetiniAc() {
       if (!isMasaModu) return;
+      const mevcutNotlar = {};
+      document.querySelectorAll('.cart-note-input').forEach(inp => {
+        mevcutNotlar[inp.id] = inp.value;
+      });
+
       const listContainer = document.getElementById('cart-summary-items');
       listContainer.innerHTML = "";
 
@@ -1408,28 +1471,48 @@
         if (cozum) {
           const u = cozum.urun;
           const safeId = encodeURIComponent(anahtar);
+          const noteId = `note-standart-${safeId}`;
+          const oncekiNot = mevcutNotlar[noteId] || "";
           listContainer.innerHTML += `
             <div class="cart-summary-item" data-type="standart" data-key="${anahtar}" data-adet="${sepet[anahtar]}">
               <div class="cart-summary-item-top">
-                <span class="cart-summary-name">${sepet[anahtar]}× ${u.ad}</span>
-                <span class="cart-summary-price">${u.fiyat * sepet[anahtar]} ₺</span>
+                <span class="cart-summary-name">${u.ad}</span>
+                <div class="cart-summary-right">
+                  <span class="cart-summary-price">${u.fiyat * sepet[anahtar]} ₺</span>
+                  <div class="cart-mini-qty">
+                    <button type="button" class="cart-mini-btn" onclick="adetGuncelle('${anahtar}', -1); sepetOzetiYenileVeyaKapat();">−</button>
+                    <span class="cart-mini-num">${sepet[anahtar]}</span>
+                    <button type="button" class="cart-mini-btn plus" onclick="adetGuncelle('${anahtar}', 1); sepetOzetiniAc();">+</button>
+                  </div>
+                  <button type="button" class="cart-mini-del" onclick="sepetKalemSil('${anahtar}')">✕</button>
+                </div>
               </div>
               ${cozum.seker ? `<div style="font-size:0.72rem; color:var(--fire-amber); font-weight:800; margin-bottom:4px;">Şeker: ${cozum.seker}</div>` : ''}
-              <input type="text" class="cart-note-input" id="note-standart-${safeId}" placeholder="${u.ad} için özel istek...">
+              <input type="text" class="cart-note-input" id="${noteId}" value="${oncekiNot.replace(/"/g, '&quot;')}" placeholder="${u.ad} için özel istek...">
             </div>
           `;
         }
       }
 
       ozelKahveSepeti.forEach((ok, idx) => {
+        const noteId = `note-ozel-${idx}`;
+        const oncekiNot = mevcutNotlar[noteId] || "";
         listContainer.innerHTML += `
           <div class="cart-summary-item" data-type="ozel" data-idx="${idx}">
             <div class="cart-summary-item-top">
-              <span class="cart-summary-name">${ok.adet}× ${ok.ad}</span>
-              <span class="cart-summary-price">${ok.tutar} ₺</span>
+              <span class="cart-summary-name">${ok.ad}</span>
+              <div class="cart-summary-right">
+                <span class="cart-summary-price">${ok.tutar} ₺</span>
+                <div class="cart-mini-qty">
+                  <button type="button" class="cart-mini-btn" onclick="ozelSepetAdetDegistir(${idx}, -1)">−</button>
+                  <span class="cart-mini-num">${ok.adet}</span>
+                  <button type="button" class="cart-mini-btn plus" onclick="ozelSepetAdetDegistir(${idx}, 1)">+</button>
+                </div>
+                <button type="button" class="cart-mini-del" onclick="ozelSepetKalemSil(${idx})">✕</button>
+              </div>
             </div>
             <div style="font-size:0.7rem; color:#10b981; margin-bottom:4px;">${ok.detay}</div>
-            <input type="text" class="cart-note-input" id="note-ozel-${idx}" placeholder="Ekstra notunuz...">
+            <input type="text" class="cart-note-input" id="${noteId}" value="${oncekiNot.replace(/"/g, '&quot;')}" placeholder="Ekstra notunuz...">
           </div>
         `;
       });
