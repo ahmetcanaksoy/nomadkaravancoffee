@@ -505,7 +505,7 @@
         <h3 id="manual-modal-title">Masa - Elle Sipariş Ekle</h3>
         <button class="btn-modal-x" onclick="kasaModalKapat('modal-manual-order')">✕</button>
       </div>
-      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Salep, Dibek, Menengiç, Nargile)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
+      <input type="text" id="manual-search-input" class="kasa-input" placeholder="Menüde ürün ara (Örn: Öğretmenler Günü, Salep, Dibek, Menengiç)..." oninput="manuelUrunleriCiz()" style="margin-bottom:10px;">
       <div class="manual-item-list" id="manual-products-container"></div>
 
       <div class="custom-manual-box">
@@ -622,6 +622,7 @@
 
     const STOK_KATEGORILERI = [
       { id: "hepsi", ad: "Tümü" },
+      { id: "ozel_gun", ad: "Özel Gün" },
       { id: "cay", ad: "Çay" },
       { id: "sicak_icecek", ad: "Sıcak İçecek" },
       { id: "sicak", ad: "Sıcak Kahve" },
@@ -639,6 +640,8 @@
     ];
 
     const MENU_URUNLERI = [
+      { id: 1501, ad: "Öğretmenler Gününe Özel (Kişi Başı)", kategori: "ozel_gun", aciklama: "Canlı Müzik + Meyve Tabağı + Popcorn + 1 Çay + 1 Su + 1 Soft İçecek veya Kahve + 1 Pasta Çeşidi", fiyat: 1000, resim: "ogretmenler-gunu.jpg" },
+
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
       { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
       { id: 603, ad: "Ihlamur", kategori: "cay", aciklama: "French press demlemesi çiçek ve yaprak ıhlamur, fincan servisi", fiyat: 160, resim: "ihlamur.jpg" },
@@ -791,9 +794,7 @@
       { id: 931, ad: "Mandalina Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
       { id: 932, ad: "Çarkıfelek Meyvesi Başlıklı Nargile", kategori: "nargile", aciklama: "Meyve Başlıklı Özel Sunum", fiyat: 450, resim: "nargile2.jpg" },
       { id: 933, ad: "Lüle Değişimi", kategori: "nargile", aciklama: "Nargileniz için taze lüle değişimi", fiyat: 300, resim: "nargile2.jpg" }
-    ];
-
-    const TOPLAM_MASA = 50;
+const TOPLAM_MASA = 50;
     let seciliMasa = null;
     let canliMasalar = {};
     let gunSonuKayitlari = {};
@@ -2393,3 +2394,1605 @@
   </script>
 </body>
 </html>
+const TOPLAM_MASA = 50;
+    let seciliMasa = null;
+    let canliMasalar = {};
+    let gunSonuKayitlari = {};
+    let gunlukGiderler = {};
+    let sonSiparisZamanlari = {};
+    let islenenGarsonCagrilari = new Set();
+    let islenenSiparisBildirimleri = new Set();
+    let kaliciBildirimler = [];
+    let bilinenRezSayisi = -1;
+    let audioCtx = null;
+    let stokDurumu = {};
+    let seciliStokKategori = "hepsi";
+    let kasaAcik = sessionStorage.getItem('nomad_kasa_yetki') === '1';
+    let stokKayitKilitli = false;
+
+    if (kasaAcik) {
+      document.getElementById('pin-lock-screen').style.display = 'none';
+    }
+
+    function bugununIsoTarihi() {
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function tarihiDuzGoster(t) {
+      if (!t) return "-";
+      if (t.includes('-') && t.length === 10) {
+        const p = t.split('-');
+        return `${p[2]}.${p[1]}.${p[0]}`;
+      }
+      return t;
+    }
+
+    function ayAdiGetir(ayStr) {
+      const aylar = {
+        "01": "OCAK", "02": "ŞUBAT", "03": "MART", "04": "NİSAN",
+        "05": "MAYIS", "06": "HAZİRAN", "07": "TEMMUZ", "08": "AĞUSTOS",
+        "09": "EYLÜL", "10": "EKİM", "11": "KASIM", "12": "ARALIK"
+      };
+      const [yil, ay] = ayStr.split('-');
+      return `${aylar[ay] || ay} ${yil}`;
+    }
+
+    function sifreKontrol(e) {
+      e.preventDefault();
+      const girilen = document.getElementById('kasa-pin-input').value.trim();
+      const hataEl = document.getElementById('pin-error-msg');
+
+      if (girilen === KASA_SIFRESI) {
+        kasaAcik = true;
+        sessionStorage.setItem('nomad_kasa_yetki', '1');
+        document.getElementById('pin-lock-screen').style.display = 'none';
+        hataEl.style.display = 'none';
+        sesTekBasimAktifEt();
+        buluttanVeriCek();
+        kasaNotuCek();
+      } else {
+        hataEl.style.display = 'block';
+        document.getElementById('kasa-pin-input').value = '';
+      }
+    }
+
+    function kasayiKilitle() {
+      kasaAcik = false;
+      sessionStorage.removeItem('nomad_kasa_yetki');
+      document.getElementById('kasa-pin-input').value = '';
+      document.getElementById('pin-lock-screen').style.display = 'flex';
+    }
+
+    function kasaModalKapat(id) {
+      document.getElementById(id).style.display = 'none';
+      if (id === 'modal-payment-method') {
+        kismiOdemeEkraniniKapat();
+      }
+    }
+
+    function sesMotorunuUyandir() {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!audioCtx) { audioCtx = new AudioContextClass(); }
+      if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+      const buffer = audioCtx.createBuffer(1, 1, 22050);
+      const source = audioCtx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioCtx.destination);
+      source.start(0);
+    }
+
+    function sesTekBasimAktifEt() {
+      sesMotorunuUyandir();
+      const btn = document.getElementById('btn-sound');
+      btn.classList.add('unlocked');
+      btn.innerHTML = `<span>🔊</span><span>Ses Aktif</span>`;
+      calSiparisSesi();
+    }
+
+    function calSiparisSesi() {
+      try {
+        sesMotorunuUyandir();
+        const now = audioCtx.currentTime;
+        const osc1 = audioCtx.createOscillator();
+        const gain1 = audioCtx.createGain();
+        osc1.type = "sine";
+        osc1.frequency.setValueAtTime(587.33, now);
+        gain1.gain.setValueAtTime(0.65, now);
+        gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+        osc1.connect(gain1); gain1.connect(audioCtx.destination);
+        osc1.start(now); osc1.stop(now + 0.35);
+
+        const osc2 = audioCtx.createOscillator();
+        const gain2 = audioCtx.createGain();
+        osc2.type = "sine";
+        osc2.frequency.setValueAtTime(880, now + 0.16);
+        gain2.gain.setValueAtTime(0.75, now + 0.16);
+        gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+        osc2.connect(gain2); gain2.connect(audioCtx.destination);
+        osc2.start(now + 0.16); osc2.stop(now + 0.6);
+      } catch (e) {}
+    }
+
+    function calGarsonSesi() {
+      try {
+        sesMotorunuUyandir();
+        const now = audioCtx.currentTime;
+        [0, 0.22].forEach((offset) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(1567.98, now + offset);
+          gain.gain.setValueAtTime(0.75, now + offset);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + offset + 0.2);
+          osc.connect(gain); gain.connect(audioCtx.destination);
+          osc.start(now + offset); osc.stop(now + offset + 0.2);
+        });
+      } catch (e) {}
+    }
+
+    function kaliciBildirimEkle(id, mesaj, masaNo) {
+      if (kaliciBildirimler.some(b => b.id === id)) return;
+      kaliciBildirimler.push({ id, mesaj, masaNo });
+      kaliciBildirimleriCiz();
+    }
+
+    function kaliciBildirimKapat(id, masaNo) {
+      kaliciBildirimler = kaliciBildirimler.filter(b => b.id !== id);
+      kaliciBildirimleriCiz();
+      if (masaNo) masayaTiklandi(Number(masaNo));
+    }
+
+    function kaliciBildirimleriCiz() {
+      const container = document.getElementById('sticky-alerts-container');
+      container.innerHTML = "";
+      kaliciBildirimler.forEach(b => {
+        const card = document.createElement('div');
+        card.className = 'sticky-notif-card';
+        card.onclick = () => kaliciBildirimKapat(b.id, b.masaNo);
+        card.innerHTML = `
+          <div class="sticky-notif-left"><span>🔔</span><span>${b.mesaj}</span></div>
+          <span class="sticky-notif-btn">Görüldü / Aç ✓</span>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function buluttanVeriCek() {
+      if (!kasaAcik) return;
+
+      if (!navigator.onLine) {
+        verileriYereldenYukle();
+        return;
+      }
+
+      try {
+        if (!stokKayitKilitli) {
+          const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json?t=${Date.now()}`);
+          if (!stokRes.ok) throw new Error("Stok çekilemedi");
+          const rawStok = await stokRes.json();
+          stokDurumu = {};
+          if (Array.isArray(rawStok)) {
+            rawStok.forEach((val, idx) => {
+              if (val === true) stokDurumu[String(idx)] = true;
+            });
+          } else if (rawStok && typeof rawStok === 'object') {
+            for (let k in rawStok) {
+              if (rawStok[k] === true) {
+                const temizId = String(k).replace(/^u_/, '');
+                stokDurumu[temizId] = true;
+              }
+            }
+          }
+          if (document.getElementById('modal-stock-management').style.display === 'flex') {
+            stokUrunleriCiz();
+          }
+        }
+
+        const masaRes = await fetch(`${FIREBASE_URL}/masalar.json`);
+        if (!masaRes.ok) throw new Error("Masa fetch hatası");
+        const yeniMasalar = (await masaRes.json()) || {};
+
+        let yeniSiparisVar = false;
+        for (let mKey in yeniMasalar) {
+          const m = yeniMasalar[mKey];
+          if (m && m.sonGuncelleme && sonSiparisZamanlari[mKey] !== m.sonGuncelleme) {
+            if (sonSiparisZamanlari[mKey] !== undefined) yeniSiparisVar = true;
+            sonSiparisZamanlari[mKey] = m.sonGuncelleme;
+          }
+        }
+
+        canliMasalar = yeniMasalar;
+
+        localStorage.setItem('nomad_kasa_yedek_masalar', JSON.stringify(canliMasalar));
+
+        masalariCiz();
+        if (yeniSiparisVar) calSiparisSesi();
+
+        const sipBildirimRes = await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`);
+        const sipBildirimler = await sipBildirimRes.json();
+        if (sipBildirimler) {
+          for (let sKey in sipBildirimler) {
+            if (!islenenSiparisBildirimleri.has(sKey)) {
+              islenenSiparisBildirimleri.add(sKey);
+              const sb = sipBildirimler[sKey];
+              calSiparisSesi();
+              kaliciBildirimEkle(sKey, `Masa ${sb.masaNo} • Yeni Sipariş (${sb.kalemSayisi} Ürün - ${sb.tutar} ₺) • ${sb.saat}`, sb.masaNo);
+              fetch(`${FIREBASE_URL}/siparis_bildirimleri/${sKey}.json`, { method: 'DELETE' });
+            }
+          }
+        }
+
+        const cagriRes = await fetch(`${FIREBASE_URL}/garson_cagrilari.json`);
+        const cagrilar = await cagriRes.json();
+        if (cagrilar) {
+          for (let cKey in cagrilar) {
+            if (!islenenGarsonCagrilari.has(cKey)) {
+              islenenGarsonCagrilari.add(cKey);
+              const cagri = cagrilar[cKey];
+              calGarsonSesi();
+              let cagriMesaj = cagri.tur === "Nargile Şefi"
+                ? `Masa ${cagri.masaNo} Nargile Şefi${cagri.detay ? ' (' + cagri.detay + ')' : ''} istiyor! (${cagri.saat})`
+                : `Masa ${cagri.masaNo} garson çağırıyor! (${cagri.saat})`;
+              kaliciBildirimEkle(`garson_${cKey}`, cagriMesaj, cagri.masaNo);
+              fetch(`${FIREBASE_URL}/garson_cagrilari/${cKey}.json`, { method: 'DELETE' });
+            }
+          }
+        }
+
+        const rezRes = await fetch(`${FIREBASE_URL}/rezervasyonlar.json`);
+        const rezervasyonlar = await rezRes.json();
+        rezervasyonlariCiz(rezervasyonlar);
+
+        const yorumRes = await fetch(`${FIREBASE_URL}/geri_bildirimler.json`);
+        const yorumlar = await yorumRes.json();
+        musteriYorumlariniCiz(yorumlar);
+
+      } catch (err) {
+        verileriYereldenYukle();
+      }
+    }
+
+    function musteriYorumlariniCiz(yorumObj) {
+      const container = document.getElementById('musteri-yorumlari-container');
+      if (!container) return;
+      if (!yorumObj) {
+        container.innerHTML = `<div style="font-size:0.8rem; color:var(--slate-muted);">Henüz müşteri yorumu yok.</div>`;
+        return;
+      }
+      const keys = Object.keys(yorumObj);
+      container.innerHTML = "";
+      keys.reverse().forEach(k => {
+        const y = yorumObj[k];
+        const saat = y.zamanDamgasi
+          ? new Date(y.zamanDamgasi).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })
+          : '-';
+        const card = document.createElement('div');
+        card.className = 'rez-card';
+        card.innerHTML = `
+          <div class="rez-top">
+            <span class="rez-name">${y.ad || 'Misafir'}</span>
+            <span class="rez-badge">${saat}</span>
+          </div>
+          <div class="rez-info" style="color:#f8fafc;">${y.mesaj || ''}</div>
+          <div class="rez-actions">
+            <button class="btn-rez-del" onclick="musteriYorumuSil('${k}')">Sil</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function musteriYorumuSil(key) {
+      if (confirm("Bu müşteri yorumu silinsin mi?")) {
+        await fetch(`${FIREBASE_URL}/geri_bildirimler/${key}.json`, { method: 'DELETE' });
+        buluttanVeriCek();
+      }
+    }
+
+    function stokYonetimModalAc() {
+      seciliStokKategori = "hepsi";
+      document.getElementById('stock-search-input').value = '';
+      stokKategoriFiltreleriniCiz();
+      stokUrunleriCiz();
+      document.getElementById('modal-stock-management').style.display = 'flex';
+    }
+
+    function stokKategoriFiltreleriniCiz() {
+      const bar = document.getElementById('stock-category-filters');
+      bar.innerHTML = "";
+      STOK_KATEGORILERI.forEach(kat => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = `stock-cat-chip ${seciliStokKategori === kat.id ? 'active' : ''}`;
+        btn.innerText = kat.ad;
+        btn.onclick = () => {
+          seciliStokKategori = kat.id;
+          stokKategoriFiltreleriniCiz();
+          stokUrunleriCiz();
+        };
+        bar.appendChild(btn);
+      });
+    }
+
+    function stokUrunleriCiz() {
+      const q = document.getElementById('stock-search-input').value.trim().toLowerCase();
+      const container = document.getElementById('stock-products-container');
+      container.innerHTML = "";
+
+      const filtreli = MENU_URUNLERI.filter(u => {
+        const katUygun = seciliStokKategori === "hepsi" || u.kategori === seciliStokKategori;
+        const aramaUygun = !q || u.ad.toLowerCase().includes(q);
+        return katUygun && aramaUygun;
+      });
+      filtreli.forEach(u => {
+        const tukendiMi = stokDurumu[String(u.id)] === true;
+        const row = document.createElement('div');
+        row.className = 'stock-item-row';
+        row.innerHTML = `
+          <div style="font-size:0.86rem; font-weight:800; color:${tukendiMi ? '#ef4444' : '#fff'};">
+            ${tukendiMi ? '🚫' : '✅'} ${u.ad}
+          </div>
+          <button type="button" class="btn-stock-toggle ${tukendiMi ? 'out' : ''}" onclick="stokDurumuDegistir(${u.id}, ${!tukendiMi})">
+            ${tukendiMi ? 'Tükendi (Aç)' : 'Stokta (Kapat)'}
+          </button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    async function stokDurumuDegistir(urunId, yapTukendi) {
+      const idStr = String(urunId);
+      const fbKey = `u_${idStr}`;
+      stokKayitKilitli = true;
+
+      if (yapTukendi) {
+        stokDurumu[idStr] = true;
+      } else {
+        delete stokDurumu[idStr];
+      }
+      stokUrunleriCiz();
+
+      try {
+        if (yapTukendi) {
+          await fetch(`${FIREBASE_URL}/stok_durumu/${fbKey}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(true)
+          });
+        } else {
+          await fetch(`${FIREBASE_URL}/stok_durumu/${fbKey}.json`, { method: 'DELETE' });
+          await fetch(`${FIREBASE_URL}/stok_durumu/${idStr}.json`, { method: 'DELETE' });
+        }
+      } catch (e) {
+        alert("Stok durumu kaydedilemedi, internet bağlantısını kontrol edin.");
+      } finally {
+        setTimeout(() => { stokKayitKilitli = false; }, 1200);
+      }
+    }
+
+    function yerelGiderAnahtari(tarihKey) {
+      return `nomad_gider_yedek_${tarihKey}`;
+    }
+
+    function yerelGiderleriOku(tarihKey) {
+      try {
+        return JSON.parse(localStorage.getItem(yerelGiderAnahtari(tarihKey)) || '{}');
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function yerelGiderleriYaz(tarihKey, obj) {
+      try {
+        localStorage.setItem(yerelGiderAnahtari(tarihKey), JSON.stringify(obj));
+      } catch (e) {}
+    }
+
+    function giderModalAc() {
+      const tarihEl = document.getElementById('gider-tarih-input');
+      if (!tarihEl.value) {
+        tarihEl.value = bugununIsoTarihi();
+      }
+      document.getElementById('gider-tutar-input').value = '';
+      document.getElementById('gider-durum-mesaj').innerText = '';
+      document.getElementById('modal-giderler').style.display = 'flex';
+      giderleriYukle();
+    }
+
+    async function giderleriYukle() {
+      const tarihEl = document.getElementById('gider-tarih-input');
+      if (!tarihEl.value) tarihEl.value = bugununIsoTarihi();
+      const tarihKey = tarihEl.value;
+      const yerelVeri = yerelGiderleriOku(tarihKey);
+
+      try {
+        const res = await fetch(`${FIREBASE_URL}/giderler/${tarihKey}.json?t=${Date.now()}`);
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const bulutVeri = (await res.json()) || {};
+        gunlukGiderler = { ...yerelVeri, ...bulutVeri };
+      } catch (e) {
+        gunlukGiderler = yerelVeri;
+      }
+
+      const container = document.getElementById('gider-liste-container');
+      container.innerHTML = "";
+      let toplam = 0;
+      const keys = Object.keys(gunlukGiderler);
+
+      if (keys.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:var(--slate-muted); padding:16px; font-size:0.82rem;">Seçili güne ait gider girişi yok.</div>`;
+        document.getElementById('gider-gun-toplam').innerText = "0 ₺";
+        return;
+      }
+
+      keys.reverse().forEach(k => {
+        const g = gunlukGiderler[k];
+        const tutar = Number(g.tutar || 0);
+        toplam += tutar;
+        const row = document.createElement('div');
+        row.className = 'stock-item-row';
+        row.innerHTML = `
+          <div>
+            <div style="font-size:0.98rem; font-weight:900; color:#f87171;">${tutar} ₺</div>
+            <div style="font-size:0.72rem; color:var(--slate-muted);">${tarihiDuzGoster(g.tarih || tarihKey)} • ${g.saat || '-'}</div>
+          </div>
+          <button type="button" class="btn-item-delete" onclick="giderSil('${k}')">✕</button>
+        `;
+        container.appendChild(row);
+      });
+
+      document.getElementById('gider-gun-toplam').innerText = `${toplam} ₺`;
+    }
+
+    async function giderEkle() {
+      const tarihEl = document.getElementById('gider-tarih-input');
+      if (!tarihEl.value) tarihEl.value = bugununIsoTarihi();
+      const tarihKey = tarihEl.value;
+
+      const tutarInput = document.getElementById('gider-tutar-input');
+      const durumEl = document.getElementById('gider-durum-mesaj');
+      const btn = document.getElementById('btn-gider-ekle');
+      const tutar = Number(String(tutarInput.value).replace(',', '.').trim());
+
+      if (!tutar || isNaN(tutar) || tutar <= 0) {
+        durumEl.style.color = "#f87171";
+        durumEl.innerText = "Lütfen 0'dan büyük bir tutar girin.";
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = "...";
+
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      const yeniId = "g_" + Date.now();
+      const kayitObj = {
+        tutar: tutar,
+        tarih: tarihKey,
+        saat: saatStr,
+        zamanDamgasi: Date.now()
+      };
+
+      const yerelVeri = yerelGiderleriOku(tarihKey);
+      yerelVeri[yeniId] = kayitObj;
+      yerelGiderleriYaz(tarihKey, yerelVeri);
+      tutarInput.value = '';
+
+      try {
+        const res = await fetch(`${FIREBASE_URL}/giderler/${tarihKey}/${yeniId}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(kayitObj)
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        durumEl.style.color = "#10b981";
+        durumEl.innerText = `${tutar} ₺ gider kaydedildi (${tarihiDuzGoster(tarihKey)}).`;
+      } catch (e) {
+        durumEl.style.color = "#fbbf24";
+        durumEl.innerText = `${tutar} ₺ cihazda kaydedildi (Bulut bağlantısı bekleniyor).`;
+      } finally {
+        await giderleriYukle();
+        btn.disabled = false;
+        btn.innerText = "+ Ekle";
+      }
+    }
+
+    async function giderSil(key) {
+      const tarihKey = document.getElementById('gider-tarih-input').value || bugununIsoTarihi();
+      if (confirm("Bu gider kaydı silinsin mi?")) {
+        try {
+          await fetch(`${FIREBASE_URL}/giderler/${tarihKey}/${key}.json`, { method: 'DELETE' });
+          const yerelVeri = yerelGiderleriOku(tarihKey);
+          if (yerelVeri[key]) {
+            delete yerelVeri[key];
+            yerelGiderleriYaz(tarihKey, yerelVeri);
+          }
+        } catch (e) {}
+        await giderleriYukle();
+      }
+    }
+
+    async function canliMuzikEkle(tutar = CANLI_MUZIK_FIYATI) {
+      if (!seciliMasa) return;
+      const ucret = Number(tutar) || CANLI_MUZIK_FIYATI;
+      const masaKey = String(seciliMasa);
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      let mevcut = canliMasalar[masaKey];
+
+      if (!mevcut || !mevcut.urunler) {
+        mevcut = { urunler: [], toplamTutar: 0, saat: saatStr };
+      }
+
+      mevcut.urunler.push({
+        ad: "Canlı Müzik Ücreti",
+        detay: "Kasa Girişi",
+        adet: 1,
+        birimFiyat: ucret,
+        tutar: ucret,
+        yeni: true
+      });
+
+      mevcut.toplamTutar = mevcut.urunler.reduce((acc, c) => acc + c.tutar, 0);
+      mevcut.saat = saatStr;
+      mevcut.sonGuncelleme = Date.now();
+      mevcut.durum = mevcut.durum || 'iletildi';
+      mevcut.okunmamis = true;
+
+      canliMasalar[masaKey] = mevcut;
+      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(mevcut)
+      });
+
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
+    }
+
+    function rezervasyonlariCiz(rezObj) {
+      const container = document.getElementById('rez-container');
+      if (!rezObj) {
+        bilinenRezSayisi = 0;
+        container.innerHTML = `<div style="font-size:0.8rem; color:var(--slate-muted);">Henüz yeni rezervasyon yok.</div>`;
+        return;
+      }
+
+      const keys = Object.keys(rezObj);
+      if (bilinenRezSayisi !== -1 && keys.length > bilinenRezSayisi) calSiparisSesi();
+      bilinenRezSayisi = keys.length;
+
+      container.innerHTML = "";
+      keys.reverse().forEach(k => {
+        const r = rezObj[k];
+        let turEtiketi = r.tur === "Ateş Başı" ? "🔥 Ateş Başı" : (r.tur === "Canlı Müzik" ? "🎵 Canlı Müzik" : "🪑 Masa Rezervasyonu");
+        let ekstraSinif = r.tur === "Canlı Müzik" ? "muzik-tag" : "";
+        const masayaAlindi = Boolean(r.masayaAlindi);
+
+        const card = document.createElement('div');
+        card.className = `rez-card ${masayaAlindi ? 'seated-card' : ''}`;
+        card.innerHTML = `
+          <div class="rez-top">
+            <span class="rez-name">${r.ad}</span>
+            <span class="rez-badge">${r.kisi}</span>
+          </div>
+          <span class="rez-tur-tag ${ekstraSinif}">${turEtiketi}</span>
+          ${masayaAlindi ? `<span class="rez-seated-tag">✓ Masaya Alındı${r.alindigiSaat ? ' • ' + r.alindigiSaat : ''}</span>` : ''}
+          <div class="rez-info">📅 ${tarihiDuzGoster(r.tarih)} • ⏰ ${r.saat}</div>
+          <div class="rez-info">📞 ${r.tel}</div>
+          <div class="rez-info" style="color:var(--fire-amber);">📝 Özel İstek: ${r.not}</div>
+          <div class="rez-actions">
+            ${!masayaAlindi ? `<button type="button" class="btn-rez-seat" onclick="rezervasyonMasayaAlindi('${k}')">✓ Masaya Alındı</button>` : ''}
+            <a class="btn-rez-call" href="tel:${r.tel}">Ara</a>
+            <button type="button" class="btn-rez-del" onclick="rezervasyonSil('${k}')">Tamamlandı / Sil</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    async function rezervasyonMasayaAlindi(key) {
+      try {
+        const res = await fetch(`${FIREBASE_URL}/rezervasyonlar/${key}.json`);
+        const r = await res.json();
+        if (!r) return;
+        const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+        await fetch(`${FIREBASE_URL}/rezervasyonlar/${key}.json`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ masayaAlindi: true, alindigiSaat: saatStr })
+        });
+
+        const noteArea = document.getElementById('kasa-genel-not');
+        const satir = `[${saatStr}] Rezervasyon Masaya Alındı: ${r.ad || 'Misafir'} (${r.tur} • ${r.kisi})`;
+        const guncelNot = noteArea.value.trim() ? `${noteArea.value.trim()}\n${satir}` : satir;
+        noteArea.value = guncelNot;
+        await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ metin: guncelNot, zaman: Date.now() })
+        });
+
+        buluttanVeriCek();
+      } catch (e) {
+        alert("Rezervasyon durumu güncellenemedi.");
+      }
+    }
+
+    async function rezervasyonSil(key) {
+      if (confirm("Bu rezervasyon kaydı silinsin mi?")) {
+        await fetch(`${FIREBASE_URL}/rezervasyonlar/${key}.json`, { method: 'DELETE' });
+        buluttanVeriCek();
+      }
+    }
+
+    async function kasaNotuCek() {
+      try {
+        const res = await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`);
+        const data = await res.json();
+        if (data && data.metin) { document.getElementById('kasa-genel-not').value = data.metin; }
+      } catch (e) {}
+    }
+
+    async function kasaNotuKaydet() {
+      const metin = document.getElementById('kasa-genel-not').value;
+      const btn = document.querySelector('.btn-note-save');
+      btn.innerText = "Kaydediliyor...";
+      try {
+        await fetch(`${FIREBASE_URL}/kasa_notlari/aktif.json`, {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ metin: metin, zaman: Date.now() })
+        });
+        btn.innerText = "Kaydedildi ✓";
+        btn.style.background = "linear-gradient(135deg, #10b981 0%, #059669 100%)";
+        btn.style.color = "#ffffff";
+        setTimeout(() => {
+          btn.innerText = "Kaydet ✓";
+          btn.style.background = "linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%)";
+          btn.style.color = "#0f172a";
+        }, 2500);
+      } catch (e) { btn.innerText = "Hata! Tekrar Dene"; }
+    }
+
+    function masalariCiz() {
+      const container = document.getElementById('tables-container');
+      container.innerHTML = "";
+      let doluSayisi = 0;
+
+      for (let i = 1; i <= TOPLAM_MASA; i++) {
+        const masaKey = String(i);
+        const data = canliMasalar[masaKey];
+        const isBusy = data && data.urunler && data.urunler.length > 0;
+        const isReady = isBusy && data.durum === 'hazir';
+        const isPreparing = isBusy && data.durum === 'hazirlaniyor';
+        const isIletildi = isBusy && (data.durum === 'iletildi' || !data.durum);
+
+        const hasPendingOrder = isBusy && isIletildi;
+
+        if (isBusy) doluSayisi++;
+
+        const card = document.createElement('div');
+        card.className = `table-card ${isBusy ? 'busy' : 'empty'} ${isReady ? 'is-ready' : ''} ${seciliMasa === i ? 'selected-table' : ''}`;
+        card.onclick = () => masayaTiklandi(i);
+
+        let durumYazi = 'BOŞ';
+        if (isBusy) {
+          if (isReady) durumYazi = 'DOLU • HAZIR ✓';
+          else if (isPreparing) durumYazi = 'HAZIRLANIYOR...';
+          else durumYazi = 'YENİ SİPARİŞ !';
+        }
+
+        card.innerHTML = `
+          ${hasPendingOrder ? `<div class="unread-exclaim-badge">!</div>` : ''}
+          <div class="table-number">Masa ${i}</div>
+          <div class="table-status-text">${durumYazi}</div>
+          ${isBusy ? `<div class="table-amount">${data.toplamTutar} ₺</div>` : ''}
+        `;
+        container.appendChild(card);
+      }
+
+      document.getElementById('stat-busy').innerText = `${doluSayisi} Dolu`;
+      document.getElementById('stat-empty').innerText = `${TOPLAM_MASA - doluSayisi} Boş`;
+
+      if (seciliMasa) masaDetayiGoster(seciliMasa);
+    }
+
+    function masayaTiklandi(masaNo) {
+      seciliMasa = masaNo;
+      masalariCiz();
+      masaDetayiGoster(masaNo);
+    }
+
+    function masaDetayiGoster(masaNo) {
+      seciliMasa = masaNo;
+      const data = canliMasalar[String(masaNo)];
+
+      document.getElementById('panel-table-title').innerText = `Masa ${masaNo} Adisyonu`;
+      document.getElementById('btn-open-manual').style.display = 'inline-block';
+      document.getElementById('btn-open-music').style.display = 'inline-block';
+      const listEl = document.getElementById('panel-orders-list');
+      const footerEl = document.getElementById('panel-footer');
+      const hazirBtn = document.getElementById('btn-siparis-hazir');
+
+      if (!data || !data.urunler || data.urunler.length === 0) {
+        document.getElementById('panel-order-time').innerText = "Henüz sipariş yok";
+        listEl.innerHTML = `
+          <div class="empty-state">
+            <span>Bu masa şu anda boş.</span>
+            <button class="btn-manual-add-top" onclick="manuelSiparisModalAc()">+ Garson / Elle Sipariş Gir</button>
+          </div>
+        `;
+        footerEl.style.display = "none";
+        return;
+      }
+
+      document.getElementById('panel-order-time').innerText = `Son Sipariş: ${data.saat || '-'}`;
+      footerEl.style.display = "block";
+      document.getElementById('panel-total-price').innerText = `${data.toplamTutar} ₺`;
+
+      if (data.durum === 'iletildi' || !data.durum) {
+        hazirBtn.className = 'btn-order-ready';
+        hazirBtn.innerText = `⏳ Hazırlanıyor Olarak İşaretle`;
+      } else if (data.durum === 'hazirlaniyor') {
+        hazirBtn.className = 'btn-order-ready preparing-state';
+        hazirBtn.innerText = `✓ Sipariş Hazır (Müşteriye Bildir)`;
+      } else if (data.durum === 'hazir') {
+        hazirBtn.className = 'btn-order-ready already-sent';
+        hazirBtn.innerText = `✓ Sipariş Hazırlandı (Masa Dolu)`;
+      }
+
+      listEl.innerHTML = "";
+      data.urunler.forEach((item, index) => {
+        const isKismiOdemeKalemi = item.ad && item.ad.includes('Kısmi Ödeme');
+        const isIptalKalemi = item.iptalKaydi === true;
+        const row = document.createElement('div');
+        row.className = `order-item-row ${item.yeni ? 'is-new-order' : ''}`;
+
+        if (isKismiOdemeKalemi) {
+          row.style.background = 'rgba(16, 185, 129, 0.1)';
+          row.style.borderColor = '#10b981';
+        } else if (isIptalKalemi) {
+          row.style.background = 'rgba(239, 68, 68, 0.08)';
+          row.style.borderColor = 'rgba(248, 113, 113, 0.45)';
+        }
+
+        row.innerHTML = `
+          <div class="item-left">
+            ${item.yeni ? `<span class="new-order-pill">YENİ SİPARİŞ</span>` : ''}
+            <span class="item-name" style="${isKismiOdemeKalemi ? 'color:#10b981; font-weight:900;' : (isIptalKalemi ? 'color:#fca5a5;' : '')}">${item.ad}</span>
+            ${item.detay ? `<span class="item-custom-recipe" style="${isKismiOdemeKalemi ? 'background:rgba(16,185,129,0.2); border-color:#10b981; color:#a7f3d0;' : (isIptalKalemi ? 'background:rgba(239,68,68,0.16); border-color:#f87171; color:#fca5a5;' : '')}">${isKismiOdemeKalemi ? '✓' : (isIptalKalemi ? '↩' : '✨')} ${item.detay}</span>` : ''}
+            <span class="item-unit-info">${item.adet} adet ${isKismiOdemeKalemi ? '' : `× ${item.birimFiyat} ₺`}</span>
+          </div>
+          <div class="item-actions">
+            <span class="item-price" style="${isKismiOdemeKalemi ? 'color:#10b981;' : (isIptalKalemi ? 'color:#fca5a5;' : '')}">${item.tutar} ₺</span>
+            ${!isKismiOdemeKalemi && !isIptalKalemi ? `<button class="btn-qty-plus" onclick="adetArtir(${masaNo}, ${index})">+</button>` : ''}
+            ${!isKismiOdemeKalemi && !isIptalKalemi ? `<button class="btn-qty-minus" onclick="adetAzalt(${masaNo}, ${index})">−</button>` : ''}
+            ${!isIptalKalemi ? `<button class="btn-item-delete" onclick="urunuSil(${masaNo}, ${index})">✕</button>` : ''}
+          </div>
+        `;
+        listEl.appendChild(row);
+      });
+    }
+
+    async function siparisDurumunuIleriAl() {
+      if (!seciliMasa) return;
+      const data = canliMasalar[String(seciliMasa)];
+      if (!data || !data.urunler || data.urunler.length === 0) return;
+
+      let yeniDurum = 'hazirlaniyor';
+      if (data.durum === 'hazirlaniyor') {
+        yeniDurum = 'hazir';
+      } else if (data.durum === 'hazir') {
+        return;
+      }
+
+      data.durum = yeniDurum;
+      data.okunmamis = false;
+      data.urunler.forEach(u => { u.yeni = false; });
+
+      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
+    }
+
+    function manuelSiparisModalAc() {
+      if (!seciliMasa) return;
+      document.getElementById('manual-modal-title').innerText = `Masa ${seciliMasa} • Elle Sipariş Ekle`;
+      document.getElementById('manual-search-input').value = '';
+      manuelUrunleriCiz();
+      document.getElementById('modal-manual-order').style.display = 'flex';
+    }
+
+    function manuelUrunleriCiz() {
+      const q = document.getElementById('manual-search-input').value.trim().toLowerCase();
+      const container = document.getElementById('manual-products-container');
+      container.innerHTML = "";
+      const filtreli = MENU_URUNLERI.filter(u => u.ad.toLowerCase().includes(q));
+      filtreli.forEach(u => {
+        const row = document.createElement('div');
+        row.className = 'manual-prod-row';
+        row.innerHTML = `
+          <div>
+            <div style="font-size:0.86rem; font-weight:800; color:#fff;">${u.ad}</div>
+            <div style="font-size:0.76rem; color:var(--fire-amber); font-weight:800;">${u.fiyat} ₺</div>
+          </div>
+          <button class="btn-add-one" onclick="masayaManuelKalemKaydet('${u.ad.replace(/'/g, "\\'")}', ${u.fiyat})">+ Ekle</button>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    async function ozelManuelUrunEkle() {
+      const ad = document.getElementById('custom-item-name').value.trim();
+      const fiyat = Number(document.getElementById('custom-item-price').value);
+      if (!ad || !fiyat || fiyat <= 0) {
+        alert("Geçerli bir ürün adı ve fiyat giriniz.");
+        return;
+      }
+      await masayaManuelKalemKaydet(ad, fiyat);
+      document.getElementById('custom-item-name').value = '';
+      document.getElementById('custom-item-price').value = '';
+    }
+
+    async function masayaManuelKalemKaydet(urunAdi, birimFiyat) {
+      if (!seciliMasa) return;
+      const masaKey = String(seciliMasa);
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      let mevcut = canliMasalar[masaKey];
+
+      if (!mevcut || !mevcut.urunler) {
+        mevcut = { urunler: [], toplamTutar: 0, saat: saatStr };
+      }
+
+      const varOlan = mevcut.urunler.find(u => u.ad === urunAdi && !u.detay);
+      if (varOlan) {
+        varOlan.adet += 1;
+        varOlan.tutar = varOlan.adet * varOlan.birimFiyat;
+        varOlan.yeni = true;
+      } else {
+        mevcut.urunler.push({
+          ad: urunAdi, detay: "Garson Girişi", adet: 1,
+          birimFiyat: birimFiyat, tutar: birimFiyat, yeni: true
+        });
+      }
+
+      mevcut.toplamTutar = mevcut.urunler.reduce((acc, c) => acc + c.tutar, 0);
+      mevcut.saat = saatStr;
+      mevcut.sonGuncelleme = Date.now();
+      mevcut.durum = 'iletildi';
+      mevcut.okunmamis = true;
+
+      canliMasalar[masaKey] = mevcut;
+      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mevcut)
+      });
+
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
+    }
+
+    function masaAktarModalAc() {
+      if (!seciliMasa) return;
+      const data = canliMasalar[String(seciliMasa)];
+      if (!data || !data.urunler || data.urunler.length === 0) return;
+
+      document.getElementById('transfer-modal-title').innerText = `Masa ${seciliMasa} → Başka Masaya Aktar`;
+      const selectEl = document.getElementById('transfer-target-select');
+      selectEl.innerHTML = "";
+
+      for (let i = 1; i <= TOPLAM_MASA; i++) {
+        if (i === seciliMasa) continue;
+        const hedefData = canliMasalar[String(i)];
+        const hedefDolu = hedefData && hedefData.urunler && hedefData.urunler.length > 0;
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.innerText = hedefDolu ? `Masa ${i} (Dolu: ${hedefData.toplamTutar} ₺ - Birleştir)` : `Masa ${i} (Boş)`;
+        selectEl.appendChild(opt);
+      }
+      document.getElementById('modal-transfer-table').style.display = 'flex';
+    }
+
+    async function masayiAktarOnayla() {
+      if (!seciliMasa) return;
+      const kaynakNo = seciliMasa;
+      const hedefNo = Number(document.getElementById('transfer-target-select').value);
+      if (!hedefNo || kaynakNo === hedefNo) return;
+
+      const kaynakData = canliMasalar[String(kaynakNo)];
+      if (!kaynakData || !kaynakData.urunler) return;
+
+      const hedefData = canliMasalar[String(hedefNo)];
+      let yeniHedefData;
+
+      if (hedefData && hedefData.urunler && hedefData.urunler.length > 0) {
+        yeniHedefData = {
+          urunler: [...hedefData.urunler, ...kaynakData.urunler],
+          toplamTutar: hedefData.toplamTutar + kaynakData.toplamTutar,
+          saat: kaynakData.saat || hedefData.saat,
+          sonGuncelleme: Date.now(),
+          durum: (kaynakData.durum === 'hazirlaniyor' || hedefData.durum === 'hazirlaniyor') ? 'hazirlaniyor' : 'hazir',
+          okunmamis: Boolean(kaynakData.okunmamis || hedefData.okunmamis)
+        };
+      } else {
+        yeniHedefData = { ...kaynakData, sonGuncelleme: Date.now() };
+      }
+
+      await fetch(`${FIREBASE_URL}/masalar/${hedefNo}.json`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(yeniHedefData)
+      });
+
+      delete canliMasalar[String(kaynakNo)];
+      await fetch(`${FIREBASE_URL}/masalar/${kaynakNo}.json`, { method: 'DELETE' });
+      await fetch(`${FIREBASE_URL}/kapali_oturumlar/${kaynakNo}.json`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Date.now())
+      });
+
+      canliMasalar[String(hedefNo)] = yeniHedefData;
+      seciliMasa = hedefNo;
+      kasaModalKapat('modal-transfer-table');
+      masalariCiz();
+      masaDetayiGoster(hedefNo);
+    }
+
+    async function adetArtir(masaNo, index) {
+      const data = canliMasalar[String(masaNo)];
+      if (!data || !data.urunler[index]) return;
+
+      const urun = data.urunler[index];
+      const birim = Number(urun.birimFiyat) || (urun.adet > 0 ? Number(urun.tutar) / Number(urun.adet) : 0);
+      urun.adet = Number(urun.adet || 0) + 1;
+      urun.birimFiyat = birim;
+      urun.tutar = urun.adet * birim;
+      data.toplamTutar = data.urunler.reduce((acc, curr) => acc + Number(curr.tutar || 0), 0);
+
+      await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+      });
+      masalariCiz();
+    }
+
+    async function adetAzalt(masaNo, index) {
+      const data = canliMasalar[String(masaNo)];
+      if (!data || !data.urunler[index]) return;
+
+      const urun = data.urunler[index];
+      const birim = Number(urun.birimFiyat) || (urun.adet > 0 ? Number(urun.tutar) / Number(urun.adet) : 0);
+      if (urun.adet > 1) {
+        urun.adet -= 1;
+        urun.tutar = urun.adet * birim;
+      } else {
+        data.urunler.splice(index, 1);
+      }
+
+      data.toplamTutar = data.urunler.reduce((acc, curr) => acc + Number(curr.tutar || 0), 0);
+
+      if (data.urunler.length === 0) {
+        delete canliMasalar[String(masaNo)];
+        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, { method: 'DELETE' });
+      } else {
+        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+        });
+      }
+      masalariCiz();
+    }
+
+    async function urunuSil(masaNo, index) {
+      const data = canliMasalar[String(masaNo)];
+      if (!data || !data.urunler[index]) return;
+
+      const silinenUrun = data.urunler[index];
+      const iptalNotu = prompt(`"${silinenUrun.ad}" kalemi için iptal / iade notu (opsiyonel):`);
+      if (iptalNotu === null) return;
+
+      const temizNot = iptalNotu.trim();
+      const tutarDegeri = Number(silinenUrun.tutar || 0);
+      data.urunler.splice(index, 1);
+
+      if (temizNot && tutarDegeri > 0) {
+        data.urunler.push({
+          ad: `İptal / İade: ${silinenUrun.ad}`,
+          detay: `Not: ${temizNot}`,
+          adet: 1,
+          birimFiyat: -tutarDegeri,
+          tutar: -tutarDegeri,
+          yeni: false,
+          iptalKaydi: true
+        });
+      }
+
+      data.toplamTutar = data.urunler.reduce((acc, curr) => acc + Number(curr.tutar || 0), 0);
+
+      const aktifKalemVarMi = data.urunler.some(u => !u.iptalKaydi);
+      if (data.urunler.length === 0 || !aktifKalemVarMi) {
+        delete canliMasalar[String(masaNo)];
+        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, { method: 'DELETE' });
+      } else {
+        await fetch(`${FIREBASE_URL}/masalar/${masaNo}.json`, {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+        });
+      }
+      masalariCiz();
+    }
+
+    function hesapKapatModalAc() {
+      if (!seciliMasa) return;
+      const kapananData = canliMasalar[String(seciliMasa)];
+      if (!kapananData) return;
+
+      document.getElementById('pay-modal-amount').innerText = `${kapananData.toplamTutar || 0} ₺`;
+      kismiOdemeEkraniniKapat();
+      document.getElementById('modal-payment-method').style.display = 'flex';
+    }
+
+    function kismiOdemeEkraniniAc() {
+      document.getElementById('main-pay-grid').style.display = 'none';
+      document.getElementById('split-pay-box').style.display = 'block';
+      document.getElementById('split-amount-input').value = '';
+      document.getElementById('split-amount-input').focus();
+    }
+
+    function kismiOdemeEkraniniKapat() {
+      document.getElementById('main-pay-grid').style.display = 'grid';
+      document.getElementById('split-pay-box').style.display = 'none';
+    }
+
+    async function kismiOdemeYap(odemeTuru) {
+      if (!seciliMasa) return;
+      const masaData = canliMasalar[String(seciliMasa)];
+      if (!masaData) return;
+
+      const miktarStr = document.getElementById('split-amount-input').value;
+      const miktar = Number(miktarStr);
+
+      if (isNaN(miktar) || miktar <= 0) {
+        alert("Geçerli bir tutar giriniz.");
+        return;
+      }
+
+      if (miktar > masaData.toplamTutar) {
+        alert(`Girilen tutar (${miktar} ₺) masanın toplam borcundan (${masaData.toplamTutar} ₺) büyük olamaz!`);
+        return;
+      }
+
+      const bugunKey = bugununIsoTarihi();
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+
+      await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${bugunKey}.json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          masaNo: seciliMasa,
+          tutar: miktar,
+          odemeTuru: odemeTuru,
+          saat: saatStr,
+          tarih: bugunKey,
+          isKismi: true,
+          urunler: [{ ad: "Bölüşülen Hesap (Kısmi Ödeme)", adet: 1, tutar: miktar }],
+          zamanDamgasi: Date.now()
+        })
+      });
+
+      masaData.urunler.push({
+        ad: `Kısmi Ödeme Tahsilatı`,
+        adet: 1,
+        birimFiyat: -miktar,
+        tutar: -miktar,
+        yeni: false,
+        detay: `${odemeTuru} ile alındı`
+      });
+      masaData.toplamTutar -= miktar;
+      masaData.sonGuncelleme = Date.now();
+
+      if (masaData.toplamTutar <= 0) {
+        delete canliMasalar[String(seciliMasa)];
+        await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
+        await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Date.now())
+        });
+        kasaModalKapat('modal-payment-method');
+        alert("Hesap tamamen ödendi, masa kapatıldı!");
+      } else {
+        await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(masaData)
+        });
+        document.getElementById('pay-modal-amount').innerText = `${masaData.toplamTutar} ₺`;
+        kismiOdemeEkraniniKapat();
+      }
+
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
+    }
+
+    async function odemeyiTamamla(e, odemeTuru) {
+      if (!seciliMasa) return;
+      const kapananData = canliMasalar[String(seciliMasa)];
+      if (!kapananData) return;
+
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      const bugunKey = bugununIsoTarihi();
+
+      await fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${bugunKey}.json`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          masaNo: seciliMasa,
+          tutar: kapananData.toplamTutar || 0,
+          odemeTuru: odemeTuru,
+          saat: saatStr,
+          tarih: bugunKey,
+          urunler: kapananData.urunler || [],
+          zamanDamgasi: Date.now()
+        })
+      });
+
+      delete canliMasalar[String(seciliMasa)];
+      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, { method: 'DELETE' });
+      await fetch(`${FIREBASE_URL}/kapali_oturumlar/${seciliMasa}.json`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Date.now())
+      });
+
+      kasaModalKapat('modal-payment-method');
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
+    }
+
+    async function gunuBaslat() {
+      const pin = prompt("🌅 Yeni güne başlamak için kasa şifrenizi girin. (Açık kalmış eski masalar ve bildirimler temizlenecektir):");
+      if (pin === KASA_SIFRESI) {
+        if (confirm("Tüm açık masalar temizlenip yeni gün başlatılacak. Onaylıyor musunuz?")) {
+          try {
+            await fetch(`${FIREBASE_URL}/masalar.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/kapali_oturumlar.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
+            alert("Harika! Yeni gün başlatıldı, tüm masalar 0'landı.");
+            location.reload();
+          } catch (e) { alert("Bağlantı hatası oluştu."); }
+        }
+      } else if (pin !== null) { alert("Hatalı şifre!"); }
+    }
+
+    async function tamSifirlamaYap() {
+      const pin = prompt("DİKKAT! Tüm geçmiş veriler, bugünün cirosu, giderler, rezervasyonlar ve masalar tamamen SİLİNECEK. Fabrika ayarlarına dönmek için kasa şifresini girin:");
+      if (pin === KASA_SIFRESI) {
+        if (confirm("SON UYARI: Her şey sıfırlanacak ve bu işlem asla geri alınamaz! Gerçekten onaylıyor musunuz?")) {
+          try {
+            await fetch(`${FIREBASE_URL}/masalar.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/gun_sonu.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/giderler.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/kapali_oturumlar.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/siparis_bildirimleri.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/garson_cagrilari.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/rezervasyonlar.json`, { method: 'DELETE' });
+            await fetch(`${FIREBASE_URL}/kasa_notlari.json`, { method: 'DELETE' });
+            alert("Sistem fabrika ayarlarına döndürüldü. Tamamen 0'dan başlıyorsunuz.");
+            location.reload();
+          } catch (e) { alert("Bağlantı hatası oluştu."); }
+        }
+      } else if (pin !== null) { alert("Hatalı şifre girdiniz!"); }
+    }
+
+    function gunSonuModalAc() {
+      const bugun = bugununIsoTarihi();
+      document.getElementById('eod-date-picker').value = bugun;
+      document.getElementById('eod-pin-input').value = '';
+      document.getElementById('eod-reset-pin').value = '';
+      document.getElementById('eod-pin-err').style.display = 'none';
+      document.getElementById('eod-pin-gate').style.display = 'block';
+      document.getElementById('eod-content-area').style.display = 'none';
+      document.getElementById('eod-detailed-wrapper').style.display = 'block';
+      document.getElementById('eod-selected-order-detail').style.display = 'none';
+      document.getElementById('btn-toggle-eod-details').innerHTML = `<span>▲ Detaylı Listeyi Gizle</span>`;
+      document.getElementById('modal-eod-report').style.display = 'flex';
+    }
+
+    async function gunSonuSifreDogrula() {
+      const pin = document.getElementById('eod-pin-input').value.trim();
+      if (pin !== KASA_SIFRESI) {
+        document.getElementById('eod-pin-err').style.display = 'block';
+        return;
+      }
+      document.getElementById('eod-pin-err').style.display = 'none';
+      document.getElementById('eod-pin-gate').style.display = 'none';
+      document.getElementById('eod-content-area').style.display = 'block';
+      document.getElementById('eod-detailed-wrapper').style.display = 'block';
+      document.getElementById('btn-toggle-eod-details').innerHTML = `<span>▲ Detaylı Listeyi Gizle</span>`;
+      const seciliTarih = document.getElementById('eod-date-picker').value || bugununIsoTarihi();
+      await gunSonuVerileriniYukle(seciliTarih);
+    }
+
+    async function gunSonuTarihDegisti() {
+      const seciliTarih = document.getElementById('eod-date-picker').value || bugununIsoTarihi();
+      document.getElementById('eod-selected-order-detail').style.display = 'none';
+      await gunSonuVerileriniYukle(seciliTarih);
+    }
+
+    async function buguneDonVeYukle() {
+      const bugun = bugununIsoTarihi();
+      document.getElementById('eod-date-picker').value = bugun;
+      document.getElementById('eod-selected-order-detail').style.display = 'none';
+      await gunSonuVerileriniYukle(bugun);
+    }
+
+    function gunSonuDetayAcKapat() {
+      const wrap = document.getElementById('eod-detailed-wrapper');
+      const btn = document.getElementById('btn-toggle-eod-details');
+      const acik = wrap.style.display === 'block';
+      if (acik) {
+        wrap.style.display = 'none';
+        btn.innerHTML = `<span>📋 Detaylı Bak (Seçili Günde Alınan Ürünleri & Ödeme Türlerini Gör)</span>`;
+      } else {
+        wrap.style.display = 'block';
+        btn.innerHTML = `<span>▲ Detaylı Listeyi Gizle</span>`;
+      }
+    }
+
+    function gecmisAdisyonDetayGoster(key) {
+      const kayit = gunSonuKayitlari[key];
+      const box = document.getElementById('eod-selected-order-detail');
+      if (!kayit) return;
+
+      const odeme = kayit.odemeTuru || "Nakit";
+      const odemeRozet = odeme === "Kredi Kartı"
+        ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
+        : `<span class="pay-pill cash">💵 Nakit</span>`;
+
+      const urunListesi = kayit.urunler || [];
+      let icerikHtml = "";
+      if (urunListesi.length === 0) {
+        icerikHtml = `<div style="font-size:0.78rem; color:var(--slate-muted);">Bu adisyon için ürün kalemi detayı bulunmuyor.</div>`;
+      } else {
+        icerikHtml = urunListesi.map(u => {
+          const eksiMi = (u.tutar < 0 || u.birimFiyat < 0);
+          return `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.84rem; gap:8px;">
+            <div>
+              <div style="font-weight:800; color:${eksiMi ? '#10b981' : '#ffffff'};">${u.adet}× ${u.ad}</div>
+              ${u.detay ? `<div style="font-size:0.74rem; color:${eksiMi ? '#a7f3d0' : '#fdba74'};">${eksiMi ? '✓' : '✨'} ${u.detay}</div>` : ''}
+            </div>
+            <div style="font-weight:900; color:${eksiMi ? '#10b981' : 'var(--fire-amber)'}; white-space:nowrap;">${u.tutar} ₺</div>
+          </div>
+          `;
+        }).join('');
+      }
+
+      box.style.display = 'block';
+      box.innerHTML = `
+        <div class="eod-order-detail-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid rgba(245,158,11,0.35);">
+            <span style="font-size:0.92rem; font-weight:900; color:var(--fire-amber);">
+              🧾 Masa ${kayit.masaNo} (${tarihiDuzGoster(kayit.tarih)} • ${kayit.saat || '-'}) ${odemeRozet}
+            </span>
+            <button onclick="document.getElementById('eod-selected-order-detail').style.display='none'" style="background:none; border:none; color:#cbd5e1; font-weight:900; cursor:pointer; font-size:1rem;">✕</button>
+          </div>
+          ${icerikHtml}
+          <div style="display:flex; justify-content:space-between; margin-top:10px; font-size:0.92rem; font-weight:900; color:#10b981;">
+            <span>Ödenen Toplam (${odeme}):</span>
+            <span>${kayit.tutar} ₺</span>
+          </div>
+        </div>
+      `;
+    }
+
+    async function gunSonuVerileriniYukle(tarihKey) {
+      const duzTarihYazi = tarihiDuzGoster(tarihKey);
+      const bugunMu = tarihKey === bugununIsoTarihi();
+      document.getElementById('eod-selected-date-label').innerText = bugunMu ? `${duzTarihYazi} (Bugün)` : `${duzTarihYazi} (Geçmiş Kayıt)`;
+      document.getElementById('eod-revenue-title').innerText = `TOPLAM CİRO`;
+      document.getElementById('eod-reset-warning-label').innerText = `🔒 ${duzTarihYazi} Tarihini Kapat & Kaydet (Şifre Onaylı)`;
+
+      const [res, kapananRes, giderRes] = await Promise.all([
+        fetch(`${FIREBASE_URL}/gun_sonu/arsiv/${tarihKey}.json`),
+        fetch(`${FIREBASE_URL}/gun_sonu/kapanan_gunler/${tarihKey}.json`),
+        fetch(`${FIREBASE_URL}/giderler/${tarihKey}.json`)
+      ]);
+
+      let veriler = await res.json();
+      const kapananObj = await kapananRes.json();
+      if (!veriler && kapananObj && kapananObj.kayitlar) {
+        veriler = kapananObj.kayitlar;
+      }
+
+      const giderVeri = (await giderRes.json()) || {};
+      let gunGiderToplam = 0;
+      const giderListEl = document.getElementById('eod-expenses-list');
+      const giderKeys = Object.keys(giderVeri);
+
+      if (giderKeys.length === 0) {
+        giderListEl.innerHTML = `<span style="color:var(--slate-muted);">Seçili gün için gider kaydı yok.</span>`;
+      } else {
+        giderListEl.innerHTML = giderKeys.map(gk => {
+          const gt = Number(giderVeri[gk].tutar || 0);
+          gunGiderToplam += gt;
+          return `<span style="background:rgba(239,68,68,0.18); border:1px solid #f87171; color:#fca5a5; padding:4px 10px; border-radius:8px; font-weight:800;">${gt} ₺</span>`;
+        }).join('');
+      }
+      document.getElementById('eod-day-expense').innerText = `${gunGiderToplam} ₺`;
+
+      gunSonuKayitlari = veriler || {};
+      const historyEl = document.getElementById('eod-history-container');
+      historyEl.innerHTML = "";
+
+      if (!veriler) {
+        document.getElementById('eod-total-revenue').innerText = "0 ₺";
+        document.getElementById('eod-cash-revenue').innerText = "0 ₺";
+        document.getElementById('eod-card-revenue').innerText = "0 ₺";
+        historyEl.innerHTML = `<div style="font-size:0.82rem; color:var(--slate-muted); text-align:center; padding:16px;">${duzTarihYazi} tarihinde kapatılmış adisyon kaydı bulunmuyor.</div>`;
+        return;
+      }
+
+      let toplamCiro = 0;
+      let nakitCiro = 0;
+      let kartCiro = 0;
+      let adisyonSayisi = 0;
+
+      const keys = Object.keys(veriler);
+      keys.reverse().forEach(k => {
+        const item = veriler[k];
+        const tutar = Number(item.tutar || 0);
+        const odeme = item.odemeTuru || "Nakit";
+
+        toplamCiro += tutar;
+        if (odeme === "Kredi Kartı") kartCiro += tutar;
+        else nakitCiro += tutar;
+
+        if (!item.isKismi) adisyonSayisi++;
+
+        const odemeRozet = odeme === "Kredi Kartı"
+          ? `<span class="pay-pill card">💳 Kredi Kartı</span>`
+          : `<span class="pay-pill cash">💵 Nakit</span>`;
+
+        const isKismi = item.isKismi ? `<span style="background:#f59e0b; color:#0f172a; padding:2px 6px; border-radius:4px; font-size:0.65rem; font-weight:900; margin-left:6px;">KISMİ ÖDEME</span>` : '';
+
+        const urunList = item.urunler || [];
+        const urunOzet = urunList.length > 0
+          ? urunList.map(u => `${u.adet}× ${u.ad} (${u.tutar} ₺)`).join(' • ')
+          : "Ürün detayı kaydedilmemiş";
+
+        const card = document.createElement('div');
+        card.className = 'eod-history-card';
+        card.onclick = () => gecmisAdisyonDetayGoster(k);
+        card.innerHTML = `
+          <div class="eod-history-top">
+            <div>
+              <strong style="color:#fff;">Masa ${item.masaNo}</strong>
+              <span style="color:var(--slate-muted); font-size:0.78rem; margin-left:6px;">⏰ ${item.saat || '-'}</span>
+              ${odemeRozet}
+              ${isKismi}
+            </div>
+            <span style="color:var(--fire-amber); font-weight:900; font-size:0.96rem;">${tutar} ₺</span>
+          </div>
+          <div class="eod-history-items-inline">
+            <strong style="color:#93c5fd;">Alınanlar:</strong> ${urunOzet}
+          </div>
+        `;
+        historyEl.appendChild(card);
+      });
+
+      document.getElementById('eod-total-revenue').innerText = `${toplamCiro} ₺`;
+      document.getElementById('eod-cash-revenue').innerText = `${nakitCiro} ₺`;
+      document.getElementById('eod-card-revenue').innerText = `${kartCiro} ₺`;
+    }
+
+    async function gunuKapatVeSifirla() {
+      const seciliTarih = document.getElementById('eod-date-picker').value || bugununIsoTarihi();
+      const duzTarihYazi = tarihiDuzGoster(seciliTarih);
+      const resetPin = document.getElementById('eod-reset-pin').value.trim();
+
+      if (resetPin !== KASA_SIFRESI) {
+        alert("Sıfırlama şifresi hatalı! Günü kapatmak için doğru kasa şifresini giriniz.");
+        return;
+      }
+
+      if (confirm(`${duzTarihYazi} günü kapatılıp kalıcı arşive kaydedilecek. Emin misiniz?`)) {
+        const mevcutKayitlar = gunSonuKayitlari || {};
+        const satirlar = Object.values(mevcutKayitlar);
+
+        let toplamCiro = 0;
+        let nakitCiro = 0;
+        let kartCiro = 0;
+        let adisyonSayisi = 0;
+
+        satirlar.forEach(item => {
+          const tutar = Number(item.tutar || 0);
+          const odeme = item.odemeTuru || "Nakit";
+          toplamCiro += tutar;
+          if (odeme === "Kredi Kartı") kartCiro += tutar;
+          else nakitCiro += tutar;
+          if (!item.isKismi) adisyonSayisi++;
+        });
+
+        await fetch(`${FIREBASE_URL}/gun_sonu/kapanan_gunler/${seciliTarih}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tarih: seciliTarih,
+            kapatilmaZamani: new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+            toplamCiro,
+            nakitCiro,
+            kartCiro,
+            adisyonSayisi,
+            kayitlar: mevcutKayitlar,
+            zamanDamgasi: Date.now()
+          })
+        });
+
+        document.getElementById('eod-reset-pin').value = '';
+        document.getElementById('eod-selected-order-detail').style.display = 'none';
+        await gunSonuVerileriniYukle(seciliTarih);
+        alert(`${duzTarihYazi} günü arşive kaydedildi ve tüm kayıtlar korundu.`);
+      }
+    }
+
+    async function aySonuPdfIndir() {
+      const seciliTarih = document.getElementById('eod-date-picker')?.value || bugununIsoTarihi();
+      const ayPrefix = seciliTarih.slice(0, 7);
+      const ayBaslik = ayAdiGetir(ayPrefix);
+
+      try {
+        const [arsivRes, kapananRes, giderRes] = await Promise.all([
+          fetch(`${FIREBASE_URL}/gun_sonu/arsiv.json`),
+          fetch(`${FIREBASE_URL}/gun_sonu/kapanan_gunler.json`),
+          fetch(`${FIREBASE_URL}/giderler.json`)
+        ]);
+
+        const arsivAll = (await arsivRes.json()) || {};
+        const kapananAll = (await kapananRes.json()) || {};
+        const giderAll = (await giderRes.json()) || {};
+
+        const gunSet = new Set([
+          ...Object.keys(arsivAll).filter(d => d.startsWith(ayPrefix)),
+          ...Object.keys(kapananAll).filter(d => d.startsWith(ayPrefix)),
+          ...Object.keys(giderAll).filter(d => d.startsWith(ayPrefix))
+        ]);
+
+        const gunler = Array.from(gunSet).sort();
+
+        let ayNakit = 0;
+        let ayKart = 0;
+        let ayGider = 0;
+        let satirlarHtml = "";
+
+        gunler.forEach(gun => {
+          let gunNakit = 0;
+          let gunKart = 0;
+          let gunGider = 0;
+
+          const arsivKayit = arsivAll[gun];
+          const kapananKayit = kapananAll[gun] && kapananAll[gun].kayitlar;
+          const gunKayitKaynak = (arsivKayit && Object.keys(arsivKayit).length > 0)
+            ? arsivKayit
+            : (kapananKayit || {});
+
+          Object.values(gunKayitKaynak).forEach(rec => {
+            const t = Number(rec.tutar || 0);
+            if ((rec.odemeTuru || "Nakit") === "Kredi Kartı") gunKart += t;
+            else gunNakit += t;
+          });
+
+          const gunGiderKaynak = giderAll[gun] || {};
+          Object.values(gunGiderKaynak).forEach(g => {
+            gunGider += Number(g.tutar || 0);
+          });
+
+          const gunGelir = gunNakit + gunKart;
+          const gunNet = gunGelir - gunGider;
+
+          ayNakit += gunNakit;
+          ayKart += gunKart;
+          ayGider += gunGider;
+
+          satirlarHtml += `
+            <tr>
+              <td>${tarihiDuzGoster(gun)}</td>
+              <td>${gunNakit} TL</td>
+              <td>${gunKart} TL</td>
+              <td>${gunGelir} TL</td>
+              <td>${gunGider} TL</td>
+              <td><strong>${gunNet} TL</strong></td>
+            </tr>
+          `;
+        });
+
+        const ayToplamGelir = ayNakit + ayKart;
+        const ayNet = ayToplamGelir - ayGider;
+
+        const printWin = window.open("", "_blank", "width=850,height=650");
+        if (!printWin) {
+          alert("Tarayıcı pencere açmayı engelledi. Açılır pencere (pop-up) iznine basın.");
+          return;
+        }
+        printWin.document.write(`
+          <!DOCTYPE html>
+          <html lang="tr">
+          <head>
+            <meta charset="UTF-8">
+            <title>${ayBaslik} - Nomad Karavan Rapor</title>
+            <style>
+              body { font-family: Arial, sans-serif; padding: 24px; color: #111827; }
+              h1 { margin-bottom: 4px; font-size: 22px; }
+              .sub { color: #4b5563; font-size: 13px; margin-bottom: 18px; }
+              .ozet { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+              .kutu { border: 1px solid #d1d5db; border-radius: 8px; padding: 10px 14px; min-width: 150px; }
+              .kutu small { display: block; color: #6b7280; font-size: 11px; }
+              .kutu strong { font-size: 16px; }
+              table { width: 100%; border-collapse: collapse; font-size: 13px; }
+              th, td { border: 1px solid #d1d5db; padding: 8px 10px; text-align: left; }
+              th { background: #f3f4f6; }
+              @media print { .no-print { display: none; } }
+            </style>
+          </head>
+          <body>
+            <div class="no-print" style="margin-bottom:14px;">
+              <button onclick="window.print()" style="padding:8px 14px; font-weight:bold; cursor:pointer;">PDF Olarak Kaydet / Yazdir</button>
+            </div>
+            <h1>${ayBaslik}</h1>
+            <div class="sub">NOMAD KARAVAN COFFEE - GUNLUK GELIR / GIDER RAPORU</div>
+            <div class="ozet">
+              <div class="kutu"><small>NAKİT GELİR</small><strong>${ayNakit} TL</strong></div>
+              <div class="kutu"><small>KREDİ KARTI GELİR</small><strong>${ayKart} TL</strong></div>
+              <div class="kutu"><small>TOPLAM GELİR</small><strong>${ayToplamGelir} TL</strong></div>
+              <div class="kutu"><small>TOPLAM GİDER</small><strong>${ayGider} TL</strong></div>
+              <div class="kutu"><small>NET DURUM</small><strong>${ayNet} TL</strong></div>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tarih</th>
+                  <th>Nakit</th>
+                  <th>Kredi Karti</th>
+                  <th>Gunluk Gelir</th>
+                  <th>Gider</th>
+                  <th>Gunluk Net</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${satirlarHtml || `<tr><td colspan="6">Bu aya ait kayit bulunamadi.</td></tr>`}
+              </tbody>
+            </table>
+          </body>
+          </html>
+        `);
+        printWin.document.close();
+        printWin.focus();
+        setTimeout(() => printWin.print(), 300);
+      } catch (e) {
+        alert("PDF raporu hazırlanırken bir hata oluştu.");
+      }
+    }
+
+    window.addEventListener('offline', () => {
+      document.getElementById('offline-banner').style.display = 'block';
+      verileriYereldenYukle();
+    });
+    window.addEventListener('online', () => {
+      document.getElementById('offline-banner').style.display = 'none';
+      buluttanVeriCek();
+    });
+
+    function verileriYereldenYukle() {
+      try {
+        const yedek = localStorage.getItem('nomad_kasa_yedek_masalar');
+        if (yedek) {
+          canliMasalar = JSON.parse(yedek);
+          masalariCiz();
+        }
+      } catch(e) {}
+    }
+
+    masalariCiz();
+    setInterval(buluttanVeriCek, 2000);
+
+    if (kasaAcik) {
+      buluttanVeriCek();
+      kasaNotuCek();
+    }
+  </script>
+</body>
+</html>
+      
+    ];
