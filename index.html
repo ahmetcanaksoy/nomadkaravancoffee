@@ -202,10 +202,6 @@
     .card-panel-box h3 { font-size: 1.04rem; font-weight: 900; color: #ffffff; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
     .card-panel-box p { font-size: 0.76rem; color: var(--slate-muted); margin-bottom: 10px; line-height: 1.38; }
 
-    .rez-quick-row { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
-    .rez-quick-chip { background: rgba(245, 158, 11, 0.16); border: 1px solid rgba(245, 158, 11, 0.5); color: var(--fire-amber); padding: 6px 11px; border-radius: 10px; font-size: 0.74rem; font-weight: 800; cursor: pointer; }
-    .rez-quick-chip:active { transform: scale(0.96); }
-
     .rez-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 2px; }
     .rez-type-btn { background: rgba(28, 33, 39, 0.92); border: 1.5px solid var(--card-border); border-radius: 14px; padding: 11px 6px; color: #cbd5e1; font-size: 0.76rem; font-weight: 800; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center; transition: all 0.15s; }
     .rez-type-btn.selected { background: linear-gradient(135deg, rgba(234, 88, 12, 0.35) 0%, rgba(27, 77, 54, 0.45) 100%); border-color: var(--fire-amber); color: #ffffff; box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35); }
@@ -261,7 +257,7 @@
     .teachers-gala-card {
       position: relative;
       border: 2px solid #fbbf24 !important;
-      background: linear-gradient(135deg, rgba(120, 53, 15, 0.95) 0%, rgba(27, 77, 54, 0.95) 55%, rgba(69, 26, 3, 0.96) 100%) !important;
+      background: linear-gradient(135deg, rgba(120, 53, 15, 0.96) 0%, rgba(27, 77, 54, 0.96) 55%, rgba(69, 26, 3, 0.98) 100%) !important;
       box-shadow: 0 0 28px rgba(245, 158, 11, 0.55), 0 14px 30px rgba(0, 0, 0, 0.5) !important;
       animation: galaGlowPulse 2.2s ease-in-out infinite alternate;
       overflow: hidden;
@@ -304,7 +300,7 @@
       border-radius: 22px;
       padding: 16px;
       border: 2px solid #fbbf24;
-      background: linear-gradient(135deg, rgba(120, 53, 15, 0.94) 0%, rgba(27, 77, 54, 0.94) 55%, rgba(69, 26, 3, 0.96) 100%);
+      background: linear-gradient(135deg, rgba(120, 53, 15, 0.96) 0%, rgba(27, 77, 54, 0.96) 55%, rgba(69, 26, 3, 0.98) 100%);
       box-shadow: 0 0 26px rgba(245, 158, 11, 0.5), 0 12px 26px rgba(0, 0, 0, 0.45);
       cursor: pointer;
       overflow: hidden;
@@ -767,7 +763,7 @@
     const orijinalBaslik = document.title;
 
     let stokDurumu = {};
-    let rastgeleUrunAdaylari = [];
+    let sonStokImzasi = "";
     let secilenRastgeleUrun = null;
 
     const kategoriBasliklari = {
@@ -1192,20 +1188,11 @@
         } else {
           tabSec(kategori);
         }
-        try { history.pushState({ page: 'menu' }, '', window.location.pathname + window.location.search); } catch(e) {}
       } else {
         document.getElementById('view-home').classList.add('active');
-        try { history.pushState({ page: 'home' }, '', window.location.pathname + window.location.search); } catch(e) {}
       }
       window.scrollTo(0, 0);
     }
-
-    window.onpopstate = function() {
-      const viewMenu = document.getElementById('view-menu');
-      if (viewMenu && viewMenu.classList.contains('active')) {
-        navigasyon('home');
-      }
-    };
 
     function kategorileriGoster() {
       aktifKategori = 'kategoriler';
@@ -1219,7 +1206,7 @@
       window.scrollTo(0, 0);
     }
 
-    function ogretmenlerGunuKartiniCiz(container) {
+    function ogretmenlerGunuVitrininiCiz(container) {
       const u = urunler.find(item => item.ogretmenGunu === true);
       if (!u) return;
       const tukendi = stokDurumu[String(u.id)] === true;
@@ -1240,7 +1227,7 @@
         <img class="product-thumb" src="${u.resim}" alt="${u.ad}" loading="lazy" onerror="resimYuklenemedi(this, '🎓')">
         <div class="product-content">
           <div>
-            <span class="teachers-gala-badge">✨ ÖĞRETMENLER GÜNÜNE ÖZEL</span>
+            <span class="teachers-gala-badge">🎓 ÖĞRETMENLER GÜNÜNE ÖZEL</span>
             <div class="prod-title">${u.ad}</div>
             <div class="prod-desc">${u.aciklama}</div>
           </div>
@@ -1260,13 +1247,16 @@
       const banner = document.createElement('div');
       banner.className = "teachers-cat-banner";
       banner.onclick = () => {
+        aktifKategori = 'ozel_gun';
         document.getElementById('category-squares-container').style.display = 'none';
         document.getElementById('products-list').style.display = 'flex';
         document.getElementById('menu-tabs-bar').style.display = 'flex';
         document.getElementById('btn-kategorilere-don').style.display = 'inline-block';
+        document.querySelectorAll('.tab-pill').forEach(b => b.classList.remove('active'));
         const listEl = document.getElementById('products-list');
         listEl.innerHTML = "";
-        ogretmenlerGunuKartiniCiz(listEl);
+        ogretmenlerGunuVitrininiCiz(listEl);
+        window.scrollTo(0, 0);
       };
       banner.innerHTML = `
         <div>
@@ -1281,7 +1271,7 @@
       kategoriKartlari.forEach(kat => {
         let adetYazi = "";
         if (kat.id === "hepsi") {
-          adetYazi = `${urunler.length} Çeşit`;
+          adetYazi = `${urunler.filter(u => !u.ogretmenGunu).length} Çeşit`;
         } else if (kat.id === "tasarla") {
           adetYazi = "Kendi Reçeteni Oluştur";
         } else {
@@ -1317,7 +1307,6 @@
       const seciliTab = document.getElementById(`tab-${kat}`);
       if (seciliTab) {
         seciliTab.classList.add('active');
-        seciliTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       }
       menuyuCiz();
       window.scrollTo(0, 0);
@@ -1384,6 +1373,11 @@
           return;
         }
         eslesenler.forEach(u => urunKartiEkle(container, u));
+        return;
+      }
+
+      if (aktifKategori === 'ozel_gun') {
+        ogretmenlerGunuVitrininiCiz(container);
         return;
       }
 
@@ -1456,7 +1450,7 @@
       }
 
       if (aktifKategori === 'hepsi') {
-        ogretmenlerGunuKartiniCiz(container);
+        ogretmenlerGunuVitrininiCiz(container);
       }
 
       const liste = aktifKategori === 'hepsi'
@@ -1766,11 +1760,12 @@
     function banaBirakSecimiYap() {
       if (!isMasaModu) return;
       let adaylar = urunler.filter(u =>
+        !u.ogretmenGunu &&
         (u.kategori === 'kokteyl' || u.kategori === 'frozen' || u.ozel === true) &&
         stokDurumu[String(u.id)] !== true
       );
       if (adaylar.length === 0) {
-        adaylar = urunler.filter(u => stokDurumu[String(u.id)] !== true);
+        adaylar = urunler.filter(u => !u.ogretmenGunu && stokDurumu[String(u.id)] !== true);
       }
       if (adaylar.length === 0) {
         bildirimGoster("Şu an stokta ürün bulunmuyor.", "⚠️");
@@ -1871,23 +1866,34 @@
       try {
         const stokRes = await fetch(`${FIREBASE_URL}/stok_durumu.json?t=${Date.now()}`);
         const rawStok = await stokRes.json();
-        stokDurumu = {};
-        
+        const yeniStok = {};
+
         if (Array.isArray(rawStok)) {
           rawStok.forEach((val, idx) => {
-            if (val === true) stokDurumu[String(idx)] = true;
+            if (val === true) yeniStok[String(idx)] = true;
           });
         } else if (rawStok && typeof rawStok === 'object') {
           for (let k in rawStok) {
             if (rawStok[k] === true) {
               const temizId = String(k).replace(/^u_/, '');
-              stokDurumu[temizId] = true;
+              yeniStok[temizId] = true;
             }
           }
         }
-        
-        if (document.getElementById('view-menu').classList.contains('active')) {
-          menuyuCiz(document.getElementById('menu-search-input')?.value.trim().toLowerCase() || '');
+
+        const yeniImza = JSON.stringify(yeniStok);
+        stokDurumu = yeniStok;
+
+        const aramaAktif = Boolean((document.getElementById('menu-search-input')?.value || '').trim());
+        const modalAcik = Boolean(document.querySelector('.custom-modal[style*="display: flex"]'));
+        if (yeniImza !== sonStokImzasi && !aramaAktif && !modalAcik) {
+          sonStokImzasi = yeniImza;
+          if (document.getElementById('view-menu').classList.contains('active')) {
+            if (aktifKategori === 'kategoriler') kareKategorileriCiz();
+            else menuyuCiz();
+          }
+        } else if (!sonStokImzasi) {
+          sonStokImzasi = yeniImza;
         }
       } catch (err) {}
     }
@@ -1966,7 +1972,7 @@
     setInterval(() => {
       stokDurumuCek();
       if (isMasaModu) masaDurumunuKontrolEt();
-    }, 2500);
+    }, 3000);
     stokDurumuCek();
     if (isMasaModu) masaDurumunuKontrolEt();
 
