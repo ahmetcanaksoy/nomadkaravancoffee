@@ -257,6 +257,99 @@
 
     .product-card { background: linear-gradient(145deg, rgba(54, 61, 69, 0.86) 0%, rgba(27, 47, 38, 0.9) 100%); backdrop-filter: blur(14px); border: 1.5px solid var(--card-border); border-radius: 22px; padding: 14px; display: flex; gap: 14px; align-items: center; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35); min-height: 110px; }
     .product-card.special-card { border-color: rgba(245, 158, 11, 0.65); background: linear-gradient(145deg, rgba(68, 56, 44, 0.9) 0%, rgba(28, 52, 40, 0.94) 100%); }
+
+    .teachers-gala-card {
+      position: relative;
+      border: 2px solid #fbbf24 !important;
+      background: linear-gradient(135deg, rgba(120, 53, 15, 0.95) 0%, rgba(27, 77, 54, 0.95) 55%, rgba(69, 26, 3, 0.96) 100%) !important;
+      box-shadow: 0 0 28px rgba(245, 158, 11, 0.55), 0 14px 30px rgba(0, 0, 0, 0.5) !important;
+      animation: galaGlowPulse 2.2s ease-in-out infinite alternate;
+      overflow: hidden;
+    }
+    .teachers-gala-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 65%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+      transform: skewX(-22deg);
+      animation: galaShineSweep 3.2s infinite;
+      pointer-events: none;
+    }
+    .teachers-gala-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #fde68a 0%, #f59e0b 55%, #ea580c 100%);
+      color: #0f172a;
+      font-size: 0.66rem;
+      font-weight: 900;
+      letter-spacing: 0.6px;
+      padding: 3px 9px;
+      border-radius: 8px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 10px rgba(251, 191, 36, 0.5);
+    }
+    .teachers-gala-btn {
+      background: linear-gradient(135deg, #fde047 0%, #f59e0b 55%, #ea580c 100%) !important;
+      color: #0f172a !important;
+      font-weight: 900 !important;
+      box-shadow: 0 0 18px rgba(251, 191, 36, 0.85) !important;
+      animation: galaBtnSpark 1.6s infinite;
+    }
+    .teachers-cat-banner {
+      grid-column: span 2;
+      position: relative;
+      border-radius: 22px;
+      padding: 16px;
+      border: 2px solid #fbbf24;
+      background: linear-gradient(135deg, rgba(120, 53, 15, 0.94) 0%, rgba(27, 77, 54, 0.94) 55%, rgba(69, 26, 3, 0.96) 100%);
+      box-shadow: 0 0 26px rgba(245, 158, 11, 0.5), 0 12px 26px rgba(0, 0, 0, 0.45);
+      cursor: pointer;
+      overflow: hidden;
+      animation: galaGlowPulse 2.2s ease-in-out infinite alternate;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .teachers-cat-banner::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 65%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+      transform: skewX(-22deg);
+      animation: galaShineSweep 3.2s infinite;
+      pointer-events: none;
+    }
+    .teachers-cat-pill-btn {
+      background: linear-gradient(135deg, #fde047 0%, #f59e0b 55%, #ea580c 100%);
+      color: #0f172a;
+      font-size: 0.76rem;
+      font-weight: 900;
+      padding: 8px 12px;
+      border-radius: 12px;
+      white-space: nowrap;
+      box-shadow: 0 0 16px rgba(251, 191, 36, 0.8);
+      animation: galaBtnSpark 1.6s infinite;
+    }
+    @keyframes galaGlowPulse {
+      0% { box-shadow: 0 0 16px rgba(245, 158, 11, 0.4), 0 10px 24px rgba(0, 0, 0, 0.42); }
+      100% { box-shadow: 0 0 32px rgba(251, 191, 36, 0.85), 0 14px 30px rgba(0, 0, 0, 0.55); }
+    }
+    @keyframes galaShineSweep {
+      0% { left: -120%; }
+      55%, 100% { left: 160%; }
+    }
+    @keyframes galaBtnSpark {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
     .product-thumb { width: 95px; height: 95px; border-radius: 16px; object-fit: cover; flex-shrink: 0; box-shadow: 0 6px 16px rgba(0,0,0,0.4); border: 1px solid rgba(226, 232, 240, 0.25); background: #1e262c; }
     .cat-square-card .product-thumb-fallback { width: 100%; height: 100%; border-radius: 22px; border: none; background: linear-gradient(145deg, #232a32 0%, #14281e 100%); font-size: 3rem; opacity: 0.8; }
     .product-thumb-fallback { width: 95px; height: 95px; border-radius: 16px; flex-shrink: 0; background: linear-gradient(145deg, #2d3740 0%, #193126 100%); border: 1.5px solid rgba(245, 158, 11, 0.45); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--fire-amber); font-size: 1.7rem; }
@@ -530,7 +623,7 @@
     </div>
 
     <div class="menu-search-wrap" id="menu-search-wrap">
-      <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Menüde ürün ara (Dibek, Menengiç, Patlamış Mısır, Latte...)" oninput="menuAraDegisti()">
+      <input type="text" id="menu-search-input" class="form-input" placeholder="🔍 Menüde ürün ara (Öğretmenler Günü, Dibek, Menengiç, Patlamış Mısır...)" oninput="menuAraDegisti()">
     </div>
 
     <div class="category-square-grid" id="category-squares-container"></div>
@@ -720,6 +813,8 @@
     ];
 
     const urunler = [
+      { id: 1501, ad: "Öğretmenler Gününe Özel (Kişi Başı)", kategori: "ozel_gun", ozel: true, ogretmenGunu: true, aciklama: "Canlı Müzik + Meyve Tabağı + Popcorn + 1 Çay + 1 Su + 1 Soft İçecek veya Kahve + 1 Pasta Çeşidi", fiyat: 1000, resim: "ogretmenler-gunu.jpg" },
+
       { id: 601, ad: "Çay", kategori: "cay", aciklama: "", fiyat: 50, resim: "cay.jpg" },
       { id: 602, ad: "Ada Çayı", kategori: "cay", aciklama: "French press ile demlenmiş doğal aromatik dağ adaçayı yaprakları", fiyat: 160, resim: "ada-cayi.jpg" },
       { id: 603, ad: "Ihlamur", kategori: "cay", aciklama: "French press demlemesi çiçek ve yaprak ıhlamur, fincan servisi", fiyat: 160, resim: "ihlamur.jpg" },
@@ -1124,9 +1219,65 @@
       window.scrollTo(0, 0);
     }
 
+    function ogretmenlerGunuKartiniCiz(container) {
+      const u = urunler.find(item => item.ogretmenGunu === true);
+      if (!u) return;
+      const tukendi = stokDurumu[String(u.id)] === true;
+      const adet = sepet[String(u.id)] || 0;
+      const card = document.createElement('div');
+      card.className = `product-card special-card teachers-gala-card ${tukendi ? 'out-of-stock' : ''}`;
+
+      const sagKontrol = isMasaModu
+        ? `<div class="qty-box">
+            ${adet > 0 ? `<button class="qty-btn" onclick="adetGuncelle('${u.id}', -1)">−</button>` : ''}
+            ${adet > 0 ? `<span class="qty-num">${adet}</span>` : ''}
+            <button class="qty-btn plus teachers-gala-btn" onclick="adetGuncelle('${u.id}', 1)">+</button>
+           </div>`
+        : `<span class="visitor-qr-note">Kişi Başı</span>`;
+
+      card.innerHTML = `
+        ${tukendi ? `<div class="out-of-stock-badge">TÜKENDİ</div>` : ''}
+        <img class="product-thumb" src="${u.resim}" alt="${u.ad}" loading="lazy" onerror="resimYuklenemedi(this, '🎓')">
+        <div class="product-content">
+          <div>
+            <span class="teachers-gala-badge">✨ ÖĞRETMENLER GÜNÜNE ÖZEL</span>
+            <div class="prod-title">${u.ad}</div>
+            <div class="prod-desc">${u.aciklama}</div>
+          </div>
+          <div class="prod-footer">
+            <span class="prod-price" style="color:#fde047;">${u.fiyat} ₺ / Kişi</span>
+            ${!tukendi ? sagKontrol : ''}
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    }
+
     function kareKategorileriCiz() {
       const grid = document.getElementById('category-squares-container');
       grid.innerHTML = "";
+
+      const banner = document.createElement('div');
+      banner.className = "teachers-cat-banner";
+      banner.onclick = () => {
+        document.getElementById('category-squares-container').style.display = 'none';
+        document.getElementById('products-list').style.display = 'flex';
+        document.getElementById('menu-tabs-bar').style.display = 'flex';
+        document.getElementById('btn-kategorilere-don').style.display = 'inline-block';
+        const listEl = document.getElementById('products-list');
+        listEl.innerHTML = "";
+        ogretmenlerGunuKartiniCiz(listEl);
+      };
+      banner.innerHTML = `
+        <div>
+          <span class="teachers-gala-badge">🎓 ÖĞRETMENLER GÜNÜNE ÖZEL</span>
+          <div style="font-size:1rem; font-weight:900; color:#ffffff; margin-bottom:2px;">1.000 ₺ / Kişi Başı Özel Paket</div>
+          <div style="font-size:0.72rem; color:#fef3c7; line-height:1.3;">Canlı Müzik • Meyve Tabağı • Popcorn • 1 Çay • 1 Su • 1 Soft İçecek veya Kahve • 1 Pasta Çeşidi</div>
+        </div>
+        <div class="teachers-cat-pill-btn">✨ İncele</div>
+      `;
+      grid.appendChild(banner);
+
       kategoriKartlari.forEach(kat => {
         let adetYazi = "";
         if (kat.id === "hepsi") {
@@ -1304,7 +1455,13 @@
         return;
       }
 
-      const liste = aktifKategori === 'hepsi' ? urunler : urunler.filter(u => u.kategori === aktifKategori);
+      if (aktifKategori === 'hepsi') {
+        ogretmenlerGunuKartiniCiz(container);
+      }
+
+      const liste = aktifKategori === 'hepsi'
+        ? urunler.filter(u => !u.ogretmenGunu)
+        : urunler.filter(u => u.kategori === aktifKategori);
       let sonKategori = "";
 
       liste.forEach(u => {
