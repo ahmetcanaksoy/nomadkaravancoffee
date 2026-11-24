@@ -189,6 +189,7 @@
     .header-action-pair { display: flex; gap: 6px; flex-wrap: wrap; }
     .btn-manual-add-top { background: linear-gradient(135deg, var(--fire-amber) 0%, var(--fire-orange) 100%); color: #0f172a; border: none; padding: 8px 11px; border-radius: 11px; font-size: 0.74rem; font-weight: 900; cursor: pointer; white-space: nowrap; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35); }
     .btn-live-music-top { background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); color: #ffffff; border: 1px solid #d8b4fe; padding: 8px 11px; border-radius: 11px; font-size: 0.74rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
+    .btn-special-pkg-top { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: #0f172a; border: 1px solid #fde68a; padding: 8px 11px; border-radius: 11px; font-size: 0.74rem; font-weight: 900; cursor: pointer; white-space: nowrap; }
 
     .detail-content { flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
     .order-item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--card-gray-surface); border: 1px solid var(--card-border); border-radius: 14px; gap: 8px; }
@@ -386,6 +387,9 @@
         <div class="header-action-pair">
           <button class="btn-live-music-top" id="btn-open-music" style="display:none;" onclick="canliMuzikEkle(250)">
             🎵 Canlı Müzik (250₺)
+          </button>
+          <button class="btn-special-pkg-top" id="btn-open-special-pkg" style="display:none;" onclick="ogretmenGunuPaketiEkle(1000)">
+            🎓 Özel Paket (1000₺)
           </button>
           <button class="btn-manual-add-top" id="btn-open-manual" style="display:none;" onclick="manuelSiparisModalAc()">
             + Sipariş Ekle
@@ -619,6 +623,7 @@
     const KASA_SIFRESI = "2905";
     const FIREBASE_URL = "https://nomad-karavan-default-rtdb.europe-west1.firebasedatabase.app";
     const CANLI_MUZIK_FIYATI = 250;
+    const OGRETMEN_GUNU_FIYATI = 1000;
 
     const STOK_KATEGORILERI = [
       { id: "hepsi", ad: "Tümü" },
@@ -1348,6 +1353,43 @@
       masaDetayiGoster(seciliMasa);
     }
 
+    async function ogretmenGunuPaketiEkle(tutar = OGRETMEN_GUNU_FIYATI) {
+      if (!seciliMasa) return;
+      const ucret = Number(tutar) || OGRETMEN_GUNU_FIYATI;
+      const masaKey = String(seciliMasa);
+      const saatStr = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+      let mevcut = canliMasalar[masaKey];
+
+      if (!mevcut || !mevcut.urunler) {
+        mevcut = { urunler: [], toplamTutar: 0, saat: saatStr };
+      }
+
+      mevcut.urunler.push({
+        ad: "Öğretmenler Günü Özel Paketi",
+        detay: "Kasa Girişi",
+        adet: 1,
+        birimFiyat: ucret,
+        tutar: ucret,
+        yeni: true
+      });
+
+      mevcut.toplamTutar = mevcut.urunler.reduce((acc, c) => acc + c.tutar, 0);
+      mevcut.saat = saatStr;
+      mevcut.sonGuncelleme = Date.now();
+      mevcut.durum = mevcut.durum || 'iletildi';
+      mevcut.okunmamis = true;
+
+      canliMasalar[masaKey] = mevcut;
+      await fetch(`${FIREBASE_URL}/masalar/${seciliMasa}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(mevcut)
+      });
+
+      masalariCiz();
+      masaDetayiGoster(seciliMasa);
+    }
+
     function rezervasyonlariCiz(rezObj) {
       const container = document.getElementById('rez-container');
       if (!rezObj) {
@@ -1507,6 +1549,7 @@
       document.getElementById('panel-table-title').innerText = `Masa ${masaNo} Adisyonu`;
       document.getElementById('btn-open-manual').style.display = 'inline-block';
       document.getElementById('btn-open-music').style.display = 'inline-block';
+      document.getElementById('btn-open-special-pkg').style.display = 'inline-block';
       const listEl = document.getElementById('panel-orders-list');
       const footerEl = document.getElementById('panel-footer');
       const hazirBtn = document.getElementById('btn-siparis-hazir');
